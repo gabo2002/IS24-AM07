@@ -20,7 +20,7 @@ public class ResourceHolder {
         resources.put(fieldRepresentation.bottomRight(), 1);
     }
 
-    public void subtract(ResourceHolder other) throws RuntimeException {
+    public void subtract(ResourceHolder other) throws RuntimeException{ //maybe a custom exception?
 
     }
 

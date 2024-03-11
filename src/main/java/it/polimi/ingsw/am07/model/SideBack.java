@@ -15,7 +15,7 @@ public final class SideBack extends Side {
 
     @Override
     Optional<ResourceHolder> requirements() {
-        return Optional.empty();
+        return Optional.empty();    //wrong: starter's SideBack may contain resources
     }
 
     @Override
