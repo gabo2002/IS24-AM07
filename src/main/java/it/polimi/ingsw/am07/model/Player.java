@@ -22,4 +22,29 @@ public class Player {
         this.nickname = nickname;
     }
 
+
+    // setting up all the getters/setters for the Player
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
+    public Pawn getPlayerPawn() {
+        return playerPawn;
+    }
+
+    public ObjectiveCard getPlayerObjectiveCard() {
+        return playerObjectiveCard;
+    }
+
+    public void setPlayerObjectiveCard(ObjectiveCard playerObjectiveCard) {
+        this.playerObjectiveCard = playerObjectiveCard;
+    }
+
+    public ResourceHolder getPlayerResources() {
+        return playerResources;
+    }
+
+    public void setPlayerResources(ResourceHolder playerResources) {
+        this.playerResources = playerResources;
+    }
 }
