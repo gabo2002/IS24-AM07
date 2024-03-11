@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class GameFieldPattern {
 
-    private ArrayList<ArrayList<Symbol>> pattern;
+    private final ArrayList<ArrayList<Symbol>> pattern;
+
+    public GameFieldPattern() {
+        pattern = new ArrayList<>();
+    }
 
 }

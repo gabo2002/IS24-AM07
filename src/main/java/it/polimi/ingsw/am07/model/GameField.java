@@ -5,8 +5,13 @@ import java.util.HashMap;
 
 public class GameField {
 
-    private ArrayList<ArrayList<Symbol>> map;
+    private final ArrayList<ArrayList<Symbol>> map;
 
-    private HashMap<GameCard, GameFieldPosition> usedCards;
+    private final HashMap<Side, GameFieldPosition> usedCards;
+
+    public GameField() {
+        map = new ArrayList<>();
+        usedCards = new HashMap<>();
+    }
 
 }

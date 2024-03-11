@@ -2,18 +2,26 @@ package it.polimi.ingsw.am07.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Game {
 
-    private ArrayList<Player> players;
+    private final List<Player> players;
 
-    private Set<GameCard> availableGameCards;
+    private final List<GameCard> availableGameCards;
 
-    private Set<ObjectiveCard> availableObjectiveCards;
+    private final List<ObjectiveCard> availableObjectiveCards;
 
-    private List<ObjectiveCard> commonObjectives;
+    private final List<ObjectiveCard> commonObjectives;
 
     private int nextTurnPlayerIndex;
+
+
+    public Game() {
+        players = new ArrayList<>();
+        availableGameCards = new ArrayList<>();
+        availableObjectiveCards = new ArrayList<>();
+        commonObjectives = new ArrayList<>();
+        nextTurnPlayerIndex = 0;
+    }
 
 }
