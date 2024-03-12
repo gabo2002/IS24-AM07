@@ -1,6 +1,6 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game.side;
 
-import java.util.Optional;
+import it.polimi.ingsw.am07.model.game.ResourceHolder;
 
 public final class SideFrontRes extends SideFront {
 

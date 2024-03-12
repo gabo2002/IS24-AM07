@@ -1,6 +1,7 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game;
 
-import java.lang.invoke.MutableCallSite;
+import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
+
 import java.util.HashMap;
 import java.util.Map;
 

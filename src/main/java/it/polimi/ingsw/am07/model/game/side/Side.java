@@ -1,8 +1,8 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game.side;
 
-import java.util.Optional;
+import it.polimi.ingsw.am07.model.game.ResourceHolder;
 
-sealed abstract class Side permits SideFront, SideBack {
+public sealed abstract class Side permits SideFront, SideBack {
 
     protected final int id;
 

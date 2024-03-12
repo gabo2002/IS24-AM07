@@ -1,4 +1,7 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game.side;
+
+import it.polimi.ingsw.am07.model.game.ResourceHolder;
+import it.polimi.ingsw.am07.model.game.Symbol;
 
 import java.util.Optional;
 

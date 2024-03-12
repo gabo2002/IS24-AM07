@@ -1,4 +1,6 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game.side;
+
+import it.polimi.ingsw.am07.model.game.Symbol;
 
 public record SideFieldRepresentation(
         Symbol topLeft,

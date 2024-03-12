@@ -1,4 +1,8 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game.gamefield;
+
+import it.polimi.ingsw.am07.model.game.ResourceHolder;
+import it.polimi.ingsw.am07.model.game.Symbol;
+import it.polimi.ingsw.am07.model.game.side.Side;
 
 import java.util.ArrayList;
 import java.util.HashMap;

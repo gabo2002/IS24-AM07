@@ -1,4 +1,8 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game;
+
+import it.polimi.ingsw.am07.model.game.gamefield.GameField;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
+import it.polimi.ingsw.am07.model.game.side.Side;
 
 import java.util.ArrayList;
 import java.util.HashMap;

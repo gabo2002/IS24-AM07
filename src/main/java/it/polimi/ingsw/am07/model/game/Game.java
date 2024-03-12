@@ -1,4 +1,4 @@
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.model.game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
