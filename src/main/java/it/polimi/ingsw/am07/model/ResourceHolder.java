@@ -20,12 +20,20 @@ public class ResourceHolder {
         resources.put(fieldRepresentation.bottomRight(), 1);
     }
 
-    public void subtract(ResourceHolder other) throws RuntimeException{ //maybe a custom exception?
+    public void subtract(ResourceHolder other) {
 
     }
 
     public boolean contains(ResourceHolder other) {
         return true;
+    }
+
+    public void add(ResourceHolder other) {
+
+    }
+
+    public int countOf(Symbol symbol) {
+        return 0;
     }
 
 }

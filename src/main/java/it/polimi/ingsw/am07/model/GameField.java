@@ -5,13 +5,31 @@ import java.util.HashMap;
 
 public class GameField {
 
-    private final ArrayList<ArrayList<Symbol>> map;
+    private final ArrayList<ArrayList<Symbol>> fieldMatrix;
 
-    private final HashMap<Side, GameFieldPosition> usedCards;
+    private final HashMap<Side, GameFieldPosition> placedCards;
 
     public GameField() {
-        map = new ArrayList<>();
-        usedCards = new HashMap<>();
+        fieldMatrix = new ArrayList<>();
+        placedCards = new HashMap<>();
     }
 
+    public boolean canBePlacedOnFieldAt(Side card, GameFieldPosition pos) {
+        return false;
+    }
+
+    public int countMatches(GameFieldPattern pattern) {
+        return 0;
+    }
+
+    public int countCoveredCorners(Side card) {
+        return 0;
+    }
+
+    public ResourceHolder placeOnFieldAt(Side card, GameFieldPosition pos) {
+        return null;
+    }
+    public HashMap<Side, GameFieldPosition> getPlacedCards() {
+        return placedCards;
+    }
 }

@@ -20,8 +20,6 @@ sealed abstract class Side permits SideFront, SideBack {
         return id;
     }
 
-    abstract String resourceID();
-
     public SideFieldRepresentation fieldRepresentation() {
         return fieldRepresentation;
     }
@@ -30,8 +28,5 @@ sealed abstract class Side permits SideFront, SideBack {
         return resources;
     }
 
-    abstract Optional<ResourceHolder> requirements();
-
-    abstract int calculateContributingScore(ResourceHolder gameResources);
 
 }

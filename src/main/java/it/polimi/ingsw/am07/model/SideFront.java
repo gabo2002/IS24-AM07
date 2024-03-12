@@ -6,9 +6,4 @@ public sealed abstract class SideFront extends Side permits SideFrontGold, SideF
         super(id, fieldRepresentation, resources);
     }
 
-    @Override
-    public String resourceID() {
-        return "front_" + id + ".png";
-    }
-
 }

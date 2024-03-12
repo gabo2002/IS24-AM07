@@ -1,9 +1,10 @@
 package it.polimi.ingsw.am07.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game implements Serializable {
 
     private final List<Player> players;
 
@@ -15,6 +16,7 @@ public class Game {
 
     private final GameCard[] visibleGoldCards;
 
+    private final String selfNickname;
 
     private final List<ObjectiveCard> availableObjectiveCards;
 
@@ -22,12 +24,10 @@ public class Game {
 
     private int nextTurnPlayerIndex;    //Reminder: randomly generated first
 
-    // how do we handle skipTurn?
-    // -> maybe with a method that handles players turns: e.g: boolean checkTurn(int turn);
-    // to skip the turn you can simply put checkTurn(myTurn) to false --> passes to the next
+    private boolean endGameReached;
 
-
-    public Game() {
+    public Game(String selfNickname) {
+        this.selfNickname = selfNickname;
         players = new ArrayList<>();
         availableGoldCards = new ArrayList<>();
         availableResCards = new ArrayList<>();
@@ -36,9 +36,56 @@ public class Game {
         availableObjectiveCards = new ArrayList<>();
         commonObjectives = new ObjectiveCard[2];
         nextTurnPlayerIndex = 0;
+        endGameReached = false;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public int getAvailableResCardsSize() {
+        return availableResCards.size();
+    }
+
+    public int getAvailableGoldCardsSize() {
+        return availableGoldCards.size();
+    }
+
+    public GameCard[] getVisibleResCards() {
+        return visibleResCards;
+    }
+
+    public GameCard[] getVisibleGoldCards() {
+        return visibleGoldCards;
+    }
+
+    public String getSelfNickname() {
+        return selfNickname;
+    }
+
+    public ObjectiveCard[] getCommonObjectives() {
+        return commonObjectives;
+    }
+
+    public void incrementTurn() {
+    }
+
+    public int getNextTurnPlayerIndex() {
+        return nextTurnPlayerIndex;
+    }
+
+    public GameCard pickRandomCard() {
+        return null;
+    }
+
+    public GameCard popResCard(GameCard card) {
+        return null;
+    }
+
+    public GameCard popGoldCard(GameCard card) {
+        return null;
     }
 
 
-    // setting up all the getters for the cards
 
 }

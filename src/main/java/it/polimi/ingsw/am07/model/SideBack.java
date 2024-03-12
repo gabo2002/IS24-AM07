@@ -11,22 +11,5 @@ public final class SideBack extends Side {
         super(id, fieldRepresentation, resources);
     }
 
-    @Override
-    public String resourceID() {
-        return "back_" + this.id + ".png";
-    }
-
-    @Override
-    Optional<ResourceHolder> requirements() {
-        return Optional.empty();    //wrong: starter's SideBack may contain resources
-
-        // consideration: starte's sideback  probably always contain resources (but we need to check all the cards)
-        // but rescard's sideback always contain only 1 resource
-    }
-
-    @Override
-    int calculateContributingScore(ResourceHolder gameResources) {
-        return 0;
-    }
 
 }

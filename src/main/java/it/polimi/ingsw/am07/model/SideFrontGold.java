@@ -23,13 +23,13 @@ public final class SideFrontGold extends SideFront {
         this.requirements = requirements;
     }
 
-    @Override
+
     public Optional<ResourceHolder> requirements() {
         return Optional.of(requirements);
     }
 
-    @Override
-    public int calculateContributingScore(ResourceHolder gameResources) {
+
+    public int calculateContributingScore(ResourceHolder gameResources, int coveredCorners) {
         return 1;
     }
 

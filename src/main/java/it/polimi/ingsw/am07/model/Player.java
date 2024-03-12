@@ -1,29 +1,37 @@
 package it.polimi.ingsw.am07.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player {
 
     private final String nickname;
 
-    private ResourceHolder playerResources;
+    private final ResourceHolder playerResources;
 
     private int playerScore;
 
-    private Pawn playerPawn;
+    private final Pawn playerPawn;
 
-    private GameField playerGameField;
+    private final GameField playerGameField;
 
-    private ArrayList<GameCard> playerGameCards;    //handCards?
+    private final ArrayList<GameCard> playableCards;    //handCards?
 
     private ObjectiveCard playerObjectiveCard;
 
-    public Player(String nickname){
+    public Player(String nickname, ResourceHolder playerResources, Pawn playerPawn, GameField playerGameField, ArrayList<GameCard> playableCards){
         this.nickname = nickname;
+        this.playerResources = playerResources;
+        this.playerPawn = playerPawn;
+        this.playerGameField = playerGameField;
+        this.playableCards = playableCards;
     }
 
 
-    // setting up all the getters/setters for the Player
+    public String getNickname() {
+        return nickname;
+    }
+
     public int getPlayerScore() {
         return playerScore;
     }
@@ -44,7 +52,22 @@ public class Player {
         return playerResources;
     }
 
-    public void setPlayerResources(ResourceHolder playerResources) {
-        this.playerResources = playerResources;
+    public boolean canBePlacedAt(Side card, GameFieldPosition pos) {
+        return false;
+    }
+
+    public void placeAt(Side card, GameFieldPosition pos) {
+
+    }
+
+    public HashMap<Side, GameFieldPosition> getPlacedCards() {
+        return null;
+    }
+
+    public ArrayList<GameCard> getPlayableCards() {
+        return playableCards;
+    }
+
+    public void addPlayableCard(GameCard card) {
     }
 }
