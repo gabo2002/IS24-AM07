@@ -27,8 +27,8 @@ public final class SideFrontGold extends SideFront {
     }
 
 
-    public Optional<ResourceHolder> requirements() {
-        return Optional.of(requirements);
+    public ResourceHolder requirements() {
+        return requirements;
     }
 
 
