@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
+import it.polimi.ingsw.am07.utils.Matrix;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -35,10 +36,12 @@ class ResourceHolderTest {
     @Test
     void testSubtract() {
         ResourceHolder emptyHolder = new ResourceHolder();
-
-        SideFieldRepresentation side = new SideFieldRepresentation(
-                Symbol.RED, Symbol.BLUE, Symbol.GREEN, Symbol.PURPLE
-        );
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.PURPLE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
 
         // Subtracting a holder from itself should result in an empty holder
         ResourceHolder test = new ResourceHolder(side);
@@ -70,9 +73,12 @@ class ResourceHolderTest {
     void testContains() {
         ResourceHolder emptyHolder = new ResourceHolder();
 
-        SideFieldRepresentation side = new SideFieldRepresentation(
-                Symbol.RED, Symbol.BLUE, Symbol.GREEN, Symbol.PURPLE
-        );
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.PURPLE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
 
         // An empty holder should contain another empty holder
         assertTrue(emptyHolder.contains(emptyHolder));
@@ -97,9 +103,12 @@ class ResourceHolderTest {
     void testAdd() {
         ResourceHolder emptyHolder = new ResourceHolder();
 
-        SideFieldRepresentation side = new SideFieldRepresentation(
-                Symbol.RED, Symbol.BLUE, Symbol.GREEN, Symbol.PURPLE
-        );
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.PURPLE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
 
         // Adding an empty holder to another empty holder should result in an empty holder
         ResourceHolder test = new ResourceHolder();
@@ -140,9 +149,12 @@ class ResourceHolderTest {
             assertEquals(0, holder.countOf(symbol));
         }
 
-        SideFieldRepresentation side = new SideFieldRepresentation(
-                Symbol.RED, Symbol.BLUE, Symbol.GREEN, Symbol.PURPLE
-        );
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.PURPLE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
 
         // A holder with no additional symbols should have the symbols of the side
         holder = new ResourceHolder(side);
