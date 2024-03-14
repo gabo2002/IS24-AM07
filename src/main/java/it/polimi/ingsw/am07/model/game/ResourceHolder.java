@@ -51,10 +51,12 @@ public class ResourceHolder {
      */
     public ResourceHolder(SideFieldRepresentation fieldRepresentation) {
         resources = new HashMap<>();
-        incrementResource(fieldRepresentation.topLeft());
-        incrementResource(fieldRepresentation.topRight());
-        incrementResource(fieldRepresentation.bottomLeft());
-        incrementResource(fieldRepresentation.bottomRight());
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                incrementResource(fieldRepresentation.corners().get(i, j));
+            }
+        }
     }
 
     /**
@@ -73,11 +75,23 @@ public class ResourceHolder {
      * Increments the count of a resource in the resource holder.
      * @param symbol the resource to increment.
      */
-    private void incrementResource(Symbol symbol) {
+    public void incrementResource(Symbol symbol) {
         if (resources.containsKey(symbol)) {
             resources.put(symbol, resources.get(symbol) + 1);
         } else {
             resources.put(symbol, 1);
+        }
+    }
+
+    /**
+     * Decrement the count of a resource in the resource holder.
+     * @param symbol the resource to decrement.
+     */
+    public void decrementResource(Symbol symbol) {
+        if (resources.containsKey(symbol)) {
+            resources.put(symbol, resources.get(symbol) - 1);
+        } else {
+            resources.put(symbol, -1);
         }
     }
 

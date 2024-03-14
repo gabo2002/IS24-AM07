@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -125,8 +126,7 @@ public class Player {
      * @author Omar Chaabani
      */
     public boolean canBePlacedAt(Side card, GameFieldPosition pos) {
-
-        switch (card){
+        switch (card) {
             case SideFrontGold  sideFrontGold -> {
                 return playerResources.contains(sideFrontGold.requirements()) && playerGameField.canBePlacedOnFieldAt(sideFrontGold, pos);
             }
@@ -134,7 +134,6 @@ public class Player {
                 return playerGameField.canBePlacedOnFieldAt(card, pos);
             }
         }
-
     }
 
     /**
@@ -142,8 +141,12 @@ public class Player {
      *
      * @param card The card to be placed.
      * @param pos  The position on the game field where the card is to be placed.
+     * @throws IllegalPlacementException if the position is not valid
      */
-    public void placeAt(Side card, GameFieldPosition pos) {
+    public void placeAt(Side card, GameFieldPosition pos) throws IllegalPlacementException {
+        if (!canBePlacedAt(card, pos))
+            throw new IllegalPlacementException("The provided position is not valid");
+
         playerResources.add(playerGameField.placeOnFieldAt(card, pos));
     }
 
