@@ -144,7 +144,7 @@ public class Player {
      * @param pos  The position on the game field where the card is to be placed.
      */
     public void placeAt(Side card, GameFieldPosition pos) {
-        playerGameField.placeOnFieldAt(card, pos);
+        playerResources.add(playerGameField.placeOnFieldAt(card, pos));
     }
 
     /**

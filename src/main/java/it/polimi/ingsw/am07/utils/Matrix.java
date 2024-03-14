@@ -136,6 +136,7 @@ public class Matrix<T> implements Iterable<T> {
         data.set(new_x + new_y * sizeX, value);
     }
 
+
     /**
      * Clear a specific element, setting it to the default value
      * @param x the row index
