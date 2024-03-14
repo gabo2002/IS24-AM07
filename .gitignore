@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+#Copyright
+src/main/resources/it/polimi/ingsw/am07/assets/
