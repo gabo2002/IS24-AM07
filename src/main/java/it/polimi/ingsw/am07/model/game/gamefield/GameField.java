@@ -74,10 +74,28 @@ public class GameField {
     public int countMatches(GameFieldPattern pattern) {
         return 0;
     }
+    /**
+     * This method counts the number of corners in a 2x2 area of the game field that are not empty.
+     * The top left corner of the 2x2 area is specified by the given position.
+     *
+     * @param pos the position of the top left corner of the 2x2 area on the game field
+     * @return the number of corners in the 2x2 area that are not empty
+     * @author Andrea Biasion Somaschini
+     */
+    public int countCoveredCorners(GameFieldPosition pos) {
+        int count = 0;
 
-    public int countCoveredCorners(Side card) {
-        return 0;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (fieldMatrix.get(pos.x() + i, pos.y() + j) != Symbol.EMPTY) {
+                    ++count;
+                }
+            }
+        }
+
+        return count;
     }
+
 
     /**
      * Places a card on the game field at the specified position and updates resources accordingly.

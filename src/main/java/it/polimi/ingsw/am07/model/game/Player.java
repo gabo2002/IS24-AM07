@@ -146,7 +146,6 @@ public class Player {
     public void placeAt(Side card, GameFieldPosition pos) throws IllegalPlacementException {
         if (!canBePlacedAt(card, pos))
             throw new IllegalPlacementException("The provided position is not valid");
-
         playerResources.add(playerGameField.placeOnFieldAt(card, pos));
     }
 
