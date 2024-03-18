@@ -138,6 +138,34 @@ public class Matrix<T> implements Iterable<T> {
 
 
     /**
+     * Logic AND operation between two matrices.
+     * The result is stored in the current matrix.
+     * @param other the other matrix to use for the operation
+     * @throws IllegalArgumentException if the two matrices have different sizes
+     */
+    public void logicAnd(Matrix<T> other) throws IllegalArgumentException {
+        if (other.getWidth() != getWidth() || other.getHeight() != getHeight()) {
+            throw new IllegalArgumentException("The two matrices must have the same size");
+        }
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                T value = get(i, j);
+                T otherValue = other.get(i, j);
+                if (value == null) {
+                    continue;
+                }
+                if (otherValue == null) {
+                    set(i, j, null);
+                }
+                if (!value.equals(otherValue)) {
+                    set(i, j, emptyValue);
+                }
+            }
+        }
+    }
+
+
+    /**
      * Clear a specific element, setting it to the default value
      * @param x the row index
      * @param y the column index

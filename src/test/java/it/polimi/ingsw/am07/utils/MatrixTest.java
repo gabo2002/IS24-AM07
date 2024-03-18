@@ -132,6 +132,51 @@ class MatrixTest {
     }
 
     @Test
+    void testBooleanAnd() {
+        Matrix<Integer> matrix_1 = getIntegerMatrix();
+
+        // A matrix anded with itself should not change
+        matrix_1.logicAnd(matrix_1);
+        assertTrue(matrix_1.match(getIntegerMatrix()));
+
+        // A matrix anded with 0s should become 0s
+        matrix_1 = getIntegerMatrix();
+        Matrix<Integer> matrix_2 = new Matrix<>(3, 3, 0);
+        matrix_1.logicAnd(matrix_2);
+        assertTrue(matrix_2.match(matrix_1));
+
+        // Test a generic case
+        matrix_1 = getIntegerMatrix();
+        matrix_1.set(0, 0, 3);
+        matrix_1.set(0, 1, 3);
+        matrix_1.set(1, 0, 3);
+        matrix_1.set(1, 1, 3);
+        matrix_1.set(2, 0, 0);
+        matrix_1.set(2, 1, 0);
+        matrix_1.set(0, 2, 0);
+        matrix_1.set(1, 2, 0);
+        matrix_1.set(2, 2, 0);
+
+        matrix_2 = getIntegerMatrix();
+        matrix_2.set(0, 0, 0);
+        matrix_2.set(0, 1, 0);
+        matrix_2.set(1, 0, 0);
+        matrix_2.set(1, 1, 3);
+        matrix_2.set(2, 0, 0);
+        matrix_2.set(2, 1, 3);
+        matrix_2.set(0, 2, 0);
+        matrix_2.set(1, 2, 3);
+        matrix_2.set(2, 2, 3);
+
+        matrix_1.logicAnd(matrix_2);
+
+        Matrix<Integer> result = new Matrix<>(3, 3, 0);
+        result.set(1, 1, 3);
+
+        assertTrue(result.match(matrix_1));
+    }
+
+    @Test
     void testNegativeExtension() {
         Matrix<Integer> matrix = getIntegerMatrix();
 
