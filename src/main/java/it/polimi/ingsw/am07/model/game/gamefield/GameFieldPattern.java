@@ -24,15 +24,34 @@
 package it.polimi.ingsw.am07.model.game.gamefield;
 
 import it.polimi.ingsw.am07.model.game.Symbol;
-import it.polimi.ingsw.am07.utils.Matrix;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
+
+import java.util.List;
 
 /**
- * Represents a pattern on the game field.
- *
- * @param pattern the matrix representing the pattern on the game field
+ * Represents a pattern of symbols that can be placed on the game field.
+ * This object is used by ObjectiveCards to check how many patterns are present in the Gamefield.
+ * @param pattern the pattern of symbols
+ * @author Gabriele Corti
  */
 public record GameFieldPattern(
     Matrix<Symbol> pattern
 ) {
 
+    /**
+     * Create a new GameFieldPattern with the given pattern.
+     * @param pattern the pattern of symbols
+     * @throws IllegalArgumentException if the pattern contains invalid symbols - only NONE, RED, GREEN, BLUE and PURPLE are allowed
+     * @author Gabriele Corti
+     */
+    public GameFieldPattern(Matrix<Symbol> pattern) {
+        final List<Symbol> allowedSymbols = List.of(Symbol.EMPTY, Symbol.RED,Symbol.GREEN,Symbol.BLUE,Symbol.PURPLE);
+
+        for(Symbol s : pattern) {
+            if (!allowedSymbols.contains(s)) {
+                throw new IllegalArgumentException("Invalid symbol in pattern");
+            }
+        }
+        this.pattern = pattern;
+    }
 }

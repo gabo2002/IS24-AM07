@@ -16,9 +16,10 @@ public final class SideFrontGold extends SideFront {
                             ResourceHolder resources,
                             int associatedScore,
                             Symbol multiplier,
-                            ResourceHolder requirements
+                            ResourceHolder requirements,
+                            Symbol color
     ) {
-        super(id, fieldRepresentation, resources, associatedScore);
+        super(id, fieldRepresentation, resources, associatedScore, color);
         this.multiplier = multiplier;
         this.requirements = requirements;
     }

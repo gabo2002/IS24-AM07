@@ -26,7 +26,7 @@ package it.polimi.ingsw.am07.model.game.gamefield;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.side.Side;
-import it.polimi.ingsw.am07.utils.Matrix;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
 import java.util.HashMap;
 
@@ -71,8 +71,16 @@ public class GameField {
         return placeable;
     }
 
+    /**
+     * get the number of patterns that match the given pattern in the game field.
+     * @param pattern the pattern to match
+     * @return the number of matches of the given pattern in the game field
+     * @author Gabriele Corti
+     */
     public int countMatches(GameFieldPattern pattern) {
-        return 0;
+        int matches = 0;
+        //TODO: implement the method
+        return matches;
     }
     /**
      * This method counts the number of corners in a 2x2 area of the game field that are not empty.

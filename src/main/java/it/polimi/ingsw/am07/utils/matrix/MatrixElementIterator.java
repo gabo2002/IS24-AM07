@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.utils;
+package it.polimi.ingsw.am07.utils.matrix;
 
 import java.util.Iterator;
 

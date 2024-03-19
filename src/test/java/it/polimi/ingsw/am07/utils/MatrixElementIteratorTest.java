@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.utils;
 
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
+import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
