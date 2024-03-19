@@ -73,9 +73,14 @@ public class ResourceHolder {
 
     /**
      * Increments the count of a resource in the resource holder.
+     * If the provided symbol is not a resource, the method does nothing.
      * @param symbol the resource to increment.
      */
     public void incrementResource(Symbol symbol) {
+        if (!symbol.isResource()) {
+            return;
+        }
+
         if (resources.containsKey(symbol)) {
             resources.put(symbol, resources.get(symbol) + 1);
         } else {
@@ -84,10 +89,15 @@ public class ResourceHolder {
     }
 
     /**
-     * Decrement the count of a resource in the resource holder.
+     * Decrements the count of a resource in the resource holder.
+     * If the provided symbol is not a resource, the method does nothing.
      * @param symbol the resource to decrement.
      */
     public void decrementResource(Symbol symbol) {
+        if (!symbol.isResource()) {
+            return;
+        }
+
         if (resources.containsKey(symbol)) {
             resources.put(symbol, resources.get(symbol) - 1);
         } else {
