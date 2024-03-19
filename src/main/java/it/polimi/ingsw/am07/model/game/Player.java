@@ -27,14 +27,16 @@ import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
-import it.polimi.ingsw.am07.model.game.side.SideBack;
-import it.polimi.ingsw.am07.model.game.side.SideFrontGold;
-import it.polimi.ingsw.am07.model.game.side.SideFrontRes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Optional;
 
+/**
+ * This class represents a player in the game.
+ * It provides methods to place a card on the game field and to check if a card can be placed at a specific position on the game field.
+ * It also provides methods to retrieve the list of playable cards and the objective card of the player.
+ * Additionally, it stores the nickname, the score, the pawn, the resource holder, and the game field associated with the player.
+ */
 public class Player {
 
     private final String nickname;
@@ -126,14 +128,10 @@ public class Player {
      * @author Omar Chaabani
      */
     public boolean canBePlacedAt(Side card, GameFieldPosition pos) {
-        switch (card) {
-            case SideFrontGold  sideFrontGold -> {
-                return playerResources.contains(sideFrontGold.requirements()) && playerGameField.canBePlacedOnFieldAt(sideFrontGold, pos);
-            }
-            default -> {
-                return playerGameField.canBePlacedOnFieldAt(card, pos);
-            }
-        }
+        return playerGameField.canBePlacedOnFieldAt(card, pos)
+                && card.requirements()
+                        .map(playerResources::contains)
+                        .orElse(true);
     }
 
     /**
@@ -146,27 +144,16 @@ public class Player {
     public void placeAt(Side card, GameFieldPosition pos) throws IllegalPlacementException {
         if (!canBePlacedAt(card, pos))
             throw new IllegalPlacementException("The provided position is not valid");
-        playerResources.add(playerGameField.placeOnFieldAt(card, pos));
 
-        // Updating score
-        switch (card) {
-            case SideFrontGold sideFrontGold -> {
+        final ResourceHolder diff = playerGameField.placeOnFieldAt(card, pos);
 
-                if(sideFrontGold.getMultiplier().equals(Symbol.EMPTY))
-                    playerScore += sideFrontGold.getAssociatedScore();
+        final int coveredCorners = playerGameField.countCoveredCorners(pos);
 
-                if(!sideFrontGold.getMultiplier().equals(Symbol.CORNER))
-                    playerScore += playerResources.countOf(sideFrontGold.getMultiplier())*sideFrontGold.getAssociatedScore();
-                else
-                    playerScore += sideFrontGold.getAssociatedScore()*playerGameField.countCoveredCorners(pos);
-            }
+        // Cards whose score multiplier is based on the player's resources
+        // should be calculated before the resource difference is applied
+        playerScore += card.calculateAssociatedScore(playerResources, coveredCorners);
 
-            case SideFrontRes sideFrontRes -> {
-                playerScore += sideFrontRes.getAssociatedScore();
-            }
-
-            default -> {}
-        }
+        playerResources.subtract(diff);
     }
 
     /**
@@ -198,4 +185,5 @@ public class Player {
     public void addPlayableCard(GameCard card) {
         playableCards.add(card);
     }
+
 }
