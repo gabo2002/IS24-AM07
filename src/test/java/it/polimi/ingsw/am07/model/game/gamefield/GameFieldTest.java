@@ -60,7 +60,8 @@ class GameFieldTest {
 
         assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,1, 2)));
 
-        // assertTrue(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,-1, 1)));
+        // TODO: test not passed
+        // assertTrue(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(-1,-1, 1)));
     }
 
     @Test
