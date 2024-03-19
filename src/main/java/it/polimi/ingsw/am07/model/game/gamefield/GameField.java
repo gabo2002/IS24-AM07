@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.model.game.gamefield;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.side.Side;
+import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class GameField {
     private int currentZ;
 
     public GameField() {
-        fieldMatrix = new Matrix<>(2,2, Symbol.EMPTY);
+        fieldMatrix = new Matrix<>(SideFieldRepresentation.SIDE_SIZE, SideFieldRepresentation.SIDE_SIZE, Symbol.EMPTY);
         placedCards = new HashMap<>();
         currentZ = 0;
     }
@@ -58,8 +59,8 @@ public class GameField {
 
         boolean placeable = false;
 
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
+        for (int i = 0; i < SideFieldRepresentation.SIDE_SIZE; i++) {
+            for (int j = 0; j < SideFieldRepresentation.SIDE_SIZE; j++) {
                 if (fieldMatrix.get(pos.x() + i, pos.y() + j) == Symbol.NONE)
                     return false;
 
@@ -93,8 +94,8 @@ public class GameField {
     public int countCoveredCorners(GameFieldPosition pos) {
         int count = 0;
 
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
+        for (int i = 0; i < SideFieldRepresentation.SIDE_SIZE; i++) {
+            for (int j = 0; j < SideFieldRepresentation.SIDE_SIZE; j++) {
                 if (fieldMatrix.get(pos.x() + i, pos.y() + j) != Symbol.EMPTY) {
                     ++count;
                 }
@@ -115,8 +116,8 @@ public class GameField {
     public ResourceHolder placeOnFieldAt(Side card, GameFieldPosition pos) {
         ResourceHolder resource = new ResourceHolder();
 
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
+        for (int i = 0; i < SideFieldRepresentation.SIDE_SIZE; i++) {
+            for (int j = 0; j < SideFieldRepresentation.SIDE_SIZE; j++) {
                 resource.decrementResource(fieldMatrix.get(pos.x() + i, pos.y() + j));
                 fieldMatrix.set(pos.x() + i, pos.y() + j, card.fieldRepresentation().corners().get(i, j));
             }
