@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResourceHolderTest {
 
     @Test
-    void testSubtract() {
+    void subtract() {
         ResourceHolder emptyHolder = new ResourceHolder();
         Matrix<Symbol> corners = new Matrix<>(2, 2);
         corners.set(0, 0, Symbol.RED);
@@ -70,7 +70,7 @@ class ResourceHolderTest {
     }
 
     @Test
-    void testContains() {
+    void contains() {
         ResourceHolder emptyHolder = new ResourceHolder();
 
         Matrix<Symbol> corners = new Matrix<>(2, 2);
@@ -100,7 +100,7 @@ class ResourceHolderTest {
     }
 
     @Test
-    void testAdd() {
+    void add() {
         ResourceHolder emptyHolder = new ResourceHolder();
 
         Matrix<Symbol> corners = new Matrix<>(2, 2);
@@ -143,7 +143,7 @@ class ResourceHolderTest {
     }
 
     @Test
-    void testCountOf() {
+    void countOf() {
         ResourceHolder holder = new ResourceHolder();
         for (Symbol symbol : Symbol.values()) {
             assertEquals(0, holder.countOf(symbol));
@@ -173,6 +173,59 @@ class ResourceHolderTest {
                 assertEquals(1, holder.countOf(symbol));
             } else if (symbol == Symbol.PURPLE || symbol == Symbol.BLUE) {
                 assertEquals(2, holder.countOf(symbol));
+            } else {
+                assertEquals(0, holder.countOf(symbol));
+            }
+        }
+    }
+
+    @Test
+    void incrementResource() {
+        ResourceHolder holder = new ResourceHolder();
+
+        // Incrementing a non-resource symbol should not change the holder
+        // Incrementing a resource symbol should increase the count of that resource
+        for (Symbol symbol : Symbol.values()) {
+            holder.incrementResource(symbol);
+            if (symbol.isResource()) {
+                assertEquals(1, holder.countOf(symbol));
+            } else {
+                assertEquals(0, holder.countOf(symbol));
+            }
+        }
+
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.PURPLE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
+
+        holder = new ResourceHolder(side);
+        for (Symbol symbol : Symbol.values()) {
+            if (symbol == Symbol.RED || symbol == Symbol.BLUE || symbol == Symbol.GREEN || symbol == Symbol.PURPLE) {
+                holder.incrementResource(symbol);
+                assertEquals(2, holder.countOf(symbol));
+            } else if (symbol.isResource()) {
+                holder.incrementResource(symbol);
+                assertEquals(1, holder.countOf(symbol));
+            } else {
+                holder.incrementResource(symbol);
+                assertEquals(0, holder.countOf(symbol));
+            }
+        }
+    }
+
+    @Test
+    void decrementResource() {
+        ResourceHolder holder = new ResourceHolder();
+
+        // Decrementing a non-resource symbol should not change the holder
+        // Decrementing a resource symbol should decrease the count of that resource
+        for (Symbol symbol : Symbol.values()) {
+            holder.decrementResource(symbol);
+            if (symbol.isResource()) {
+                assertEquals(-1, holder.countOf(symbol));
             } else {
                 assertEquals(0, holder.countOf(symbol));
             }
