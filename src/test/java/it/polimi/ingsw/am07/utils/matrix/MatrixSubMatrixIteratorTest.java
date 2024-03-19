@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.utils;
+package it.polimi.ingsw.am07.utils.matrix;
 
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MatrixSubMatrixIteratorTest {
 
     @Test
-    void testHasNext() {
+    void hasNext() {
         // Test for in-bounds submatrix
         Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
 

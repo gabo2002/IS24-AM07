@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.utils;
+package it.polimi.ingsw.am07.utils.matrix;
 
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MatrixTest {
     @Test
-    void testGetAndSet() {
+    void getAndSet() {
         Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
 
         for (int i = 0; i < 9; i++) {
@@ -57,7 +57,7 @@ class MatrixTest {
     }
 
     @Test
-    void testPositiveExtension() {
+    void positiveExtension() {
         Matrix<Integer> matrix = getIntegerMatrix();
 
         assertEquals(3, matrix.getWidth());
@@ -133,7 +133,7 @@ class MatrixTest {
     }
 
     @Test
-    void testBooleanAnd() {
+    void booleanAnd() {
         Matrix<Integer> matrix_1 = getIntegerMatrix();
 
         // A matrix anded with itself should not change
@@ -178,7 +178,7 @@ class MatrixTest {
     }
 
     @Test
-    void testNegativeExtension() {
+    void negativeExtension() {
         Matrix<Integer> matrix = getIntegerMatrix();
 
         // Insert new in position (-1, -1)
@@ -243,7 +243,7 @@ class MatrixTest {
     }
 
     @Test
-    void testSimpleConstructor() {
+    void simpleConstructor() {
         Matrix<Integer> matrix = new Matrix<>(3, 3);
 
         for (int i = 0; i < 3; i++) {
@@ -254,7 +254,7 @@ class MatrixTest {
     }
 
     @Test
-    void testGetSubMatrix() {
+    void getSubMatrix() {
         Matrix<Integer> matrix = getIntegerMatrix();
 
         // Get a submatrix of size 2x2 starting from (0, 0)
@@ -319,7 +319,7 @@ class MatrixTest {
     }
 
     @Test
-    void testClear() {
+    void clear() {
         Matrix<Integer> matrix = getIntegerMatrix();
 
         matrix.clear(0, 0);
@@ -353,7 +353,7 @@ class MatrixTest {
     }
 
     @Test
-    void testMatch() {
+    void match() {
         Matrix<Integer> matrix_1 = getIntegerMatrix();
 
         // A matrix should match itself
@@ -383,7 +383,7 @@ class MatrixTest {
     }
 
     @Test
-    void testDimensions() {
+    void dimensions() {
         Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
 
         assertEquals(3, matrix.getWidth());

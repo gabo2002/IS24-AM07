@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.utils;
+package it.polimi.ingsw.am07.utils.matrix;
 
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MatrixElementIteratorTest {
 
     @Test
-    void testHasNext() {
+    void hasNext() {
         Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
         MatrixElementIterator<Integer> iterator = new MatrixElementIterator<>(matrix);
 
@@ -45,7 +45,7 @@ class MatrixElementIteratorTest {
     }
 
     @Test
-    void testNext() {
+    void next() {
         Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
         MatrixElementIterator<Integer> iterator = new MatrixElementIterator<>(matrix);
 
@@ -79,7 +79,7 @@ class MatrixElementIteratorTest {
     }
 
     @Test
-    void testRemove() {
+    void remove() {
         Matrix<Integer> matrix = new Matrix<>(3, 3, null);
         MatrixElementIterator<Integer> iterator = new MatrixElementIterator<>(matrix);
 
