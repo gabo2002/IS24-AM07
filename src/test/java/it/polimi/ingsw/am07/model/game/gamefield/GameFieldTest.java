@@ -23,6 +23,10 @@
 
 package it.polimi.ingsw.am07.model.game.gamefield;
 
+import it.polimi.ingsw.am07.model.game.ResourceHolder;
+import it.polimi.ingsw.am07.model.game.Symbol;
+import it.polimi.ingsw.am07.model.game.side.*;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +35,32 @@ class GameFieldTest {
 
     @Test
     void canBePlacedOnFieldAt() {
+        GameField gameField = new GameField();
+
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.NONE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
+
+        ResourceHolder test = new ResourceHolder(side);
+
+        Side starter_card = new SideFrontStarter(0, side, test);
+        Side normal_card = new SideBack(1, side, test, Symbol.RED);
+        Side gold_card = new SideFrontGold(2, side, test, 2, Symbol.RED, new ResourceHolder(), Symbol.BLUE);
+
+        assertTrue(gameField.canBePlacedOnFieldAt(starter_card, new GameFieldPosition(0,0, 1)));
+        
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(0,0, 2)));
+
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,0, 2)));
+
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(0,1, 2)));
+
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,1, 2)));
+
+        // assertTrue(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,-1, 1)));
     }
 
     @Test

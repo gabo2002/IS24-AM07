@@ -54,8 +54,16 @@ public class GameField {
      * @author Andrea Biasion Somaschini
      */
     public boolean canBePlacedOnFieldAt(Side card, GameFieldPosition pos) {
-        if ((pos.x() + pos.y()) % 2 != 0)
+
+        // Checks the first card --> starter card
+        if (pos.x() == 0 && pos.y() == 0) {
+            return fieldMatrix.get(0, 0) == Symbol.EMPTY && card.color() == Symbol.STARTER;
+        }
+
+
+        if ((pos.x() + pos.y()) % 2 != 0) {
             return false;
+        }
 
         boolean placeable = false;
 
@@ -71,6 +79,7 @@ public class GameField {
 
         return placeable;
     }
+
 
     /**
      * get the number of patterns that match the given pattern in the game field.
