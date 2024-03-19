@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public final class SideFrontGold extends SideFront {
 
-    private final int associatedScore;
-
     private final Symbol multiplier;
 
     private final ResourceHolder requirements;
@@ -20,8 +18,7 @@ public final class SideFrontGold extends SideFront {
                             Symbol multiplier,
                             ResourceHolder requirements
     ) {
-        super(id, fieldRepresentation, resources);
-        this.associatedScore = associatedScore;
+        super(id, fieldRepresentation, resources, associatedScore);
         this.multiplier = multiplier;
         this.requirements = requirements;
     }
@@ -32,8 +29,7 @@ public final class SideFrontGold extends SideFront {
     }
 
 
-    public int calculateContributingScore(ResourceHolder gameResources, int coveredCorners) {
-        return 1;
+    public Symbol getMultiplier() {
+        return multiplier;
     }
-
 }

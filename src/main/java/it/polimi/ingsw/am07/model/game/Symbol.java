@@ -11,4 +11,5 @@ public enum Symbol {
     SCROLL,
     FLASK,
     FEATHER,
+    CORNER
 }

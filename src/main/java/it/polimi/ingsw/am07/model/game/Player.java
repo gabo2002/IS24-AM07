@@ -147,6 +147,26 @@ public class Player {
         if (!canBePlacedAt(card, pos))
             throw new IllegalPlacementException("The provided position is not valid");
         playerResources.add(playerGameField.placeOnFieldAt(card, pos));
+
+        // Updating score
+        switch (card) {
+            case SideFrontGold sideFrontGold -> {
+
+                if(sideFrontGold.getMultiplier().equals(Symbol.EMPTY))
+                    playerScore += sideFrontGold.getAssociatedScore();
+
+                if(!sideFrontGold.getMultiplier().equals(Symbol.CORNER))
+                    playerScore += playerResources.countOf(sideFrontGold.getMultiplier())*sideFrontGold.getAssociatedScore();
+                else
+                    playerScore += sideFrontGold.getAssociatedScore()*playerGameField.countCoveredCorners(pos);
+            }
+
+            case SideFrontRes sideFrontRes -> {
+                playerScore += sideFrontRes.getAssociatedScore();
+            }
+
+            default -> {}
+        }
     }
 
     /**
