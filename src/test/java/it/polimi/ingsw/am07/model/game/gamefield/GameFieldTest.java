@@ -50,18 +50,27 @@ class GameFieldTest {
         Side normal_card = new SideBack(1, side, test, Symbol.RED);
         Side gold_card = new SideFrontGold(2, side, test, 2, Symbol.RED, new ResourceHolder(), Symbol.BLUE);
 
+        // Should always start with starter card
         assertTrue(gameField.canBePlacedOnFieldAt(starter_card, new GameFieldPosition(0,0, 1)));
-        
         assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(0,0, 2)));
-
         assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,0, 2)));
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(0,1, 2)));
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,1, 2)));
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(-1,-1, 1)));
 
+        // Place the starter card
+        gameField.placeOnFieldAt(starter_card, new GameFieldPosition(0,0, 1));
+
+        // Checking after the starter card
+        assertFalse(gameField.canBePlacedOnFieldAt(starter_card, new GameFieldPosition(0,0, 1)));
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(0,0, 2)));
+        assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,0, 2)));
         assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(0,1, 2)));
 
         assertFalse(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(1,1, 2)));
-
-        // TODO: test not passed
-        // assertTrue(gameField.canBePlacedOnFieldAt(normal_card, new GameFieldPosition(-1,-1, 1)));
+        assertTrue(gameField.canBePlacedOnFieldAt(gold_card, new GameFieldPosition(-1,-1, 1)));
+        assertTrue(gameField.canBePlacedOnFieldAt(gold_card, new GameFieldPosition(1,-1, 1)));
+        assertTrue(gameField.canBePlacedOnFieldAt(gold_card, new GameFieldPosition(-1,1, 1)));
     }
 
     @Test
@@ -70,10 +79,50 @@ class GameFieldTest {
 
     @Test
     void countCoveredCorners() {
+        GameField gameField = new GameField();
+
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.NONE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
+
+        ResourceHolder test = new ResourceHolder(side);
+
+        Side starter_card = new SideFrontStarter(0, side, test);
+        Side normal_card = new SideFrontStarter(1, side, test);
+
+        gameField.placeOnFieldAt(starter_card, new GameFieldPosition(0,0,1));
+        assertEquals(4, gameField.countCoveredCorners(new GameFieldPosition(0,0,1)));
+
+        // TODO: work in progress
+        // gameField.placeOnFieldAt(normal_card, new GameFieldPosition(-1,-1,1));
+        // assertEquals(1, gameField.countCoveredCorners(new GameFieldPosition(-1,-1,1)));
+
     }
 
     @Test
     void placeOnFieldAt() {
+        GameField gameField = new GameField();
+
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.NONE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
+
+        ResourceHolder test = new ResourceHolder(side);
+
+        Side starter_card = new SideFrontStarter(0, side, test);
+
+        assertEquals(test, gameField.placeOnFieldAt(starter_card, new GameFieldPosition(0,0,1)));
+        assertEquals(test, gameField.placeOnFieldAt(starter_card, new GameFieldPosition(1,-2,1)));
+        assertEquals(test, gameField.placeOnFieldAt(starter_card, new GameFieldPosition(2,2,1)));
+        assertEquals(test, gameField.placeOnFieldAt(starter_card, new GameFieldPosition(3,-1,1)));
+        assertEquals(test, gameField.placeOnFieldAt(starter_card, new GameFieldPosition(-3,4,1)));
+
     }
 
     @Test
