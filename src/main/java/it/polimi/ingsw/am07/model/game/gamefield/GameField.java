@@ -55,8 +55,8 @@ public class GameField {
      */
     public boolean canBePlacedOnFieldAt(Side card, GameFieldPosition pos) {
 
-        // Checks the first card --> starter card
         if (pos.x() == 0 && pos.y() == 0) {
+            // Checks the first card --> starter card
             return fieldMatrix.get(0, 0) == Symbol.EMPTY && card.color() == Symbol.STARTER;
         }
 
@@ -141,6 +141,11 @@ public class GameField {
         return resource;
     }
 
+    /**
+     * Retrieves a HashMap containing the cards that have been placed on the game field, along with their positions.
+     *
+     * @return A HashMap where the keys are the placed cards and the values are their corresponding positions on the game field.
+     */
     public HashMap<Side, GameFieldPosition> getPlacedCards() {
         return placedCards;
     }

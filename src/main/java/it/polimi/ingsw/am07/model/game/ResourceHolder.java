@@ -52,8 +52,8 @@ public class ResourceHolder {
     public ResourceHolder(SideFieldRepresentation fieldRepresentation) {
         resources = new HashMap<>();
 
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
+        for (int i = 0; i < SideFieldRepresentation.SIDE_SIZE; i++) {
+            for (int j = 0; j < SideFieldRepresentation.SIDE_SIZE; j++) {
                 incrementResource(fieldRepresentation.corners().get(i, j));
             }
         }
