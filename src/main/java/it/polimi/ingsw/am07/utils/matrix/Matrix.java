@@ -179,6 +179,32 @@ public class Matrix<T> implements Iterable<T> {
     }
 
     /**
+     * Check if two different matrices have the same shape, i.e. the same number of rows and columns and
+     * the same position of empty elements.
+     * @param other the other matrix to compare
+     * @return true if the two matrices have the same shape, false otherwise
+     * @author Gabriele Corti
+     */
+    public boolean containsShape(Matrix<T> other) {
+        if (other.getWidth() != getWidth() || other.getHeight() != getHeight()) {
+            return false;
+        }
+        for (int i = getMinX(); i <= getMaxX(); i++) {
+            for (int j = getMinY(); j <= getMaxY(); j++) {
+                T value = get(i, j);
+                T otherValue = other.get(i, j);
+
+                if (emptyValue == null && otherValue != null && value == null) {
+                        return false;
+                } else if (emptyValue != null && !emptyValue.equals(otherValue) && emptyValue.equals(value)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Check if two different matrices are equal, element by element
      * @param other      the other matrix to compare
      * @param wildcard   a value to ignore when comparing the elements
@@ -194,9 +220,10 @@ public class Matrix<T> implements Iterable<T> {
                 T value = get(i, j);
                 T otherValue = other.get(i, j);
                 if (value == null) {
-                    return otherValue == null || otherValue.equals(wildcard);
-                }
-                if (otherValue != wildcard && !value.equals(otherValue)) {
+                    if (otherValue != null && !otherValue.equals(wildcard)) {
+                        return false;
+                    }
+                } else if (!value.equals(otherValue) && !otherValue.equals(wildcard)) {
                     return false;
                 }
             }
@@ -219,9 +246,10 @@ public class Matrix<T> implements Iterable<T> {
                 T value = get(i, j);
                 T otherValue = other.get(i, j);
                 if (value == null) {
-                    return otherValue == null;
-                }
-                if (!value.equals(otherValue)) {
+                    if(otherValue != null) {
+                        return false;
+                    }
+                } else if (!value.equals(otherValue)) {
                     return false;
                 }
             }
@@ -229,6 +257,31 @@ public class Matrix<T> implements Iterable<T> {
         return true;
     }
 
+    /**
+     * Copy the current matrix into a new matrix
+     * @return a new matrix with the same elements as the current matrix
+     * @see Matrix#Matrix(int, int, Object)
+     * @author Gabriele Corti
+     */
+    public Matrix<T> copy() {
+        Matrix<T> clone = new Matrix<>(getWidth(), getHeight(), emptyValue);
+
+        for(int i = getMinX(); i <= getMaxX(); i++) {
+            for (int j = getMinY(); j <= getMaxY(); j++) {
+                clone.set(i, j, get(i, j));
+            }
+        }
+        return clone;
+    }
+
+    /**
+     * Get the default value for the elements of the matrix
+     * @return the default value for the elements of the matrix (can be null)
+     * @author Gabriele Corti
+     */
+    public T getEmptyValue() {
+        return emptyValue;
+    }
     /**
      * Get the number of rows of the matrix
      * @return the number of rows

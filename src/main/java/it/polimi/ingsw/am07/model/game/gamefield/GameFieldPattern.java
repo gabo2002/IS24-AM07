@@ -25,7 +25,7 @@ package it.polimi.ingsw.am07.model.game.gamefield;
 
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
-
+import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
 import java.util.List;
 
 /**
@@ -36,22 +36,61 @@ import java.util.List;
  */
 public record GameFieldPattern(
     Matrix<Symbol> pattern
-) {
-
+){
     /**
      * Create a new GameFieldPattern with the given pattern.
-     * @param pattern the pattern of symbols
-     * @throws IllegalArgumentException if the pattern contains invalid symbols - only NONE, RED, GREEN, BLUE and PURPLE are allowed
+     * @param pattern The pattern of symbols, which must consist only of center positions.
+     * IMPORTANT: Only CENTER POSITIONS ARE ALLOWED. Every symbol that is not EMPTY must be in a center position and correspond to a card.
+     * @throws IllegalArgumentException if the pattern contains invalid symbols. Only NONE, RED, GREEN, BLUE, and PURPLE are allowed.
      * @author Gabriele Corti
      */
     public GameFieldPattern(Matrix<Symbol> pattern) {
         final List<Symbol> allowedSymbols = List.of(Symbol.EMPTY, Symbol.RED,Symbol.GREEN,Symbol.BLUE,Symbol.PURPLE);
 
-        for(Symbol s : pattern) {
+        MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.iterator();
+        while(iterator.hasNext()) {
+            Symbol s = iterator.next();
             if (!allowedSymbols.contains(s)) {
                 throw new IllegalArgumentException("Invalid symbol in pattern");
+            }
+            if(!s.equals(Symbol.EMPTY) && (iterator.getCurrentX() + iterator.getCurrentY()) % 2 != 0) {
+                throw new IllegalArgumentException("Invalid symbol position in pattern");
             }
         }
         this.pattern = pattern;
     }
+
+    /**
+     * Get the shape of the pattern, expanding the center positions to cover the entire card.
+     * This method is used to obtain a matrix that represents the shape of the pattern, with the center positions expanded to a 2x2 matrix (corresponding to each corner) to be used for comparison with the game field.
+     * @return a matrix corresponding to the shape of the pattern, with the center positions expanded to cover the entire card
+     * @author Gabriele Corti
+     */
+    public Matrix<Symbol> getShape() {
+        Matrix<Symbol> matrix = pattern.copy();
+        MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.iterator();
+        while (iterator.hasNext()) {
+            Symbol s = iterator.next();
+            if (!Symbol.EMPTY.equals(s)) {
+                this.fillShape(matrix, s, iterator.getCurrentX(), iterator.getCurrentY());
+            }
+        }
+        return matrix;
+    }
+
+    /**
+     * Fills the shape of the pattern with the given symbol, expanding the center positions, corresponding to (x,y) coordinates to the whole card.
+     * @param shape the shape matrix to fill
+     * @param s the symbol to fill the shape with
+     * @param x the x coordinate of the top left corner of the card
+     * @param y the y coordinate of the top left corner of the card
+     * @author Gabriele Corti
+     */
+    private void fillShape(Matrix<Symbol> shape, Symbol s, int x, int y) {
+        shape.set(x, y, s);
+        shape.set(x, y+1, s);
+        shape.set(x+1, y, s);
+        shape.set(x+1, y+1, s);
+    }
+
 }

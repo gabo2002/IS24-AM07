@@ -32,7 +32,15 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatrixSubMatrixIteratorTest {
+    Matrix<Integer> getIntegerMatrix() {
+        Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
 
+        for (int i = 0; i < 9; i++) {
+            matrix.set(i % 3, i / 3, i);
+        }
+
+        return matrix;
+    }
     @Test
     void hasNext() {
         // Test for in-bounds submatrix
@@ -218,18 +226,76 @@ class MatrixSubMatrixIteratorTest {
         for (int i = 0; i < 18; i++) {
             iterator.next();
         }
-
         iterator.remove();
 
         assertEquals(0, matrix.get(0, 0));
         assertEquals(1, matrix.get(1, 0));
         assertEquals(2, matrix.get(2, 0));
-        assertEquals(3, matrix.get(0, 1));
         assertNull(matrix.get(1, 1));
         assertNull(matrix.get(2, 1));
-        assertEquals(6, matrix.get(0, 2));
+        assertNull(matrix.get(0, 1));
+        assertNull(matrix.get(0, 2));
         assertNull(matrix.get(1, 2));
         assertNull(matrix.get(2, 2));
+    }
+
+    @Test
+    void removeWithMask() {
+        Matrix<Integer> matrix = getIntegerMatrix();
+
+        MatrixSubMatrixIterator<Integer> iterator = new MatrixSubMatrixIterator<>(matrix, 2, 2, false);
+
+        Matrix<Integer> mask = new Matrix<>(2, 2, 0);
+        mask.set(0, 0, 1);
+        mask.set(1, 0, 1);
+        mask.set(0, 1, 1);
+        Matrix<Integer> subMatrix = iterator.next();
+        iterator.remove(mask);
+
+        assertEquals(0, matrix.get(0, 0));
+        assertEquals(0, matrix.get(1, 0));
+        assertEquals(0, matrix.get(0, 1));
+        assertEquals(4, matrix.get(1, 1));
+        assertEquals(7, matrix.get(1, 2));
+        assertEquals(8, matrix.get(2, 2));
+        assertEquals(2, matrix.get(2, 0));
+        assertEquals(5, matrix.get(2, 1));
+
+        subMatrix = iterator.next();
+        iterator.remove(mask);
+
+        assertEquals(0, matrix.get(1, 1));
+        assertEquals(0, matrix.get(2, 0));
+
+        //Trying with an empty mask
+        mask = new Matrix<>(2, 2, 0);
+        matrix = getIntegerMatrix();
+
+        iterator = new MatrixSubMatrixIterator<>(matrix, 2, 2, false);
+
+        while (iterator.hasNext()) {
+            subMatrix = iterator.next();
+            iterator.remove(mask);
+        }
+
+        for (int i = 0; i < 9; i++) {
+            assertEquals(i, matrix.get(i % 3, i / 3));
+        }
+
+        mask = new Matrix<Integer>(2,2,0);
+        mask.set(0,1,1);
+        mask.set(1,0,1);
+
+        matrix = getIntegerMatrix();
+
+        iterator = new MatrixSubMatrixIterator<>(matrix, 2, 2, false);
+        subMatrix = iterator.next();
+        iterator.remove(mask);
+
+        assertEquals(0, matrix.get(0, 0));
+        assertEquals(0, matrix.get(1, 0));
+        assertEquals(0, matrix.get(0, 1));
+        assertEquals(4, matrix.get(1, 1));
     }
 
 }

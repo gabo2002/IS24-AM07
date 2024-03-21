@@ -43,7 +43,7 @@ public class MatrixElementIterator <T> implements Iterator<T> {
      */
     public MatrixElementIterator(Matrix<T> matrix) {
         this.matrix = matrix;
-        currentX = matrix.getMinX();
+        currentX = matrix.getMinX() -1;
         currentY = matrix.getMinY();
     }
 
@@ -54,7 +54,7 @@ public class MatrixElementIterator <T> implements Iterator<T> {
      */
     @Override
     public boolean hasNext() {
-        return currentX <= matrix.getMaxX() && currentY <= matrix.getMaxY();
+        return currentY < matrix.getMaxY() || currentX < matrix.getMaxX();
     }
 
     /**
@@ -68,14 +68,13 @@ public class MatrixElementIterator <T> implements Iterator<T> {
             return null;
         }
 
-        T element = matrix.get(currentX, currentY);
-
         currentX++;
         if (currentX > matrix.getMaxX()) {
             currentX = matrix.getMinX();
             currentY++;
         }
-        return element;
+
+        return matrix.get(currentX , currentY);
     }
 
     /**
@@ -84,14 +83,29 @@ public class MatrixElementIterator <T> implements Iterator<T> {
      */
     @Override
     public void remove() {
-        int x = currentX - 1;
-        int y = currentY;
-        if (x < matrix.getMinX()) {
-            x = matrix.getMaxX();
-            y--;
+        if (currentX != -1) {
+            matrix.clear(currentX, currentY);
+        } else {
+            matrix.clear(0, 0);
         }
+    }
 
-        matrix.clear(x, y);
+    /**
+     * Get the current absolute x position of the iterator.
+     * @return the current absolute x position of the iterator
+     * @author Gabriele Corti
+     */
+    public int getCurrentX() {
+        return currentX;
+    }
+
+    /**
+     * Get the current absolute y position of the iterator.
+     * @return the current absolute y position of the iterator
+     * @author Gabriele Corti
+     */
+    public int getCurrentY() {
+        return currentY;
     }
 
 }

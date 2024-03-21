@@ -75,6 +75,63 @@ class GameFieldTest {
 
     @Test
     void countMatches() {
+        GameField gameField = new GameField();
+
+        //starter card
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                corners.set(i, j, Symbol.BLANK);
+            }
+        }
+
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
+        ResourceHolder test = new ResourceHolder(side);
+        Side starterCard = new SideFrontStarter(0,side,test);
+
+        gameField.placeOnFieldAt(starterCard, new GameFieldPosition(0,0,1));
+
+        //Resource holder for the cards
+        test = new ResourceHolder();
+        test.incrementResource(Symbol.BLUE);
+        test.incrementResource(Symbol.SCROLL);
+
+        //Generate 3 cards with different symbols
+        corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.SCROLL);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.NONE);
+        corners.set(1, 1, Symbol.BLANK);
+        side = new SideFieldRepresentation(corners);
+
+        Side firstCard = new SideBack(1,side,test,Symbol.RED);
+
+        assertTrue(gameField.canBePlacedOnFieldAt(firstCard, new GameFieldPosition(-1,-1,1)));
+        gameField.placeOnFieldAt(firstCard, new GameFieldPosition(-1,-1,1));
+
+        corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.SCROLL);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.NONE);
+        corners.set(1, 1, Symbol.BLANK);
+
+        side = new SideFieldRepresentation(corners);
+        Side secondCard = new SideBack(2,side,test,Symbol.RED);
+
+        assertTrue(gameField.canBePlacedOnFieldAt(secondCard, new GameFieldPosition(1,1,2)));
+        gameField.placeOnFieldAt(secondCard, new GameFieldPosition(1,1,2));
+
+        Matrix<Symbol> pattern = new Matrix<>(3, 3, Symbol.EMPTY);
+        for(int i = 0; i < 3; i++) {
+            pattern.set(i, i, Symbol.RED);
+        }
+
+        assertEquals(0, gameField.countMatches(new GameFieldPattern(pattern))); //starter card shoult not be counted
+
+        pattern = new Matrix<>(3, 3, Symbol.EMPTY);
+        pattern.set(0,0,Symbol.RED);
+        pattern.set(2,2,Symbol.RED);
+        assertEquals(1, gameField.countMatches(new GameFieldPattern(pattern)));
     }
 
     @Test

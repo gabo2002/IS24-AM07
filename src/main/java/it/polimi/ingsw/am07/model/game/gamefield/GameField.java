@@ -23,14 +23,23 @@
 
 package it.polimi.ingsw.am07.model.game.gamefield;
 
+import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
-
+import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
+import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
 import java.util.HashMap;
 
+/**
+ * Represents the game field where cards are placed during the game.
+ * Each player has their own game field. The game field is a 2D grid where cards are placed. The grid is made of cells,
+ * each of which can contain a card. The game field is used to check whether a card can be placed at a given position,
+ * to place a card on the game field and to count the number of patterns that match a given pattern in the game field.
+ * @author Gabriele Corti
+ */
 public class GameField {
 
     private final Matrix<Symbol> fieldMatrix;
@@ -39,6 +48,9 @@ public class GameField {
 
     private int currentZ;
 
+    /**
+     * Creates a new game field with an empty grid and no cards placed on it.
+     */
     public GameField() {
         fieldMatrix = new Matrix<>(SideFieldRepresentation.SIDE_SIZE, SideFieldRepresentation.SIDE_SIZE, Symbol.EMPTY);
         placedCards = new HashMap<>();
@@ -80,6 +92,25 @@ public class GameField {
         return placeable;
     }
 
+    /**
+     * Retrieves the color at the specified position on the game field. if the card is not present in the game field, an exception is thrown.
+     * @param x the x coordinate on the game field
+     * @param y the y coordinate on the game field
+     * @return the color at the specified position on the game field
+     * @throws CardNotFoundException if the card is not present in the game field
+     */
+    private Symbol getCardColorAt(int x,int y) throws CardNotFoundException {
+        if ((x + y) % 2 != 0) {
+            throw new CardNotFoundException("The card is not present in the game field");
+        }
+        for (Side card : placedCards.keySet()) {
+            GameFieldPosition pos = placedCards.get(card);
+            if (pos.x() == x && pos.y() == y) {
+                return card.color();
+            }
+        }
+        throw new CardNotFoundException("The card is not present in the game field");
+    }
 
     /**
      * get the number of patterns that match the given pattern in the game field.
@@ -89,9 +120,40 @@ public class GameField {
      */
     public int countMatches(GameFieldPattern pattern) {
         int matches = 0;
-        //TODO: implement the method
+        Matrix<Symbol> fieldCopy = fieldMatrix.copy();  // copy the field to avoid modifying the original field while calling remove() method
+        Matrix<Symbol> shape = pattern.getShape();
+        MatrixSubMatrixIterator<Symbol> subMatrixIterator = (MatrixSubMatrixIterator<Symbol>) fieldCopy.iterator(shape.getWidth(), shape.getHeight());
+
+        while (subMatrixIterator.hasNext()) {
+            Matrix<Symbol> subMatrix = subMatrixIterator.next();
+            int relativeX = subMatrixIterator.getOffsetX();
+            int relativeY = subMatrixIterator.getOffsetY();
+            boolean match = true;
+            if ((relativeY+relativeX) % 2 != 0 || !subMatrix.containsShape(shape)) {
+                continue;
+            }
+            MatrixElementIterator<Symbol> elementIterator = (MatrixElementIterator<Symbol>) pattern.pattern().iterator();
+            while (elementIterator.hasNext()) {
+                Symbol color = elementIterator.next();
+                if (!color.equals(Symbol.EMPTY)) {
+                    try {
+                        Symbol cardColor = getCardColorAt(relativeX + elementIterator.getCurrentX(), relativeY + elementIterator.getCurrentY());
+                        if (!cardColor.equals(color)) {
+                            match = false;
+                        }
+                    } catch (CardNotFoundException e) {
+                        match = false;
+                    }
+                }
+            }
+            if (match) {
+                matches++;
+                subMatrixIterator.remove(shape);    // remove the submatrix from the field, so that it is not counted again
+            }
+        }
         return matches;
     }
+
     /**
      * This method counts the number of corners in a 2x2 area of the game field that are not empty.
      * The top left corner of the 2x2 area is specified by the given position.
