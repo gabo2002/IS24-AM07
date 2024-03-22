@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.model.game.side.GameState;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +33,7 @@ public class Game implements Serializable {
 
     private final List<Player> players;
 
-    private final List<GameCard> availableResCards;
-
-    private final List<GameCard> availableGoldCards;
-
-    private final GameCard[] visibleResCards;
-
-    private final GameCard[] visibleGoldCards;
+    private final Deck deck;
 
     private final String selfNickname;
 
@@ -45,21 +41,23 @@ public class Game implements Serializable {
 
     private final ObjectiveCard[] commonObjectives; //only 2 cards
 
-    private int nextTurnPlayerIndex;    //Reminder: randomly generated first
+    private int currentPlayerIndex;    //Reminder: randomly generated first
 
-    private boolean endGameReached;
+    private GameState gameState;
 
     public Game(String selfNickname) {
         this.selfNickname = selfNickname;
         players = new ArrayList<>();
-        availableGoldCards = new ArrayList<>();
-        availableResCards = new ArrayList<>();
-        visibleResCards = new GameCard[2];
-        visibleGoldCards = new GameCard[2];
+        deck = new Deck(
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new GameCard[2],
+                new GameCard[2]
+        );
         availableObjectiveCards = new ArrayList<>();
         commonObjectives = new ObjectiveCard[2];
-        nextTurnPlayerIndex = 0;
-        endGameReached = false;
+        currentPlayerIndex = 0;
+        gameState = GameState.STARTING;
     }
 
     public List<Player> getPlayers() {
@@ -67,19 +65,19 @@ public class Game implements Serializable {
     }
 
     public int getAvailableResCardsSize() {
-        return availableResCards.size();
+        return deck.availableResCards().size();
     }
 
     public int getAvailableGoldCardsSize() {
-        return availableGoldCards.size();
+        return deck.availableGoldCards().size();
     }
 
     public GameCard[] getVisibleResCards() {
-        return visibleResCards;
+        return deck.visibleResCards();
     }
 
     public GameCard[] getVisibleGoldCards() {
-        return visibleGoldCards;
+        return deck.visibleGoldCards();
     }
 
     public String getSelfNickname() {
@@ -91,10 +89,11 @@ public class Game implements Serializable {
     }
 
     public void incrementTurn() {
+
     }
 
-    public int getNextTurnPlayerIndex() {
-        return nextTurnPlayerIndex;
+    public int getCurrentPlayerIndex() {
+        return currentPlayerIndex;
     }
 
     public GameCard pickRandomCard() {
