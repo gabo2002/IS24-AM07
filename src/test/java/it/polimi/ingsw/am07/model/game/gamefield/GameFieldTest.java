@@ -29,6 +29,8 @@ import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameFieldTest {
@@ -153,9 +155,28 @@ class GameFieldTest {
         gameField.placeOnFieldAt(starter_card, new GameFieldPosition(0,0,1));
         assertEquals(4, gameField.countCoveredCorners(new GameFieldPosition(0,0,1)));
 
-        // TODO: work in progress
-        // gameField.placeOnFieldAt(normal_card, new GameFieldPosition(-1,-1,1));
-        // assertEquals(1, gameField.countCoveredCorners(new GameFieldPosition(-1,-1,1)));
+
+        gameField.placeOnFieldAt(normal_card, new GameFieldPosition(-1,-1,1));
+        gameField.placeOnFieldAt(normal_card, new GameFieldPosition(0,-2,1));
+
+        assertEquals(4, gameField.countCoveredCorners(new GameFieldPosition(-1,-1,1)));
+        assertEquals(4, gameField.countCoveredCorners(new GameFieldPosition(0,-2,1)));
+
+        assertEquals(3, gameField.countCoveredCorners(new GameFieldPosition(-1,0,1)));
+        assertEquals(3, gameField.countCoveredCorners(new GameFieldPosition(-1,-2,1)));
+
+        assertEquals(2,gameField.countCoveredCorners(new GameFieldPosition(-2,-1,1)));
+        assertEquals(2,gameField.countCoveredCorners(new GameFieldPosition(1,0,1)));
+
+        assertEquals(1,gameField.countCoveredCorners(new GameFieldPosition(-2,-2,1)));
+        assertEquals(1, gameField.countCoveredCorners(new GameFieldPosition(-2,0,1)));
+
+        assertEquals(0, gameField.countCoveredCorners(new GameFieldPosition(-3,-1,1)));
+        assertEquals(0, gameField.countCoveredCorners(new GameFieldPosition(2,1,1)));
+
+
+
+
 
     }
 
@@ -184,5 +205,38 @@ class GameFieldTest {
 
     @Test
     void getPlacedCards() {
+        GameField gameField = new GameField();
+
+        Matrix<Symbol> corners = new Matrix<>(2, 2);
+        corners.set(0, 0, Symbol.RED);
+        corners.set(1, 0, Symbol.BLUE);
+        corners.set(0, 1, Symbol.GREEN);
+        corners.set(1, 1, Symbol.NONE);
+        SideFieldRepresentation side = new SideFieldRepresentation(corners);
+
+        ResourceHolder test = new ResourceHolder(side);
+
+        Side starter_card = new SideFrontStarter(0, side, test);
+        Side normal_card = new SideFrontStarter(1, side, test);
+
+        gameField.placeOnFieldAt(starter_card, new GameFieldPosition(0,0,0));
+        gameField.placeOnFieldAt(normal_card, new GameFieldPosition(-1,-1,1));
+        gameField.placeOnFieldAt(normal_card, new GameFieldPosition(1,-1,2));
+        gameField.placeOnFieldAt(normal_card, new GameFieldPosition(-1,1,3));
+        gameField.placeOnFieldAt(normal_card, new GameFieldPosition(1,1,4));
+        gameField.placeOnFieldAt(normal_card, new GameFieldPosition(0,-2,5));
+
+
+        HashMap<Side, GameFieldPosition> placedCards = new HashMap<>();
+
+        placedCards.put(starter_card,new GameFieldPosition(0,0,0));
+        placedCards.put(normal_card,new GameFieldPosition(-1,-1,1));
+        placedCards.put(normal_card,new GameFieldPosition(1,-1,2));
+        placedCards.put(normal_card,new GameFieldPosition(-1,1,3));
+        placedCards.put(normal_card,new GameFieldPosition(1,1,4));
+        placedCards.put(normal_card, new GameFieldPosition(0,-2,5));
+
+
+        assertEquals(placedCards, gameField.getPlacedCards());
     }
 }
