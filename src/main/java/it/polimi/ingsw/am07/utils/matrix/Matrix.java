@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.utils.matrix;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A matrix of generic type T.
@@ -35,7 +36,7 @@ import java.util.Iterator;
  */
 public class Matrix<T> implements Iterable<T> {
 
-    private final ArrayList<T> data;
+    private final List<T> data;
 
     private final T emptyValue;
 
@@ -76,6 +77,13 @@ public class Matrix<T> implements Iterable<T> {
      */
     public Matrix(int rows, int columns) {
         this(rows, columns, null);
+    }
+
+    /**
+     * Create a new 0-sized matrix. The default value for the elements is null.
+     */
+    public Matrix() {
+        this(0, 0, null);
     }
 
     /**

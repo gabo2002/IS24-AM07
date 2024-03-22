@@ -32,6 +32,7 @@ import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
 import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents the game field where cards are placed during the game.
@@ -44,7 +45,7 @@ public class GameField {
 
     private final Matrix<Symbol> fieldMatrix;
 
-    private final HashMap<Side, GameFieldPosition> placedCards;
+    private final Map<Side, GameFieldPosition> placedCards;
 
     private int currentZ;
 
@@ -208,7 +209,7 @@ public class GameField {
      *
      * @return A HashMap where the keys are the placed cards and the values are their corresponding positions on the game field.
      */
-    public HashMap<Side, GameFieldPosition> getPlacedCards() {
+    public Map<Side, GameFieldPosition> getPlacedCards() {
         return placedCards;
     }
 

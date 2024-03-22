@@ -29,7 +29,8 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents a player in the game.
@@ -49,7 +50,7 @@ public class Player {
 
     private final GameField playerGameField;
 
-    private final ArrayList<GameCard> playableCards;    //handCards?
+    private final List<GameCard> playableCards;    //handCards?
 
     private ObjectiveCard playerObjectiveCard;
 
@@ -162,7 +163,7 @@ public class Player {
      *
      * @author Omar Chaabani
      */
-    public HashMap<Side, GameFieldPosition> getPlacedCards() {
+    public Map<Side, GameFieldPosition> getPlacedCards() {
         return playerGameField.getPlacedCards();
     }
 
@@ -172,7 +173,7 @@ public class Player {
      * @return An ArrayList containing the playable cards.
      * @author Omar Chaabani
      */
-    public ArrayList<GameCard> getPlayableCards() {
+    public List<GameCard> getPlayableCards() {
         return playableCards;
     }
 
