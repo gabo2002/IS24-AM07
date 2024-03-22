@@ -54,7 +54,6 @@
             <groupId>com.squareup.moshi</groupId>
             <artifactId>moshi</artifactId>
             <version>1.15.1</version>
-            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
