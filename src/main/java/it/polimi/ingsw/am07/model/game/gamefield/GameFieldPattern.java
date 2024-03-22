@@ -44,20 +44,19 @@ public record GameFieldPattern(
      * @throws IllegalArgumentException if the pattern contains invalid symbols. Only NONE, RED, GREEN, BLUE, and PURPLE are allowed.
      * @author Gabriele Corti
      */
-    public GameFieldPattern(Matrix<Symbol> pattern) {
-        final List<Symbol> allowedSymbols = List.of(Symbol.EMPTY, Symbol.RED,Symbol.GREEN,Symbol.BLUE,Symbol.PURPLE);
+    public GameFieldPattern {
+        final List<Symbol> allowedSymbols = List.of(Symbol.EMPTY, Symbol.RED, Symbol.GREEN, Symbol.BLUE, Symbol.PURPLE);
 
         MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Symbol s = iterator.next();
             if (!allowedSymbols.contains(s)) {
                 throw new IllegalArgumentException("Invalid symbol in pattern");
             }
-            if(!s.equals(Symbol.EMPTY) && (iterator.getCurrentX() + iterator.getCurrentY()) % 2 != 0) {
+            if (!s.equals(Symbol.EMPTY) && (iterator.getCurrentX() + iterator.getCurrentY()) % 2 != 0) {
                 throw new IllegalArgumentException("Invalid symbol position in pattern");
             }
         }
-        this.pattern = pattern;
     }
 
     /**
