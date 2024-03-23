@@ -89,8 +89,8 @@ class GameDataJsonParserTest {
         );
         SideFrontStarter sideFrontStarter = new SideFrontStarter(2, sideFieldRepresentation1, new ResourceHolder(sideFieldRepresentation1));
 
-        SideBack sideBack1 = new SideBack(3, sideFieldRepresentation1, new ResourceHolder(sideFieldRepresentation1), Symbol.PURPLE);
-        SideBack sideBack2 = new SideBack(4, sideFieldRepresentation1, new ResourceHolder(sideFieldRepresentation1), Symbol.RED);
+        SideBack sideBack1 = new SideBack(1, sideFieldRepresentation1, new ResourceHolder(sideFieldRepresentation1), Symbol.PURPLE);
+        SideBack sideBack2 = new SideBack(2, sideFieldRepresentation1, new ResourceHolder(sideFieldRepresentation1), Symbol.RED);
 
         corners = new Matrix<>(SideFieldRepresentation.SIDE_SIZE, SideFieldRepresentation.SIDE_SIZE, Symbol.EMPTY);
         corners.set(0, 0, Symbol.BLANK);
@@ -104,8 +104,8 @@ class GameDataJsonParserTest {
         );
         SideFrontRes sideFrontRes = new SideFrontRes(6, sideFieldRepresentation2, new ResourceHolder(sideFieldRepresentation2), Symbol.FEATHER);
 
-        SideBack sideBack3 = new SideBack(7, sideFieldRepresentation2, new ResourceHolder(), Symbol.FLASK);
-        SideBack sideBack4 = new SideBack(8, sideFieldRepresentation2, new ResourceHolder(sideFieldRepresentation2), Symbol.FEATHER);
+        SideBack sideBack3 = new SideBack(5, sideFieldRepresentation2, new ResourceHolder(), Symbol.FLASK);
+        SideBack sideBack4 = new SideBack(6, sideFieldRepresentation2, new ResourceHolder(sideFieldRepresentation2), Symbol.FEATHER);
 
         cards.add(new GameCard(sideFrontGold, sideBack1));
         cards.add(new GameCard(sideFrontStarter, sideBack2));
