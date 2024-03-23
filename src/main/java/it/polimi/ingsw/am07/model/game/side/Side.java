@@ -69,4 +69,14 @@ public sealed abstract class Side permits SideFront, SideBack {
         return Optional.empty();
     }
 
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Side s)) {
+            return false;
+        }
+        return id == s.id();
+    }
+
 }
