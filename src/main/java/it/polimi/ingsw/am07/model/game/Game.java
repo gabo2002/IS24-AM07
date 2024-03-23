@@ -23,7 +23,7 @@
 
 package it.polimi.ingsw.am07.model.game;
 
-import it.polimi.ingsw.am07.model.game.side.GameState;
+import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,22 +64,6 @@ public class Game implements Serializable {
         return players;
     }
 
-    public int getAvailableResCardsSize() {
-        return deck.availableResCards().size();
-    }
-
-    public int getAvailableGoldCardsSize() {
-        return deck.availableGoldCards().size();
-    }
-
-    public GameCard[] getVisibleResCards() {
-        return deck.visibleResCards();
-    }
-
-    public GameCard[] getVisibleGoldCards() {
-        return deck.visibleGoldCards();
-    }
-
     public String getSelfNickname() {
         return selfNickname;
     }
@@ -96,16 +80,36 @@ public class Game implements Serializable {
         return currentPlayerIndex;
     }
 
-    public GameCard pickRandomCard() {
-        return null;
+    public GameCard pickRandomResCard() {
+        return deck.pickRandomResCard();
     }
 
-    public GameCard popResCard(GameCard card) {
-        return null;
+    public GameCard pickRandomGoldCard() {
+        return deck.pickRandomGoldCard();
     }
 
-    public GameCard popGoldCard(GameCard card) {
-        return null;
+    public void popCard(GameCard card) throws CardNotFoundException {
+        deck.popCard(card);
+    }
+
+    public int getAvailableResCardsSize() {
+        return deck.availableResCards().size();
+    }
+
+    public int getAvailableGoldCardsSize() {
+        return deck.availableGoldCards().size();
+    }
+
+    public GameCard[] getVisibleResCards() {
+        return deck.visibleResCards();
+    }
+
+    public GameCard[] getVisibleGoldCards() {
+        return deck.visibleGoldCards();
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 
 }

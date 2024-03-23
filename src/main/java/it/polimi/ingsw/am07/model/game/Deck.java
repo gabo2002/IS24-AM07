@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
+
 import java.util.List;
 
 /**
@@ -37,4 +39,92 @@ public record Deck(
         List<GameCard> availableGoldCards,
         GameCard[] visibleResCards,
         GameCard[] visibleGoldCards
-) { }
+) {
+
+    /**
+     * Picks a random resource card from the deck and removes it.
+     * @return the picked card
+     */
+    public GameCard pickRandomResCard() {
+        if (availableResCards.isEmpty()) {
+            return null;
+        }
+
+        return availableResCards.removeFirst();
+    }
+
+    /**
+     * Picks a random gold card from the deck and removes it.
+     * @return the picked card
+     */
+    public GameCard pickRandomGoldCard() {
+        if (availableGoldCards.isEmpty()) {
+            return null;
+        }
+
+        return availableGoldCards.removeFirst();
+    }
+
+    /**
+     * Pops a card from the deck and, if needed, replaces it with a substitute card.
+     * @param card the card to pop
+     * @throws CardNotFoundException if the card is not found in the deck
+     */
+    public void popCard(GameCard card) throws CardNotFoundException {
+        if (popHiddenCard(card, availableResCards)) {
+            return;
+        }
+
+        if (popHiddenCard(card, availableGoldCards)) {
+            return;
+        }
+
+        if (popVisibleCard(card, pickRandomResCard(), visibleResCards)) {
+            return;
+        }
+
+        if (popVisibleCard(card, pickRandomGoldCard(), visibleGoldCards)) {
+            return;
+        }
+
+        throw new CardNotFoundException("Card not found in the deck");
+    }
+
+    /**
+     * Pops a card from the deck
+     * @param card the card to pop
+     * @param target the list from which to pop the card
+     * @return true if the card was found and popped, false otherwise
+     */
+    private boolean popHiddenCard(GameCard card, List<GameCard> target) {
+        for (GameCard c : target) {
+            if (c.equals(card)) {
+                target.remove(c);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Pops a visible card from the deck
+     * @param card the card to pop
+     * @param substitute the card to replace the popped card with
+     * @param target the array from which to pop the card
+     * @return true if the card was found and popped, false otherwise
+     */
+    private boolean popVisibleCard(GameCard card, GameCard substitute, GameCard[] target) {
+        for (int i = 0; i < target.length; i++) {
+            if (target[i].equals(card)) {
+                target[i] = substitute;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+}
