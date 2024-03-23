@@ -1,0 +1,5098 @@
+[
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 0,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 0,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "RED",
+                        "BLANK",
+                        "RED",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 1,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 1,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "RED",
+                        "RED",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 2,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 2,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "RED",
+                        "RED"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 3,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 3,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "RED",
+                        "BLANK",
+                        "RED"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 4,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 4,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "FEATHER",
+                        "GREEN",
+                        "RED"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1,
+                    "GREEN": 1,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 5,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 5,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "FLASK",
+                        "RED",
+                        "NONE",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1,
+                    "RED": 1,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 6,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 6,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "RED",
+                        "PURPLE",
+                        "SCROLL",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1,
+                    "PURPLE": 1,
+                    "SCROLL": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 7,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 7,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "RED",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 8,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 8,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "RED",
+                        "NONE",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 9,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "RED",
+            "id": 9,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "RED",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 10,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 10,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "GREEN",
+                        "BLANK",
+                        "GREEN",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 11,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 11,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "GREEN",
+                        "GREEN",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 12,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 12,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "GREEN",
+                        "GREEN"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 13,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 13,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "GREEN",
+                        "BLANK",
+                        "GREEN"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 14,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 14,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "PURPLE",
+                        "FEATHER",
+                        "GREEN"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1,
+                    "FEATHER": 1,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 15,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 15,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "RED",
+                        "GREEN",
+                        "NONE",
+                        "FLASK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1,
+                    "GREEN": 1,
+                    "FLASK": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 16,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 16,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "SCROLL",
+                        "NONE",
+                        "GREEN",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1,
+                    "GREEN": 1,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 17,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 17,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "GREEN",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 18,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 18,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "GREEN"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 19,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "GREEN",
+            "id": 19,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "GREEN",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 20,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 20,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLUE",
+                        "BLUE",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 21,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 21,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "BLUE",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 22,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 22,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLUE",
+                        "NONE",
+                        "BLUE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 23,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 23,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLUE",
+                        "NONE",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 24,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 24,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "PURPLE",
+                        "FLASK",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1,
+                    "FLASK": 1,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 25,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 25,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "GREEN",
+                        "BLUE",
+                        "NONE",
+                        "SCROLL"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1,
+                    "BLUE": 1,
+                    "SCROLL": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 26,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 26,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "FEATHER",
+                        "NONE",
+                        "BLUE",
+                        "RED"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1,
+                    "BLUE": 1,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 27,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 27,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "BLUE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 28,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 28,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "BLANK",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 29,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "BLUE",
+            "id": 29,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLUE",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 30,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 30,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "PURPLE",
+                        "PURPLE",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 31,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 31,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "PURPLE",
+                        "PURPLE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 32,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 32,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "PURPLE",
+                        "NONE",
+                        "PURPLE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 33,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 33,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "PURPLE",
+                        "NONE",
+                        "PURPLE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 34,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 34,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "FEATHER",
+                        "BLUE",
+                        "PURPLE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1,
+                    "BLUE": 1,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 35,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 35,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "SCROLL",
+                        "PURPLE",
+                        "NONE",
+                        "RED"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1,
+                    "PURPLE": 1,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 36,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 36,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "PURPLE",
+                        "GREEN",
+                        "FLASK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1,
+                    "GREEN": 1,
+                    "FLASK": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 37,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 37,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "PURPLE",
+                        "NONE",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 38,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 38,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "PURPLE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 39,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontRes",
+            "color": "PURPLE",
+            "id": 39,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "PURPLE",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 40,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "RED",
+            "id": 40,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "BLANK",
+                        "FEATHER"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "FEATHER",
+            "requirements": {
+                "resources": {
+                    "RED": 2,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 41,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "RED",
+            "id": 41,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "FLASK",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "FLASK",
+            "requirements": {
+                "resources": {
+                    "RED": 2,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 42,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "RED",
+            "id": 42,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "SCROLL",
+                        "BLANK",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "SCROLL",
+            "requirements": {
+                "resources": {
+                    "RED": 2,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 43,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "RED",
+            "id": 43,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "RED": 3,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 44,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "RED",
+            "id": 44,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "RED": 3,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 45,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "RED",
+            "id": 45,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "RED": 3,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 46,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "RED",
+            "id": 46,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "FLASK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "RED": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 47,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "RED",
+            "id": 47,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "FEATHER",
+                        "BLANK",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "RED": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 48,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "RED",
+            "id": 48,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "SCROLL",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "RED": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 49,
+            "color": "RED",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 5,
+            "color": "RED",
+            "id": 49,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "RED": 5
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 50,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "GREEN",
+            "id": 50,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "FEATHER",
+                        "BLANK",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "FEATHER",
+            "requirements": {
+                "resources": {
+                    "GREEN": 2,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 51,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "GREEN",
+            "id": 51,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "SCROLL",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "SCROLL",
+            "requirements": {
+                "resources": {
+                    "GREEN": 2,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 52,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "GREEN",
+            "id": 52,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "FLASK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "FLASK",
+            "requirements": {
+                "resources": {
+                    "GREEN": 2,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 53,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "GREEN",
+            "id": 53,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "GREEN": 3,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 54,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "GREEN",
+            "id": 54,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "GREEN": 3,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 55,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "GREEN",
+            "id": 55,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "GREEN": 3,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 56,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "GREEN",
+            "id": 56,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "FEATHER",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "GREEN": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 57,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "GREEN",
+            "id": 57,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "SCROLL",
+                        "BLANK",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "GREEN": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 58,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "GREEN",
+            "id": 58,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "FLASK",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "GREEN": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 59,
+            "color": "GREEN",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 5,
+            "color": "GREEN",
+            "id": 59,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "GREEN": 5
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 60,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "BLUE",
+            "id": 60,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "FLASK",
+                        "BLANK",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "FLASK",
+            "requirements": {
+                "resources": {
+                    "BLUE": 2,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 61,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "BLUE",
+            "id": 61,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "BLANK",
+                        "SCROLL"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "SCROLL",
+            "requirements": {
+                "resources": {
+                    "BLUE": 2,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 62,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "BLUE",
+            "id": 62,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "FEATHER",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "FEATHER",
+            "requirements": {
+                "resources": {
+                    "BLUE": 2,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 63,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "BLUE",
+            "id": 63,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "BLUE": 3,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 64,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "BLUE",
+            "id": 64,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "BLUE": 3,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 65,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "BLUE",
+            "id": 65,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "BLUE": 3,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 66,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "BLUE",
+            "id": 66,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "SCROLL",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "BLUE": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 67,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "BLUE",
+            "id": 67,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "FLASK",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "BLUE": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 68,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "BLUE",
+            "id": 68,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "NONE",
+                        "FEATHER"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "BLUE": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 69,
+            "color": "BLUE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 5,
+            "color": "BLUE",
+            "id": 69,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "BLUE": 5
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 70,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "PURPLE",
+            "id": 70,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "FEATHER",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "FEATHER",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 2,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 71,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "PURPLE",
+            "id": 71,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "SCROLL",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "SCROLL",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 2,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 72,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 1,
+            "color": "PURPLE",
+            "id": 72,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "BLANK",
+                        "BLANK",
+                        "FLASK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "FLASK",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 2,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 73,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "PURPLE",
+            "id": 73,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 3,
+                    "BLUE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 74,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "PURPLE",
+            "id": 74,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 3,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 75,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 2,
+            "color": "PURPLE",
+            "id": 75,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "NONE",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "CORNER",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 3,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 76,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "PURPLE",
+            "id": 76,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "FLASK",
+                        "NONE",
+                        "BLANK",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FLASK": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 77,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "PURPLE",
+            "id": 77,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "SCROLL",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "SCROLL": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 78,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 3,
+            "color": "PURPLE",
+            "id": 78,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "NONE",
+                        "NONE",
+                        "FEATHER",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "FEATHER": 1
+                }
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 3
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 79,
+            "color": "PURPLE",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontGold",
+            "associatedScore": 5,
+            "color": "PURPLE",
+            "id": 79,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {}
+            },
+            "multiplier": "NONE",
+            "requirements": {
+                "resources": {
+                    "PURPLE": 5
+                }
+            }
+        }
+    }
+]

@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.utils.json;
 
+import it.polimi.ingsw.am07.Application;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.GameCard;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
@@ -31,8 +32,12 @@ import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -216,6 +221,25 @@ class GameDataJsonParserTest {
 
             Game deserializedGame = parser.fromJson(json);
         });
+    }
+
+    @Test
+    void validateCardAsset() {
+        String json = "";
+
+        try (InputStream inputStream = Application.class.getResourceAsStream("cards.json")) {
+            if (inputStream == null) {
+                fail("Failed to load card asset");
+            }
+            json = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
+        } catch (Exception e) {
+            fail("Failed to read card asset");
+        }
+
+        GameDataJsonParser<GameCard> parser = new GameDataJsonParser<>(GameCard.class);
+
+        String finalJson = json;
+        assertDoesNotThrow(() -> parser.listFromJson(finalJson));
     }
 
 }
