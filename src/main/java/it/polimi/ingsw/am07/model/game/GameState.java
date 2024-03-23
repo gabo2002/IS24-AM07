@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model.game.side;
+package it.polimi.ingsw.am07.model.game;
 
 /**
  * Enum representing the state of the game.
