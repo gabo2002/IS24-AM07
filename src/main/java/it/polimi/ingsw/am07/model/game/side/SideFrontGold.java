@@ -28,6 +28,9 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 
 import java.util.Optional;
 
+/**
+ * Represents a gold side of a card.
+ */
 public final class SideFrontGold extends SideFront {
 
     private final Symbol multiplier;
@@ -50,9 +53,15 @@ public final class SideFrontGold extends SideFront {
         this.requirements = requirements;
     }
 
+    /**
+     * Calculates the score associated with this side.
+     * @param resources The current resources of the player.
+     * @param coveredCorners The number of corners covered by the card upon being placed.
+     * @return the amount to be added to the player's score.
+     */
     @Override
     public int calculateAssociatedScore(ResourceHolder resources, int coveredCorners) {
-        if (multiplier == Symbol.EMPTY) {
+        if (multiplier == Symbol.NONE) {
             return associatedScore;
         } else if (multiplier == Symbol.CORNER) {
             return associatedScore * coveredCorners;
@@ -61,9 +70,12 @@ public final class SideFrontGold extends SideFront {
         }
     }
 
+    /**
+     * Returns the resource requirements needed to place this side on the field.
+     */
     @Override
     public Optional<ResourceHolder> requirements() {
-        return Optional.of(requirements);
+        return Optional.ofNullable(requirements);
     }
 
 }
