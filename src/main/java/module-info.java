@@ -4,6 +4,7 @@ open module it.polimi.ingsw.am07 {
     requires com.squareup.moshi;
 
     requires org.controlsfx.controls;
+    requires annotations;
 
     exports it.polimi.ingsw.am07;
 }

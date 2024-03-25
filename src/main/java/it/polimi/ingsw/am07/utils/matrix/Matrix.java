@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.utils.matrix;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -419,6 +421,7 @@ public class Matrix<T> implements Iterable<T> {
      * @author Roberto Alessandro Bertolini
      * @see MatrixElementIterator
      */
+    @NotNull
     @Override
     public Iterator<T> iterator() {
         return new MatrixElementIterator<>(this);
