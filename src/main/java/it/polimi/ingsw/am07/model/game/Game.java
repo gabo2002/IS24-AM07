@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
+import it.polimi.ingsw.am07.exceptions.IllegalGameStateException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -179,12 +180,31 @@ public class Game implements Serializable {
     }
 
     /**
-     * This method sets the current game state.
+     * This method returns the list of winning players.
      *
-     * @param gameState
+     * @return the list of winning players (usually 1, but ties are possible)
+     * @throws IllegalGameStateException if the game has not ended yet
      */
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
+    public List<Player> getWinners() throws IllegalGameStateException {
+        return null;
+    }
+
+    /**
+     * This method returns the player associated with the current client.
+     *
+     * @return the player associated with the current client
+     */
+    public Player getSelf() {
+        return null;
+    }
+
+    /**
+     * This method returns the currently playing player.
+     *
+     * @return the currently playing player
+     */
+    public Player getPlayingPlayer() {
+        return players.get(currentPlayerIndex);
     }
 
 }

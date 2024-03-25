@@ -181,4 +181,14 @@ public class Player {
         playableCards.add(card);
     }
 
+    /**
+     * Evalutes the score the player has achieved for the provided objective card.
+     *
+     * @param objective The objective card for which the score is to be evaluated.
+     * @return the obtained score
+     */
+    public int evaluateObjectiveScore(ObjectiveCard objective) {
+        return 0;
+    }
+
 }
