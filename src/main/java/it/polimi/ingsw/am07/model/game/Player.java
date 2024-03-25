@@ -143,13 +143,12 @@ public class Player {
 
         final ResourceHolder diff = playerGameField.placeOnFieldAt(card, pos);
 
+        playerResources.subtract(diff);
+
         final int coveredCorners = playerGameField.countCoveredCorners(pos);
 
-        // Cards whose score multiplier is based on the player's resources
-        // should be calculated before the resource difference is applied
+        // the associated score of a gold card includes the resources added by the card itself
         playerScore += card.calculateAssociatedScore(playerResources, coveredCorners);
-
-        playerResources.subtract(diff);
     }
 
     /**
