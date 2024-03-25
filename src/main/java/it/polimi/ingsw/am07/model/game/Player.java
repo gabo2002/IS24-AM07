@@ -43,21 +43,16 @@ public class Player {
     private final String nickname;
 
     private final ResourceHolder playerResources;
-
-    private int playerScore;
-
     private final Pawn playerPawn;
-
     private final GameField playerGameField;
-
     private final List<GameCard> playableCards;    //handCards?
-
+    private int playerScore;
     private ObjectiveCard playerObjectiveCard;
 
     /**
      * Constructs a new Player with the specified parameters.
      */
-    public Player(String nickname, ResourceHolder playerResources, Pawn playerPawn, GameField playerGameField, ArrayList<GameCard> playableCards){
+    public Player(String nickname, ResourceHolder playerResources, Pawn playerPawn, GameField playerGameField, ArrayList<GameCard> playableCards) {
         this.nickname = nickname;
         this.playerResources = playerResources;
         this.playerPawn = playerPawn;
@@ -131,8 +126,8 @@ public class Player {
     public boolean canBePlacedAt(Side card, GameFieldPosition pos) {
         return playerGameField.canBePlacedOnFieldAt(card, pos)
                 && card.requirements()
-                        .map(playerResources::contains)
-                        .orElse(true);
+                .map(playerResources::contains)
+                .orElse(true);
     }
 
     /**

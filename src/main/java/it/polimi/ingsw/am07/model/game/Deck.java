@@ -29,10 +29,11 @@ import java.util.List;
 
 /**
  * Represents the game deck.
- * @param availableResCards the uncovered resource cards
+ *
+ * @param availableResCards  the uncovered resource cards
  * @param availableGoldCards the uncovered gold cards
- * @param visibleResCards the visible resource cards
- * @param visibleGoldCards the visible gold cards
+ * @param visibleResCards    the visible resource cards
+ * @param visibleGoldCards   the visible gold cards
  */
 public record Deck(
         List<GameCard> availableResCards,
@@ -43,6 +44,7 @@ public record Deck(
 
     /**
      * Picks a random resource card from the deck and removes it.
+     *
      * @return the picked card
      */
     public GameCard pickRandomResCard() {
@@ -55,6 +57,7 @@ public record Deck(
 
     /**
      * Picks a random gold card from the deck and removes it.
+     *
      * @return the picked card
      */
     public GameCard pickRandomGoldCard() {
@@ -67,6 +70,7 @@ public record Deck(
 
     /**
      * Pops a card from the deck and, if needed, replaces it with a substitute card.
+     *
      * @param card the card to pop
      * @throws CardNotFoundException if the card is not found in the deck
      */
@@ -92,7 +96,8 @@ public record Deck(
 
     /**
      * Pops a card from the deck
-     * @param card the card to pop
+     *
+     * @param card   the card to pop
      * @param target the list from which to pop the card
      * @return true if the card was found and popped, false otherwise
      */
@@ -110,9 +115,10 @@ public record Deck(
 
     /**
      * Pops a visible card from the deck
-     * @param card the card to pop
+     *
+     * @param card       the card to pop
      * @param substitute the card to replace the popped card with
-     * @param target the array from which to pop the card
+     * @param target     the array from which to pop the card
      * @return true if the card was found and popped, false otherwise
      */
     private boolean popVisibleCard(GameCard card, GameCard substitute, GameCard[] target) {

@@ -29,8 +29,7 @@ public class Lobby {
 
     private final ArrayList<String> nicknames;
 
-
-    public Lobby(){
+    public Lobby() {
         nicknames = new ArrayList<>();
     }
 
@@ -44,4 +43,5 @@ public class Lobby {
         }
         nicknames.add(nickname);
     }
+
 }

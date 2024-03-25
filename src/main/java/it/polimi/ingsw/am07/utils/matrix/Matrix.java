@@ -31,6 +31,7 @@ import java.util.List;
  * A matrix of generic type T.
  * It is implemented as a list of elements, with a fixed number of rows and columns.
  * The matrix can be extended in any direction, and the elements are initialized to a default value.
+ *
  * @param <T> the type of the elements in the matrix
  * @author Roberto Alessandro Bertolini
  */
@@ -48,9 +49,10 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Create a new matrix with the given number of rows and columns.
-     * @param rows          the number of rows
-     * @param columns       the number of columns
-     * @param emptyValue    the default value for every element of the matrix (can be null)
+     *
+     * @param rows       the number of rows
+     * @param columns    the number of columns
+     * @param emptyValue the default value for every element of the matrix (can be null)
      * @author Roberto Alessandro Bertolini
      */
     public Matrix(int rows, int columns, T emptyValue) {
@@ -71,8 +73,9 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Create a new matrix with the given number of rows and columns. The default value for the elements is null.
-     * @param rows      the number of rows
-     * @param columns   the number of columns
+     *
+     * @param rows    the number of rows
+     * @param columns the number of columns
      * @author Roberto Alessandro Bertolini
      */
     public Matrix(int rows, int columns) {
@@ -88,6 +91,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get a specific element
+     *
      * @param x the row index
      * @param y the column index
      * @return the element at the position (x, y), or the default value if the position is out of bounds
@@ -104,11 +108,12 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get a sub-matrix of the current matrix, starting from the given position and with the given number of rows and columns.
-     * @param x         the row index of the starting position
-     * @param y         the column index of the starting position
-     * @param rows      the number of rows of the sub-matrix
-     * @param columns   the number of columns of the sub-matrix
-     * @return          the sub-matrix of size (rows, columns) starting from the position (x, y)
+     *
+     * @param x       the row index of the starting position
+     * @param y       the column index of the starting position
+     * @param rows    the number of rows of the sub-matrix
+     * @param columns the number of columns of the sub-matrix
+     * @return the sub-matrix of size (rows, columns) starting from the position (x, y)
      * @throws IllegalArgumentException if the number of rows or columns is invalid
      * @author Roberto Alessandro Bertolini
      */
@@ -128,8 +133,9 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Set a specific element
-     * @param x the row index
-     * @param y the column index
+     *
+     * @param x     the row index
+     * @param y     the column index
      * @param value the new value for the element (can be null)
      * @author Roberto Alessandro Bertolini
      */
@@ -148,6 +154,7 @@ public class Matrix<T> implements Iterable<T> {
     /**
      * Logic AND operation between two matrices.
      * The result is stored in the current matrix.
+     *
      * @param other the other matrix to use for the operation
      * @throws IllegalArgumentException if the two matrices have different sizes
      */
@@ -175,6 +182,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Clear a specific element, setting it to the default value
+     *
      * @param x the row index
      * @param y the column index
      * @author Roberto Alessandro Bertolini
@@ -189,6 +197,7 @@ public class Matrix<T> implements Iterable<T> {
     /**
      * Check if two different matrices have the same shape, i.e. the same number of rows and columns and
      * the same position of empty elements.
+     *
      * @param other the other matrix to compare
      * @return true if the two matrices have the same shape, false otherwise
      * @author Gabriele Corti
@@ -203,7 +212,7 @@ public class Matrix<T> implements Iterable<T> {
                 T otherValue = other.get(i, j);
 
                 if (emptyValue == null && otherValue != null && value == null) {
-                        return false;
+                    return false;
                 } else if (emptyValue != null && !emptyValue.equals(otherValue) && emptyValue.equals(value)) {
                     return false;
                 }
@@ -214,9 +223,10 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Check if two different matrices are equal, element by element
-     * @param other      the other matrix to compare
-     * @param wildcard   a value to ignore when comparing the elements
-     * @return           true if the two matrices are equal, false otherwise
+     *
+     * @param other    the other matrix to compare
+     * @param wildcard a value to ignore when comparing the elements
+     * @return true if the two matrices are equal, false otherwise
      * @author Roberto Alessandro Bertolini
      */
     public boolean match(Matrix<T> other, T wildcard) {
@@ -241,8 +251,9 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Check if two different matrices are equal, element by element
+     *
      * @param other the other matrix to compare
-     * @return      true if the two matrices are equal, false otherwise
+     * @return true if the two matrices are equal, false otherwise
      * @author Roberto Alessandro Bertolini
      */
     public boolean match(Matrix<T> other) {
@@ -254,7 +265,7 @@ public class Matrix<T> implements Iterable<T> {
                 T value = get(i, j);
                 T otherValue = other.get(i, j);
                 if (value == null) {
-                    if(otherValue != null) {
+                    if (otherValue != null) {
                         return false;
                     }
                 } else if (!value.equals(otherValue)) {
@@ -267,14 +278,15 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Copy the current matrix into a new matrix
+     *
      * @return a new matrix with the same elements as the current matrix
-     * @see Matrix#Matrix(int, int, Object)
      * @author Gabriele Corti
+     * @see Matrix#Matrix(int, int, Object)
      */
     public Matrix<T> copy() {
         Matrix<T> clone = new Matrix<>(getWidth(), getHeight(), emptyValue);
 
-        for(int i = getMinX(); i <= getMaxX(); i++) {
+        for (int i = getMinX(); i <= getMaxX(); i++) {
             for (int j = getMinY(); j <= getMaxY(); j++) {
                 clone.set(i, j, get(i, j));
             }
@@ -284,14 +296,17 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get the default value for the elements of the matrix
+     *
      * @return the default value for the elements of the matrix (can be null)
      * @author Gabriele Corti
      */
     public T getEmptyValue() {
         return emptyValue;
     }
+
     /**
      * Get the number of rows of the matrix
+     *
      * @return the number of rows
      * @author Roberto Alessandro Bertolini
      */
@@ -301,6 +316,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get the number of columns of the matrix
+     *
      * @return the number of columns
      * @author Roberto Alessandro Bertolini
      */
@@ -310,6 +326,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get the minimum row index of the matrix
+     *
      * @return the minimum row index
      * @author Roberto Alessandro Bertolini
      */
@@ -319,6 +336,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get the maximum row index of the matrix
+     *
      * @return the maximum row index
      * @author Roberto Alessandro Bertolini
      */
@@ -328,6 +346,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get the minimum column index of the matrix
+     *
      * @return the minimum column index
      * @author Roberto Alessandro Bertolini
      */
@@ -337,6 +356,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get the maximum column index of the matrix
+     *
      * @return the maximum column index
      * @author Roberto Alessandro Bertolini
      */
@@ -346,6 +366,7 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get the total size of the matrix
+     *
      * @return the total size of the matrix
      * @author Roberto Alessandro Bertolini
      */
@@ -393,9 +414,10 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get an iterator for the elements of the matrix
+     *
      * @return an iterator for the elements of the matrix
-     * @see MatrixElementIterator
      * @author Roberto Alessandro Bertolini
+     * @see MatrixElementIterator
      */
     @Override
     public Iterator<T> iterator() {
@@ -404,11 +426,12 @@ public class Matrix<T> implements Iterable<T> {
 
     /**
      * Get an iterator for the sub-matrices of the matrix.
-     * @param rows      the number of rows of the sub-matrices
-     * @param columns   the number of columns of the sub-matrices
-     * @return          an iterator for the sub-matrices of the matrix
-     * @see MatrixSubMatrixIterator
+     *
+     * @param rows    the number of rows of the sub-matrices
+     * @param columns the number of columns of the sub-matrices
+     * @return an iterator for the sub-matrices of the matrix
      * @author Roberto Alessandro Bertolini
+     * @see MatrixSubMatrixIterator
      */
     public Iterator<Matrix<T>> iterator(int rows, int columns) {
         return new MatrixSubMatrixIterator<>(this, rows, columns, false);

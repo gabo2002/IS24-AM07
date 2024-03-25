@@ -62,6 +62,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the list of players in the game.
+     *
      * @return the list of players
      */
     public List<Player> getPlayers() {
@@ -70,6 +71,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the nickname of the current player.
+     *
      * @return the nickname of the current player
      */
     public String getSelfNickname() {
@@ -78,6 +80,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the common objectives in the game.
+     *
      * @return an array of common objective cards
      */
     public ObjectiveCard[] getCommonObjectives() {
@@ -94,6 +97,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the index of the current player in the game.
+     *
      * @return the index of the current player
      */
     public int getCurrentPlayerIndex() {
@@ -102,6 +106,7 @@ public class Game implements Serializable {
 
     /**
      * This method picks a random resource card from the deck.
+     *
      * @return a random resource card from the deck
      */
     public GameCard pickRandomResCard() {
@@ -110,6 +115,7 @@ public class Game implements Serializable {
 
     /**
      * This method picks a random gold card from the deck.
+     *
      * @return a random gold card from the deck
      */
 
@@ -119,6 +125,7 @@ public class Game implements Serializable {
 
     /**
      * This method removes a specified card from the deck.
+     *
      * @param card the card to be removed from the deck
      * @throws CardNotFoundException if the specified card is not found in the deck
      */
@@ -128,6 +135,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the size of the available resource cards in the deck.
+     *
      * @return the size of the available resource cards
      */
     public int getAvailableResCardsSize() {
@@ -136,6 +144,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the size of the available gold cards in the deck.
+     *
      * @return the size of the available gold cards
      */
     public int getAvailableGoldCardsSize() {
@@ -144,6 +153,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the visible resource cards from the deck.
+     *
      * @return an array of visible resource cards
      */
     public GameCard[] getVisibleResCards() {
@@ -152,6 +162,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the visible gold cards from the deck.
+     *
      * @return an array of visible gold cards
      */
     public GameCard[] getVisibleGoldCards() {
@@ -160,10 +171,20 @@ public class Game implements Serializable {
 
     /**
      * This method returns the current game state.
+     *
      * @return the current game state
      */
     public GameState getGameState() {
         return gameState;
+    }
+
+    /**
+     * This method sets the current game state.
+     *
+     * @param gameState
+     */
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 
 }

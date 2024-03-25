@@ -47,6 +47,7 @@ public class ResourceHolder {
 
     /**
      * Constructor that initializes a resource holder with the resources provided by a card side.
+     *
      * @param fieldRepresentation the card side representation.
      */
     public ResourceHolder(SideFieldRepresentation fieldRepresentation) {
@@ -61,8 +62,9 @@ public class ResourceHolder {
 
     /**
      * Constructor that initializes a resource holder with the resources provided by a card side and additional resources.
-     * @param fieldRepresentation   the card side representation.
-     * @param additionalSymbols     the additional resources that a side might have, such as the center symbols.
+     *
+     * @param fieldRepresentation the card side representation.
+     * @param additionalSymbols   the additional resources that a side might have, such as the center symbols.
      */
     public ResourceHolder(SideFieldRepresentation fieldRepresentation, List<Symbol> additionalSymbols) {
         this(fieldRepresentation);
@@ -74,6 +76,7 @@ public class ResourceHolder {
     /**
      * Increments the count of a resource in the resource holder.
      * If the provided symbol is not a resource, the method does nothing.
+     *
      * @param symbol the resource to increment.
      */
     public void incrementResource(Symbol symbol) {
@@ -91,6 +94,7 @@ public class ResourceHolder {
     /**
      * Decrements the count of a resource in the resource holder.
      * If the provided symbol is not a resource, the method does nothing.
+     *
      * @param symbol the resource to decrement.
      */
     public void decrementResource(Symbol symbol) {
@@ -107,6 +111,7 @@ public class ResourceHolder {
 
     /**
      * Subtracts the resources of another resource holder from this resource holder.
+     *
      * @param other the resource holder to subtract.
      * @throws IllegalArgumentException if the resource holder does not contain enough resources to subtract.
      */
@@ -122,6 +127,7 @@ public class ResourceHolder {
     /**
      * Checks if the resource holder has at least the resources of another resource holder.
      * To put it in other words, subtracting the other holder would result in non-negative amounts.
+     *
      * @param other the resource holder to check.
      * @return true if the resource holder contains the resources of the other resource holder, false otherwise.
      */
@@ -136,6 +142,7 @@ public class ResourceHolder {
 
     /**
      * Adds the resources of another resource holder to this resource holder.
+     *
      * @param other the resource holder to add.
      */
     public void add(ResourceHolder other) {
@@ -150,6 +157,7 @@ public class ResourceHolder {
 
     /**
      * Checks if two resource holders hold the same amount of resources.
+     *
      * @param o the object to compare
      * @return true if the resource holders hold the same amount of resources, false otherwise.
      */
@@ -163,6 +171,7 @@ public class ResourceHolder {
 
     /**
      * Returns the count of a resource in the resource holder.
+     *
      * @param symbol the resource to count.
      * @return the count of the resource.
      */

@@ -27,10 +27,11 @@ import java.util.Iterator;
 
 /**
  * An iterator for the elements of a matrix, in row-major order, one by one.
+ *
  * @param <T>
  * @author Roberto Alessandro Bertolini
  */
-public class MatrixElementIterator <T> implements Iterator<T> {
+public class MatrixElementIterator<T> implements Iterator<T> {
 
     private final Matrix<T> matrix;
 
@@ -38,17 +39,19 @@ public class MatrixElementIterator <T> implements Iterator<T> {
 
     /**
      * Create a new iterator for the given matrix.
+     *
      * @param matrix the matrix to iterate over
      * @author Roberto Alessandro Bertolini
      */
     public MatrixElementIterator(Matrix<T> matrix) {
         this.matrix = matrix;
-        currentX = matrix.getMinX() -1;
+        currentX = matrix.getMinX() - 1;
         currentY = matrix.getMinY();
     }
 
     /**
      * Check if there are more elements to iterate on.
+     *
      * @return true if there are more elements, false otherwise
      * @author Roberto Alessandro Bertolini
      */
@@ -59,6 +62,7 @@ public class MatrixElementIterator <T> implements Iterator<T> {
 
     /**
      * Get the next element in the iteration.
+     *
      * @return the next element
      * @author Roberto Alessandro Bertolini
      */
@@ -74,11 +78,12 @@ public class MatrixElementIterator <T> implements Iterator<T> {
             currentY++;
         }
 
-        return matrix.get(currentX , currentY);
+        return matrix.get(currentX, currentY);
     }
 
     /**
      * Clear the current element from the matrix (does not actually remove it from the matrix).
+     *
      * @author Roberto Alessandro Bertolini
      */
     @Override
@@ -92,6 +97,7 @@ public class MatrixElementIterator <T> implements Iterator<T> {
 
     /**
      * Get the current absolute x position of the iterator.
+     *
      * @return the current absolute x position of the iterator
      * @author Gabriele Corti
      */
@@ -101,6 +107,7 @@ public class MatrixElementIterator <T> implements Iterator<T> {
 
     /**
      * Get the current absolute y position of the iterator.
+     *
      * @return the current absolute y position of the iterator
      * @author Gabriele Corti
      */

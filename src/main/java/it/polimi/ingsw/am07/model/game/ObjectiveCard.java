@@ -29,4 +29,5 @@ public record ObjectiveCard(
         int associatedScore,
         ResourceHolder requirements,
         GameFieldPattern pattern
-) { }
+) {
+}

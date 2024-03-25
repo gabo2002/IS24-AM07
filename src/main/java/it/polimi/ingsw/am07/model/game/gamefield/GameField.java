@@ -31,6 +31,7 @@ import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
 import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ import java.util.Map;
  * Each player has their own game field. The game field is a 2D grid where cards are placed. The grid is made of cells,
  * each of which can contain a card. The game field is used to check whether a card can be placed at a given position,
  * to place a card on the game field and to count the number of patterns that match a given pattern in the game field.
+ *
  * @author Gabriele Corti
  */
 public class GameField {
@@ -62,7 +64,7 @@ public class GameField {
      * Checks whether a card can be placed on the game field at a given position.
      *
      * @param card the card to be placed
-     * @param pos the position of the top left corner of the card
+     * @param pos  the position of the top left corner of the card
      * @return true if the card can be placed at the specified position, false otherwise
      * @author Andrea Biasion Somaschini
      */
@@ -95,12 +97,13 @@ public class GameField {
 
     /**
      * Retrieves the color at the specified position on the game field. if the card is not present in the game field, an exception is thrown.
+     *
      * @param x the x coordinate on the game field
      * @param y the y coordinate on the game field
      * @return the color at the specified position on the game field
      * @throws CardNotFoundException if the card is not present in the game field
      */
-    private Symbol getCardColorAt(int x,int y) throws CardNotFoundException {
+    private Symbol getCardColorAt(int x, int y) throws CardNotFoundException {
         if ((x + y) % 2 != 0) {
             throw new CardNotFoundException("The card is not present in the game field");
         }
@@ -115,6 +118,7 @@ public class GameField {
 
     /**
      * get the number of patterns that match the given pattern in the game field.
+     *
      * @param pattern the pattern to match
      * @return the number of matches of the given pattern in the game field
      * @author Gabriele Corti
@@ -130,7 +134,7 @@ public class GameField {
             int relativeX = subMatrixIterator.getOffsetX();
             int relativeY = subMatrixIterator.getOffsetY();
             boolean match = true;
-            if ((relativeY+relativeX) % 2 != 0 || !subMatrix.containsShape(shape)) {
+            if ((relativeY + relativeX) % 2 != 0 || !subMatrix.containsShape(shape)) {
                 continue;
             }
             MatrixElementIterator<Symbol> elementIterator = (MatrixElementIterator<Symbol>) pattern.pattern().iterator();
@@ -182,7 +186,7 @@ public class GameField {
      * Places a card on the game field at the specified position and updates resources accordingly.
      *
      * @param card the card to be placed on the game field
-     * @param pos the position on the game field where the top left card corner will be placed
+     * @param pos  the position on the game field where the top left card corner will be placed
      * @return a ResourceHolder containing the updated resource counts after placing the card
      */
     public ResourceHolder placeOnFieldAt(Side card, GameFieldPosition pos) {

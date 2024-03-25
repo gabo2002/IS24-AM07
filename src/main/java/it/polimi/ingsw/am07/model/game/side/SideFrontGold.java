@@ -40,12 +40,12 @@ public final class SideFrontGold extends SideFront {
     private final int associatedScore;
 
     public SideFrontGold(int id,
-                            SideFieldRepresentation fieldRepresentation,
-                            ResourceHolder resources,
-                            int associatedScore,
-                            Symbol multiplier,
-                            ResourceHolder requirements,
-                            Symbol color
+                         SideFieldRepresentation fieldRepresentation,
+                         ResourceHolder resources,
+                         int associatedScore,
+                         Symbol multiplier,
+                         ResourceHolder requirements,
+                         Symbol color
     ) {
         super(id, fieldRepresentation, resources, color);
         this.associatedScore = associatedScore;
@@ -55,7 +55,8 @@ public final class SideFrontGold extends SideFront {
 
     /**
      * Calculates the score associated with this side.
-     * @param resources The current resources of the player.
+     *
+     * @param resources      The current resources of the player.
      * @param coveredCorners The number of corners covered by the card upon being placed.
      * @return the amount to be added to the player's score.
      */

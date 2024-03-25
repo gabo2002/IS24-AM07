@@ -29,8 +29,6 @@ import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
 import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameFieldPatternTest {
@@ -41,23 +39,24 @@ public class GameFieldPatternTest {
     @Test
     void newGameFieldPatternTest() {
         //invalid Symbols
-        Matrix<Symbol> pattern = new Matrix<>(3, 4,Symbol.EMPTY);
+        Matrix<Symbol> pattern = new Matrix<>(3, 4, Symbol.EMPTY);
         pattern.set(0, 0, Symbol.RED);
         pattern.set(1, 1, Symbol.BLUE);
         pattern.set(3, 1, Symbol.SCROLL);
         assertThrows(IllegalArgumentException.class, () -> new GameFieldPattern(pattern));
 
         //invalid pattern
-        Matrix<Symbol> pattern1 = new Matrix<>(3, 4,Symbol.EMPTY);
+        Matrix<Symbol> pattern1 = new Matrix<>(3, 4, Symbol.EMPTY);
         pattern1.set(3, 1, Symbol.EMPTY);
-        pattern1.set(1,0, Symbol.RED);
+        pattern1.set(1, 0, Symbol.RED);
         assertThrows(IllegalArgumentException.class, () -> new GameFieldPattern(pattern1));
 
         //edge Case: empty pattern
-        Matrix<Symbol> pattern2 = new Matrix<>(3, 4,Symbol.EMPTY);
+        Matrix<Symbol> pattern2 = new Matrix<>(3, 4, Symbol.EMPTY);
         assertDoesNotThrow(() -> new GameFieldPattern(pattern2));
 
     }
+
     @Test
     void getShapeTest() {
         /**
@@ -68,7 +67,7 @@ public class GameFieldPatternTest {
          *   B B
          *   B B
          */
-        Matrix<Symbol> pattern = new Matrix<>(5,4,Symbol.EMPTY);
+        Matrix<Symbol> pattern = new Matrix<>(5, 4, Symbol.EMPTY);
         pattern.set(0, 0, Symbol.RED);
         pattern.set(1, 1, Symbol.BLUE);
         pattern.set(3, 1, Symbol.BLUE);
@@ -89,7 +88,7 @@ public class GameFieldPatternTest {
         assertEquals(Symbol.BLUE, shape.get(4, 2));
 
         // Trying invalid pattern position
-        pattern.set(1,0,Symbol.RED);
+        pattern.set(1, 0, Symbol.RED);
         assertThrows(IllegalArgumentException.class, () -> new GameFieldPattern(pattern));
 
         /** Testing pattern
@@ -98,7 +97,7 @@ public class GameFieldPatternTest {
          *   R R R
          *     R R
          */
-        Matrix<Symbol> pattern1 = new Matrix<>(4, 4,Symbol.EMPTY);
+        Matrix<Symbol> pattern1 = new Matrix<>(4, 4, Symbol.EMPTY);
         GameFieldPattern gameFieldPattern1 = new GameFieldPattern(pattern1);
         pattern1.set(0, 0, Symbol.RED);
         pattern1.set(1, 1, Symbol.RED);
@@ -120,7 +119,7 @@ public class GameFieldPatternTest {
         assertEquals(Symbol.EMPTY, shape1.get(0, 2));
 
         //empty pattern -> should always match no matter the shape
-        Matrix<Symbol> pattern2 = new Matrix<>(3, 3,Symbol.EMPTY);
+        Matrix<Symbol> pattern2 = new Matrix<>(3, 3, Symbol.EMPTY);
         GameFieldPattern gameFieldPattern2 = new GameFieldPattern(pattern2);
 
         Matrix<Symbol> gameField = new Matrix<>(5, 5, Symbol.EMPTY);
@@ -148,7 +147,7 @@ public class GameFieldPatternTest {
             Matrix<Symbol> pattern = new Matrix<>(rows, cols, Symbol.EMPTY);
             for (int j = 0; j < rows; j++) {
                 for (int k = 0; k < cols; k++) {
-                    if((j+k) % 2 != 0) {
+                    if ((j + k) % 2 != 0) {
                         pattern.set(j, k, Symbol.EMPTY);
                         continue;
                     }
@@ -164,7 +163,7 @@ public class GameFieldPatternTest {
             MatrixSubMatrixIterator<Symbol> iterator = (MatrixSubMatrixIterator<Symbol>) shape.iterator(pattern.getWidth(), pattern.getHeight());
             while (iterator.hasNext()) {
                 Matrix<Symbol> subMatrix = iterator.next();
-                if(subMatrix.containsShape(pattern)) {
+                if (subMatrix.containsShape(pattern)) {
                     found = true;
                     break;
                 }
@@ -175,7 +174,7 @@ public class GameFieldPatternTest {
 
     @Test
     void getCards() {
-        Matrix<Symbol> pattern = new Matrix<>(3, 4,Symbol.EMPTY);
+        Matrix<Symbol> pattern = new Matrix<>(3, 4, Symbol.EMPTY);
         pattern.set(0, 0, Symbol.RED);
         pattern.set(1, 1, Symbol.BLUE);
         pattern.set(3, 1, Symbol.BLUE);
@@ -184,11 +183,11 @@ public class GameFieldPatternTest {
         MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) gameFieldPattern.pattern().iterator();
 
         int cards = 0;
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Symbol s = iterator.next();
             if (!Symbol.EMPTY.equals(s)) {
                 cards++;
-                switch(cards) {
+                switch (cards) {
                     case 1:
                         assertEquals(Symbol.RED, s);
                         break;
@@ -209,13 +208,13 @@ public class GameFieldPatternTest {
             Matrix<Symbol> pattern1 = new Matrix<>(rows, cols, Symbol.EMPTY);
             for (int j = 0; j < rows; j++) {
                 for (int k = 0; k < cols; k++) {
-                    if((j+k) % 2 != 0) {
+                    if ((j + k) % 2 != 0) {
                         pattern1.set(j, k, Symbol.EMPTY);
                         continue;
                     }
                     int random = (int) (Math.random() * 5);
                     Symbol s = allowedSymbols[random];
-                    if(!Symbol.EMPTY.equals(s)) {
+                    if (!Symbol.EMPTY.equals(s)) {
                         patternCards++;
                     }
                     pattern1.set(j, k, s);
@@ -224,7 +223,7 @@ public class GameFieldPatternTest {
             GameFieldPattern gameFieldPattern1 = new GameFieldPattern(pattern1);
             MatrixElementIterator<Symbol> iterator1 = (MatrixElementIterator<Symbol>) gameFieldPattern1.pattern().iterator();
             int cards1 = 0;
-            while(iterator1.hasNext()) {
+            while (iterator1.hasNext()) {
                 Symbol s = iterator1.next();
                 if (!Symbol.EMPTY.equals(s)) {
                     cards1++;
@@ -233,4 +232,5 @@ public class GameFieldPatternTest {
             assertEquals(cards1, patternCards);
         }
     }
+
 }

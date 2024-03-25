@@ -29,26 +29,25 @@ import java.util.Iterator;
  * An iterator for the submatrices of a matrix.
  * The submatrices are of a fixed size, and are overlapping.
  * The iterator can be configured to iterate over the partially out-of-bounds submatrices as well.
+ *
  * @param <T> the type of the elements in the matrix
  * @author Roberto Alessandro Bertolini
  */
-public class MatrixSubMatrixIterator <T> implements Iterator<Matrix<T>> {
+public class MatrixSubMatrixIterator<T> implements Iterator<Matrix<T>> {
 
     private final Matrix<T> matrix;
-
-    private int currentX, currentY;
-
     private final int subMatrixSizeX;
     private final int subMatrixSizeY;
-
     private final boolean iterateOutOfBounds;
+    private int currentX, currentY;
 
     /**
      * Create a new iterator for the given matrix, with the given submatrix size.
-     * @param matrix                the matrix to iterate over
-     * @param subMatrixSizeX        the width of the submatrices
-     * @param subMatrixSizeY        the height of the submatrices
-     * @param iterateOutOfBounds    whether to iterate over the partially out-of-bounds submatrices as well
+     *
+     * @param matrix             the matrix to iterate over
+     * @param subMatrixSizeX     the width of the submatrices
+     * @param subMatrixSizeY     the height of the submatrices
+     * @param iterateOutOfBounds whether to iterate over the partially out-of-bounds submatrices as well
      * @author Roberto Alessandro Bertolini
      */
     public MatrixSubMatrixIterator(Matrix<T> matrix, int subMatrixSizeX, int subMatrixSizeY, boolean iterateOutOfBounds) {
@@ -71,6 +70,7 @@ public class MatrixSubMatrixIterator <T> implements Iterator<Matrix<T>> {
 
     /**
      * Check if there are more submatrices to iterate on.
+     *
      * @return true if there are more submatrices, false otherwise
      * @author Roberto Alessandro Bertolini
      */
@@ -78,14 +78,15 @@ public class MatrixSubMatrixIterator <T> implements Iterator<Matrix<T>> {
     public boolean hasNext() {
         if (iterateOutOfBounds) {
             return currentY < matrix.getMaxY() || currentX < matrix.getMaxX();
-        } else if(matrix.getWidth() < subMatrixSizeX || matrix.getHeight() < subMatrixSizeY){   //if the matrix is smaller than the submatrix
+        } else if (matrix.getWidth() < subMatrixSizeX || matrix.getHeight() < subMatrixSizeY) {   //if the matrix is smaller than the submatrix
             return false;
         }
-        return (currentY + subMatrixSizeY - 1) != matrix.getMaxY() || (currentX + subMatrixSizeX -1) < matrix.getMaxX();
+        return (currentY + subMatrixSizeY - 1) != matrix.getMaxY() || (currentX + subMatrixSizeX - 1) < matrix.getMaxX();
     }
 
     /**
      * Get the next submatrix in the iteration.
+     *
      * @return the next submatrix
      * @author Roberto Alessandro Bertolini
      */
@@ -109,6 +110,7 @@ public class MatrixSubMatrixIterator <T> implements Iterator<Matrix<T>> {
 
     /**
      * Clear the current submatrix from the matrix (does not actually remove it from the matrix).
+     *
      * @author Roberto Alessandro Bertolini
      */
     @Override
@@ -122,18 +124,19 @@ public class MatrixSubMatrixIterator <T> implements Iterator<Matrix<T>> {
 
     /**
      * Given a matrix mask, removes the elements of the matrix that correspond to the non-empty elements of the mask.
+     *
      * @param mask a matrix of the same size as the submatrix that contains the elements to remove
      * @author Gabriele Corti
      */
     public void remove(Matrix<T> mask) {
-        if(mask.getWidth() != subMatrixSizeX || mask.getHeight() != subMatrixSizeY) {
+        if (mask.getWidth() != subMatrixSizeX || mask.getHeight() != subMatrixSizeY) {
             return;
         }
 
         for (int i = 0; i < subMatrixSizeX; i++) {
             for (int j = 0; j < subMatrixSizeY; j++) {
                 T value = mask.get(i, j);
-                if(value != null && !matrix.getEmptyValue().equals(value)) {
+                if (value != null && !matrix.getEmptyValue().equals(value)) {
                     matrix.clear(currentX + i, currentY + j);
                 } else if (value == null && matrix.getEmptyValue() != null) {
                     matrix.clear(currentX + i, currentY + j);
@@ -145,6 +148,7 @@ public class MatrixSubMatrixIterator <T> implements Iterator<Matrix<T>> {
 
     /**
      * Get the current absolute x position of the iterator.
+     *
      * @return the current x position of the iterator
      * @author Gabriele Corti
      */
@@ -154,6 +158,7 @@ public class MatrixSubMatrixIterator <T> implements Iterator<Matrix<T>> {
 
     /**
      * Get the current absolute y position of the iterator.
+     *
      * @return the current y position of the iterator
      * @author Gabriele Corti
      */

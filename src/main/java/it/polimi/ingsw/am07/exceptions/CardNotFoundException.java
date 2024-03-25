@@ -25,12 +25,14 @@ package it.polimi.ingsw.am07.exceptions;
 
 /**
  * Thrown to indicate that a card was not found in the game field or in the player's hand.
+ *
  * @author Gabriele Corti
  */
 public class CardNotFoundException extends Exception {
 
     /**
      * Constructs a new CardNotFoundException with no detail message.
+     *
      * @author Gabriele Corti
      */
     public CardNotFoundException() {
@@ -39,10 +41,12 @@ public class CardNotFoundException extends Exception {
 
     /**
      * Constructs a new CardNotFoundException with the specified detail message.
+     *
      * @param message the detail message (which is saved for later retrieval by the getMessage() method)
      * @author Gabriele Corti
      */
     public CardNotFoundException(String message) {
         super(message);
     }
+
 }

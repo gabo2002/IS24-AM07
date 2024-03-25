@@ -37,6 +37,7 @@ import java.util.Set;
 /**
  * This class is a custom JsonAdapter.Factory that allows to serialize and deserialize polymorphic objects
  * It should be registered with a Moshi instance to allow it to serialize and deserialize polymorphic objects
+ *
  * @param <T>
  */
 public class ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<T> implements JsonAdapter.Factory {
@@ -49,6 +50,7 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<T> implement
 
     /**
      * Constructor
+     *
      * @param baseClass The base class of the polymorphic objects
      */
     public ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory(Class<T> baseClass) {
@@ -59,9 +61,10 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<T> implement
 
     /**
      * Register a subclass of the base type to be serialized and deserialized
+     *
      * @param subclass The subclass to register, must be a concrete class
      * @return this
-     * @throws NullPointerException if subclass is null
+     * @throws NullPointerException     if subclass is null
      * @throws IllegalArgumentException if subclass is an interface or an abstract class
      */
     public ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<T> registerSubclass(Class<? extends T> subclass) throws NullPointerException, IllegalArgumentException {
@@ -85,8 +88,9 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<T> implement
 
     /**
      * Create a JsonAdapter for the base class. Only Moshi should call this method.
-     * @param type The type of the object to serialize or deserialize
-     * @param set The set of annotations on the field or method that this adapter was created for
+     *
+     * @param type  The type of the object to serialize or deserialize
+     * @param set   The set of annotations on the field or method that this adapter was created for
      * @param moshi The Moshi instance
      * @return a JsonAdapter for the base class or null if the type is not the base class
      */

@@ -52,9 +52,10 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapter extends JsonAdapter
 
     /**
      * Constructor
+     *
      * @param subTypeNames List of subclass names
-     * @param subTypes List of subclass types
-     * @param adapters List of JsonAdapters for the subclasses
+     * @param subTypes     List of subclass types
+     * @param adapters     List of JsonAdapters for the subclasses
      */
     public ElegantAutoLabelingCustomPolymorphicJsonAdapter(List<String> subTypeNames, List<Type> subTypes, List<JsonAdapter<Object>> adapters) {
         this.subTypes = subTypes;
@@ -65,9 +66,10 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapter extends JsonAdapter
 
     /**
      * This method deserializes the object and reads the label to identify the subclass
+     *
      * @param jsonReader JsonReader
      * @return deserialized object
-     * @throws IOException if something goes wrong with the JSON reader
+     * @throws IOException      if something goes wrong with the JSON reader
      * @throws RuntimeException if the subclass is not valid or not recognized
      */
     @Override
@@ -83,9 +85,10 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapter extends JsonAdapter
 
     /**
      * This method serializes the object and adds a label to identify the subclass
+     *
      * @param jsonWriter JsonWriter
-     * @param o Object to serialize
-     * @throws IOException if something goes wrong with the JSON writer
+     * @param o          Object to serialize
+     * @throws IOException      if something goes wrong with the JSON writer
      * @throws RuntimeException if the subclass is not valid or not recognized
      */
     @Override
@@ -110,9 +113,10 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapter extends JsonAdapter
 
     /**
      * This method finds the index of the subclass in the list of subclasses
+     *
      * @param jsonReader JsonReader
      * @return index of the subclass
-     * @throws IOException if the JSON file is not well formatted
+     * @throws IOException      if the JSON file is not well formatted
      * @throws RuntimeException if the subclass is not valid
      */
     private int findSubTypeIndex(JsonReader jsonReader) throws IOException, RuntimeException {

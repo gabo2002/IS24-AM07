@@ -32,6 +32,7 @@ import java.util.List;
 
 /**
  * This class is a custom Moshi handler that can serialize and deserialize any game object
+ *
  * @param <T>
  */
 public final class GameDataJsonParser<T> {
@@ -40,6 +41,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Constructor
+     *
      * @param typeClass The class of the object to serialize/deserialize
      */
     public GameDataJsonParser(Class<T> typeClass) {
@@ -48,6 +50,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Initializes Moshi with the custom adapters required to serialize and deserialize the game objects
+     *
      * @return Moshi
      */
     private static Moshi initializeMoshi() {
@@ -70,6 +73,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Returns the JsonAdapter for generic object
+     *
      * @return JsonAdapter
      */
     private JsonAdapter<T> getAdapter() {
@@ -80,6 +84,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Returns the JsonAdapter for a list of generic objects
+     *
      * @return JsonAdapter
      */
     private JsonAdapter<List<T>> getListAdapter() {
@@ -90,6 +95,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Serializes the object to JSON
+     *
      * @param element The object to serialize
      * @return JSON string
      * @throws RuntimeException if something goes wrong with the serialization
@@ -106,6 +112,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Serializes a list of objects to JSON
+     *
      * @param list The list of objects to serialize
      * @return JSON string
      * @throws RuntimeException if something goes wrong with the serialization
@@ -122,6 +129,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Deserializes the object from JSON
+     *
      * @param json JSON string
      * @return The deserialized object
      * @throws RuntimeException if something goes wrong with the deserialization
@@ -138,6 +146,7 @@ public final class GameDataJsonParser<T> {
 
     /**
      * Deserializes a list of objects from JSON
+     *
      * @param json JSON string
      * @return The deserialized list of objects
      * @throws RuntimeException if something goes wrong with the deserialization

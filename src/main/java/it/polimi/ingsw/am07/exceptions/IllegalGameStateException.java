@@ -37,6 +37,7 @@ public class IllegalGameStateException extends Exception {
 
     /**
      * Constructs a new IllegalGameStateException with the specified detail message.
+     *
      * @param message the detail message (which is saved for later retrieval by the getMessage() method)
      */
     public IllegalGameStateException(String message) {

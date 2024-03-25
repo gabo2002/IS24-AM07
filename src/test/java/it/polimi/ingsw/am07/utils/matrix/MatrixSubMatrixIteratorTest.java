@@ -23,8 +23,6 @@
 
 package it.polimi.ingsw.am07.utils.matrix;
 
-import it.polimi.ingsw.am07.utils.matrix.Matrix;
-import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
@@ -41,6 +39,7 @@ class MatrixSubMatrixIteratorTest {
 
         return matrix;
     }
+
     @Test
     void hasNext() {
         // Test for in-bounds submatrix
@@ -282,9 +281,9 @@ class MatrixSubMatrixIteratorTest {
             assertEquals(i, matrix.get(i % 3, i / 3));
         }
 
-        mask = new Matrix<Integer>(2,2,0);
-        mask.set(0,1,1);
-        mask.set(1,0,1);
+        mask = new Matrix<Integer>(2, 2, 0);
+        mask.set(0, 1, 1);
+        mask.set(1, 0, 1);
 
         matrix = getIntegerMatrix();
 

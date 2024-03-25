@@ -23,12 +23,22 @@
 
 package it.polimi.ingsw.am07.utils.matrix;
 
-import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatrixTest {
+
+    private static Matrix<Integer> getIntegerMatrix() {
+        Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
+
+        for (int i = 0; i < 9; i++) {
+            matrix.set(i / 3, i % 3, i + 1);
+        }
+
+        return matrix;
+    }
+
     @Test
     void getAndSet() {
         Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
@@ -44,16 +54,6 @@ class MatrixTest {
         assertEquals(3, matrix.getWidth());
         assertEquals(3, matrix.getHeight());
         assertEquals(3 * 3, matrix.getSize());
-    }
-
-    private static Matrix<Integer> getIntegerMatrix() {
-        Matrix<Integer> matrix = new Matrix<>(3, 3, 0);
-
-        for (int i = 0; i < 9; i++) {
-            matrix.set(i / 3, i % 3, i + 1);
-        }
-
-        return matrix;
     }
 
     @Test
@@ -432,16 +432,17 @@ class MatrixTest {
     void matchWithNullValues() {
         Matrix<Integer> matrix = new Matrix<>(3, 3);
 
-        matrix.set(0,1,1);
-        matrix.set(1,0,1);
+        matrix.set(0, 1, 1);
+        matrix.set(1, 0, 1);
 
         Matrix<Integer> compareMatrix = new Matrix<>(3, 3);
 
-        compareMatrix.set(0,1,2);
-        compareMatrix.set(1,0,2);
+        compareMatrix.set(0, 1, 2);
+        compareMatrix.set(1, 0, 2);
 
         assertFalse(matrix.match(compareMatrix));
     }
+
     @Test
     void copy() {
         Matrix<Integer> matrix = getIntegerMatrix();
@@ -489,9 +490,9 @@ class MatrixTest {
 
         assertFalse(matrix.containsShape(pattern)); // Trying to match a pattern that is not in the matrix
 
-        pattern.set(2,2, 69);
-        matrix.set(2,2, -10);
-        matrix.set(0,0,43);
+        pattern.set(2, 2, 69);
+        matrix.set(2, 2, -10);
+        matrix.set(0, 0, 43);
 
         assertTrue(matrix.containsShape(pattern)); // The pattern is a diagonal in the matrix
 
@@ -506,62 +507,62 @@ class MatrixTest {
         assertTrue(matrix.containsShape(pattern)); // The pattern is empty, so it is in the matrix
 
         //Trying with null values as emptyValue
-        matrix = new Matrix<>(2,2,null);
-        pattern = new Matrix<>(2,2,null);
+        matrix = new Matrix<>(2, 2, null);
+        pattern = new Matrix<>(2, 2, null);
 
         assertTrue(matrix.containsShape(pattern)); // The pattern is empty, so it is in the matrix
 
-        matrix.set(0,0,1);
-        matrix.set(0,1,1);
-        matrix.set(1,0,1);
-        pattern.set(0,0,12);
-        pattern.set(0,1,12);
-        pattern.set(1,0,12);
-        pattern.set(1,1,null);
+        matrix.set(0, 0, 1);
+        matrix.set(0, 1, 1);
+        matrix.set(1, 0, 1);
+        pattern.set(0, 0, 12);
+        pattern.set(0, 1, 12);
+        pattern.set(1, 0, 12);
+        pattern.set(1, 1, null);
 
         assertTrue(matrix.containsShape(pattern)); // The pattern is in the matrix
 
         //Trying with null values but emptyValue is not null
-        matrix = new Matrix<>(2,2,0);
-        pattern = new Matrix<>(2,2,0);
+        matrix = new Matrix<>(2, 2, 0);
+        pattern = new Matrix<>(2, 2, 0);
 
-        matrix.set(0,0,null);
-        pattern.set(0,0,12);
+        matrix.set(0, 0, null);
+        pattern.set(0, 0, 12);
         assertTrue(matrix.containsShape(pattern)); // The pattern is in the matrix
 
-        matrix = new Matrix<Integer>(4,4,0);
-        pattern = new Matrix<>(4,4,0);
+        matrix = new Matrix<Integer>(4, 4, 0);
+        pattern = new Matrix<>(4, 4, 0);
 
 
-        for(int i = 0; i < 4; i++){
-            matrix.set(0,i,1);
-            matrix.set(1,i,1);
+        for (int i = 0; i < 4; i++) {
+            matrix.set(0, i, 1);
+            matrix.set(1, i, 1);
         }
 
-        matrix.set(2,0,0);
-        matrix.set(2,1,1);
-        matrix.set(2,2,1);
-        matrix.set(2,3,1);
-        matrix.set(3,0,0);
-        matrix.set(3,1,0);
-        matrix.set(3,2,1);
-        matrix.set(3,3,1);
-        pattern.set(0,0,1);
-        pattern.set(0,1,1);
-        pattern.set(0,2,0);
-        pattern.set(0,3,0);
-        pattern.set(1,0,1);
-        pattern.set(1,1,1);
-        pattern.set(1,2,1);
-        pattern.set(1,3,0);
-        pattern.set(2,0,0);
-        pattern.set(2,1,1);
-        pattern.set(2,2,1);
-        pattern.set(2,3,1);
-        pattern.set(3,0,0);
-        pattern.set(3,1,0);
-        pattern.set(3,2,1);
-        pattern.set(3,3,1);
+        matrix.set(2, 0, 0);
+        matrix.set(2, 1, 1);
+        matrix.set(2, 2, 1);
+        matrix.set(2, 3, 1);
+        matrix.set(3, 0, 0);
+        matrix.set(3, 1, 0);
+        matrix.set(3, 2, 1);
+        matrix.set(3, 3, 1);
+        pattern.set(0, 0, 1);
+        pattern.set(0, 1, 1);
+        pattern.set(0, 2, 0);
+        pattern.set(0, 3, 0);
+        pattern.set(1, 0, 1);
+        pattern.set(1, 1, 1);
+        pattern.set(1, 2, 1);
+        pattern.set(1, 3, 0);
+        pattern.set(2, 0, 0);
+        pattern.set(2, 1, 1);
+        pattern.set(2, 2, 1);
+        pattern.set(2, 3, 1);
+        pattern.set(3, 0, 0);
+        pattern.set(3, 1, 0);
+        pattern.set(3, 2, 1);
+        pattern.set(3, 3, 1);
 
         assertTrue(matrix.containsShape(pattern)); // The pattern is in the matrix
     }

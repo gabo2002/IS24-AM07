@@ -28,8 +28,9 @@ import it.polimi.ingsw.am07.model.game.side.SideFront;
 
 /**
  * Represents a game card, which has a front side and a back side.
+ *
  * @param front the front side of the card
- * @param back the back side of the card
+ * @param back  the back side of the card
  */
 public record GameCard(
         SideFront front,
@@ -38,8 +39,9 @@ public record GameCard(
 
     /**
      * Constructs a new GameCard with the specified parameters.
+     *
      * @param front the front side of the card
-     * @param back the back side of the card
+     * @param back  the back side of the card
      */
     public GameCard(SideFront front, SideBack back) {
         this.front = front;
@@ -52,6 +54,7 @@ public record GameCard(
 
     /**
      * Each card has a unique id, which is the same for the front and back sides.
+     *
      * @return the id of the front card
      */
     public int id() {
@@ -62,6 +65,7 @@ public record GameCard(
      * Each card is uniquely identified by its id.
      * Thus, another object is equal to GameCard if it is a GameCard
      * and if it has the same id.
+     *
      * @return true if the two cards have the same id, false otherwise
      */
     public boolean equals(Object o) {

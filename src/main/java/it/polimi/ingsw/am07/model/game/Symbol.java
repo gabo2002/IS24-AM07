@@ -48,6 +48,7 @@ public enum Symbol {
 
     /**
      * Returns whether the symbol is a resource or not.
+     *
      * @return true if the symbol is a resource, false otherwise.
      */
     public boolean isResource() {
