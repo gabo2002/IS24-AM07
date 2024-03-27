@@ -25,7 +25,7 @@ package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +42,7 @@ public class ResourceHolder {
      * Default constructor, initializes an empty resource holder.
      */
     public ResourceHolder() {
-        resources = new HashMap<>();
+        resources = new EnumMap<>(Symbol.class);
     }
 
     /**
@@ -51,7 +51,7 @@ public class ResourceHolder {
      * @param fieldRepresentation the card side representation.
      */
     public ResourceHolder(SideFieldRepresentation fieldRepresentation) {
-        resources = new HashMap<>();
+        this();
 
         for (int i = 0; i < SideFieldRepresentation.SIDE_SIZE; i++) {
             for (int j = 0; j < SideFieldRepresentation.SIDE_SIZE; j++) {
@@ -68,6 +68,7 @@ public class ResourceHolder {
      */
     public ResourceHolder(SideFieldRepresentation fieldRepresentation, List<Symbol> additionalSymbols) {
         this(fieldRepresentation);
+
         for (Symbol symbol : additionalSymbols) {
             incrementResource(symbol);
         }
