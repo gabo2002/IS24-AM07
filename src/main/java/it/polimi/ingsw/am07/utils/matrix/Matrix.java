@@ -208,6 +208,7 @@ public class Matrix<T> implements Iterable<T> {
         if (other.getWidth() != getWidth() || other.getHeight() != getHeight()) {
             return false;
         }
+
         for (int i = getMinX(); i <= getMaxX(); i++) {
             for (int j = getMinY(); j <= getMaxY(); j++) {
                 T value = get(i, j);
@@ -220,6 +221,7 @@ public class Matrix<T> implements Iterable<T> {
                 }
             }
         }
+
         return true;
     }
 
@@ -436,7 +438,7 @@ public class Matrix<T> implements Iterable<T> {
      * @author Roberto Alessandro Bertolini
      * @see MatrixSubMatrixIterator
      */
-    public Iterator<Matrix<T>> iterator(int rows, int columns) {
+    public MatrixSubMatrixIterator<T> iterator(int rows, int columns) {
         return new MatrixSubMatrixIterator<>(this, rows, columns, false);
     }
 

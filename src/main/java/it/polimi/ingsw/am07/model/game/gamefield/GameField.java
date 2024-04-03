@@ -69,12 +69,10 @@ public class GameField {
      * @author Andrea Biasion Somaschini
      */
     public boolean canBePlacedOnFieldAt(Side card, GameFieldPosition pos) {
-
         if (pos.x() == 0 && pos.y() == 0) {
             // Checks the first card --> starter card
             return fieldMatrix.get(0, 0) == Symbol.EMPTY && card.color() == Symbol.STARTER;
         }
-
 
         if ((pos.x() + pos.y()) % 2 != 0) {
             return false;
@@ -107,12 +105,14 @@ public class GameField {
         if ((x + y) % 2 != 0) {
             throw new CardNotFoundException("The card is not present in the game field");
         }
+
         for (Side card : placedCards.keySet()) {
             GameFieldPosition pos = placedCards.get(card);
             if (pos.x() == x && pos.y() == y) {
                 return card.color();
             }
         }
+
         throw new CardNotFoundException("The card is not present in the game field");
     }
 
@@ -126,19 +126,26 @@ public class GameField {
     public int countMatches(GameFieldPattern pattern) {
         int matches = 0;
         Matrix<Symbol> fieldCopy = fieldMatrix.copy();  // copy the field to avoid modifying the original field while calling remove() method
+
         Matrix<Symbol> shape = pattern.getShape();
-        MatrixSubMatrixIterator<Symbol> subMatrixIterator = (MatrixSubMatrixIterator<Symbol>) fieldCopy.iterator(shape.getWidth(), shape.getHeight());
+        Matrix<Symbol> deletionMask = pattern.getDeletionMask();
+
+        MatrixSubMatrixIterator<Symbol> subMatrixIterator = fieldCopy.iterator(shape.getWidth(), shape.getHeight());
 
         while (subMatrixIterator.hasNext()) {
             Matrix<Symbol> subMatrix = subMatrixIterator.next();
+            boolean match = true;
+
             int relativeX = subMatrixIterator.getOffsetX();
             int relativeY = subMatrixIterator.getOffsetY();
-            boolean match = true;
+
             if ((relativeY + relativeX) % 2 != 0 || !subMatrix.containsShape(shape)) {
                 continue;
             }
+
             MatrixElementIterator<Symbol> elementIterator = (MatrixElementIterator<Symbol>) pattern.pattern().iterator();
-            while (elementIterator.hasNext()) {
+
+            while (match && elementIterator.hasNext()) {
                 Symbol color = elementIterator.next();
                 if (!color.equals(Symbol.EMPTY)) {
                     try {
@@ -151,9 +158,10 @@ public class GameField {
                     }
                 }
             }
+
             if (match) {
                 matches++;
-                subMatrixIterator.remove(shape);    // remove the submatrix from the field, so that it is not counted again
+                subMatrixIterator.remove(deletionMask);    // remove the submatrix from the field, so that it is not counted again
             }
         }
         return matches;

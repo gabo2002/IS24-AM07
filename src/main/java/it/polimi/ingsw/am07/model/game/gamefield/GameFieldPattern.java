@@ -73,13 +73,37 @@ public record GameFieldPattern(
     public Matrix<Symbol> getShape() {
         Matrix<Symbol> matrix = pattern.copy();
         MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.iterator();
+
         while (iterator.hasNext()) {
             Symbol s = iterator.next();
+
             if (!Symbol.EMPTY.equals(s)) {
-                this.fillShape(matrix, s, iterator.getCurrentX(), iterator.getCurrentY());
+                fillShape(matrix, s, iterator.getCurrentX(), iterator.getCurrentY());
             }
         }
+
         return matrix;
+    }
+
+    /**
+     * Get the mask that can be used to delete the pattern from the GameField matrix
+     *
+     * @return a matrix with the same size as the pattern shape, but with valid card positions set to null to avoid
+     *         deleting corner overlaps when removing the pattern from the GameField matrix
+     * @author Roberto Alessandro Bertolini
+     */
+    public Matrix<Symbol> getDeletionMask() {
+        Matrix<Symbol> deletionMask = getShape();
+
+        for (int i = 0; i < deletionMask.getWidth(); i++) {
+            for (int j = 0; j < deletionMask.getHeight(); j++) {
+                if ((i + j) % 2 == 0) {
+                    deletionMask.clear(i, j);
+                }
+            }
+        }
+
+        return deletionMask;
     }
 
     /**
