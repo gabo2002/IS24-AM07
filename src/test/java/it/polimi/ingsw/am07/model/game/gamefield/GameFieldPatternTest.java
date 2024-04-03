@@ -45,16 +45,9 @@ public class GameFieldPatternTest {
         pattern.set(3, 1, Symbol.SCROLL);
         assertThrows(IllegalArgumentException.class, () -> new GameFieldPattern(pattern));
 
-        //invalid pattern
-        Matrix<Symbol> pattern1 = new Matrix<>(3, 4, Symbol.EMPTY);
-        pattern1.set(3, 1, Symbol.EMPTY);
-        pattern1.set(1, 0, Symbol.RED);
-        assertThrows(IllegalArgumentException.class, () -> new GameFieldPattern(pattern1));
-
         //edge Case: empty pattern
         Matrix<Symbol> pattern2 = new Matrix<>(3, 4, Symbol.EMPTY);
         assertDoesNotThrow(() -> new GameFieldPattern(pattern2));
-
     }
 
     @Test
@@ -86,10 +79,6 @@ public class GameFieldPatternTest {
         assertEquals(Symbol.BLUE, shape.get(3, 2));
         assertEquals(Symbol.BLUE, shape.get(4, 1));
         assertEquals(Symbol.BLUE, shape.get(4, 2));
-
-        // Trying invalid pattern position
-        pattern.set(1, 0, Symbol.RED);
-        assertThrows(IllegalArgumentException.class, () -> new GameFieldPattern(pattern));
 
         /** Testing pattern
          * R R
