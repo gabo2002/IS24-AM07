@@ -23,7 +23,33 @@
 
 package it.polimi.ingsw.am07.model.game.gamefield;
 
+/**
+ * Represents a position within the game field.
+ * @param x the x coordinate
+ * @param y the y coordinate
+ * @param z the z-index
+ */
 public record GameFieldPosition(
         int x, int y, int z
 ) {
+
+    /**
+     * Verifies if the position is valid within the game field position system.
+     *
+     * @return true if the position is valid, false otherwise
+     */
+    public boolean isValid() {
+        return (x + y) % 2 == 0;
+    }
+
+    /**
+     * Constructs a new GameFieldPosition with the specified parameters and no z-index.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
+    public GameFieldPosition(int x, int y) {
+        this(x, y, -1);
+    }
+
 }
