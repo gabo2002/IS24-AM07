@@ -21,13 +21,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model.game;
+package it.polimi.ingsw.am07.exceptions;
 
-import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPattern;
+/**
+ * Indicates an attempt to construct an illegal game position.
+ */
+public class IllegalGamePositionException extends Exception {
 
-public record ObjectiveCard(
-        int associatedScore,
-        ResourceHolder requirements,
-        GameFieldPattern pattern
-) {
+    /**
+     * Constructs a new IllegalGamePositionException with no detail message.
+     */
+    public IllegalGamePositionException() {
+        super();
+    }
+
+    /**
+     * Constructs a new IllegalGamePositionException with the specified detail message.
+     *
+     * @param message
+     */
+    public IllegalGamePositionException(String message) {
+        super(message);
+    }
+
 }
