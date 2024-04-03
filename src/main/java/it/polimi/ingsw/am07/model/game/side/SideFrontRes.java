@@ -28,8 +28,20 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 
 public final class SideFrontRes extends SideFront {
 
-    public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
+    private final int associatedScore;
+
+    public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color, int associatedScore) {
         super(id, fieldRepresentation, resources, color);
+        this.associatedScore = associatedScore;
+    }
+
+    public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
+        this(id, fieldRepresentation, resources, color, 0);
+    }
+
+    @Override
+    public int calculateAssociatedScore(ResourceHolder resources, int coveredCorners) {
+        return associatedScore;
     }
 
 }
