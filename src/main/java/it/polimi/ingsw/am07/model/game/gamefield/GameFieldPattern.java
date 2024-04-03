@@ -51,14 +51,9 @@ public record GameFieldPattern(
     public GameFieldPattern {
         final List<Symbol> allowedSymbols = List.of(Symbol.EMPTY, Symbol.RED, Symbol.GREEN, Symbol.BLUE, Symbol.PURPLE);
 
-        MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.iterator();
-        while (iterator.hasNext()) {
-            Symbol s = iterator.next();
+        for (Symbol s: pattern) {
             if (!allowedSymbols.contains(s)) {
                 throw new IllegalArgumentException("Invalid symbol in pattern");
-            }
-            if (!s.equals(Symbol.EMPTY) && (iterator.getCurrentX() + iterator.getCurrentY()) % 2 != 0) {
-                throw new IllegalArgumentException("Invalid symbol position in pattern");
             }
         }
     }
@@ -93,17 +88,29 @@ public record GameFieldPattern(
      * @author Roberto Alessandro Bertolini
      */
     public Matrix<Symbol> getDeletionMask() {
-        Matrix<Symbol> deletionMask = getShape();
+        Matrix<Symbol> deletionMatrix = pattern.getSubMatrix(0, 0, pattern.getWidth() + 1, pattern.getHeight() + 1);
 
-        for (int i = 0; i < deletionMask.getWidth(); i++) {
-            for (int j = 0; j < deletionMask.getHeight(); j++) {
-                if ((i + j) % 2 == 0) {
-                    deletionMask.clear(i, j);
-                }
-            }
+        // Heuristics on the possible patterns to avoid deleting corners that are not necessarily part of the pattern
+        if (pattern.get(0, 0) != Symbol.EMPTY && pattern.get(0, 2) != Symbol.EMPTY) {
+            deletionMatrix.clear(0, 0);
+            deletionMatrix.clear(0, 2);
+            deletionMatrix.set(1, 1, Symbol.RED);
+        } else if (pattern.get(1, 0) != Symbol.EMPTY && pattern.get(1, 2) != Symbol.EMPTY) {
+            deletionMatrix.clear(1, 0);
+            deletionMatrix.clear(1, 2);
+            deletionMatrix.clear(0, 3);
+            deletionMatrix.set(1, 1, Symbol.RED);
+            deletionMatrix.set(1, 3, Symbol.RED);
+        } else if (pattern.get(0, 1) != Symbol.EMPTY && pattern.get(0, 3) != Symbol.EMPTY) {
+            deletionMatrix.clear(0, 1);
+            deletionMatrix.clear(0, 3);
+            deletionMatrix.set(1, 1, Symbol.RED);
+            deletionMatrix.set(1, 3, Symbol.RED);
+        } else if (pattern.get(1, 1) != Symbol.EMPTY && pattern.get(1, 3) != Symbol.EMPTY) {
+            deletionMatrix.clear(0, 0);
         }
 
-        return deletionMask;
+        return deletionMatrix;
     }
 
     /**

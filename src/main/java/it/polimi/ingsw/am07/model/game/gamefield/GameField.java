@@ -139,7 +139,7 @@ public class GameField {
             int relativeX = subMatrixIterator.getOffsetX();
             int relativeY = subMatrixIterator.getOffsetY();
 
-            if ((relativeY + relativeX) % 2 != 0 || !subMatrix.containsShape(shape)) {
+            if (!subMatrix.containsShape(shape)) {
                 continue;
             }
 
