@@ -75,6 +75,17 @@ public class ResourceHolder {
     }
 
     /**
+     * Constructor that initializes a resource holder with the resources provided by another resource holder.
+     * The new resource holder is a copy of the provided one.
+     *
+     * @param resourceHolder the resource holder to copy.
+     */
+    public ResourceHolder(ResourceHolder resourceHolder) {
+        this();
+        add(resourceHolder);
+    }
+
+    /**
      * Increments the count of a resource in the resource holder.
      * If the provided symbol is not a resource, the method does nothing.
      *
