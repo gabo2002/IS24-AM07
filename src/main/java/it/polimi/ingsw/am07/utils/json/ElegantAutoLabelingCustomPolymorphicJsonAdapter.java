@@ -94,7 +94,7 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapter extends JsonAdapter
     @Override
     public void toJson(JsonWriter jsonWriter, Object o) throws IOException, RuntimeException {
         if (o == null) {
-            throw new NullPointerException("Object is null");
+            return;
         }
 
         int subTypeIndex = subTypes.indexOf(o.getClass());

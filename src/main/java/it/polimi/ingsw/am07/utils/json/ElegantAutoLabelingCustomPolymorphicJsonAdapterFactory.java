@@ -107,7 +107,7 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<T> implement
         List<JsonAdapter<Object>> jsonAdapters = new ArrayList<>();
 
         for (Type subType : subClasses) {
-            JsonAdapter<Object> jsonAdapter = moshi.adapter(subType);
+            JsonAdapter<Object> jsonAdapter = moshi.adapter(subType).nullSafe();
             jsonAdapters.add(jsonAdapter);
         }
 
