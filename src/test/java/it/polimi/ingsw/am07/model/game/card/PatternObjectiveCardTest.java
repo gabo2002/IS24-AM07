@@ -1,0 +1,212 @@
+/*
+ * Codex Naturalis - Final Assignment for the Software Engineering Course
+ * Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Please note that the GNU General Public License applies only to the
+ * files that contain this license header. Other files within the project, such
+ * as assets and images, are property of the original owners and may be
+ * subject to different copyright terms.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package it.polimi.ingsw.am07.model.game.card;
+
+import it.polimi.ingsw.am07.model.game.ResourceHolder;
+import it.polimi.ingsw.am07.model.game.Symbol;
+import it.polimi.ingsw.am07.model.game.gamefield.GameField;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPattern;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
+import it.polimi.ingsw.am07.model.game.side.Side;
+import it.polimi.ingsw.am07.model.game.side.SideBack;
+import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class PatternObjectiveCardTest {
+
+    static Side getGenericSide(Symbol symbol) {
+        Matrix<Symbol> matrix = new Matrix<>(2, 2, Symbol.BLANK);
+
+        SideFieldRepresentation sideFieldRepresentation = new SideFieldRepresentation(matrix);
+
+        return new SideBack(1, sideFieldRepresentation, new ResourceHolder(), symbol);
+    }
+
+    static GameFieldPattern getDiagonalPattern(Symbol color) {
+        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
+        patternMatrix.set(0, 0, color);
+        patternMatrix.set(1, 1, color);
+        patternMatrix.set(2, 2, color);
+        return new GameFieldPattern(patternMatrix);
+    }
+
+    static GameFieldPattern getLPattern(int type, Symbol shortSide, Symbol longSide) {
+        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
+        if (type == 0) {
+            patternMatrix.set(0, 0, longSide);
+            patternMatrix.set(0, 2, longSide);
+            patternMatrix.set(1, 3, shortSide);
+        } else if (type == 1) {
+            patternMatrix.set(1, 0, longSide);
+            patternMatrix.set(1, 2, longSide);
+            patternMatrix.set(0, 3, shortSide);
+        } else if (type == 2) {
+            patternMatrix.set(1, -1, shortSide);
+            patternMatrix.set(0, 0, longSide);
+            patternMatrix.set(0, 2, longSide);
+        } else if (type == 3) {
+            patternMatrix.set(0, 0, shortSide);
+            patternMatrix.set(1, 1, longSide);
+            patternMatrix.set(1, 3, longSide);
+        } else {
+            throw new IllegalArgumentException("Invalid L pattern type");
+        }
+        return new GameFieldPattern(patternMatrix);
+    }
+
+    @Test
+    void calculateScore() {
+        // Test 1: diagonal pattern, empty field
+        GameField field = new GameField();
+        GameFieldPattern pattern = getDiagonalPattern(Symbol.RED);
+        PatternObjectiveCard card = new PatternObjectiveCard(5, pattern);
+        assertEquals(0, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 2: diagonal pattern, field with the same pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(2, 2, 0));
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 3: diagonal pattern, field with a different pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, 2, 0));
+        assertEquals(0, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 4: diagonal pattern, field with pattern overlap
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(3, 3, 0));
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 5: diagonal pattern, field with pattern overlap but two matches
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(3, 3, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(4, 4, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(5, 5, 0));
+        assertEquals(10, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 6: diagonal pattern, field with pattern overlap but two matches
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(3, 3, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(4, 4, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(5, 5, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(6, 6, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(7, 7, 0));
+        assertEquals(10, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 7: diagonal pattern, field with pattern overlap but three matches
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(3, 3, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(4, 4, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(5, 5, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(6, 6, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(7, 7, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(8, 8, 0));
+        assertEquals(15, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 8: diagonal pattern, field with no overlap and two matches
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(4, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(5, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(6, 2, 0));
+        assertEquals(10, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 11: L pattern, empty field
+        field = new GameField();
+        pattern = getLPattern(0, Symbol.RED, Symbol.BLUE);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(0, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 12a: L pattern, field with the same pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(-1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
+        pattern = getLPattern(0, Symbol.BLUE, Symbol.RED);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 12b: L pattern, field with the same pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, -1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(2, -2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, -3, 0));
+        pattern = getLPattern(1, Symbol.BLUE, Symbol.RED);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 12c: L pattern, field with the same pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(-2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-1, 3, 0));
+        pattern = getLPattern(2, Symbol.RED, Symbol.BLUE);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 12d: L pattern, field with the same pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
+        pattern = getLPattern(3, Symbol.RED, Symbol.BLUE);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+
+        // Test 13: L pattern, field with a different pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 3, 0));
+        pattern = getLPattern(0, Symbol.RED, Symbol.BLUE);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(0, card.calculateScore(new ResourceHolder(), field));
+    }
+
+}
