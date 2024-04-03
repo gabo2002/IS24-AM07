@@ -23,7 +23,10 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.exceptions.IllegalGamePositionException;
 import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
+import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -124,7 +127,8 @@ public class Player {
      * @author Omar Chaabani
      */
     public boolean canBePlacedAt(Side card, GameFieldPosition pos) {
-        return playerGameField.canBePlacedOnFieldAt(card, pos)
+        return pos.isValid()
+                && playerGameField.canBePlacedOnFieldAt(card, pos)
                 && card.requirements()
                 .map(playerResources::contains)
                 .orElse(true);
@@ -137,9 +141,14 @@ public class Player {
      * @param pos  The position on the game field where the card is to be placed.
      * @throws IllegalPlacementException if the position is not valid
      */
-    public void placeAt(Side card, GameFieldPosition pos) throws IllegalPlacementException {
-        if (!canBePlacedAt(card, pos))
+    public void placeAt(Side card, GameFieldPosition pos) throws IllegalPlacementException, IllegalGamePositionException {
+        if (!pos.isValid()) {
+            throw new IllegalGamePositionException("The provided position is not valid");
+        }
+
+        if (!canBePlacedAt(card, pos)) {
             throw new IllegalPlacementException("The provided position is not valid");
+        }
 
         final ResourceHolder diff = playerGameField.placeOnFieldAt(card, pos);
 
@@ -188,7 +197,7 @@ public class Player {
      * @return the obtained score
      */
     public int evaluateObjectiveScore(ObjectiveCard objective) {
-        return 0;
+        return objective.calculateScore(new ResourceHolder(playerResources), playerGameField);
     }
 
 }
