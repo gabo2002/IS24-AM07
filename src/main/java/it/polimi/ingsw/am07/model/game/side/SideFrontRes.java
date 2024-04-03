@@ -57,11 +57,14 @@ public final class SideFrontRes extends SideFront {
     }
 
     /**
-     * Calculates the associated score for the side.
-     * @return The associated score for the side.
+     * Calculates the associated score based on the provided resources and covered corners.
+     *
+     * @param resources The resources available for calculation.
+     * @param coveredCorners The number of corners covered.
+     * @return The calculated associated score.
      */
-    public int calculateAssociatedScore() {
-        // this comment is temporary --> corners and resources do not affect my score (?)
+    @Override
+    public int calculateAssociatedScore(ResourceHolder resources, int coveredCorners) {
         return associatedScore;
     }
 
