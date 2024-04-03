@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
+import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.model.game.side.SideFrontRes;
 import org.junit.jupiter.api.Test;

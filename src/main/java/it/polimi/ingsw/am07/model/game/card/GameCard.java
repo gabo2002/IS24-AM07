@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model.game;
+package it.polimi.ingsw.am07.model.game.card;
 
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.model.game.side.SideFront;
