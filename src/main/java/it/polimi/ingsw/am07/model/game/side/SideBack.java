@@ -28,6 +28,14 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 
 public final class SideBack extends Side {
 
+    /**
+     * Constructs a new SideBack object with the specified parameters.
+     *
+     * @param id                 The unique identifier for the side.
+     * @param fieldRepresentation The representation of the side's field.
+     * @param resources          The resources associated with the side.
+     * @param color              The color of the side.
+     */
     public SideBack(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
         super(id, fieldRepresentation, resources, color);
     }

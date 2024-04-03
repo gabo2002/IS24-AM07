@@ -44,6 +44,13 @@ public class ResourceObjectiveCard extends ObjectiveCard {
         this.requirements = requirements;
     }
 
+    /**
+     * Calculates the score based on the number of times the player's resources satisfy the requirements.
+     *
+     * @param playerResources The resources held by the player.
+     * @param playerGameField The game field of the player (not used in this method).
+     * @return The calculated score based on the number of times the player's resources satisfy the requirements and associated score.
+     */
     @Override
     public int calculateScore(ResourceHolder playerResources, GameField playerGameField) {
         int divisionResult = 0;

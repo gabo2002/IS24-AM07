@@ -30,11 +30,28 @@ public final class SideFrontRes extends SideFront {
 
     private final int associatedScore;
 
+    /**
+     * Constructs a new SideFrontRes object with the specified parameters and associated score.
+     *
+     * @param id                 The unique identifier for the side.
+     * @param fieldRepresentation The representation of the side's field.
+     * @param resources          The resources associated with the side.
+     * @param color              The color of the side.
+     * @param associatedScore    The associated score for this side.
+     */
     public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color, int associatedScore) {
         super(id, fieldRepresentation, resources, color);
         this.associatedScore = associatedScore;
     }
 
+    /**
+     * Constructs a new SideFrontRes object with the specified parameters and default associated score (0).
+     *
+     * @param id                 The unique identifier for the side.
+     * @param fieldRepresentation The representation of the side's field.
+     * @param resources          The resources associated with the side.
+     * @param color              The color of the side.
+     */
     public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
         this(id, fieldRepresentation, resources, color, 0);
     }

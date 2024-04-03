@@ -38,6 +38,14 @@ public sealed abstract class Side permits SideFront, SideBack {
 
     private final ResourceHolder resources;
 
+    /**
+     * Constructs a new side with the specified parameters.
+     *
+     * @param id                 The unique identifier for the side.
+     * @param fieldRepresentation The representation of the side's field.
+     * @param resources          The resources associated with the side.
+     * @param color              The color of the side.
+     */
     protected Side(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
         this.id = id;
         this.fieldRepresentation = fieldRepresentation;
@@ -45,30 +53,68 @@ public sealed abstract class Side permits SideFront, SideBack {
         this.color = color;
     }
 
+    /**
+     * Returns the unique identifier of the side.
+     *
+     * @return The unique identifier of the side.
+     */
     public int id() {
         return id;
     }
 
+    /**
+     * Returns the color of the side.
+     *
+     * @return The color of the side.
+     */
     public Symbol color() {
         return color;
     }
 
+    /**
+     * Returns the field representation of the side.
+     *
+     * @return The field representation of the side.
+     */
     public SideFieldRepresentation fieldRepresentation() {
         return fieldRepresentation;
     }
 
+    /**
+     * Returns the resources associated with the side.
+     *
+     * @return The resources associated with the side.
+     */
     public ResourceHolder resources() {
         return resources;
     }
 
+    /**
+     * Calculates the associated score for the side based on the resources and covered corners.
+     *
+     * @param resources      The resources available to the side.
+     * @param coveredCorners The number of covered corners.
+     * @return The associated score for the side.
+     */
     public int calculateAssociatedScore(ResourceHolder resources, int coveredCorners) {
         return 0;
     }
 
+    /**
+     * Returns an optional containing the requirements of the side, if any.
+     *
+     * @return An optional containing the requirements of the side, if any.
+     */
     public Optional<ResourceHolder> requirements() {
         return Optional.empty();
     }
 
+    /**
+     * Checks if this side is equal to another object.
+     *
+     * @param o The object to compare with this side.
+     * @return True if the given object is equal to this side, false otherwise.
+     */
     public boolean equals(Object o) {
         if (o == this) {
             return true;

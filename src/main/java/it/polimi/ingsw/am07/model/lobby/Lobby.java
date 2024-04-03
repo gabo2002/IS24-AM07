@@ -29,14 +29,28 @@ public class Lobby {
 
     private final ArrayList<String> nicknames;
 
+    /**
+     * Constructs a new Lobby object with an empty list of nicknames.
+     */
     public Lobby() {
         nicknames = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the list of nicknames in the lobby.
+     *
+     * @return The list of nicknames in the lobby.
+     */
     public ArrayList<String> getNicknames() {
         return nicknames;
     }
 
+    /**
+     * Sets a new nickname for the entity.
+     *
+     * @param nickname The new nickname to be set.
+     * @throws IllegalArgumentException If the provided nickname is already taken.
+     */
     public void setNicknames(String nickname) throws IllegalArgumentException {
         if (nicknames.contains(nickname)) {
             throw new IllegalArgumentException("Nickname already taken");

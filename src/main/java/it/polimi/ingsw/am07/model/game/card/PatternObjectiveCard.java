@@ -45,6 +45,13 @@ public class PatternObjectiveCard extends ObjectiveCard {
         this.pattern = pattern;
     }
 
+    /**
+     * Calculates the score based on the matching patterns on the player's game field.
+     *
+     * @param playerResources The resources held by the player.
+     * @param playerGameField The game field of the player.
+     * @return The calculated score based on the matching patterns and associated score.
+     */
     @Override
     public int calculateScore(ResourceHolder playerResources, GameField playerGameField) {
         int matchingPatterns = playerGameField.countMatches(pattern);

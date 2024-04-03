@@ -28,6 +28,14 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 
 public sealed abstract class SideFront extends Side permits SideFrontGold, SideFrontStarter, SideFrontRes {
 
+    /**
+     * Constructs a new SideFront object with the specified parameters.
+     *
+     * @param id                 The unique identifier for the side.
+     * @param fieldRepresentation The representation of the side's field.
+     * @param resources          The resources associated with the side.
+     * @param color              The color of the side.
+     */
     protected SideFront(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
         super(id, fieldRepresentation, resources, color);
     }
