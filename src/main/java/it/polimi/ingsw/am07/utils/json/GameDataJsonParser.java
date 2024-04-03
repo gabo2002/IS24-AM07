@@ -26,6 +26,9 @@ package it.polimi.ingsw.am07.utils.json;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.game.card.PatternObjectiveCard;
+import it.polimi.ingsw.am07.model.game.card.ResourceObjectiveCard;
 import it.polimi.ingsw.am07.model.game.side.*;
 
 import java.util.List;
@@ -65,9 +68,14 @@ public final class GameDataJsonParser<T> {
                 .registerSubclass(SideFrontStarter.class)
                 .registerSubclass(SideBack.class);
 
+        ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<ObjectiveCard> objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(ObjectiveCard.class)
+                .registerSubclass(PatternObjectiveCard.class)
+                .registerSubclass(ResourceObjectiveCard.class);
+
         return new Moshi.Builder()
                 .add(sideFrontElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(sideElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
+                .add(objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .build();
     }
 
