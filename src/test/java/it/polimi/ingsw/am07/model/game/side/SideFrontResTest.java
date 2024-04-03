@@ -35,11 +35,12 @@ class SideFrontResTest {
 
         SideFrontRes side = new SideFrontRes(1,null,null,Symbol.NONE,2);
 
-        assertEquals(2, side.calculateAssociatedScore());
+        assertEquals(2, side.calculateAssociatedScore(null, 0));
 
         side = new SideFrontRes(2, null, null, Symbol.BLUE, 4);
 
-        assertEquals(4,side.calculateAssociatedScore());
+        // more tests to add
+        assertEquals(4,side.calculateAssociatedScore(null, 2));
 
     }
 }
