@@ -24,10 +24,11 @@
 package it.polimi.ingsw.am07.model.lobby;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Lobby {
 
-    private final ArrayList<String> nicknames;
+    private final List<String> nicknames;
 
     /**
      * Constructs a new Lobby object with an empty list of nicknames.
@@ -41,7 +42,7 @@ public class Lobby {
      *
      * @return The list of nicknames in the lobby.
      */
-    public ArrayList<String> getNicknames() {
+    public List<String> getNicknames() {
         return nicknames;
     }
 
