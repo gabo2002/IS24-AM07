@@ -43,10 +43,7 @@ public record GameCard(
      * @param front the front side of the card
      * @param back  the back side of the card
      */
-    public GameCard(SideFront front, SideBack back) {
-        this.front = front;
-        this.back = back;
-
+    public GameCard {
         if (front.id() != back.id()) {
             throw new IllegalArgumentException("The front and back sides of the card must have the same id");
         }
