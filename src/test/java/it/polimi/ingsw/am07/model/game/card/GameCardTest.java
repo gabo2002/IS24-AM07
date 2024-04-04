@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.model.game.card;
 
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
-import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 import it.polimi.ingsw.am07.model.game.side.SideFront;

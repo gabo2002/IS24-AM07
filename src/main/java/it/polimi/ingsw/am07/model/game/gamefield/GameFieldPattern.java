@@ -51,7 +51,7 @@ public record GameFieldPattern(
     public GameFieldPattern {
         final List<Symbol> allowedSymbols = List.of(Symbol.EMPTY, Symbol.RED, Symbol.GREEN, Symbol.BLUE, Symbol.PURPLE);
 
-        for (Symbol s: pattern) {
+        for (Symbol s : pattern) {
             if (!allowedSymbols.contains(s)) {
                 throw new IllegalArgumentException("Invalid symbol in pattern");
             }
@@ -84,7 +84,7 @@ public record GameFieldPattern(
      * Get the mask that can be used to delete the pattern from the GameField matrix
      *
      * @return a matrix with the same size as the pattern shape, but with valid card positions set to null to avoid
-     *         deleting corner overlaps when removing the pattern from the GameField matrix
+     * deleting corner overlaps when removing the pattern from the GameField matrix
      * @author Roberto Alessandro Bertolini
      */
     public Matrix<Symbol> getDeletionMask() {

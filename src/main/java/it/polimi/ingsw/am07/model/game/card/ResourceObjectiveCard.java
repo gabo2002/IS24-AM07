@@ -37,7 +37,7 @@ public class ResourceObjectiveCard extends ObjectiveCard {
      * Constructs a new ResourceObjectiveCard with the specified parameters.
      *
      * @param associatedScore the score associated with the card
-     * @param requirements the resources required to complete the card
+     * @param requirements    the resources required to complete the card
      */
     public ResourceObjectiveCard(int associatedScore, ResourceHolder requirements) {
         super(associatedScore);

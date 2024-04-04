@@ -25,9 +25,9 @@ package it.polimi.ingsw.am07.utils.json;
 
 import it.polimi.ingsw.am07.Application;
 import it.polimi.ingsw.am07.model.game.Game;
-import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
+import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;

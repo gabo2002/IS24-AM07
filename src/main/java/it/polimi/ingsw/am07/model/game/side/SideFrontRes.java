@@ -33,11 +33,11 @@ public final class SideFrontRes extends SideFront {
     /**
      * Constructs a new SideFrontRes object with the specified parameters and associated score.
      *
-     * @param id                 The unique identifier for the side.
+     * @param id                  The unique identifier for the side.
      * @param fieldRepresentation The representation of the side's field.
-     * @param resources          The resources associated with the side.
-     * @param color              The color of the side.
-     * @param associatedScore    The associated score for this side.
+     * @param resources           The resources associated with the side.
+     * @param color               The color of the side.
+     * @param associatedScore     The associated score for this side.
      */
     public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color, int associatedScore) {
         super(id, fieldRepresentation, resources, color);
@@ -47,10 +47,10 @@ public final class SideFrontRes extends SideFront {
     /**
      * Constructs a new SideFrontRes object with the specified parameters and default associated score (0).
      *
-     * @param id                 The unique identifier for the side.
+     * @param id                  The unique identifier for the side.
      * @param fieldRepresentation The representation of the side's field.
-     * @param resources          The resources associated with the side.
-     * @param color              The color of the side.
+     * @param resources           The resources associated with the side.
+     * @param color               The color of the side.
      */
     public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
         this(id, fieldRepresentation, resources, color, 0);
@@ -59,7 +59,7 @@ public final class SideFrontRes extends SideFront {
     /**
      * Calculates the associated score based on the provided resources and covered corners.
      *
-     * @param resources The resources available for calculation.
+     * @param resources      The resources available for calculation.
      * @param coveredCorners The number of corners covered.
      * @return The calculated associated score.
      */

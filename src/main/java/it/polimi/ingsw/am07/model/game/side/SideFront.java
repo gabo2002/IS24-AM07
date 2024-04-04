@@ -31,10 +31,10 @@ public sealed abstract class SideFront extends Side permits SideFrontGold, SideF
     /**
      * Constructs a new SideFront object with the specified parameters.
      *
-     * @param id                 The unique identifier for the side.
+     * @param id                  The unique identifier for the side.
      * @param fieldRepresentation The representation of the side's field.
-     * @param resources          The resources associated with the side.
-     * @param color              The color of the side.
+     * @param resources           The resources associated with the side.
+     * @param color               The color of the side.
      */
     protected SideFront(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
         super(id, fieldRepresentation, resources, color);

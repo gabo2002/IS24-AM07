@@ -36,17 +36,12 @@ import java.util.List;
  */
 public class GameResources {
 
-    private static GameResources instance;
-
-    private final List<GameCard> goldCards;
-
-    private final List<GameCard> resourceCards;
-
-    private final List<ObjectiveCard> objectiveCards;
-
     public static int CARDS_COUNT = AssetsRegistry.CARDS_COUNT;
-
     public static int OBJECTIVES_COUNT = AssetsRegistry.OBJECTIVES_COUNT;
+    private static GameResources instance;
+    private final List<GameCard> goldCards;
+    private final List<GameCard> resourceCards;
+    private final List<ObjectiveCard> objectiveCards;
 
     private GameResources() {
         goldCards = new ArrayList<>();

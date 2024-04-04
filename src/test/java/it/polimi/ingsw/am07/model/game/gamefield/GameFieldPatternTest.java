@@ -120,7 +120,7 @@ public class GameFieldPatternTest {
             }
         }
 
-        MatrixSubMatrixIterator<Symbol> iterator = (MatrixSubMatrixIterator<Symbol>) gameField.iterator(pattern2.getWidth(), pattern2.getHeight());
+        MatrixSubMatrixIterator<Symbol> iterator = gameField.iterator(pattern2.getWidth(), pattern2.getHeight());
         //check if every submatrix of the gameField contains the pattern
         while (iterator.hasNext()) {
             Matrix<Symbol> subMatrix = iterator.next();
@@ -149,7 +149,7 @@ public class GameFieldPatternTest {
             //check if at least 1 submatrix of the shape contains the pattern
             boolean found = false;
 
-            MatrixSubMatrixIterator<Symbol> iterator = (MatrixSubMatrixIterator<Symbol>) shape.iterator(pattern.getWidth(), pattern.getHeight());
+            MatrixSubMatrixIterator<Symbol> iterator = shape.iterator(pattern.getWidth(), pattern.getHeight());
             while (iterator.hasNext()) {
                 Matrix<Symbol> subMatrix = iterator.next();
                 if (subMatrix.containsShape(pattern)) {

@@ -26,21 +26,21 @@ package it.polimi.ingsw.am07.model.game.side;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SideFrontResTest {
 
     @Test
     void calculateAssociatedScore() {
 
-        SideFrontRes side = new SideFrontRes(1,null,null,Symbol.NONE,2);
+        SideFrontRes side = new SideFrontRes(1, null, null, Symbol.NONE, 2);
 
         assertEquals(2, side.calculateAssociatedScore(null, 0));
 
         side = new SideFrontRes(2, null, null, Symbol.BLUE, 4);
 
         // more tests to add
-        assertEquals(4,side.calculateAssociatedScore(null, 2));
+        assertEquals(4, side.calculateAssociatedScore(null, 2));
 
     }
 }

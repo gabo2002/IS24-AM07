@@ -38,7 +38,7 @@ public class PatternObjectiveCard extends ObjectiveCard {
      * Constructs a new PatternObjectiveCard with the specified parameters.
      *
      * @param associatedScore the score associated with the card
-     * @param pattern the pattern required to complete the card
+     * @param pattern         the pattern required to complete the card
      */
     public PatternObjectiveCard(int associatedScore, GameFieldPattern pattern) {
         super(associatedScore);

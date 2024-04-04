@@ -41,10 +41,10 @@ public sealed abstract class Side permits SideFront, SideBack {
     /**
      * Constructs a new side with the specified parameters.
      *
-     * @param id                 The unique identifier for the side.
+     * @param id                  The unique identifier for the side.
      * @param fieldRepresentation The representation of the side's field.
-     * @param resources          The resources associated with the side.
-     * @param color              The color of the side.
+     * @param resources           The resources associated with the side.
+     * @param color               The color of the side.
      */
     protected Side(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
         this.id = id;

@@ -34,7 +34,7 @@ import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PatternObjectiveCardTest {
 
