@@ -51,12 +51,7 @@ public class Game implements Serializable {
     public Game(String selfNickname) {
         this.selfNickname = selfNickname;
         players = new ArrayList<>();
-        deck = new Deck(
-                new ArrayList<>(),
-                new ArrayList<>(),
-                new GameCard[2],
-                new GameCard[2]
-        );
+        deck = Deck.DeckFactory.inflateNewDeck();
         availableObjectiveCards = new ArrayList<>();
         commonObjectives = new ObjectiveCard[2];
         currentPlayerIndex = 0;

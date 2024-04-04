@@ -26,6 +26,8 @@ package it.polimi.ingsw.am07.model.game;
 import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,6 +44,12 @@ public record Deck(
         GameCard[] visibleResCards,
         GameCard[] visibleGoldCards
 ) {
+
+    public static int VISIBLE_CARDS_COUNT = 2;
+
+    public Deck() {
+        this(new ArrayList<>(), new ArrayList<>(), new GameCard[VISIBLE_CARDS_COUNT], new GameCard[VISIBLE_CARDS_COUNT]);
+    }
 
     /**
      * Picks a random resource card from the deck and removes it.
@@ -132,6 +140,35 @@ public record Deck(
         }
 
         return false;
+    }
+
+    public static class DeckFactory {
+
+        public static Deck inflateNewDeck() {
+            GameResources gameResources = GameResources.getInstance();
+
+            List<GameCard> resourceCards = new ArrayList<>(gameResources.getResourceCards());
+            List<GameCard> goldCards = new ArrayList<>(gameResources.getGoldCards());
+
+            Collections.shuffle(resourceCards);
+            Collections.shuffle(goldCards);
+
+            GameCard[] visibleResCards = new GameCard[VISIBLE_CARDS_COUNT];
+            GameCard[] visibleGoldCards = new GameCard[VISIBLE_CARDS_COUNT];
+
+            for (int i = 0; i < VISIBLE_CARDS_COUNT; i++) {
+                visibleResCards[i] = resourceCards.removeFirst();
+                visibleGoldCards[i] = goldCards.removeFirst();
+            }
+
+            return new Deck(
+                    resourceCards,
+                    goldCards,
+                    visibleResCards,
+                    visibleGoldCards
+            );
+        }
+
     }
 
 }
