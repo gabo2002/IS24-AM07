@@ -51,6 +51,13 @@ public class Game implements Serializable {
 
     private GameState gameState;
 
+    /**
+     * Default constructor for the Game class.
+     * It initializes the game with a random UUID, an empty list of players, a new deck, and the nickname of the current player.
+     *
+     *
+     * @param selfNickname the nickname of the current player
+     */
     public Game(String selfNickname) {
         id = UUID.randomUUID();
         players = new ArrayList<>();
@@ -61,6 +68,22 @@ public class Game implements Serializable {
         gameState = GameState.STARTING;
 
         this.selfNickname = selfNickname;
+    }
+
+    /**
+     * Constructor for the Game class, called by Lobby Class.
+     * <strong>SERVER SIDE ONLY!</strong>
+     * @param players the list of players in the game
+     */
+    public Game(List<Player> players) {
+        id = UUID.randomUUID();
+        this.players = players;
+        deck = Deck.DeckFactory.inflateNewDeck();
+        availableObjectiveCards = new ArrayList<>();
+        commonObjectives = new ObjectiveCard[2];
+        currentPlayerIndex = 0;
+        gameState = GameState.STARTING;
+        this.selfNickname = null;
     }
 
     /**

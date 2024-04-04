@@ -96,18 +96,19 @@ public class GameField {
     /**
      * Retrieves the color at the specified position on the game field. if the card is not present in the game field, an exception is thrown.
      *
+     * @param map the map containing the cards placed on the game field
      * @param x the x coordinate on the game field
      * @param y the y coordinate on the game field
      * @return the color at the specified position on the game field
      * @throws CardNotFoundException if the card is not present in the game field
      */
-    private Symbol getCardColorAt(int x, int y) throws CardNotFoundException {
+    private Symbol getCardColorAt(Map<Side,GameFieldPosition> map, int x, int y) throws CardNotFoundException {
         if ((x + y) % 2 != 0) {
             throw new CardNotFoundException("The card is not present in the game field");
         }
 
-        for (Side card : placedCards.keySet()) {
-            GameFieldPosition pos = placedCards.get(card);
+        for (Side card : map.keySet()) {
+            GameFieldPosition pos = map.get(card);
             if (pos.x() == x && pos.y() == y) {
                 return card.color();
             }
@@ -125,12 +126,9 @@ public class GameField {
      */
     public int countMatches(GameFieldPattern pattern) {
         int matches = 0;
-        Matrix<Symbol> fieldCopy = fieldMatrix.copy();  // copy the field to avoid modifying the original field while calling remove() method
-
+        Map<Side,GameFieldPosition> placedCardsCopy = new HashMap<>(placedCards);  // copy the placed cards to avoid modifying the original map while iterating over it
         Matrix<Symbol> shape = pattern.getShape();
-        Matrix<Symbol> deletionMask = pattern.getDeletionMask();
-
-        MatrixSubMatrixIterator<Symbol> subMatrixIterator = fieldCopy.iterator(shape.getWidth(), shape.getHeight());
+        MatrixSubMatrixIterator<Symbol> subMatrixIterator = fieldMatrix.iterator(shape.getWidth(), shape.getHeight());
 
         while (subMatrixIterator.hasNext()) {
             Matrix<Symbol> subMatrix = subMatrixIterator.next();
@@ -149,7 +147,7 @@ public class GameField {
                 Symbol color = elementIterator.next();
                 if (!color.equals(Symbol.EMPTY)) {
                     try {
-                        Symbol cardColor = getCardColorAt(relativeX + elementIterator.getCurrentX(), relativeY + elementIterator.getCurrentY());
+                        Symbol cardColor = getCardColorAt(placedCardsCopy, relativeX + elementIterator.getCurrentX(), relativeY + elementIterator.getCurrentY());
                         if (!cardColor.equals(color)) {
                             match = false;
                         }
@@ -161,7 +159,22 @@ public class GameField {
 
             if (match) {
                 matches++;
-                subMatrixIterator.remove(deletionMask);    // remove the submatrix from the field, so that it is not counted again
+                //I have to remove from placedCardsCopy the cards that I have just found
+                MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.pattern().iterator();
+
+                while(iterator.hasNext()) {
+                    Symbol color = iterator.next();
+                    if (!color.equals(Symbol.EMPTY)) {
+                        try {
+                            Symbol cardColor = getCardColorAt(placedCardsCopy, relativeX + iterator.getCurrentX(), relativeY + iterator.getCurrentY());
+                            if (cardColor.equals(color)) {
+                                placedCardsCopy.entrySet().removeIf(entry -> entry.getValue().x() == relativeX + iterator.getCurrentX() && entry.getValue().y() == relativeY + iterator.getCurrentY());
+                            }
+                        } catch (CardNotFoundException e) {
+                            //never happens, because I have already checked that the cards are present
+                        }
+                    }
+                }
             }
         }
         return matches;

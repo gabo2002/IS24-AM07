@@ -34,9 +34,127 @@ import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PatternObjectiveCardTest {
+    private final static int RANDOM_TEST_ITERATIONS = 100;
+
+    @Test
+    void calculateScoreEmptyField() {
+        GameField field = new GameField();
+        GameFieldPattern pattern = getLeftDiagonalPattern(Symbol.RED);
+        PatternObjectiveCard card = new PatternObjectiveCard(5, pattern);
+        assertEquals(0, card.calculateScore(new ResourceHolder(), field));
+        pattern = getRightDiagonalPattern(Symbol.RED);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(0, card.calculateScore(new ResourceHolder(), field));
+
+        for (int i = 0; i < 5; i++) {
+            pattern = getLPattern(i, Symbol.RED, Symbol.BLUE);
+            card = new PatternObjectiveCard(5, pattern);
+            assertEquals(0, card.calculateScore(new ResourceHolder(), field));
+        }
+    }
+
+    @Test
+    void calculateSingleCardPattern() {
+        Matrix<Symbol> patternMatrix = new Matrix<>(1,1, Symbol.EMPTY);
+        patternMatrix.set(0, 0, Symbol.RED);
+        ObjectiveCard card = new PatternObjectiveCard(1, new GameFieldPattern(patternMatrix));
+        Matrix<Symbol> patternMatrix2 = new Matrix<>(1,1, Symbol.EMPTY);
+        patternMatrix2.set(0, 0, Symbol.BLUE);
+        ObjectiveCard card2 = new PatternObjectiveCard(1, new GameFieldPattern(patternMatrix2));
+
+        //generate random field
+        for (int i = 0; i < RANDOM_TEST_ITERATIONS; i++) {
+            GameField field = new GameField();
+            int elements = (int) (Math.random() * 10);
+            int numberOfReds = (int) (Math.random() * elements);
+
+            //random position
+            List<GameFieldPosition> positions = getRandomPositionWithoutOverlap(elements);
+            for (int j = 0; j < elements; j++) {
+                Symbol color = j < numberOfReds ? Symbol.RED : Symbol.BLUE;
+                Side side = getGenericSide(color);
+                field.placeOnFieldAt(side, positions.get(j));
+            }
+            assertEquals(numberOfReds, card.calculateScore(new ResourceHolder(), field));
+            assertEquals(elements - numberOfReds, card2.calculateScore(new ResourceHolder(), field));
+        }
+    }
+
+    @Test
+    void calculateScoreComplexPatterns() {
+        /*
+            R
+           R B B
+            B B
+         */
+        GameField field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, -1, 0));
+        GameFieldPattern pattern = getLPattern(3, Symbol.RED, Symbol.BLUE);
+        PatternObjectiveCard card = new PatternObjectiveCard(5, pattern);
+        assertEquals(10, card.calculateScore(new ResourceHolder(), field));
+
+        //A very complex pattern
+        field = new GameField();
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-1, -1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(-2, -2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(-3, -1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-2, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, -1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(0, -2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, 0, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-1, 1, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-2, 2, 0));
+        field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
+        pattern = getLPattern(3, Symbol.RED, Symbol.BLUE);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(15, card.calculateScore(new ResourceHolder(), field));
+        pattern = getLeftDiagonalPattern(Symbol.BLUE);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+        pattern = getRightDiagonalPattern(Symbol.BLUE);
+        card = new PatternObjectiveCard(5, pattern);
+        assertEquals(5, card.calculateScore(new ResourceHolder(), field));
+    }
+
+    static List<GameFieldPosition> getRandomPositionWithoutOverlap( int size) {
+        int x = 0, y = 0;
+        List<GameFieldPosition> positions = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            boolean placed = false;
+            while (!placed) {
+                placed = true;
+                x = (int) (Math.random() * 20);
+                y = (int) (Math.random() * 20);
+
+                if ((x+y) % 2 != 0) {
+                    placed = false;
+                }
+
+                for(GameFieldPosition position : positions) {
+                    if(position.x() == x && position.y() == y) {
+                        placed = false;
+                        break;
+                    }
+                }
+            }
+            positions.add(new GameFieldPosition(x, y, 0));
+        }
+        return positions;
+    }
 
     static Side getGenericSide(Symbol symbol) {
         Matrix<Symbol> matrix = new Matrix<>(2, 2, Symbol.BLANK);
@@ -46,7 +164,14 @@ class PatternObjectiveCardTest {
         return new SideBack(1, sideFieldRepresentation, new ResourceHolder(), symbol);
     }
 
-    static GameFieldPattern getDiagonalPattern(Symbol color) {
+    static GameFieldPattern getRightDiagonalPattern(Symbol color) {
+        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
+        patternMatrix.set(0, 2, color);
+        patternMatrix.set(1, 1, color);
+        patternMatrix.set(2, 0, color);
+        return new GameFieldPattern(patternMatrix);
+    }
+    static GameFieldPattern getLeftDiagonalPattern(Symbol color) {
         Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
         patternMatrix.set(0, 0, color);
         patternMatrix.set(1, 1, color);
@@ -72,7 +197,12 @@ class PatternObjectiveCardTest {
             patternMatrix.set(0, 0, shortSide);
             patternMatrix.set(1, 1, longSide);
             patternMatrix.set(1, 3, longSide);
-        } else {
+        } else if (type == 4) {
+            patternMatrix.set(0, 0, shortSide);
+            patternMatrix.set(1, 1, longSide);
+            patternMatrix.set(3, 1, longSide);
+        }
+        else {
             throw new IllegalArgumentException("Invalid L pattern type");
         }
         return new GameFieldPattern(patternMatrix);
@@ -82,7 +212,7 @@ class PatternObjectiveCardTest {
     void calculateScore() {
         // Test 1: diagonal pattern, empty field
         GameField field = new GameField();
-        GameFieldPattern pattern = getDiagonalPattern(Symbol.RED);
+        GameFieldPattern pattern = getLeftDiagonalPattern(Symbol.RED);
         PatternObjectiveCard card = new PatternObjectiveCard(5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
 

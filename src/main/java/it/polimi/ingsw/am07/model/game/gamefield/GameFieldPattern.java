@@ -81,39 +81,6 @@ public record GameFieldPattern(
     }
 
     /**
-     * Get the mask that can be used to delete the pattern from the GameField matrix
-     *
-     * @return a matrix with the same size as the pattern shape, but with valid card positions set to null to avoid
-     * deleting corner overlaps when removing the pattern from the GameField matrix
-     * @author Roberto Alessandro Bertolini
-     */
-    public Matrix<Symbol> getDeletionMask() {
-        Matrix<Symbol> deletionMatrix = pattern.getSubMatrix(0, 0, pattern.getWidth() + 1, pattern.getHeight() + 1);
-
-        // Heuristics on the possible patterns to avoid deleting corners that are not necessarily part of the pattern
-        if (pattern.get(0, 0) != Symbol.EMPTY && pattern.get(0, 2) != Symbol.EMPTY) {
-            deletionMatrix.clear(0, 0);
-            deletionMatrix.clear(0, 2);
-            deletionMatrix.set(1, 1, Symbol.RED);
-        } else if (pattern.get(1, 0) != Symbol.EMPTY && pattern.get(1, 2) != Symbol.EMPTY) {
-            deletionMatrix.clear(1, 0);
-            deletionMatrix.clear(1, 2);
-            deletionMatrix.clear(0, 3);
-            deletionMatrix.set(1, 1, Symbol.RED);
-            deletionMatrix.set(1, 3, Symbol.RED);
-        } else if (pattern.get(0, 1) != Symbol.EMPTY && pattern.get(0, 3) != Symbol.EMPTY) {
-            deletionMatrix.clear(0, 1);
-            deletionMatrix.clear(0, 3);
-            deletionMatrix.set(1, 1, Symbol.RED);
-            deletionMatrix.set(1, 3, Symbol.RED);
-        } else if (pattern.get(1, 1) != Symbol.EMPTY && pattern.get(1, 3) != Symbol.EMPTY) {
-            deletionMatrix.clear(0, 0);
-        }
-
-        return deletionMatrix;
-    }
-
-    /**
      * Fills the shape of the pattern with the given symbol, expanding the center positions, corresponding to (x,y) coordinates to the whole card.
      *
      * @param shape the shape matrix to fill
