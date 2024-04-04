@@ -1,0 +1,66 @@
+/*
+ * Codex Naturalis - Final Assignment for the Software Engineering Course
+ * Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Please note that the GNU General Public License applies only to the
+ * files that contain this license header. Other files within the project, such
+ * as assets and images, are property of the original owners and may be
+ * subject to different copyright terms.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package it.polimi.ingsw.am07.model.game;
+
+import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class GameResourcesTest {
+
+    @Test
+    void getGoldCards() {
+        GameResources gameResources = GameResources.getInstance();
+
+        List<GameCard> goldCards = gameResources.getGoldCards();
+
+        assertNotNull(goldCards);
+        assertEquals(GameResources.CARDS_COUNT, goldCards.size());
+    }
+
+    @Test
+    void getResourceCards() {
+        GameResources gameResources = GameResources.getInstance();
+
+        List<GameCard> resourceCards = gameResources.getResourceCards();
+
+        assertNotNull(resourceCards);
+        assertEquals(GameResources.CARDS_COUNT, resourceCards.size());
+    }
+
+    @Test
+    void getObjectiveCards() {
+        GameResources gameResources = GameResources.getInstance();
+
+        List<ObjectiveCard> objectiveCards = gameResources.getObjectiveCards();
+
+        assertNotNull(objectiveCards);
+        assertEquals(GameResources.OBJECTIVES_COUNT, objectiveCards.size());
+    }
+
+}
