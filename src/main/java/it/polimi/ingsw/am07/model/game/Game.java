@@ -31,8 +31,11 @@ import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Game implements Serializable {
+
+    private final UUID id;
 
     private final List<Player> players;
 
@@ -49,13 +52,24 @@ public class Game implements Serializable {
     private GameState gameState;
 
     public Game(String selfNickname) {
-        this.selfNickname = selfNickname;
+        id = UUID.randomUUID();
         players = new ArrayList<>();
         deck = Deck.DeckFactory.inflateNewDeck();
         availableObjectiveCards = new ArrayList<>();
         commonObjectives = new ObjectiveCard[2];
         currentPlayerIndex = 0;
         gameState = GameState.STARTING;
+
+        this.selfNickname = selfNickname;
+    }
+
+    /**
+     * This method returns the unique identifier of the game.
+     *
+     * @return the game's UUID
+     */
+    public UUID getId() {
+        return id;
     }
 
     /**
