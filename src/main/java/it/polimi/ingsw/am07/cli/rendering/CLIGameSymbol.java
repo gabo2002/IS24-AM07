@@ -23,7 +23,6 @@
 
 package it.polimi.ingsw.am07.cli.rendering;
 
-import it.polimi.ingsw.am07.cli.CLIElement;
 import it.polimi.ingsw.am07.model.game.Symbol;
 
 /**
@@ -32,17 +31,24 @@ import it.polimi.ingsw.am07.model.game.Symbol;
  * @param symbol the symbol to render, as a char
  * @param color  the color of the symbol, as a CLIColor
  */
-public record CLIGameFieldSymbol(
+public record CLIGameSymbol(
         char symbol,
         CLIColor color
 ) implements CLIElement {
+
+    /**
+     * Constants for the different types of cards
+     */
+    public static char CARD_GOLD = 'G';
+    public static char CARD_RES = 'R';
+    public static char CARD_STARTER = 'S';
 
     /**
      * Basic constructor for the CLIGameFieldSymbol, with the default color.
      *
      * @param symbol the symbol to render, as a char
      */
-    public CLIGameFieldSymbol(char symbol) {
+    public CLIGameSymbol(char symbol) {
         this(symbol, CLIColor.RESET);
     }
 
@@ -52,8 +58,30 @@ public record CLIGameFieldSymbol(
      * @param symbol the symbol to render, as a Symbol
      * @param color  the color of the symbol, as a CLIColor
      */
-    public CLIGameFieldSymbol(Symbol symbol, CLIColor color) {
-        this(CLISymbolMapping.toChar(symbol), color);
+    public CLIGameSymbol(Symbol symbol, CLIColor color) {
+        this(gameSymbolToChar(symbol), color);
+    }
+
+    /**
+     * Maps a Symbol to a character
+     *
+     * @param symbol the symbol to map
+     * @return the character mapped to the symbol
+     */
+    public static char gameSymbolToChar(Symbol symbol) {
+        return switch (symbol) {
+            case RED -> 'R';
+            case GREEN -> 'G';
+            case BLUE -> 'B';
+            case PURPLE -> 'P';
+            case SCROLL -> 'S';
+            case FLASK -> 'I';
+            case FEATHER -> 'F';
+            case BLANK -> '█';
+            case NONE -> 'X';
+            case CORNER -> 'C';
+            default -> ' ';
+        };
     }
 
     /**

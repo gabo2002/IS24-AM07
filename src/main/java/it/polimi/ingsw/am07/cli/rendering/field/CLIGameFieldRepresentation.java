@@ -21,9 +21,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli.rendering;
+package it.polimi.ingsw.am07.cli.rendering.field;
 
-import it.polimi.ingsw.am07.cli.CLIElement;
+import it.polimi.ingsw.am07.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.cli.rendering.CLIElement;
+import it.polimi.ingsw.am07.cli.rendering.CLIGameSymbol;
+import it.polimi.ingsw.am07.cli.rendering.common.CLISideRepresentation;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -37,7 +40,7 @@ import java.util.Map;
  */
 public class CLIGameFieldRepresentation implements CLIElement {
 
-    private final Matrix<CLIGameFieldSymbol> fieldRepresentation;
+    private final Matrix<CLIGameSymbol> fieldRepresentation;
     private final GameField gameField;
 
     private final Map<Side, GameFieldPosition> bufferedField;
@@ -50,7 +53,7 @@ public class CLIGameFieldRepresentation implements CLIElement {
      * @param field the GameField to render
      */
     public CLIGameFieldRepresentation(GameField field) {
-        fieldRepresentation = new Matrix<>(0, 0, new CLIGameFieldSymbol(' '));
+        fieldRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));
         gameField = field;
 
         bufferedField = new HashMap<>(gameField.getPlacedCards().size());
@@ -63,10 +66,10 @@ public class CLIGameFieldRepresentation implements CLIElement {
      * @param position the GameFieldPosition to map
      * @return the transformed GameFieldPosition
      */
-    public static GameFieldPosition mapToCliPosition(GameFieldPosition position) {
+    public static GameFieldPosition mapToCliPosition(GameFieldPosition position, int width, int height, int overlap) {
         return new GameFieldPosition(
-                (position.x() * (CLISideRepresentation.WIDTH - CLISideRepresentation.CORNER_OVERLAP)) - 1,
-                (position.y() * (CLISideRepresentation.HEIGHT - CLISideRepresentation.CORNER_OVERLAP)) - 1
+                (position.x() * (width - overlap)) - 1,
+                (position.y() * (height - overlap)) - 1
         );
     }
 
@@ -77,11 +80,11 @@ public class CLIGameFieldRepresentation implements CLIElement {
      * @param position the position to add the Side at, in GameField coordinates
      */
     private void addSideAt(Side side, GameFieldPosition position) {
-        CLISideRepresentation representation = CLISideRepresentation.forSide(side);
-        GameFieldPosition newPosition = mapToCliPosition(position);
+        CLISideRepresentation representation = new CLISideRepresentation.Factory(side).small();
+        GameFieldPosition newPosition = mapToCliPosition(position, representation.width(), representation.height(), representation.overlapAmount());
 
-        for (int x = newPosition.x(); x < newPosition.x() + CLISideRepresentation.WIDTH; x++) {
-            for (int y = newPosition.y(); y < newPosition.y() + CLISideRepresentation.HEIGHT; y++) {
+        for (int x = newPosition.x(); x < newPosition.x() + representation.width(); x++) {
+            for (int y = newPosition.y(); y < newPosition.y() + representation.height(); y++) {
                 fieldRepresentation.set(x, y, representation.getMatrix().get(x - newPosition.x(), y - newPosition.y()));
             }
         }

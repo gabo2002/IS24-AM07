@@ -76,4 +76,13 @@ public final class SideFrontGold extends SideFront {
         return Optional.ofNullable(requirements);
     }
 
+    /**
+     * Getter for the multiplier symbol.
+     *
+     * @return the multiplier symbol
+     */
+    public Symbol getMultiplier() {
+        return multiplier;
+    }
+
 }

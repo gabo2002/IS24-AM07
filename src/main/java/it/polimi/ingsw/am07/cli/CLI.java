@@ -21,41 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli.rendering;
+package it.polimi.ingsw.am07.cli;
 
-import it.polimi.ingsw.am07.model.game.Symbol;
-
-/**
- * Maps a Symbol to a character
- */
-public class CLISymbolMapping {
-
-    /**
-     * Constants for the different types of cards
-     */
-    public static char CARD_GOLD = 'G';
-    public static char CARD_RES = 'R';
-    public static char CARD_STARTER = 'S';
-
-    /**
-     * Maps a Symbol to a character
-     *
-     * @param symbol the symbol to map
-     * @return the character mapped to the symbol
-     */
-    public static char toChar(Symbol symbol) {
-        return switch (symbol) {
-            case RED -> 'R';
-            case GREEN -> 'G';
-            case BLUE -> 'B';
-            case PURPLE -> 'P';
-            case SCROLL -> 'S';
-            case FLASK -> 'I';
-            case FEATHER -> 'F';
-            case BLANK -> '█';
-            case NONE -> 'X';
-            default -> ' ';
-        };
-    }
-
+public class CLI {
 }
