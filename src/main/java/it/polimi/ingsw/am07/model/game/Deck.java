@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.utils.assets.GameResources;
 
 import java.io.Serializable;
 import java.util.ArrayList;

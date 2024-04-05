@@ -21,11 +21,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model.game;
+package it.polimi.ingsw.am07.utils.assets;
 
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
-import it.polimi.ingsw.am07.utils.AssetsRegistry;
 import it.polimi.ingsw.am07.utils.json.GameDataJsonParser;
 
 import java.util.ArrayList;
