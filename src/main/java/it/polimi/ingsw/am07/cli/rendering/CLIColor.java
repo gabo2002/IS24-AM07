@@ -48,6 +48,7 @@ public enum CLIColor {
             case Symbol.GREEN -> GREEN;
             case Symbol.BLUE -> BLUE;
             case Symbol.PURPLE -> PURPLE;
+            case Symbol.STARTER -> YELLOW;
             default -> throw new RuntimeException("Invalid symbol");
         };
     }
