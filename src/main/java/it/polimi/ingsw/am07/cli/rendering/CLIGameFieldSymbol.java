@@ -26,19 +26,42 @@ package it.polimi.ingsw.am07.cli.rendering;
 import it.polimi.ingsw.am07.cli.CLIElement;
 import it.polimi.ingsw.am07.model.game.Symbol;
 
+/**
+ * Represents a symbol in the CLI-rendered game field.
+ *
+ * @param symbol the symbol to render, as a char
+ * @param color  the color of the symbol, as a CLIColor
+ */
 public record CLIGameFieldSymbol(
         char symbol,
         CLIColor color
 ) implements CLIElement {
 
+    /**
+     * Basic constructor for the CLIGameFieldSymbol, with the default color.
+     *
+     * @param symbol the symbol to render, as a char
+     */
     public CLIGameFieldSymbol(char symbol) {
         this(symbol, CLIColor.RESET);
     }
 
+    /**
+     * Constructor for the CLIGameFieldSymbol, taking a Symbol instead of a char.
+     *
+     * @param symbol the symbol to render, as a Symbol
+     * @param color  the color of the symbol, as a CLIColor
+     */
     public CLIGameFieldSymbol(Symbol symbol, CLIColor color) {
         this(CLISymbolMapping.toChar(symbol), color);
     }
 
+    /**
+     * Renders the symbol in the CLI, not resetting the color if it's the same as the current one.
+     *
+     * @param currentColor the current cursor color
+     * @return the rendered symbol
+     */
     public String render(CLIColor currentColor) {
         if (color.equals(currentColor)) {
             return String.valueOf(symbol);
@@ -47,6 +70,12 @@ public record CLIGameFieldSymbol(
         }
     }
 
+    /**
+     * Renders the symbol in the CLI, resetting the color afterward.
+     * #
+     *
+     * @return the rendered symbol
+     */
     @Override
     public String render() {
         return color.getCode() + symbol + CLIColor.RESET.getCode();

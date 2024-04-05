@@ -32,6 +32,9 @@ import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Renders the Game Field in the CLI.
+ */
 public class CLIGameFieldRepresentation implements CLIElement {
 
     private final Matrix<CLIGameFieldSymbol> fieldRepresentation;
@@ -40,6 +43,12 @@ public class CLIGameFieldRepresentation implements CLIElement {
     private final Map<Side, GameFieldPosition> bufferedField;
     private final StringBuilder bufferedRender;
 
+    /**
+     * Constructor for the CLIGameFieldRepresentation.
+     * Keeps a reference to the GameField.
+     *
+     * @param field the GameField to render
+     */
     public CLIGameFieldRepresentation(GameField field) {
         fieldRepresentation = new Matrix<>(0, 0, new CLIGameFieldSymbol(' '));
         gameField = field;
@@ -48,6 +57,12 @@ public class CLIGameFieldRepresentation implements CLIElement {
         bufferedRender = new StringBuilder();
     }
 
+    /**
+     * Maps a card GameFieldPosition to a position inside the rendered field.
+     *
+     * @param position the GameFieldPosition to map
+     * @return the transformed GameFieldPosition
+     */
     public static GameFieldPosition mapToCliPosition(GameFieldPosition position) {
         return new GameFieldPosition(
                 (position.x() * (CLISideRepresentation.WIDTH - CLISideRepresentation.CORNER_OVERLAP)) - 1,
@@ -55,6 +70,12 @@ public class CLIGameFieldRepresentation implements CLIElement {
         );
     }
 
+    /**
+     * Adds a Side to the field representation at the specified position.
+     *
+     * @param side     the Side to add
+     * @param position the position to add the Side at, in GameField coordinates
+     */
     private void addSideAt(Side side, GameFieldPosition position) {
         CLISideRepresentation representation = new CLISideRepresentation(side);
         GameFieldPosition newPosition = mapToCliPosition(position);
@@ -66,10 +87,16 @@ public class CLIGameFieldRepresentation implements CLIElement {
         }
     }
 
+    /**
+     * Updates the field representation with the current state of the GameField.
+     *
+     * @return true if the field representation was updated, false otherwise
+     */
     private boolean updateFieldRepresentation() {
         Map<Side, GameFieldPosition> fieldCards = gameField.getPlacedCards();
 
         if (fieldCards.size() == bufferedField.size()) {
+            // No changes, no need to update
             return false;
         }
 
@@ -83,6 +110,11 @@ public class CLIGameFieldRepresentation implements CLIElement {
         return true;
     }
 
+    /**
+     * Renders the Game Field.
+     *
+     * @return the rendered Game Field, which can be printed to the CLI
+     */
     public String render() {
         if (updateFieldRepresentation()) {
             CLIColor currentColor = CLIColor.RESET;

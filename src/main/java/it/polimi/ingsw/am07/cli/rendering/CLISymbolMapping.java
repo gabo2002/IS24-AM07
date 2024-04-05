@@ -30,14 +30,18 @@ import it.polimi.ingsw.am07.model.game.Symbol;
  */
 public class CLISymbolMapping {
 
+    /**
+     * Constants for the different types of cards
+     */
     public static char CARD_GOLD = 'G';
     public static char CARD_RES = 'R';
     public static char CARD_STARTER = 'S';
 
     /**
+     * Maps a Symbol to a character
      *
-     * @param symbol
-     * @return
+     * @param symbol the symbol to map
+     * @return the character mapped to the symbol
      */
     public static char toChar(Symbol symbol) {
         return switch (symbol) {

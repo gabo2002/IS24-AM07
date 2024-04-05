@@ -29,19 +29,33 @@ import it.polimi.ingsw.am07.model.game.side.SideFrontRes;
 import it.polimi.ingsw.am07.model.game.side.SideFrontStarter;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
+/**
+ * Represents a side of a card in the CLI-rendered game field.
+ */
 public class CLISideRepresentation {
 
+    /**
+     * Width, height and amount of overlap of the side representation.
+     */
     public static final int WIDTH = 11;
     public static final int HEIGHT = 7;
     public static final int CORNER_OVERLAP = 3;
 
-    private static final char LEFTANGLE = '/';
-    private static final char RIGHTANGLE = '\\';
+    /**
+     * Characters used to draw the side representation.
+     */
+    private static final char LEFT_ANGLE = '/';
+    private static final char RIGHT_ANGLE = '\\';
     private static final char HORIZONTAL = '-';
     private static final char VERTICAL = '|';
 
     private final Matrix<CLIGameFieldSymbol> representation;
 
+    /**
+     * Constructor for the CLISideRepresentation.
+     *
+     * @param side the side to represent
+     */
     public CLISideRepresentation(Side side) {
         representation = new Matrix<>(WIDTH, HEIGHT, new CLIGameFieldSymbol(' '));
 
@@ -62,10 +76,10 @@ public class CLISideRepresentation {
         }
 
         // Draw the angles
-        representation.set(0, 0, new CLIGameFieldSymbol(LEFTANGLE, cardColor));
-        representation.set(WIDTH - 1, 0, new CLIGameFieldSymbol(RIGHTANGLE, cardColor));
-        representation.set(0, HEIGHT - 1, new CLIGameFieldSymbol(RIGHTANGLE, cardColor));
-        representation.set(WIDTH - 1, HEIGHT - 1, new CLIGameFieldSymbol(LEFTANGLE, cardColor));
+        representation.set(0, 0, new CLIGameFieldSymbol(LEFT_ANGLE, cardColor));
+        representation.set(WIDTH - 1, 0, new CLIGameFieldSymbol(RIGHT_ANGLE, cardColor));
+        representation.set(0, HEIGHT - 1, new CLIGameFieldSymbol(RIGHT_ANGLE, cardColor));
+        representation.set(WIDTH - 1, HEIGHT - 1, new CLIGameFieldSymbol(LEFT_ANGLE, cardColor));
 
         // Draw the corners
         representation.set(1, 1, new CLIGameFieldSymbol(side.fieldRepresentation().corners().get(0, 0), cardColor));
@@ -76,6 +90,7 @@ public class CLISideRepresentation {
         // Draw the center
         representation.set(WIDTH / 2, HEIGHT / 2, new CLIGameFieldSymbol(side.color(), cardColor));
 
+        // Draw the card type
         char cardSymbol = ' ';
         switch (side) {
             case SideFrontGold ignored -> cardSymbol = CLISymbolMapping.CARD_GOLD;
@@ -86,12 +101,18 @@ public class CLISideRepresentation {
         }
         representation.set(WIDTH / 2, HEIGHT - 2, new CLIGameFieldSymbol(cardSymbol, cardColor));
 
+        // Draw the score, if any
         if (side.getAssociatedScore() > 0) {
             char scoreChar = String.valueOf(side.getAssociatedScore()).charAt(0);
             representation.set(WIDTH / 2, 1, new CLIGameFieldSymbol(scoreChar, cardColor));
         }
     }
 
+    /**
+     * Getter for the side representation.
+     *
+     * @return the side representation
+     */
     public Matrix<CLIGameFieldSymbol> getRepresentation() {
         return representation;
     }

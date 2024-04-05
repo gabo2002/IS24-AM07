@@ -25,6 +25,9 @@ package it.polimi.ingsw.am07.cli.rendering;
 
 import it.polimi.ingsw.am07.model.game.Symbol;
 
+/**
+ * Enum that contains the ANSI escape codes for the colors used in the CLI.
+ */
 public enum CLIColor {
     RESET("\u001B[0m"),
     BLACK("\u001B[30m"),
@@ -38,10 +41,21 @@ public enum CLIColor {
 
     private final String code;
 
+    /**
+     * Constructor for the CLIColor enum.
+     *
+     * @param code the ANSI escape code
+     */
     CLIColor(String code) {
         this.code = code;
     }
 
+    /**
+     * Returns the CLI color for the symbol.
+     *
+     * @param symbol any Symbol
+     * @return the color for the symbol
+     */
     public static CLIColor fromSymbol(Symbol symbol) {
         return switch (symbol) {
             case Symbol.RED -> RED;
@@ -53,6 +67,11 @@ public enum CLIColor {
         };
     }
 
+    /**
+     * Getter for the ANSI escape code.
+     *
+     * @return the ANSI escape code
+     */
     public String getCode() {
         return code;
     }
