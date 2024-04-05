@@ -39,6 +39,8 @@ public sealed abstract class Side implements Serializable permits SideFront, Sid
 
     private final ResourceHolder resources;
 
+    protected final int associatedScore;
+
     /**
      * Constructs a new side with the specified parameters.
      *
@@ -46,12 +48,14 @@ public sealed abstract class Side implements Serializable permits SideFront, Sid
      * @param fieldRepresentation The representation of the side's field.
      * @param resources           The resources associated with the side.
      * @param color               The color of the side.
+     * @param associatedScore     The score associated with the side.
      */
-    protected Side(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
+    protected Side(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color, int associatedScore) {
         this.id = id;
         this.fieldRepresentation = fieldRepresentation;
         this.resources = resources;
         this.color = color;
+        this.associatedScore = associatedScore;
     }
 
     /**
@@ -108,6 +112,15 @@ public sealed abstract class Side implements Serializable permits SideFront, Sid
      */
     public Optional<ResourceHolder> requirements() {
         return Optional.empty();
+    }
+
+    /**
+     * Returns the score associated with the side
+     *
+     * @return the score associated with the side
+     */
+    public int getAssociatedScore() {
+        return associatedScore;
     }
 
     /**

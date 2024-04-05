@@ -37,7 +37,7 @@ public final class SideBack extends Side {
      * @param color               The color of the side.
      */
     public SideBack(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
-        super(id, fieldRepresentation, resources, color);
+        super(id, fieldRepresentation, resources, color, 0);
     }
 
 }

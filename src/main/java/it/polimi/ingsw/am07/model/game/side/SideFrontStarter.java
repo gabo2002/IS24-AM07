@@ -36,7 +36,7 @@ public final class SideFrontStarter extends SideFront {
      * @param resources           The resources associated with the side.
      */
     public SideFrontStarter(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources) {
-        super(id, fieldRepresentation, resources, Symbol.STARTER);
+        super(id, fieldRepresentation, resources, Symbol.STARTER, 0);
     }
 
 }

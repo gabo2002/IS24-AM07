@@ -37,8 +37,6 @@ public final class SideFrontGold extends SideFront {
 
     private final ResourceHolder requirements;
 
-    private final int associatedScore;
-
     public SideFrontGold(int id,
                          SideFieldRepresentation fieldRepresentation,
                          ResourceHolder resources,
@@ -47,8 +45,7 @@ public final class SideFrontGold extends SideFront {
                          ResourceHolder requirements,
                          Symbol color
     ) {
-        super(id, fieldRepresentation, resources, color);
-        this.associatedScore = associatedScore;
+        super(id, fieldRepresentation, resources, color, associatedScore);
         this.multiplier = multiplier;
         this.requirements = requirements;
     }

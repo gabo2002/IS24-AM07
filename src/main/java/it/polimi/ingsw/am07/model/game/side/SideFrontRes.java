@@ -28,8 +28,6 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 
 public final class SideFrontRes extends SideFront {
 
-    private final int associatedScore;
-
     /**
      * Constructs a new SideFrontRes object with the specified parameters and associated score.
      *
@@ -40,8 +38,7 @@ public final class SideFrontRes extends SideFront {
      * @param associatedScore     The associated score for this side.
      */
     public SideFrontRes(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color, int associatedScore) {
-        super(id, fieldRepresentation, resources, color);
-        this.associatedScore = associatedScore;
+        super(id, fieldRepresentation, resources, color, associatedScore);
     }
 
     /**

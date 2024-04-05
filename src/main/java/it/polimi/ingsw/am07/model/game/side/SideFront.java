@@ -35,9 +35,10 @@ public sealed abstract class SideFront extends Side permits SideFrontGold, SideF
      * @param fieldRepresentation The representation of the side's field.
      * @param resources           The resources associated with the side.
      * @param color               The color of the side.
+     * @param associatedScore     The score associated with the side.
      */
-    protected SideFront(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color) {
-        super(id, fieldRepresentation, resources, color);
+    protected SideFront(int id, SideFieldRepresentation fieldRepresentation, ResourceHolder resources, Symbol color, int associatedScore) {
+        super(id, fieldRepresentation, resources, color, associatedScore);
     }
 
 }
