@@ -21,17 +21,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model.game.side;
+package it.polimi.ingsw.am07.model.game;
 
-import it.polimi.ingsw.am07.model.game.Symbol;
-import it.polimi.ingsw.am07.utils.matrix.Matrix;
+import it.polimi.ingsw.am07.model.game.gamefield.GameField;
+import org.junit.jupiter.api.Test;
 
-import java.io.Serializable;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-public record SideFieldRepresentation(
-        Matrix<Symbol> corners
-) implements Serializable {
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-    public static final int SIDE_SIZE = 2;
+class GameTest {
+
+    @Test
+    void validateSerializability() {
+        Player player = new Player(
+                "test_0",
+                new ResourceHolder(),
+                Pawn.BLACK,
+                new GameField(),
+                new ArrayList<>()
+        );
+
+        List<Player> players = new ArrayList<>();
+        players.add(player);
+
+        Game game = new Game(players);
+
+        assertDoesNotThrow(() -> {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+
+            oos.writeObject(game);
+
+            oos.close();
+            baos.close();
+        });
+    }
 
 }

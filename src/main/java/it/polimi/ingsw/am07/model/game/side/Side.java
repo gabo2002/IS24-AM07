@@ -26,9 +26,10 @@ package it.polimi.ingsw.am07.model.game.side;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public sealed abstract class Side permits SideFront, SideBack {
+public sealed abstract class Side implements Serializable permits SideFront, SideBack {
 
     private final int id;
 

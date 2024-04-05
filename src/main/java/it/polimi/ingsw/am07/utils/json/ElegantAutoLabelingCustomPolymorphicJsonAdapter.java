@@ -94,6 +94,9 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapter extends JsonAdapter
     @Override
     public void toJson(JsonWriter jsonWriter, Object o) throws IOException, RuntimeException {
         if (o == null) {
+            jsonWriter.beginObject();
+            jsonWriter.endObject();
+
             return;
         }
 
@@ -137,7 +140,7 @@ public class ElegantAutoLabelingCustomPolymorphicJsonAdapter extends JsonAdapter
             }
         }
 
-        return -1;
+        return 0;
     }
 
 }

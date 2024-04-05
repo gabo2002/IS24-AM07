@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.utils.matrix;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -37,7 +38,7 @@ import java.util.List;
  * @param <T> the type of the elements in the matrix
  * @author Roberto Alessandro Bertolini
  */
-public class Matrix<T> implements Iterable<T> {
+public class Matrix<T> implements Iterable<T>, Serializable {
 
     private final List<T> data;
 

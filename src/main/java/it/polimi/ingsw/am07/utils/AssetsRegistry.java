@@ -32,10 +32,10 @@ import java.util.stream.Collectors;
 
 public class AssetsRegistry {
 
-    public static int CARDS_COUNT = 40;
-    public static int OBJECTIVES_COUNT = 0;
     private static final String CARDS_JSON = "cards.json";
     private static final String OBJECTIVES_JSON = "objectives.json";
+    public static int CARDS_COUNT = 40;
+    public static int OBJECTIVES_COUNT = 0;
 
     public static String getCardsJson() {
         String json;

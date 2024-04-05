@@ -31,6 +31,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ import java.util.Map;
  * It also provides methods to retrieve the list of playable cards and the objective card of the player.
  * Additionally, it stores the nickname, the score, the pawn, the resource holder, and the game field associated with the player.
  */
-public class Player {
+public class Player implements Serializable {
 
     private final String nickname;
 

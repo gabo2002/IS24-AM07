@@ -24,10 +24,9 @@
 package it.polimi.ingsw.am07.utils.json;
 
 import it.polimi.ingsw.am07.Application;
-import it.polimi.ingsw.am07.model.game.Game;
-import it.polimi.ingsw.am07.model.game.ResourceHolder;
-import it.polimi.ingsw.am07.model.game.Symbol;
+import it.polimi.ingsw.am07.model.game.*;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
@@ -213,7 +212,18 @@ class GameDataJsonParserTest {
     @Test
     void validateGameSerializability() {
         assertDoesNotThrow(() -> {
-            Game game = new Game("A");
+            Player player = new Player(
+                    "test_0",
+                    new ResourceHolder(),
+                    Pawn.BLACK,
+                    new GameField(),
+                    new ArrayList<>()
+            );
+
+            List<Player> players = new ArrayList<>();
+            players.add(player);
+
+            Game game = new Game(players);
 
             GameDataJsonParser<Game> parser = new GameDataJsonParser<>(Game.class);
 

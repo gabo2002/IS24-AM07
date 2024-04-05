@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ import java.util.Map;
  * Additionally, it is used to represent the resources that a card side provides,
  * or the resources required for a side to be placed on the game field.
  */
-public class ResourceHolder {
+public class ResourceHolder implements Serializable {
 
     private final Map<Symbol, Integer> resources;
 

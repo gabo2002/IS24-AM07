@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.model.game;
 import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +44,7 @@ public record Deck(
         List<GameCard> availableGoldCards,
         GameCard[] visibleResCards,
         GameCard[] visibleGoldCards
-) {
+) implements Serializable {
 
     public static int VISIBLE_CARDS_COUNT = 2;
 

@@ -32,6 +32,7 @@ import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
 import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +44,7 @@ import java.util.Map;
  *
  * @author Gabriele Corti
  */
-public class GameField {
+public class GameField implements Serializable {
 
     private final Matrix<Symbol> fieldMatrix;
 

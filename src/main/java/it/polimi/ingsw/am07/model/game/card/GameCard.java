@@ -26,6 +26,8 @@ package it.polimi.ingsw.am07.model.game.card;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.model.game.side.SideFront;
 
+import java.io.Serializable;
+
 /**
  * Represents a game card, which has a front side and a back side.
  *
@@ -35,7 +37,7 @@ import it.polimi.ingsw.am07.model.game.side.SideFront;
 public record GameCard(
         SideFront front,
         SideBack back
-) {
+) implements Serializable {
 
     /**
      * Constructs a new GameCard with the specified parameters.
