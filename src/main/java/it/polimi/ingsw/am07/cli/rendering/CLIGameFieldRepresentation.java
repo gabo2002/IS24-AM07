@@ -77,12 +77,12 @@ public class CLIGameFieldRepresentation implements CLIElement {
      * @param position the position to add the Side at, in GameField coordinates
      */
     private void addSideAt(Side side, GameFieldPosition position) {
-        CLISideRepresentation representation = new CLISideRepresentation(side);
+        CLISideRepresentation representation = CLISideRepresentation.forSide(side);
         GameFieldPosition newPosition = mapToCliPosition(position);
 
         for (int x = newPosition.x(); x < newPosition.x() + CLISideRepresentation.WIDTH; x++) {
             for (int y = newPosition.y(); y < newPosition.y() + CLISideRepresentation.HEIGHT; y++) {
-                fieldRepresentation.set(x, y, representation.getRepresentation().get(x - newPosition.x(), y - newPosition.y()));
+                fieldRepresentation.set(x, y, representation.getMatrix().get(x - newPosition.x(), y - newPosition.y()));
             }
         }
     }

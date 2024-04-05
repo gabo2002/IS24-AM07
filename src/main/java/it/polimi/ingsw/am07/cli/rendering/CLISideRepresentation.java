@@ -51,13 +51,19 @@ public class CLISideRepresentation {
 
     private final Matrix<CLIGameFieldSymbol> representation;
 
+    private CLISideRepresentation() {
+        representation = new Matrix<>(WIDTH, HEIGHT, new CLIGameFieldSymbol(' '));
+    }
+
     /**
-     * Constructor for the CLISideRepresentation.
+     * Constructs a CLISideRepresentation for the specified Side
      *
      * @param side the side to represent
      */
-    public CLISideRepresentation(Side side) {
-        representation = new Matrix<>(WIDTH, HEIGHT, new CLIGameFieldSymbol(' '));
+    public static CLISideRepresentation forSide(Side side) {
+        CLISideRepresentation cliSideRepresentation = new CLISideRepresentation();
+
+        Matrix<CLIGameFieldSymbol> representation = cliSideRepresentation.getMatrix();
 
         CLIColor cardColor = CLIColor.fromSymbol(side.color());
 
@@ -106,6 +112,8 @@ public class CLISideRepresentation {
             char scoreChar = String.valueOf(side.getAssociatedScore()).charAt(0);
             representation.set(WIDTH / 2, 1, new CLIGameFieldSymbol(scoreChar, cardColor));
         }
+
+        return cliSideRepresentation;
     }
 
     /**
@@ -113,7 +121,7 @@ public class CLISideRepresentation {
      *
      * @return the side representation
      */
-    public Matrix<CLIGameFieldSymbol> getRepresentation() {
+    public Matrix<CLIGameFieldSymbol> getMatrix() {
         return representation;
     }
 
