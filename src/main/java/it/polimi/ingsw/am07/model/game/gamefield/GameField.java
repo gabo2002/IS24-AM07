@@ -34,6 +34,7 @@ import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -57,7 +58,7 @@ public class GameField implements Serializable {
      */
     public GameField() {
         fieldMatrix = new Matrix<>(SideFieldRepresentation.SIDE_SIZE, SideFieldRepresentation.SIDE_SIZE, Symbol.EMPTY);
-        placedCards = new HashMap<>();
+        placedCards = new LinkedHashMap<>(); // LinkedHashMap preserves the order of insertion
         currentZ = 0;
     }
 
@@ -238,5 +239,7 @@ public class GameField implements Serializable {
     public Map<Side, GameFieldPosition> getPlacedCards() {
         return placedCards;
     }
+
+
 
 }
