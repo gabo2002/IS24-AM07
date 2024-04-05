@@ -21,9 +21,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli;
+package it.polimi.ingsw.am07.cli.rendering.field;
 
-import it.polimi.ingsw.am07.cli.rendering.CLIGameFieldRepresentation;
+import it.polimi.ingsw.am07.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -39,12 +39,13 @@ class CLIGameFieldRepresentationTest {
         Side side1 = GameResources.getInstance().getGoldCards().getFirst().front();
         Side side2 = GameResources.getInstance().getGoldCards().get(12).front();
         Side side3 = GameResources.getInstance().getGoldCards().get(31).front();
-        Side side4 = GameResources.getInstance().getGoldCards().get(22).front();
+        Side side4 = GameResources.getInstance().getGoldCards().get(24).front();
         Side side5 = GameResources.getInstance().getGoldCards().get(17).front();
-        Side side6 = GameResources.getInstance().getGoldCards().get(36).back();
+        Side side6 = GameResources.getInstance().getGoldCards().get(39).front();
         Side side7 = GameResources.getInstance().getResourceCards().get(20).front();
         Side side8 = GameResources.getInstance().getResourceCards().get(31).front();
         Side side9 = GameResources.getInstance().getResourceCards().get(1).front();
+        Side side10 = GameResources.getInstance().getResourceCards().get(10).front();
 
         GameField gameField = new GameField();
 
@@ -73,6 +74,10 @@ class CLIGameFieldRepresentationTest {
 
         gameField.placeOnFieldAt(side8, new GameFieldPosition(4, 0));
         gameField.placeOnFieldAt(side9, new GameFieldPosition(5, 1));
+
+        assertNotNull(representation.render());
+
+        gameField.placeOnFieldAt(side10, new GameFieldPosition(-1, -1));
 
         assertNotNull(representation.render());
     }

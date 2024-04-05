@@ -127,8 +127,9 @@ public class CLIGameFieldRepresentation implements CLIElement {
 
             for (int y = fieldRepresentation.getMinY(); y <= fieldRepresentation.getMaxY(); y++) {
                 for (int x = fieldRepresentation.getMinX(); x <= fieldRepresentation.getMaxX(); x++) {
-                    bufferedRender.append(fieldRepresentation.get(x, y).render(currentColor));
-                    currentColor = fieldRepresentation.get(x, y).color();
+                    CLIGameSymbol symbol = fieldRepresentation.get(x, y);
+                    bufferedRender.append(symbol.render(currentColor));
+                    currentColor = symbol.color();
                 }
 
                 bufferedRender.append('\n');
