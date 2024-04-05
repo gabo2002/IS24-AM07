@@ -160,4 +160,31 @@ class DeckTest {
         assertEquals(2, deck.visibleGoldCards().length);
     }
 
+    @Test
+    void deckFactory() {
+        final Deck base = new Deck.Factory().build();
+
+        assertThrows(RuntimeException.class, () -> {
+            new Deck.Factory()
+                    .resourceCards(base.availableResCards())
+                    .build();
+        });
+
+        assertThrows(RuntimeException.class, () -> {
+            new Deck.Factory()
+                    .goldCards(base.availableGoldCards())
+                    .goldCards(base.availableResCards())
+                    .build();
+        });
+
+        assertDoesNotThrow(() -> {
+            new Deck.Factory()
+                    .resourceCards(base.availableResCards())
+                    .goldCards(base.availableGoldCards())
+                    .visibleResCards(base.visibleResCards())
+                    .visibleGoldCards(base.visibleGoldCards())
+                    .build();
+        });
+    }
+
 }

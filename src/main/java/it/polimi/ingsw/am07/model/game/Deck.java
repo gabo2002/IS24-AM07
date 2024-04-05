@@ -168,7 +168,108 @@ public record Deck(
         return false;
     }
 
-    public static class DeckFactory {
+    public static class Factory {
+
+        private final List<GameCard> resourceCards;
+        private final List<GameCard> goldCards;
+        private final GameCard[] visibleResCards;
+        private final GameCard[] visibleGoldCards;
+
+        private boolean mustBeInitialized = true;
+
+        public Factory() {
+            this.resourceCards = new ArrayList<>();
+            this.goldCards = new ArrayList<>();
+            this.visibleResCards = new GameCard[VISIBLE_CARDS_COUNT];
+            this.visibleGoldCards = new GameCard[VISIBLE_CARDS_COUNT];
+        }
+
+        /**
+         * This method is used to add a list of resource cards to the deck.
+         *
+         * @param resourceCards the list of resource cards to add
+         * @return the Factory instance
+         */
+        public Factory resourceCards(List<GameCard> resourceCards) {
+            this.resourceCards.addAll(resourceCards);
+            mustBeInitialized = false;
+            return this;
+        }
+
+        /**
+         * This method is used to add a list of gold cards to the deck.
+         *
+         * @param goldCards the list of gold cards to add
+         * @return the Factory instance
+         */
+        public Factory goldCards(List<GameCard> goldCards) {
+            this.goldCards.addAll(goldCards);
+            mustBeInitialized = false;
+            return this;
+        }
+
+        /**
+         * This method is used to set the visible resource cards.
+         *
+         * @param visibleResCards the visible resource cards
+         * @return the Factory instance
+         */
+        public Factory visibleResCards(GameCard[] visibleResCards) {
+            System.arraycopy(visibleResCards, 0, this.visibleResCards, 0, VISIBLE_CARDS_COUNT);
+            mustBeInitialized = false;
+            return this;
+        }
+
+        /**
+         * This method is used to set the visible gold cards.
+         *
+         * @param visibleGoldCards the visible gold cards
+         * @return the Factory instance
+         */
+        public Factory visibleGoldCards(GameCard[] visibleGoldCards) {
+            System.arraycopy(visibleGoldCards, 0, this.visibleGoldCards, 0, VISIBLE_CARDS_COUNT);
+            mustBeInitialized = false;
+            return this;
+        }
+
+
+        /**
+         * This method is used to build a new deck of cards.
+         *
+         * @return a new Deck instance
+         */
+        public Deck build() {
+            if (mustBeInitialized) {
+                return this.inflateNewDeck();
+            } else {
+                if (resourceCards.size() > GameResources.CARDS_COUNT) {
+                    throw new IllegalArgumentException("Resource cards count exceeds the limit");
+                }
+
+                if (goldCards.size() > GameResources.CARDS_COUNT) {
+                    throw new IllegalArgumentException("Gold cards count exceeds the limit");
+                }
+
+                if (!resourceCards.isEmpty()) {
+                    for (GameCard card : visibleResCards) {
+                        if (card == null) {
+                            throw new IllegalArgumentException("Visible resource card is null but covered cards are available");
+                        }
+                    }
+                }
+
+                if (!goldCards.isEmpty()) {
+                    for (GameCard card : visibleGoldCards) {
+                        if (card == null) {
+                            throw new IllegalArgumentException("Visible gold card is null but covered cards are available");
+                        }
+                    }
+                }
+
+                return new Deck(resourceCards, goldCards, visibleResCards, visibleGoldCards);
+            }
+        }
+
         /**
          * This method is used to create a new deck of cards for the game.
          * It first retrieves the instance of the GameResources class, which holds all the available cards.
@@ -180,7 +281,7 @@ public record Deck(
          *
          * @return a new Deck instance with shuffled cards and the first few cards visible
          */
-        public static Deck inflateNewDeck() {
+        private Deck inflateNewDeck() {
             GameResources gameResources = GameResources.getInstance();
 
             List<GameCard> resourceCards = new ArrayList<>(gameResources.getResourceCards());

@@ -61,7 +61,7 @@ public class Game implements Serializable {
     public Game(String selfNickname) {
         id = UUID.randomUUID();
         players = new ArrayList<>();
-        deck = Deck.DeckFactory.inflateNewDeck();
+        deck = new Deck.Factory().build();
         availableObjectiveCards = new ArrayList<>();
         commonObjectives = new ObjectiveCard[2];
         currentPlayerIndex = 0;
@@ -78,7 +78,7 @@ public class Game implements Serializable {
     public Game(List<Player> players) {
         id = UUID.randomUUID();
         this.players = players;
-        deck = Deck.DeckFactory.inflateNewDeck();
+        deck = new Deck.Factory().build();
         availableObjectiveCards = new ArrayList<>();
         commonObjectives = new ObjectiveCard[2];
         currentPlayerIndex = 0;
