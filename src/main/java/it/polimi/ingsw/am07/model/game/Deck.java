@@ -52,6 +52,30 @@ public record Deck(
     }
 
     /**
+     * This method is used to peek at the top resource card in the deck.
+     * It first checks if the list of available resource cards is empty.
+     * If it is, it returns null, indicating that there are no more resource cards in the deck.
+     * If it is not, it returns the first card in the list, which is the top card of the deck.
+     *
+     * @return the top resource card in the deck, or null if the deck is empty
+     */
+    public GameCard peekTopResCard() {
+        return availableResCards.isEmpty() ? null : availableResCards.getFirst();
+    }
+
+    /**
+     * This method is used to peek at the top gold card in the deck.
+     * It first checks if the list of available gold cards is empty.
+     * If it is, it returns null, indicating that there are no more gold cards in the deck.
+     * If it is not, it returns the first card in the list, which is the top card of the deck.
+     *
+     * @return the top gold card in the deck, or null if the deck is empty
+     */
+    public GameCard peekTopGoldCard() {
+        return availableGoldCards.isEmpty() ? null : availableGoldCards.getFirst();
+    }
+
+    /**
      * Picks a random resource card from the deck and removes it.
      *
      * @return the picked card
@@ -143,7 +167,17 @@ public record Deck(
     }
 
     public static class DeckFactory {
-
+        /**
+         * This method is used to create a new deck of cards for the game.
+         * It first retrieves the instance of the GameResources class, which holds all the available cards.
+         * Then, it creates two lists of cards: resourceCards and goldCards, by copying the respective lists from the GameResources instance.
+         * After that, it shuffles these lists to ensure randomness.
+         * It then creates two arrays to hold the visible resource and gold cards.
+         * The first VISIBLE_CARDS_COUNT cards from the shuffled lists are then removed and placed into the respective visible cards arrays.
+         * Finally, it returns a new Deck instance, passing the remaining cards in the lists and the visible cards arrays to the constructor.
+         *
+         * @return a new Deck instance with shuffled cards and the first few cards visible
+         */
         public static Deck inflateNewDeck() {
             GameResources gameResources = GameResources.getInstance();
 
