@@ -127,7 +127,32 @@ public class Game implements Serializable {
      * It uses modulo operation to ensure that the player index wraps around to the first player after the last one.
      */
     public void incrementTurn() {
-        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+
+        if(gameState == GameState.STARTING) {
+            gameState = GameState.PLAYING;
+        }
+
+        // continue incrementing as long as it is not ended
+        if(gameState != GameState.ENDED) {
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        }
+
+        if(gameState == GameState.ENDING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
+            gameState = GameState.ENDED;
+        }
+
+
+        if(gameState == GameState.PLAYING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
+            for(Player player : players) {
+                if (player.getPlayerScore() >= 20) {
+                    gameState = GameState.ENDING;
+                    return;
+                }
+            }
+        }
+
+
+
     }
 
     /**
