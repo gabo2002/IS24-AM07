@@ -125,6 +125,7 @@ public class Game implements Serializable {
     /**
      * This method increments the current player index, effectively moving the turn to the next player.
      * It uses modulo operation to ensure that the player index wraps around to the first player after the last one.
+     * Checks the current game state and updates it accordingly.
      */
     public void incrementTurn() {
 
@@ -150,7 +151,6 @@ public class Game implements Serializable {
                 }
             }
         }
-
 
 
     }
