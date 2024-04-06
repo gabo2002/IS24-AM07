@@ -58,7 +58,7 @@ public class GameField implements Serializable {
      */
     public GameField() {
         fieldMatrix = new Matrix<>(SideFieldRepresentation.SIDE_SIZE, SideFieldRepresentation.SIDE_SIZE, Symbol.EMPTY);
-        placedCards = new LinkedHashMap<>(); // LinkedHashMap preserves the order of insertion
+        placedCards = new HashMap<>();
         currentZ = 0;
     }
 

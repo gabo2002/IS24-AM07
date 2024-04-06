@@ -32,8 +32,8 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Renders the Game Field in the CLI.
@@ -103,7 +103,11 @@ public class CLIGameFieldRepresentation implements CLIElement {
             return false;
         }
 
-        for (Map.Entry<Side, GameFieldPosition> entry : fieldCards.entrySet()) {
+        List<Map.Entry<Side, GameFieldPosition>> sortedEntrySet = fieldCards.entrySet().stream()
+                .sorted(Comparator.comparingInt(t -> t.getValue().z()))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        for (Map.Entry<Side, GameFieldPosition> entry : sortedEntrySet) {
             if (!bufferedField.containsKey(entry.getKey())) {
                 addSideAt(entry.getKey(), entry.getValue());
                 bufferedField.put(entry.getKey(), entry.getValue());
