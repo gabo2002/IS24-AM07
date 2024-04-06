@@ -55,7 +55,6 @@ public class Game implements Serializable {
      * Default constructor for the Game class.
      * It initializes the game with a random UUID, an empty list of players, a new deck, and the nickname of the current player.
      *
-     *
      * @param selfNickname the nickname of the current player
      */
     public Game(String selfNickname) {
@@ -73,6 +72,7 @@ public class Game implements Serializable {
     /**
      * Constructor for the Game class, called by Lobby Class.
      * <strong>SERVER SIDE ONLY!</strong>
+     *
      * @param players the list of players in the game
      */
     public Game(List<Player> players) {
@@ -128,31 +128,27 @@ public class Game implements Serializable {
      * Checks the current game state and updates it accordingly.
      */
     public void incrementTurn() {
-
-        if(gameState == GameState.STARTING) {
+        if (gameState == GameState.STARTING) {
             gameState = GameState.PLAYING;
         }
 
         // continue incrementing as long as it is not ended
-        if(gameState != GameState.ENDED) {
+        if (gameState != GameState.ENDED) {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
 
-        if(gameState == GameState.ENDING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
+        if (gameState == GameState.ENDING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
             gameState = GameState.ENDED;
         }
 
-
-        if(gameState == GameState.PLAYING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
-            for(Player player : players) {
+        if (gameState == GameState.PLAYING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
+            for (Player player : players) {
                 if (player.getPlayerScore() >= 20) {
                     gameState = GameState.ENDING;
                     return;
                 }
             }
         }
-
-
     }
 
     /**

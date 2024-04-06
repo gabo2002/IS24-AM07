@@ -31,15 +31,11 @@ import java.util.Optional;
 
 public sealed abstract class Side implements Serializable permits SideFront, SideBack {
 
-    private final int id;
-
-    private final Symbol color;
-
-    private final SideFieldRepresentation fieldRepresentation;
-
-    private final ResourceHolder resources;
-
     protected final int associatedScore;
+    private final int id;
+    private final Symbol color;
+    private final SideFieldRepresentation fieldRepresentation;
+    private final ResourceHolder resources;
 
     /**
      * Constructs a new side with the specified parameters.

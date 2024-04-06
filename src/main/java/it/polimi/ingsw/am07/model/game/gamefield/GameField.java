@@ -99,12 +99,12 @@ public class GameField implements Serializable {
      * Retrieves the color at the specified position on the game field. if the card is not present in the game field, an exception is thrown.
      *
      * @param map the map containing the cards placed on the game field
-     * @param x the x coordinate on the game field
-     * @param y the y coordinate on the game field
+     * @param x   the x coordinate on the game field
+     * @param y   the y coordinate on the game field
      * @return the color at the specified position on the game field
      * @throws CardNotFoundException if the card is not present in the game field
      */
-    private Symbol getCardColorAt(Map<Side,GameFieldPosition> map, int x, int y) throws CardNotFoundException {
+    private Symbol getCardColorAt(Map<Side, GameFieldPosition> map, int x, int y) throws CardNotFoundException {
         if ((x + y) % 2 != 0) {
             throw new CardNotFoundException("The card is not present in the game field");
         }
@@ -128,7 +128,7 @@ public class GameField implements Serializable {
      */
     public int countMatches(GameFieldPattern pattern) {
         int matches = 0;
-        Map<Side,GameFieldPosition> placedCardsCopy = new HashMap<>(placedCards);  // copy the placed cards to avoid modifying the original map while iterating over it
+        Map<Side, GameFieldPosition> placedCardsCopy = new HashMap<>(placedCards);  // copy the placed cards to avoid modifying the original map while iterating over it
         Matrix<Symbol> shape = pattern.getShape();
         MatrixSubMatrixIterator<Symbol> subMatrixIterator = fieldMatrix.iterator(shape.getWidth(), shape.getHeight());
 
@@ -164,7 +164,7 @@ public class GameField implements Serializable {
                 //I have to remove from placedCardsCopy the cards that I have just found
                 MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.pattern().iterator();
 
-                while(iterator.hasNext()) {
+                while (iterator.hasNext()) {
                     Symbol color = iterator.next();
                     if (!color.equals(Symbol.EMPTY)) {
                         try {
@@ -239,7 +239,6 @@ public class GameField implements Serializable {
     public Map<Side, GameFieldPosition> getPlacedCards() {
         return placedCards;
     }
-
 
 
 }
