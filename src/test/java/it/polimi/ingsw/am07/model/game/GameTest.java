@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.*;
@@ -203,6 +204,11 @@ class GameTest {
         assertEquals(0, game.getCurrentPlayerIndex());
         assertEquals(GameState.ENDED, game.getGameState());
 
+        // it should remain at player1 since the game is ended
+        game.incrementTurn();
+        assertEquals(0, game.getCurrentPlayerIndex());
+        assertEquals(GameState.ENDED, game.getGameState());
+
 
     }
 
@@ -226,7 +232,18 @@ class GameTest {
         assertEquals(size - 1 , game.getAvailableGoldCardsSize());
     }
 
+    @Test
+    void popCardTest() {
+        Game game = new Game(new ArrayList<>());
+        int size = game.getAvailableResCardsSize();
+        GameCard gameCard = new GameCard(new SideFrontRes(1, null, null, null), new SideBack(1, null, null, null));
 
+        assertDoesNotThrow(() -> game.popCard(gameCard));
+
+        assertEquals(size - 1 , game.getAvailableResCardsSize());
+
+
+    }
 
 
 }
