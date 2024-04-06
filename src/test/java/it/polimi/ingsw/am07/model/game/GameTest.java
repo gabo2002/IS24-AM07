@@ -24,6 +24,9 @@
 package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
+import it.polimi.ingsw.am07.model.game.side.*;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameTest {
 
@@ -60,5 +64,169 @@ class GameTest {
             baos.close();
         });
     }
+
+    @Test
+    void incrementTurnTest() {
+
+        // setting up the players
+        Player player1 = new Player(
+                "player1",
+                new ResourceHolder(),
+                Pawn.BLACK,
+                new GameField(),
+                new ArrayList<>()
+        );
+
+        Player player2 = new Player(
+                "player2",
+                new ResourceHolder(),
+                Pawn.RED,
+                new GameField(),
+                new ArrayList<>()
+        );
+
+        Player player3 = new Player(
+                "player3",
+                new ResourceHolder(),
+                Pawn.GREEN,
+                new GameField(),
+                new ArrayList<>()
+        );
+
+        Player player4 = new Player(
+                "player4",
+                new ResourceHolder(),
+                Pawn.YELLOW,
+                new GameField(),
+                new ArrayList<>()
+        );
+
+        // adding the players
+        List<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+
+        // setting up game
+        Game game = new Game(players);
+
+        // crafting a custom card with 20 points to skip
+        // crafting starter card
+        Matrix<Symbol> corners = new Matrix<>(2, 2, Symbol.STARTER);
+        SideFieldRepresentation sideFieldRepresentation = new SideFieldRepresentation(corners);
+        ResourceHolder resources = new ResourceHolder(sideFieldRepresentation);
+
+        SideFront starter = new SideFrontStarter(0, sideFieldRepresentation, resources);
+
+        SideFront sideFront = new SideFrontGold(
+                1, sideFieldRepresentation, resources, 20, Symbol.NONE, null, Symbol.RED);
+
+        // checking a whole turn by everybody
+        assertEquals(GameState.STARTING, game.getGameState());
+        assertEquals(0, game.getCurrentPlayerIndex());
+
+        assertDoesNotThrow(() -> player1.placeAt(starter, new GameFieldPosition(0,0,0)));
+        assertEquals(0, player1.getPlayerScore());
+
+        game.incrementTurn();
+
+        assertDoesNotThrow(() -> player2.placeAt(starter, new GameFieldPosition(0,0,0)));
+
+        assertEquals(GameState.PLAYING, game.getGameState());
+        assertEquals(1, game.getCurrentPlayerIndex());
+
+        game.incrementTurn();
+
+        assertDoesNotThrow(() -> player3.placeAt(starter, new GameFieldPosition(0,0,0)));
+        assertEquals(GameState.PLAYING, game.getGameState());
+        assertEquals(2, game.getCurrentPlayerIndex());
+
+        game.incrementTurn();
+
+        assertDoesNotThrow(() -> player4.placeAt(starter, new GameFieldPosition(0,0,0)));
+        assertEquals(GameState.PLAYING, game.getGameState());
+        assertEquals(3, game.getCurrentPlayerIndex());
+
+        game.incrementTurn();
+
+        // player 1
+        assertDoesNotThrow(() -> player1.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertEquals(20, player1.getPlayerScore());
+
+        game.incrementTurn();
+
+        // player 2
+        assertEquals(GameState.PLAYING, game.getGameState());
+        assertEquals(1, game.getCurrentPlayerIndex());
+
+        assertDoesNotThrow(() -> player2.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertEquals(20, player2.getPlayerScore());
+
+        game.incrementTurn();
+
+        // player 3
+        assertEquals(GameState.PLAYING, game.getGameState());
+
+        assertDoesNotThrow(() -> player3.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertEquals(20, player3.getPlayerScore());
+
+
+        game.incrementTurn();
+
+        // player 4
+        assertDoesNotThrow(() -> player4.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertEquals(20, player4.getPlayerScore());
+
+        game.incrementTurn();
+
+        // back to player 1
+        // I have all players at 20 points now should be ending
+        assertEquals(GameState.ENDING, game.getGameState());
+
+        game.incrementTurn();
+
+        // player 2
+        assertEquals(GameState.ENDING, game.getGameState());
+        game.incrementTurn();
+
+        // player 3
+        assertEquals(GameState.ENDING, game.getGameState());
+        game.incrementTurn();
+
+        // player 4
+        assertEquals(3, game.getCurrentPlayerIndex());
+        assertEquals(GameState.ENDING, game.getGameState());
+        game.incrementTurn();
+
+        // now back to player1 but the game is ended
+        assertEquals(0, game.getCurrentPlayerIndex());
+        assertEquals(GameState.ENDED, game.getGameState());
+
+
+    }
+
+    @Test
+    void pickRandomResCardTest() {
+        Game game = new Game(new ArrayList<>());
+        int size = game.getAvailableResCardsSize();
+
+        game.pickRandomResCard();
+
+        assertEquals(size - 1 , game.getAvailableResCardsSize());
+    }
+
+    @Test
+    void pickRandomGoldCardTest() {
+        Game game = new Game(new ArrayList<>());
+        int size = game.getAvailableGoldCardsSize();
+
+        game.pickRandomGoldCard();
+
+        assertEquals(size - 1 , game.getAvailableGoldCardsSize());
+    }
+
+
+
 
 }
