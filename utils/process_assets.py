@@ -483,6 +483,7 @@ def serialize_side_back(side: Side):
     return f'''
     {{
         "class": "SideBack",
+        "associatedScore": 0,
         "id": {side.id},
         "color": "{side.center[0].name.upper()}",
         "fieldRepresentation": {side_field_representation(side)},
@@ -508,6 +509,7 @@ def serialize_side_front_res(side: Side):
     return f'''
     {{
         "class": "SideFrontRes",
+        "associatedScore": {side.score},
         "color": "{side.center[0].name.upper()}",
         "id": {side.id},
         "fieldRepresentation": {side_field_representation(side)},
@@ -531,12 +533,12 @@ def serialize_card(card: Card):
     }}
     '''
 
-cards_json = '[\n' + ',\n'.join(serialize_card(card) for card in cards) + '\n]'
+# cards_json = '[\n' + ',\n'.join(serialize_card(card) for card in cards) + '\n]'
 
-cards_json = json.dumps(json.loads(cards_json), indent=4)
+# cards_json = json.dumps(json.loads(cards_json), indent=4)
 
-with open('cards.json', 'w') as f:
-    f.write(cards_json)
+# with open('cards.json', 'w') as f:
+#     f.write(cards_json)
 
 # validate each card
 # for card in cards[40:]:
@@ -544,3 +546,204 @@ with open('cards.json', 'w') as f:
 #     Image.open(f'output/back_{card.id}.png').show('Back')
 #     print(json.dumps(json.loads(serialize_card(card)), indent=4))
 #     input()
+
+# now generate the objective card json
+
+# example pattern objective card 
+# {"class":"PatternObjectiveCard","associatedScore":5,"pattern":{"pattern":{"centerX":0,"centerY":0,"data":["RED","EMPTY","EMPTY","EMPTY","RED","EMPTY","EMPTY","EMPTY","RED"],"emptyValue":"EMPTY","maxX":2,"maxY":2,"minX":0,"minY":0,"sizeX":3,"sizeY":3}}}
+
+def serialize_diag_pattern(pattern: list[str], score: int):
+    return f'''
+    {{
+        "class": "PatternObjectiveCard",
+        "associatedScore": {score},
+        "pattern": {{
+            "pattern": {{
+                "centerX": 0,
+                "centerY": 0,
+                "data": [{', '.join(f'"{p}"' for p in pattern)}],
+                "emptyValue": "EMPTY",
+                "maxX": 2,
+                "maxY": 2,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 3,
+                "sizeY": 3
+            }}
+        }}
+    }}
+    '''
+
+def serialize_l_shape_pattern(pattern: list[str], score: int):
+    return f'''
+    {{
+        "class": "PatternObjectiveCard",
+        "associatedScore": {score},
+        "pattern": {{
+            "pattern": {{
+                "centerX": 0,
+                "centerY": 0,
+                "data": [{', '.join(f'"{p}"' for p in pattern)}],
+                "emptyValue": "EMPTY",
+                "maxX": 1,
+                "maxY": 3,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 2,
+                "sizeY": 4
+            }}
+        }}
+    }}
+    '''
+
+PATTERN_DIAG_1 = ['EMPTY', 'EMPTY', 'RED', 'EMPTY', 'RED', 'EMPTY', 'RED', 'EMPTY', 'EMPTY']
+PATTERN_DIAG_2 = ['GREEN', 'EMPTY', 'EMPTY', 'EMPTY', 'GREEN', 'EMPTY', 'EMPTY', 'EMPTY', 'GREEN']
+PATTERN_DIAG_3 = ['EMPTY', 'EMPTY', 'BLUE', 'EMPTY', 'BLUE', 'EMPTY', 'BLUE', 'EMPTY', 'EMPTY']
+PATTERN_DIAG_4 = ['PURPLE', 'EMPTY', 'EMPTY', 'EMPTY', 'PURPLE', 'EMPTY', 'EMPTY', 'EMPTY', 'PURPLE']
+
+PATTERN_L_1 = ['RED', 'EMPTY', 'EMPTY', 'EMPTY', 'RED', 'EMPTY', 'EMPTY', 'GREEN']
+PATTERN_L_2 = ['EMPTY', 'GREEN', 'EMPTY', 'EMPTY', 'EMPTY', 'EMPTY', 'PURPLE', 'EMPTY']
+PATTERN_L_3 = ['EMPTY', 'RED', 'BLUE', 'EMPTY', 'EMPTY', 'EMPTY', 'BLUE', 'EMPTY']
+PATTERN_L_4 = ['BLUE', 'EMPTY', 'EMPTY', 'PURPLE', 'EMPTY', 'EMPTY', 'EMPTY', 'PURPLE']
+
+# example resource objective card
+# {"class":"ResourceObjectiveCard","associatedScore":5,"requirements":{"resources":{"RED":2}}}
+
+def serialize_resource_objective(resources: dict[str, int], score: int):
+    return f'''
+    {{
+        "class": "ResourceObjectiveCard",
+        "associatedScore": {score},
+        "requirements": {{
+            "resources": {{
+                {", ".join(f'"{k}": {v}' for k, v in resources.items())}
+            }}
+        }}
+    }}
+    '''
+
+RESOURCE_1 = {'RED': 3}
+RESOURCE_2 = {'GREEN': 3}
+RESOURCE_3 = {'BLUE': 3}
+RESOURCE_4 = {'PURPLE': 3}
+RESOURCE_5 = {'FEATHER': 1, 'SCROLL': 1, 'FLASK': 1}
+RESOURCE_6 = {'SCROLL': 2}
+RESOURCE_7 = {'FLASK': 2}
+RESOURCE_8 = {'FEATHER': 2}
+
+objective_cards = [
+    serialize_diag_pattern(PATTERN_DIAG_1, 2),
+    serialize_diag_pattern(PATTERN_DIAG_2, 2),
+    serialize_diag_pattern(PATTERN_DIAG_3, 2),
+    serialize_diag_pattern(PATTERN_DIAG_4, 2),
+    serialize_l_shape_pattern(PATTERN_L_1, 3),
+    serialize_l_shape_pattern(PATTERN_L_2, 3),
+    serialize_l_shape_pattern(PATTERN_L_3, 3),
+    serialize_l_shape_pattern(PATTERN_L_4, 3),
+    serialize_resource_objective(RESOURCE_1, 2),
+    serialize_resource_objective(RESOURCE_2, 2),
+    serialize_resource_objective(RESOURCE_3, 2),
+    serialize_resource_objective(RESOURCE_4, 2),
+    serialize_resource_objective(RESOURCE_5, 3),
+    serialize_resource_objective(RESOURCE_6, 2),
+    serialize_resource_objective(RESOURCE_7, 2),
+    serialize_resource_objective(RESOURCE_8, 2)
+]
+
+objective_cards_json = '[\n' + ',\n'.join(objective_cards) + '\n]'
+objective_cards_json = json.dumps(json.loads(objective_cards_json), indent=4)
+
+with open('objectives.json', 'w') as f:
+    f.write(objective_cards_json)
+
+# dump starter cards
+STARTER_1_FRONT = Side(80, True, Symbol.BLANK, Symbol.GREEN, Symbol.PURPLE, Symbol.BLANK, [Symbol.PURPLE], [], 0, Symbol.NONE)
+STARTER_2_FRONT = Side(81, True, Symbol.BLUE, Symbol.BLANK, Symbol.BLANK, Symbol.RED, [Symbol.RED], [], 0, Symbol.NONE)
+STARTER_3_FRONT = Side(82, True, Symbol.BLANK, Symbol.BLANK, Symbol.BLANK, Symbol.BLANK, [Symbol.GREEN, Symbol.RED], [], 0, Symbol.NONE)
+STARTER_4_FRONT = Side(83, True, Symbol.BLANK, Symbol.BLANK, Symbol.BLANK, Symbol.BLANK, [Symbol.BLUE, Symbol.PURPLE], [], 0, Symbol.NONE)
+STARTER_5_FRONT = Side(84, True, Symbol.BLANK, Symbol.BLANK, Symbol.NONE, Symbol.NONE, [Symbol.BLUE, Symbol.PURPLE, Symbol.GREEN], [], 0, Symbol.NONE)
+STARTER_6_FRONT = Side(85, True, Symbol.BLANK, Symbol.BLANK, Symbol.NONE, Symbol.NONE, [Symbol.GREEN, Symbol.BLUE, Symbol.RED], [], 0, Symbol.NONE)
+
+STARTER_1_BACK = Side(80, False, Symbol.RED, Symbol.GREEN, Symbol.PURPLE, Symbol.BLUE, [], [], 0, Symbol.NONE)
+STARTER_2_BACK = Side(81, False, Symbol.GREEN, Symbol.BLUE, Symbol.RED, Symbol.PURPLE, [], [], 0, Symbol.NONE)
+STARTER_3_BACK = Side(82, False, Symbol.PURPLE, Symbol.BLUE, Symbol.RED, Symbol.GREEN, [], [], 0, Symbol.NONE)
+STARTER_4_BACK = Side(83, False, Symbol.GREEN, Symbol.PURPLE, Symbol.BLUE, Symbol.RED, [], [], 0, Symbol.NONE)
+STARTER_5_BACK = Side(84, False, Symbol.PURPLE, Symbol.RED, Symbol.GREEN, Symbol.BLUE, [], [], 0, Symbol.NONE)
+STARTER_6_BACK = Side(85, False, Symbol.RED, Symbol.BLUE, Symbol.GREEN, Symbol.PURPLE, [], [], 0, Symbol.NONE)
+
+def side_resources_starters(side: Side):
+    resources = {}
+    for symbol in [side.topLeft, side.topRight, side.bottomLeft, side.bottomRight]:
+        if symbol in resources:
+            resources[symbol] += 1
+        else:
+            resources[symbol] = 1
+    
+    for symbol in side.center:
+        if symbol in resources:
+            resources[symbol] += 1
+        else:
+            resources[symbol] = 1
+
+    return f'''
+    {{
+        "resources": {{
+            {", ".join(f'"{k.name.upper()}": {v}' for k, v in resources.items())}
+        }}
+    }}
+    '''
+
+def serialize_side_back_starter(side: Side):
+    return f'''
+    {{
+        "class": "SideBack",
+        "associatedScore": 0,
+        "id": {side.id},
+        "color": "STARTER",
+        "fieldRepresentation": {side_field_representation(side)},
+        "resources": {side_resources_starters(side)}
+    }}
+    '''
+
+def serialize_side_front_starter(side: Side):
+    return f'''
+    {{
+        "class": "SideFrontStarter",
+        "associatedScore": {side.score},
+        "color": "STARTER",
+        "id": {side.id},
+        "fieldRepresentation": {side_field_representation(side)},
+        "resources": {side_resources_starters(side)}
+    }}
+    '''
+    
+def serialize_card_starter(card: Card):
+    return f'''
+    {{
+        "back": {serialize_side_back_starter(card.back)},
+        "front": {serialize_side_front_starter(card.front)}
+    }}
+    '''
+
+starter_cards = [
+    Card(80, STARTER_1_FRONT, STARTER_1_BACK),
+    Card(81, STARTER_2_FRONT, STARTER_2_BACK),
+    Card(82, STARTER_3_FRONT, STARTER_3_BACK),
+    Card(83, STARTER_4_FRONT, STARTER_4_BACK),
+    Card(84, STARTER_5_FRONT, STARTER_5_BACK),
+    Card(85, STARTER_6_FRONT, STARTER_6_BACK)
+]
+
+# starter_cards_json = '[\n' + ',\n'.join(serialize_card_starter(card) for card in starter_cards) + '\n]'
+
+# starter_cards_json = json.dumps(json.loads(starter_cards_json), indent=4)
+
+# with open('starters.json', 'w') as f:
+#     f.write(starter_cards_json)
+
+cards = '[\n' + ',\n'.join(serialize_card(card) for card in cards) + ',\n' + ',\n'.join(serialize_card_starter(card) for card in starter_cards) + '\n]'
+
+cards = json.dumps(json.loads(cards), indent=4)
+
+with open('cards.json', 'w') as f:
+    f.write(cards)

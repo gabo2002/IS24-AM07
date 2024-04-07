@@ -2,6 +2,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 0,
             "color": "RED",
             "fieldRepresentation": {
@@ -31,6 +32,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "RED",
             "id": 0,
             "fieldRepresentation": {
@@ -62,6 +64,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 1,
             "color": "RED",
             "fieldRepresentation": {
@@ -91,6 +94,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "RED",
             "id": 1,
             "fieldRepresentation": {
@@ -122,6 +126,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 2,
             "color": "RED",
             "fieldRepresentation": {
@@ -151,6 +156,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "RED",
             "id": 2,
             "fieldRepresentation": {
@@ -182,6 +188,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 3,
             "color": "RED",
             "fieldRepresentation": {
@@ -211,6 +218,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "RED",
             "id": 3,
             "fieldRepresentation": {
@@ -242,6 +250,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 4,
             "color": "RED",
             "fieldRepresentation": {
@@ -271,6 +280,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "RED",
             "id": 4,
             "fieldRepresentation": {
@@ -304,6 +314,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 5,
             "color": "RED",
             "fieldRepresentation": {
@@ -333,6 +344,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "RED",
             "id": 5,
             "fieldRepresentation": {
@@ -366,6 +378,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 6,
             "color": "RED",
             "fieldRepresentation": {
@@ -395,6 +408,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "RED",
             "id": 6,
             "fieldRepresentation": {
@@ -428,6 +442,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 7,
             "color": "RED",
             "fieldRepresentation": {
@@ -457,6 +472,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "RED",
             "id": 7,
             "fieldRepresentation": {
@@ -488,6 +504,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 8,
             "color": "RED",
             "fieldRepresentation": {
@@ -517,6 +534,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "RED",
             "id": 8,
             "fieldRepresentation": {
@@ -548,6 +566,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 9,
             "color": "RED",
             "fieldRepresentation": {
@@ -577,6 +596,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "RED",
             "id": 9,
             "fieldRepresentation": {
@@ -608,6 +628,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 10,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -637,6 +658,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "GREEN",
             "id": 10,
             "fieldRepresentation": {
@@ -668,6 +690,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 11,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -697,6 +720,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "GREEN",
             "id": 11,
             "fieldRepresentation": {
@@ -728,6 +752,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 12,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -757,6 +782,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "GREEN",
             "id": 12,
             "fieldRepresentation": {
@@ -788,6 +814,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 13,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -817,6 +844,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "GREEN",
             "id": 13,
             "fieldRepresentation": {
@@ -848,6 +876,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 14,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -877,6 +906,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "GREEN",
             "id": 14,
             "fieldRepresentation": {
@@ -910,6 +940,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 15,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -939,6 +970,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "GREEN",
             "id": 15,
             "fieldRepresentation": {
@@ -972,6 +1004,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 16,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -1001,6 +1034,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "GREEN",
             "id": 16,
             "fieldRepresentation": {
@@ -1034,6 +1068,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 17,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -1063,6 +1098,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "GREEN",
             "id": 17,
             "fieldRepresentation": {
@@ -1094,6 +1130,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 18,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -1123,6 +1160,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "GREEN",
             "id": 18,
             "fieldRepresentation": {
@@ -1154,6 +1192,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 19,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -1183,6 +1222,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "GREEN",
             "id": 19,
             "fieldRepresentation": {
@@ -1214,6 +1254,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 20,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1243,6 +1284,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "BLUE",
             "id": 20,
             "fieldRepresentation": {
@@ -1274,6 +1316,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 21,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1303,6 +1346,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "BLUE",
             "id": 21,
             "fieldRepresentation": {
@@ -1334,6 +1378,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 22,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1363,6 +1408,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "BLUE",
             "id": 22,
             "fieldRepresentation": {
@@ -1394,6 +1440,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 23,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1423,6 +1470,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "BLUE",
             "id": 23,
             "fieldRepresentation": {
@@ -1454,6 +1502,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 24,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1483,6 +1532,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "BLUE",
             "id": 24,
             "fieldRepresentation": {
@@ -1516,6 +1566,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 25,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1545,6 +1596,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "BLUE",
             "id": 25,
             "fieldRepresentation": {
@@ -1578,6 +1630,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 26,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1607,6 +1660,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "BLUE",
             "id": 26,
             "fieldRepresentation": {
@@ -1640,6 +1694,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 27,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1669,6 +1724,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "BLUE",
             "id": 27,
             "fieldRepresentation": {
@@ -1700,6 +1756,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 28,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1729,6 +1786,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "BLUE",
             "id": 28,
             "fieldRepresentation": {
@@ -1760,6 +1818,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 29,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -1789,6 +1848,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "BLUE",
             "id": 29,
             "fieldRepresentation": {
@@ -1820,6 +1880,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 30,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -1849,6 +1910,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "PURPLE",
             "id": 30,
             "fieldRepresentation": {
@@ -1880,6 +1942,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 31,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -1909,6 +1972,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "PURPLE",
             "id": 31,
             "fieldRepresentation": {
@@ -1940,6 +2004,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 32,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -1969,6 +2034,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "PURPLE",
             "id": 32,
             "fieldRepresentation": {
@@ -2000,6 +2066,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 33,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -2029,6 +2096,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "PURPLE",
             "id": 33,
             "fieldRepresentation": {
@@ -2060,6 +2128,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 34,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -2089,6 +2158,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "PURPLE",
             "id": 34,
             "fieldRepresentation": {
@@ -2122,6 +2192,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 35,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -2151,6 +2222,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "PURPLE",
             "id": 35,
             "fieldRepresentation": {
@@ -2184,6 +2256,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 36,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -2213,6 +2286,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 0,
             "color": "PURPLE",
             "id": 36,
             "fieldRepresentation": {
@@ -2246,6 +2320,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 37,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -2275,6 +2350,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "PURPLE",
             "id": 37,
             "fieldRepresentation": {
@@ -2306,6 +2382,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 38,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -2335,6 +2412,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "PURPLE",
             "id": 38,
             "fieldRepresentation": {
@@ -2366,6 +2444,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 39,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -2395,6 +2474,7 @@
         },
         "front": {
             "class": "SideFrontRes",
+            "associatedScore": 1,
             "color": "PURPLE",
             "id": 39,
             "fieldRepresentation": {
@@ -2426,6 +2506,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 40,
             "color": "RED",
             "fieldRepresentation": {
@@ -2494,6 +2575,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 41,
             "color": "RED",
             "fieldRepresentation": {
@@ -2562,6 +2644,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 42,
             "color": "RED",
             "fieldRepresentation": {
@@ -2630,6 +2713,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 43,
             "color": "RED",
             "fieldRepresentation": {
@@ -2696,6 +2780,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 44,
             "color": "RED",
             "fieldRepresentation": {
@@ -2762,6 +2847,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 45,
             "color": "RED",
             "fieldRepresentation": {
@@ -2828,6 +2914,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 46,
             "color": "RED",
             "fieldRepresentation": {
@@ -2895,6 +2982,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 47,
             "color": "RED",
             "fieldRepresentation": {
@@ -2962,6 +3050,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 48,
             "color": "RED",
             "fieldRepresentation": {
@@ -3029,6 +3118,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 49,
             "color": "RED",
             "fieldRepresentation": {
@@ -3094,6 +3184,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 50,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3162,6 +3253,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 51,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3230,6 +3322,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 52,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3298,6 +3391,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 53,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3364,6 +3458,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 54,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3430,6 +3525,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 55,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3496,6 +3592,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 56,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3563,6 +3660,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 57,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3630,6 +3728,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 58,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3697,6 +3796,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 59,
             "color": "GREEN",
             "fieldRepresentation": {
@@ -3762,6 +3862,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 60,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -3830,6 +3931,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 61,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -3898,6 +4000,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 62,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -3966,6 +4069,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 63,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -4032,6 +4136,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 64,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -4098,6 +4203,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 65,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -4164,6 +4270,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 66,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -4231,6 +4338,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 67,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -4298,6 +4406,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 68,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -4365,6 +4474,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 69,
             "color": "BLUE",
             "fieldRepresentation": {
@@ -4430,6 +4540,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 70,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4498,6 +4609,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 71,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4566,6 +4678,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 72,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4634,6 +4747,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 73,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4700,6 +4814,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 74,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4766,6 +4881,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 75,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4832,6 +4948,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 76,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4899,6 +5016,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 77,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -4966,6 +5084,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 78,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -5033,6 +5152,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 79,
             "color": "PURPLE",
             "fieldRepresentation": {
@@ -5098,6 +5218,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 80,
             "color": "STARTER",
             "fieldRepresentation": {
@@ -5164,6 +5285,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 81,
             "color": "STARTER",
             "fieldRepresentation": {
@@ -5230,6 +5352,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 82,
             "color": "STARTER",
             "fieldRepresentation": {
@@ -5296,6 +5419,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 83,
             "color": "STARTER",
             "fieldRepresentation": {
@@ -5362,6 +5486,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 84,
             "color": "STARTER",
             "fieldRepresentation": {
@@ -5430,6 +5555,7 @@
     {
         "back": {
             "class": "SideBack",
+            "associatedScore": 0,
             "id": 85,
             "color": "STARTER",
             "fieldRepresentation": {
