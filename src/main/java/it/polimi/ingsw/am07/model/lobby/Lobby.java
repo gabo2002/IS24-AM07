@@ -26,37 +26,54 @@ package it.polimi.ingsw.am07.model.lobby;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the lobby of a game.
+ */
 public class Lobby {
 
-    private final List<String> nicknames;
+    private final List<LobbyPlayer> players;
 
     /**
-     * Constructs a new Lobby object with an empty list of nicknames.
+     * Constructs a new Lobby object with an empty list of players.
      */
     public Lobby() {
-        nicknames = new ArrayList<>();
+        players = new ArrayList<>();
     }
 
     /**
-     * Retrieves the list of nicknames in the lobby.
+     * Retrieves the list of players in the lobby.
      *
-     * @return The list of nicknames in the lobby.
+     * @return The list of players in the lobby.
      */
-    public List<String> getNicknames() {
-        return nicknames;
+    public List<LobbyPlayer> getPlayers() {
+        return players;
     }
 
     /**
-     * Sets a new nickname for the entity.
+     * Retrieves the number of players in the lobby.
      *
-     * @param nickname The new nickname to be set.
+     * @return The number of players in the lobby.
+     */
+    public int getPlayerCount() {
+        return players.size();
+    }
+
+    /**
+     * Adds a new player to the lobby.
+     *
+     * @param nickname The nickname of the player to add.
      * @throws IllegalArgumentException If the provided nickname is already taken.
      */
-    public void setNicknames(String nickname) throws IllegalArgumentException {
-        if (nicknames.contains(nickname)) {
+    public LobbyPlayer addNewPlayer(String nickname) throws IllegalArgumentException {
+        LobbyPlayer player = new LobbyPlayer(nickname);
+
+        if (players.contains(player)) {
             throw new IllegalArgumentException("Nickname already taken");
         }
-        nicknames.add(nickname);
+
+        players.add(player);
+
+        return player;
     }
 
 }

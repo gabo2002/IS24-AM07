@@ -50,18 +50,24 @@ public class Player implements Serializable {
     private final Pawn playerPawn;
     private final GameField playerGameField;
     private final List<GameCard> playableCards;    //handCards?
+    private final GameCard starterCard;
     private int playerScore;
+    private final ObjectiveCard[] availableObjectives;
     private ObjectiveCard playerObjectiveCard;
 
     /**
      * Constructs a new Player with the specified parameters.
      */
-    public Player(String nickname, ResourceHolder playerResources, Pawn playerPawn, GameField playerGameField, ArrayList<GameCard> playableCards) {
+    public Player(String nickname, Pawn playerPawn, GameCard starterCard, ObjectiveCard[] availableObjectives) {
         this.nickname = nickname;
-        this.playerResources = playerResources;
         this.playerPawn = playerPawn;
-        this.playerGameField = playerGameField;
-        this.playableCards = playableCards;
+        this.availableObjectives = availableObjectives;
+        this.starterCard = starterCard;
+
+        this.playerResources = new ResourceHolder();
+        this.playerGameField = new GameField();
+        this.playableCards = new ArrayList<>();
+        this.playerObjectiveCard = null;
     }
 
 
@@ -102,12 +108,32 @@ public class Player implements Serializable {
     }
 
     /**
-     * Sets the objective card for the player.
+     * Sets the objective card for the player, if it has not been set yet.
      *
      * @param playerObjectiveCard The objective card to be set for the player.
      */
     public void setPlayerObjectiveCard(ObjectiveCard playerObjectiveCard) {
-        this.playerObjectiveCard = playerObjectiveCard;
+        if (this.playerObjectiveCard == null) {
+            this.playerObjectiveCard = playerObjectiveCard;
+        }
+    }
+
+    /**
+     * Retrieves the available objective cards for the player.
+     *
+     * @return The available objective cards for the player.
+     */
+    public ObjectiveCard[] getAvailableObjectives() {
+        return availableObjectives;
+    }
+
+    /**
+     * Retrieves the starter card of the player.
+     *
+     * @return The starter card of the player.
+     */
+    public GameCard getStarterCard() {
+        return starterCard;
     }
 
     /**

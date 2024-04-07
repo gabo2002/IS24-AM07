@@ -27,9 +27,13 @@ import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
 import it.polimi.ingsw.am07.exceptions.IllegalGameStateException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
+import it.polimi.ingsw.am07.utils.assets.GameResources;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,8 +47,6 @@ public class Game implements Serializable {
 
     private final String selfNickname;
 
-    private final List<ObjectiveCard> availableObjectiveCards;
-
     private final ObjectiveCard[] commonObjectives; //only 2 cards
 
     private int currentPlayerIndex;    //Reminder: randomly generated first
@@ -52,38 +54,21 @@ public class Game implements Serializable {
     private GameState gameState;
 
     /**
-     * Default constructor for the Game class.
-     * It initializes the game with a random UUID, an empty list of players, a new deck, and the nickname of the current player.
-     *
-     * @param selfNickname the nickname of the current player
-     */
-    public Game(String selfNickname) {
-        id = UUID.randomUUID();
-        players = new ArrayList<>();
-        deck = new Deck.Factory().build();
-        availableObjectiveCards = new ArrayList<>();
-        commonObjectives = new ObjectiveCard[2];
-        currentPlayerIndex = 0;
-        gameState = GameState.STARTING;
-
-        this.selfNickname = selfNickname;
-    }
-
-    /**
      * Constructor for the Game class, called by Lobby Class.
-     * <strong>SERVER SIDE ONLY!</strong>
+     * <strong>SHOULD NEVER BE CALLED IF NOT BY THE COMPANION FACTORY!</strong>
      *
      * @param players the list of players in the game
+     * @param commonObjectives the common objectives in the game
      */
-    public Game(List<Player> players) {
-        id = UUID.randomUUID();
+    public Game(List<Player> players, ObjectiveCard[] commonObjectives) {
+        this.commonObjectives = commonObjectives;
         this.players = players;
-        deck = new Deck.Factory().build();
-        availableObjectiveCards = new ArrayList<>();
-        commonObjectives = new ObjectiveCard[2];
-        currentPlayerIndex = 0;
-        gameState = GameState.STARTING;
         this.selfNickname = null;
+
+        id = UUID.randomUUID();
+        currentPlayerIndex = 0;
+        deck = new Deck.Factory().build();
+        gameState = GameState.STARTING;
     }
 
     /**
@@ -260,6 +245,76 @@ public class Game implements Serializable {
      */
     public Player getPlayingPlayer() {
         return players.get(currentPlayerIndex);
+    }
+
+    /**
+     * The companion factory class for the Game class.
+     */
+    public static class Factory {
+
+        private Lobby lobby;
+
+        /**
+         * Constructor for the Factory class.
+         */
+        public Factory() {
+            this.lobby = null;
+        }
+
+        /**
+         * This method sets the lobby for the game.
+         * @param lobby
+         * @return
+         */
+        public Factory fromLobby(Lobby lobby) {
+            this.lobby = lobby;
+
+            return this;
+        }
+
+        /**
+         * This method builds the game object.
+         *
+         * @return the game object
+         */
+        public Game build() {
+            // Initialize an empty list of players and get the shuffled objective cards
+            List<Player> players = new ArrayList<>();
+            List<ObjectiveCard> objectiveCards = GameResources.getInstance().getShuffledObjectiveCards();
+            List<GameCard> starterCards = GameResources.getInstance().getShuffledStarterCards();
+
+            // Pick the common objectives
+            ObjectiveCard[] commonObjectives = new ObjectiveCard[2];
+            commonObjectives[0] = objectiveCards.removeFirst();
+            commonObjectives[1] = objectiveCards.removeFirst();
+
+            // Create the game object
+            Game game = new Game(players, commonObjectives);
+
+            // Create a player for each lobbyPlayer in the lobby
+            for (LobbyPlayer lobbyPlayer : lobby.getPlayers()) {
+                ObjectiveCard[] availableObjectives = new ObjectiveCard[2];
+                availableObjectives[0] = objectiveCards.removeFirst();
+                availableObjectives[1] = objectiveCards.removeFirst();
+
+                Player player = new Player(lobbyPlayer.getNickname(), lobbyPlayer.getPlayerPawn(), starterCards.removeFirst(), availableObjectives);
+
+                players.add(player);
+            }
+
+            // Each player receives 2 resource cards and 1 gold card
+            for (Player player : players) {
+                player.addPlayableCard(game.pickRandomResCard());
+                player.addPlayableCard(game.pickRandomResCard());
+                player.addPlayableCard(game.pickRandomGoldCard());
+            }
+
+            // Shuffle the player list
+            Collections.shuffle(players);
+
+            return game;
+        }
+
     }
 
 }
