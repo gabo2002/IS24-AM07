@@ -1,3 +1,296 @@
 [
-
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 2,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "EMPTY",
+                    "EMPTY",
+                    "RED",
+                    "EMPTY",
+                    "RED",
+                    "EMPTY",
+                    "RED",
+                    "EMPTY",
+                    "EMPTY"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 2,
+                "maxY": 2,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 3,
+                "sizeY": 3
+            }
+        }
+    },
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 2,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "GREEN",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "GREEN",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "GREEN"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 2,
+                "maxY": 2,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 3,
+                "sizeY": 3
+            }
+        }
+    },
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 2,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "EMPTY",
+                    "EMPTY",
+                    "BLUE",
+                    "EMPTY",
+                    "BLUE",
+                    "EMPTY",
+                    "BLUE",
+                    "EMPTY",
+                    "EMPTY"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 2,
+                "maxY": 2,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 3,
+                "sizeY": 3
+            }
+        }
+    },
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 2,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "PURPLE",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "PURPLE",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "PURPLE"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 2,
+                "maxY": 2,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 3,
+                "sizeY": 3
+            }
+        }
+    },
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 3,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "RED",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "RED",
+                    "EMPTY",
+                    "EMPTY",
+                    "GREEN"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 1,
+                "maxY": 3,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 2,
+                "sizeY": 4
+            }
+        }
+    },
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 3,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "EMPTY",
+                    "GREEN",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "PURPLE",
+                    "EMPTY"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 1,
+                "maxY": 3,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 2,
+                "sizeY": 4
+            }
+        }
+    },
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 3,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "EMPTY",
+                    "RED",
+                    "BLUE",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "BLUE",
+                    "EMPTY"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 1,
+                "maxY": 3,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 2,
+                "sizeY": 4
+            }
+        }
+    },
+    {
+        "class": "PatternObjectiveCard",
+        "associatedScore": 3,
+        "pattern": {
+            "pattern": {
+                "centerX": 0,
+                "centerY": 0,
+                "data": [
+                    "BLUE",
+                    "EMPTY",
+                    "EMPTY",
+                    "PURPLE",
+                    "EMPTY",
+                    "EMPTY",
+                    "EMPTY",
+                    "PURPLE"
+                ],
+                "emptyValue": "EMPTY",
+                "maxX": 1,
+                "maxY": 3,
+                "minX": 0,
+                "minY": 0,
+                "sizeX": 2,
+                "sizeY": 4
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 2,
+        "requirements": {
+            "resources": {
+                "RED": 3
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 2,
+        "requirements": {
+            "resources": {
+                "GREEN": 3
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 2,
+        "requirements": {
+            "resources": {
+                "BLUE": 3
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 2,
+        "requirements": {
+            "resources": {
+                "PURPLE": 3
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 3,
+        "requirements": {
+            "resources": {
+                "FEATHER": 1,
+                "SCROLL": 1,
+                "FLASK": 1
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 2,
+        "requirements": {
+            "resources": {
+                "SCROLL": 2
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 2,
+        "requirements": {
+            "resources": {
+                "FLASK": 2
+            }
+        }
+    },
+    {
+        "class": "ResourceObjectiveCard",
+        "associatedScore": 2,
+        "requirements": {
+            "resources": {
+                "FEATHER": 2
+            }
+        }
+    }
 ]

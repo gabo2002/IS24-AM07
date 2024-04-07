@@ -1,0 +1,7 @@
+{
+    "cardsCount": 40,
+    "starterCardsCount": 6,
+    "cardsJsonFileName": "cards.json",
+    "objectivesCount": 16,
+    "objectivesJsonFileName": "objectives.json"
+}

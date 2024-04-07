@@ -5094,5 +5094,405 @@
                 }
             }
         }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 80,
+            "color": "STARTER",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "RED",
+                        "GREEN",
+                        "PURPLE",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1,
+                    "GREEN": 1,
+                    "PURPLE": 1,
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontStarter",
+            "associatedScore": 0,
+            "color": "STARTER",
+            "id": 80,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "GREEN",
+                        "PURPLE",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLANK": 2,
+                    "GREEN": 1,
+                    "PURPLE": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 81,
+            "color": "STARTER",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "GREEN",
+                        "BLUE",
+                        "RED",
+                        "PURPLE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1,
+                    "BLUE": 1,
+                    "RED": 1,
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontStarter",
+            "associatedScore": 0,
+            "color": "STARTER",
+            "id": 81,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLUE",
+                        "BLANK",
+                        "BLANK",
+                        "RED"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLUE": 1,
+                    "BLANK": 2,
+                    "RED": 2
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 82,
+            "color": "STARTER",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "PURPLE",
+                        "BLUE",
+                        "RED",
+                        "GREEN"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1,
+                    "BLUE": 1,
+                    "RED": 1,
+                    "GREEN": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontStarter",
+            "associatedScore": 0,
+            "color": "STARTER",
+            "id": 82,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLANK": 4,
+                    "GREEN": 1,
+                    "RED": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 83,
+            "color": "STARTER",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "GREEN",
+                        "PURPLE",
+                        "BLUE",
+                        "RED"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "GREEN": 1,
+                    "PURPLE": 1,
+                    "BLUE": 1,
+                    "RED": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontStarter",
+            "associatedScore": 0,
+            "color": "STARTER",
+            "id": 83,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "BLANK",
+                        "BLANK"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLANK": 4,
+                    "BLUE": 1,
+                    "PURPLE": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 84,
+            "color": "STARTER",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "PURPLE",
+                        "RED",
+                        "GREEN",
+                        "BLUE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "PURPLE": 1,
+                    "RED": 1,
+                    "GREEN": 1,
+                    "BLUE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontStarter",
+            "associatedScore": 0,
+            "color": "STARTER",
+            "id": 84,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLANK": 2,
+                    "NONE": 2,
+                    "BLUE": 1,
+                    "PURPLE": 1,
+                    "GREEN": 1
+                }
+            }
+        }
+    },
+    {
+        "back": {
+            "class": "SideBack",
+            "id": 85,
+            "color": "STARTER",
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "RED",
+                        "BLUE",
+                        "GREEN",
+                        "PURPLE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "RED": 1,
+                    "BLUE": 1,
+                    "GREEN": 1,
+                    "PURPLE": 1
+                }
+            }
+        },
+        "front": {
+            "class": "SideFrontStarter",
+            "associatedScore": 0,
+            "color": "STARTER",
+            "id": 85,
+            "fieldRepresentation": {
+                "corners": {
+                    "centerX": 0,
+                    "centerY": 0,
+                    "data": [
+                        "BLANK",
+                        "BLANK",
+                        "NONE",
+                        "NONE"
+                    ],
+                    "emptyValue": "EMPTY",
+                    "maxX": 1,
+                    "maxY": 1,
+                    "minX": 0,
+                    "minY": 0,
+                    "sizeX": 2,
+                    "sizeY": 2
+                }
+            },
+            "resources": {
+                "resources": {
+                    "BLANK": 2,
+                    "NONE": 2,
+                    "GREEN": 1,
+                    "BLUE": 1,
+                    "RED": 1
+                }
+            }
+        }
     }
 ]
