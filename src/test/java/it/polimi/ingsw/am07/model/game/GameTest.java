@@ -24,9 +24,10 @@
 package it.polimi.ingsw.am07.model.game;
 
 import it.polimi.ingsw.am07.model.game.card.GameCard;
-import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.*;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
@@ -42,18 +43,12 @@ class GameTest {
 
     @Test
     void validateSerializability() {
-        Player player = new Player(
-                "test_0",
-                new ResourceHolder(),
-                Pawn.BLACK,
-                new GameField(),
-                new ArrayList<>()
-        );
+        Player player = new Player("player1", Pawn.BLACK, null, null);
 
         List<Player> players = new ArrayList<>();
         players.add(player);
 
-        Game game = new Game(players);
+        Game game = new Game(players, null);
 
         assertDoesNotThrow(() -> {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -70,37 +65,11 @@ class GameTest {
     void incrementTurnTest() {
 
         // setting up the players
-        Player player1 = new Player(
-                "player1",
-                new ResourceHolder(),
-                Pawn.BLACK,
-                new GameField(),
-                new ArrayList<>()
-        );
+        Player player1 = new Player("player1", Pawn.BLACK, null, null);
+        Player player2 = new Player("player2", Pawn.RED, null, null);
+        Player player3 = new Player("player3", Pawn.GREEN, null, null);
+        Player player4 = new Player("player4", Pawn.BLUE, null, null);
 
-        Player player2 = new Player(
-                "player2",
-                new ResourceHolder(),
-                Pawn.RED,
-                new GameField(),
-                new ArrayList<>()
-        );
-
-        Player player3 = new Player(
-                "player3",
-                new ResourceHolder(),
-                Pawn.GREEN,
-                new GameField(),
-                new ArrayList<>()
-        );
-
-        Player player4 = new Player(
-                "player4",
-                new ResourceHolder(),
-                Pawn.YELLOW,
-                new GameField(),
-                new ArrayList<>()
-        );
 
         // adding the players
         List<Player> players = new ArrayList<>();
@@ -110,7 +79,7 @@ class GameTest {
         players.add(player4);
 
         // setting up game
-        Game game = new Game(players);
+        Game game = new Game(players, null);
 
         // crafting a custom card with 20 points to skip
         // crafting starter card
@@ -214,7 +183,7 @@ class GameTest {
 
     @Test
     void pickRandomResCardTest() {
-        Game game = new Game(new ArrayList<>());
+        Game game = new Game(new ArrayList<>(), null);
         int size = game.getAvailableResCardsSize();
 
         game.pickRandomResCard();
@@ -224,7 +193,7 @@ class GameTest {
 
     @Test
     void pickRandomGoldCardTest() {
-        Game game = new Game(new ArrayList<>());
+        Game game = new Game(new ArrayList<>(), null);
         int size = game.getAvailableGoldCardsSize();
 
         game.pickRandomGoldCard();
@@ -234,16 +203,25 @@ class GameTest {
 
     @Test
     void popCardTest() {
-        Game game = new Game(new ArrayList<>());
+        Game game = new Game(new ArrayList<>(), null);
         int size = game.getAvailableResCardsSize();
         GameCard gameCard = new GameCard(new SideFrontRes(1, null, null, null), new SideBack(1, null, null, null));
 
         assertDoesNotThrow(() -> game.popCard(gameCard));
 
         assertEquals(size - 1 , game.getAvailableResCardsSize());
-
-
     }
 
+    @Test
+    void factoryTest() {
+        Lobby lobby = new Lobby();
+        LobbyPlayer a = lobby.addNewPlayer("player1");
+
+        Game game = new Game.Factory()
+                .fromLobby(lobby)
+                .build();
+
+        assertEquals(1, game.getPlayers().size());
+    }
 
 }
