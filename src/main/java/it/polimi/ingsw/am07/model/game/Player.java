@@ -51,8 +51,8 @@ public class Player implements Serializable {
     private final GameField playerGameField;
     private final List<GameCard> playableCards;    //handCards?
     private final GameCard starterCard;
-    private int playerScore;
     private final ObjectiveCard[] availableObjectives;
+    private int playerScore;
     private ObjectiveCard playerObjectiveCard;
 
     /**

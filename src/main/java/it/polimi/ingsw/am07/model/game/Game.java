@@ -57,7 +57,7 @@ public class Game implements Serializable {
      * Constructor for the Game class, called by Lobby Class.
      * <strong>SHOULD NEVER BE CALLED IF NOT BY THE COMPANION FACTORY!</strong>
      *
-     * @param players the list of players in the game
+     * @param players          the list of players in the game
      * @param commonObjectives the common objectives in the game
      */
     public Game(List<Player> players, ObjectiveCard[] commonObjectives) {
@@ -263,6 +263,7 @@ public class Game implements Serializable {
 
         /**
          * This method sets the lobby for the game.
+         *
          * @param lobby
          * @return
          */

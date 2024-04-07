@@ -26,16 +26,17 @@ package it.polimi.ingsw.am07.utils.assets;
 /**
  * Represents the definition of the game resources.
  *
- * @param cardsCount the number of either gold or resource cards
- * @param starterCardsCount the number of starter cards
- * @param cardsJsonFileName the name of the JSON file containing the cards
- * @param objectivesCount the number of objectives
+ * @param cardsCount             the number of either gold or resource cards
+ * @param starterCardsCount      the number of starter cards
+ * @param cardsJsonFileName      the name of the JSON file containing the cards
+ * @param objectivesCount        the number of objectives
  * @param objectivesJsonFileName the name of the JSON file containing the objectives
  */
 public record GameResourceDefinition(
-    int cardsCount,
-    int starterCardsCount,
-    String cardsJsonFileName,
-    int objectivesCount,
-    String objectivesJsonFileName
-) {}
+        int cardsCount,
+        int starterCardsCount,
+        String cardsJsonFileName,
+        int objectivesCount,
+        String objectivesJsonFileName
+) {
+}

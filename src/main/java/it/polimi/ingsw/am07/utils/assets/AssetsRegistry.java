@@ -42,7 +42,7 @@ public class AssetsRegistry {
 
     private String cardsJsonContent;
     private String objectivesJsonContent;
-    private String starterCardsJsonContent;
+    private final String starterCardsJsonContent;
 
     private GameResourceDefinition gameResourceDefinition;
 

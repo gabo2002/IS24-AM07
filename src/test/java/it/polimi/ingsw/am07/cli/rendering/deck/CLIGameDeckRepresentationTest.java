@@ -26,7 +26,7 @@ package it.polimi.ingsw.am07.cli.rendering.deck;
 import it.polimi.ingsw.am07.model.game.Deck;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CLIGameDeckRepresentationTest {
 

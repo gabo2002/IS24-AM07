@@ -23,7 +23,6 @@
 
 package it.polimi.ingsw.am07.utils.assets;
 
-import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

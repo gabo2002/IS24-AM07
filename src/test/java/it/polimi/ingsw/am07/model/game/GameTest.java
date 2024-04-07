@@ -96,32 +96,32 @@ class GameTest {
         assertEquals(GameState.STARTING, game.getGameState());
         assertEquals(0, game.getCurrentPlayerIndex());
 
-        assertDoesNotThrow(() -> player1.placeAt(starter, new GameFieldPosition(0,0,0)));
+        assertDoesNotThrow(() -> player1.placeAt(starter, new GameFieldPosition(0, 0, 0)));
         assertEquals(0, player1.getPlayerScore());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player2.placeAt(starter, new GameFieldPosition(0,0,0)));
+        assertDoesNotThrow(() -> player2.placeAt(starter, new GameFieldPosition(0, 0, 0)));
 
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(1, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player3.placeAt(starter, new GameFieldPosition(0,0,0)));
+        assertDoesNotThrow(() -> player3.placeAt(starter, new GameFieldPosition(0, 0, 0)));
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(2, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player4.placeAt(starter, new GameFieldPosition(0,0,0)));
+        assertDoesNotThrow(() -> player4.placeAt(starter, new GameFieldPosition(0, 0, 0)));
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(3, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
         // player 1
-        assertDoesNotThrow(() -> player1.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertDoesNotThrow(() -> player1.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player1.getPlayerScore());
 
         game.incrementTurn();
@@ -130,7 +130,7 @@ class GameTest {
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(1, game.getCurrentPlayerIndex());
 
-        assertDoesNotThrow(() -> player2.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertDoesNotThrow(() -> player2.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player2.getPlayerScore());
 
         game.incrementTurn();
@@ -138,14 +138,14 @@ class GameTest {
         // player 3
         assertEquals(GameState.PLAYING, game.getGameState());
 
-        assertDoesNotThrow(() -> player3.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertDoesNotThrow(() -> player3.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player3.getPlayerScore());
 
 
         game.incrementTurn();
 
         // player 4
-        assertDoesNotThrow(() -> player4.placeAt(sideFront, new GameFieldPosition(1,1,1)));
+        assertDoesNotThrow(() -> player4.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player4.getPlayerScore());
 
         game.incrementTurn();
@@ -188,7 +188,7 @@ class GameTest {
 
         game.pickRandomResCard();
 
-        assertEquals(size - 1 , game.getAvailableResCardsSize());
+        assertEquals(size - 1, game.getAvailableResCardsSize());
     }
 
     @Test
@@ -198,7 +198,7 @@ class GameTest {
 
         game.pickRandomGoldCard();
 
-        assertEquals(size - 1 , game.getAvailableGoldCardsSize());
+        assertEquals(size - 1, game.getAvailableGoldCardsSize());
     }
 
     @Test
@@ -209,7 +209,7 @@ class GameTest {
 
         assertDoesNotThrow(() -> game.popCard(gameCard));
 
-        assertEquals(size - 1 , game.getAvailableResCardsSize());
+        assertEquals(size - 1, game.getAvailableResCardsSize());
     }
 
     @Test

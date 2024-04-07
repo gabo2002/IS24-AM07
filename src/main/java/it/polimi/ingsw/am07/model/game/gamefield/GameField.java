@@ -34,7 +34,6 @@ import it.polimi.ingsw.am07.utils.matrix.MatrixSubMatrixIterator;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**

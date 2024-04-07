@@ -44,6 +44,84 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PatternObjectiveCardTest {
     private final static int RANDOM_TEST_ITERATIONS = 100;
 
+    static List<GameFieldPosition> getRandomPositionWithoutOverlap(int size) {
+        int x = 0, y = 0;
+        List<GameFieldPosition> positions = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            boolean placed = false;
+            while (!placed) {
+                placed = true;
+                x = (int) (Math.random() * 20);
+                y = (int) (Math.random() * 20);
+
+                if ((x + y) % 2 != 0) {
+                    placed = false;
+                }
+
+                for (GameFieldPosition position : positions) {
+                    if (position.x() == x && position.y() == y) {
+                        placed = false;
+                        break;
+                    }
+                }
+            }
+            positions.add(new GameFieldPosition(x, y, 0));
+        }
+        return positions;
+    }
+
+    static Side getGenericSide(Symbol symbol) {
+        Matrix<Symbol> matrix = new Matrix<>(2, 2, Symbol.BLANK);
+
+        SideFieldRepresentation sideFieldRepresentation = new SideFieldRepresentation(matrix);
+
+        return new SideBack(1, sideFieldRepresentation, new ResourceHolder(), symbol);
+    }
+
+    static GameFieldPattern getRightDiagonalPattern(Symbol color) {
+        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
+        patternMatrix.set(0, 2, color);
+        patternMatrix.set(1, 1, color);
+        patternMatrix.set(2, 0, color);
+        return new GameFieldPattern(patternMatrix);
+    }
+
+    static GameFieldPattern getLeftDiagonalPattern(Symbol color) {
+        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
+        patternMatrix.set(0, 0, color);
+        patternMatrix.set(1, 1, color);
+        patternMatrix.set(2, 2, color);
+        return new GameFieldPattern(patternMatrix);
+    }
+
+    static GameFieldPattern getLPattern(int type, Symbol shortSide, Symbol longSide) {
+        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
+        if (type == 0) {
+            patternMatrix.set(0, 0, longSide);
+            patternMatrix.set(0, 2, longSide);
+            patternMatrix.set(1, 3, shortSide);
+        } else if (type == 1) {
+            patternMatrix.set(1, 0, longSide);
+            patternMatrix.set(1, 2, longSide);
+            patternMatrix.set(0, 3, shortSide);
+        } else if (type == 2) {
+            patternMatrix.set(1, 0, shortSide);
+            patternMatrix.set(0, 1, longSide);
+            patternMatrix.set(0, 3, longSide);
+        } else if (type == 3) {
+            patternMatrix.set(0, 0, shortSide);
+            patternMatrix.set(1, 1, longSide);
+            patternMatrix.set(1, 3, longSide);
+        } else if (type == 4) {
+            patternMatrix.set(0, 0, shortSide);
+            patternMatrix.set(1, 1, longSide);
+            patternMatrix.set(3, 1, longSide);
+        } else {
+            throw new IllegalArgumentException("Invalid L pattern type");
+        }
+        return new GameFieldPattern(patternMatrix);
+    }
+
     @Test
     void calculateScoreEmptyField() {
         GameField field = new GameField();
@@ -63,10 +141,10 @@ class PatternObjectiveCardTest {
 
     @Test
     void calculateSingleCardPattern() {
-        Matrix<Symbol> patternMatrix = new Matrix<>(1,1, Symbol.EMPTY);
+        Matrix<Symbol> patternMatrix = new Matrix<>(1, 1, Symbol.EMPTY);
         patternMatrix.set(0, 0, Symbol.RED);
         ObjectiveCard card = new PatternObjectiveCard(1, new GameFieldPattern(patternMatrix));
-        Matrix<Symbol> patternMatrix2 = new Matrix<>(1,1, Symbol.EMPTY);
+        Matrix<Symbol> patternMatrix2 = new Matrix<>(1, 1, Symbol.EMPTY);
         patternMatrix2.set(0, 0, Symbol.BLUE);
         ObjectiveCard card2 = new PatternObjectiveCard(1, new GameFieldPattern(patternMatrix2));
 
@@ -130,84 +208,6 @@ class PatternObjectiveCardTest {
         pattern = getRightDiagonalPattern(Symbol.BLUE);
         card = new PatternObjectiveCard(5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
-    }
-
-    static List<GameFieldPosition> getRandomPositionWithoutOverlap( int size) {
-        int x = 0, y = 0;
-        List<GameFieldPosition> positions = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            boolean placed = false;
-            while (!placed) {
-                placed = true;
-                x = (int) (Math.random() * 20);
-                y = (int) (Math.random() * 20);
-
-                if ((x+y) % 2 != 0) {
-                    placed = false;
-                }
-
-                for(GameFieldPosition position : positions) {
-                    if(position.x() == x && position.y() == y) {
-                        placed = false;
-                        break;
-                    }
-                }
-            }
-            positions.add(new GameFieldPosition(x, y, 0));
-        }
-        return positions;
-    }
-
-    static Side getGenericSide(Symbol symbol) {
-        Matrix<Symbol> matrix = new Matrix<>(2, 2, Symbol.BLANK);
-
-        SideFieldRepresentation sideFieldRepresentation = new SideFieldRepresentation(matrix);
-
-        return new SideBack(1, sideFieldRepresentation, new ResourceHolder(), symbol);
-    }
-
-    static GameFieldPattern getRightDiagonalPattern(Symbol color) {
-        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
-        patternMatrix.set(0, 2, color);
-        patternMatrix.set(1, 1, color);
-        patternMatrix.set(2, 0, color);
-        return new GameFieldPattern(patternMatrix);
-    }
-    static GameFieldPattern getLeftDiagonalPattern(Symbol color) {
-        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
-        patternMatrix.set(0, 0, color);
-        patternMatrix.set(1, 1, color);
-        patternMatrix.set(2, 2, color);
-        return new GameFieldPattern(patternMatrix);
-    }
-
-    static GameFieldPattern getLPattern(int type, Symbol shortSide, Symbol longSide) {
-        Matrix<Symbol> patternMatrix = new Matrix<>(2, 2, Symbol.EMPTY);
-        if (type == 0) {
-            patternMatrix.set(0, 0, longSide);
-            patternMatrix.set(0, 2, longSide);
-            patternMatrix.set(1, 3, shortSide);
-        } else if (type == 1) {
-            patternMatrix.set(1, 0, longSide);
-            patternMatrix.set(1, 2, longSide);
-            patternMatrix.set(0, 3, shortSide);
-        } else if (type == 2) {
-            patternMatrix.set(1, 0, shortSide);
-            patternMatrix.set(0, 1, longSide);
-            patternMatrix.set(0, 3, longSide);
-        } else if (type == 3) {
-            patternMatrix.set(0, 0, shortSide);
-            patternMatrix.set(1, 1, longSide);
-            patternMatrix.set(1, 3, longSide);
-        } else if (type == 4) {
-            patternMatrix.set(0, 0, shortSide);
-            patternMatrix.set(1, 1, longSide);
-            patternMatrix.set(3, 1, longSide);
-        }
-        else {
-            throw new IllegalArgumentException("Invalid L pattern type");
-        }
-        return new GameFieldPattern(patternMatrix);
     }
 
     @Test
