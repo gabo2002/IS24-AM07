@@ -28,6 +28,7 @@ import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.utils.json.GameDataJsonParser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,23 +36,23 @@ import java.util.List;
  */
 public class GameResources {
 
-    public static int CARDS_COUNT = AssetsRegistry.CARDS_COUNT;
-    public static int OBJECTIVES_COUNT = AssetsRegistry.OBJECTIVES_COUNT;
     private static GameResources instance;
     private final List<GameCard> goldCards;
     private final List<GameCard> resourceCards;
+    private final List<GameCard> starterCards;
     private final List<ObjectiveCard> objectiveCards;
 
     private GameResources() {
         goldCards = new ArrayList<>();
         resourceCards = new ArrayList<>();
         objectiveCards = new ArrayList<>();
+        starterCards = new ArrayList<>();
     }
 
     /**
      * Returns the singleton instance of the class.
      *
-     * @return
+     * @return the singleton instance of the class
      */
     public static GameResources getInstance() {
         if (instance == null) {
@@ -67,16 +68,24 @@ public class GameResources {
     private void initializeCards() {
         GameDataJsonParser<GameCard> gameCardParser = new GameDataJsonParser<>(GameCard.class);
 
-        String cardsJson = AssetsRegistry.getCardsJson();
+        String cardsJson = AssetsRegistry.getInstance().getCardsJson();
 
         List<GameCard> cards = gameCardParser.listFromJson(cardsJson);
 
-        resourceCards.addAll(cards.subList(0, AssetsRegistry.CARDS_COUNT));
-        goldCards.addAll(cards.subList(AssetsRegistry.CARDS_COUNT, cards.size()));
+        final int cards_count = AssetsRegistry.getInstance().getGameResourceDefinition().cardsCount();
+        final int starters_count = AssetsRegistry.getInstance().getGameResourceDefinition().starterCardsCount();
+
+        if (cards.size() != (cards_count * 2 + starters_count)) {
+            throw new RuntimeException("Invalid number of cards in the JSON file");
+        }
+
+        resourceCards.addAll(cards.subList(0, cards_count));
+        goldCards.addAll(cards.subList(cards_count, 2 * cards_count));
+        starterCards.addAll(cards.subList(2 * cards_count, cards.size()));
 
         GameDataJsonParser<ObjectiveCard> objectiveCardParser = new GameDataJsonParser<>(ObjectiveCard.class);
 
-        String objectivesJson = AssetsRegistry.getObjectivesJson();
+        String objectivesJson = AssetsRegistry.getInstance().getObjectivesJson();
 
         objectiveCards.addAll(objectiveCardParser.listFromJson(objectivesJson));
     }
@@ -106,6 +115,55 @@ public class GameResources {
      */
     public List<ObjectiveCard> getObjectiveCards() {
         return objectiveCards;
+    }
+
+    /**
+     * Returns the starter cards.
+     *
+     * @return the starter cards
+     */
+    public List<GameCard> getStarterCards() {
+        return starterCards;
+    }
+
+    /**
+     * Returns the objective cards, already shuffled.
+     *
+     * @return the objective cards, already shuffled
+     */
+    public List<ObjectiveCard> getShuffledObjectiveCards() {
+        List<ObjectiveCard> shuffled = new ArrayList<>(objectiveCards);
+        Collections.shuffle(shuffled);
+        return shuffled;
+    }
+
+    /**
+     * Returns the starter cards, already shuffled.
+     *
+     * @return the starter cards, already shuffled
+     */
+    public List<GameCard> getShuffledStarterCards() {
+        List<GameCard> shuffled = new ArrayList<>(starterCards);
+        Collections.shuffle(shuffled);
+        return shuffled;
+    }
+
+    /**
+     * Returns the number of cards (either gold or resource).
+     *
+     * @return the number of cards
+     */
+    public int getCardsCount() {
+        return AssetsRegistry.getInstance().getGameResourceDefinition().cardsCount();
+    }
+
+    /**
+     * Returns the number of objectives.
+     *
+     * @return the number of objectives
+     */
+    public int getObjectivesCount() {
+        return AssetsRegistry.getInstance().getGameResourceDefinition().objectivesCount();
     }
 
 }

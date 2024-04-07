@@ -24,47 +24,110 @@
 package it.polimi.ingsw.am07.utils.assets;
 
 import it.polimi.ingsw.am07.Application;
+import it.polimi.ingsw.am07.utils.json.GameDataJsonParser;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+/**
+ * AssetsRegistry is a class that provides access to the game assets.
+ */
 public class AssetsRegistry {
 
-    private static final String CARDS_JSON = "cards.json";
-    private static final String OBJECTIVES_JSON = "objectives.json";
-    public static int CARDS_COUNT = 40;
-    public static int OBJECTIVES_COUNT = 0;
+    public static String GAME_RESOURCE_DEFINITION_JSON = "config.json";
 
-    public static String getCardsJson() {
-        String json;
+    private static AssetsRegistry instance;
 
-        try (InputStream inputStream = Application.class.getResourceAsStream(CARDS_JSON)) {
-            if (inputStream == null) {
-                throw new RuntimeException("Failed to load card asset");
-            }
-            json = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read card asset");
-        }
+    private String cardsJsonContent;
+    private String objectivesJsonContent;
+    private String starterCardsJsonContent;
 
-        return json;
+    private GameResourceDefinition gameResourceDefinition;
+
+    private AssetsRegistry() {
+        cardsJsonContent = null;
+        objectivesJsonContent = null;
+        starterCardsJsonContent = null;
+
+        loadGameDefinition();
     }
 
-    public static String getObjectivesJson() {
-        String json;
+    public static AssetsRegistry getInstance() {
+        if (instance == null) {
+            instance = new AssetsRegistry();
+        }
+        return instance;
+    }
 
-        try (InputStream inputStream = Application.class.getResourceAsStream(OBJECTIVES_JSON)) {
-            if (inputStream == null) {
-                throw new RuntimeException("Failed to load objective asset");
+    /**
+     * Returns the JSON representation of the cards.
+     *
+     * @return The JSON representation of the cards.
+     */
+    public String getCardsJson() {
+        if (cardsJsonContent == null) {
+            String json;
+
+            try (InputStream inputStream = Application.class.getResourceAsStream(gameResourceDefinition.cardsJsonFileName())) {
+                if (inputStream == null) {
+                    throw new RuntimeException("Failed to load card asset");
+                }
+                json = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to read card asset");
             }
-            json = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read objective asset");
+
+            cardsJsonContent = json;
         }
 
-        return json;
+        return cardsJsonContent;
+    }
+
+    /**
+     * Returns the JSON representation of the objectives.
+     *
+     * @return The JSON representation of the objectives.
+     */
+    public String getObjectivesJson() {
+        if (objectivesJsonContent == null) {
+            String json;
+
+            try (InputStream inputStream = Application.class.getResourceAsStream(gameResourceDefinition.objectivesJsonFileName())) {
+                if (inputStream == null) {
+                    throw new RuntimeException("Failed to load objective asset");
+                }
+                json = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to read objective asset");
+            }
+
+            objectivesJsonContent = json;
+        }
+
+        return objectivesJsonContent;
+    }
+
+    public GameResourceDefinition getGameResourceDefinition() {
+        return gameResourceDefinition;
+    }
+
+    private void loadGameDefinition() {
+        GameDataJsonParser<GameResourceDefinition> gameResourceDefinitionParser = new GameDataJsonParser<>(GameResourceDefinition.class);
+
+        String gameResourceDefinitionJson;
+
+        try (InputStream inputStream = Application.class.getResourceAsStream(GAME_RESOURCE_DEFINITION_JSON)) {
+            if (inputStream == null) {
+                throw new RuntimeException("Failed to load game resource definition asset");
+            }
+            gameResourceDefinitionJson = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read game resource definition asset");
+        }
+
+        gameResourceDefinition = gameResourceDefinitionParser.fromJson(gameResourceDefinitionJson);
     }
 
 }

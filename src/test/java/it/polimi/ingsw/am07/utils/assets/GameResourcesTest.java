@@ -42,7 +42,7 @@ class GameResourcesTest {
         List<GameCard> goldCards = gameResources.getGoldCards();
 
         assertNotNull(goldCards);
-        assertEquals(GameResources.CARDS_COUNT, goldCards.size());
+        assertEquals(GameResources.getInstance().getCardsCount(), goldCards.size());
     }
 
     @Test
@@ -52,7 +52,7 @@ class GameResourcesTest {
         List<GameCard> resourceCards = gameResources.getResourceCards();
 
         assertNotNull(resourceCards);
-        assertEquals(GameResources.CARDS_COUNT, resourceCards.size());
+        assertEquals(GameResources.getInstance().getCardsCount(), resourceCards.size());
     }
 
     @Test
@@ -62,7 +62,7 @@ class GameResourcesTest {
         List<ObjectiveCard> objectiveCards = gameResources.getObjectiveCards();
 
         assertNotNull(objectiveCards);
-        assertEquals(GameResources.OBJECTIVES_COUNT, objectiveCards.size());
+        assertEquals(GameResources.getInstance().getObjectivesCount(), objectiveCards.size());
     }
 
 }

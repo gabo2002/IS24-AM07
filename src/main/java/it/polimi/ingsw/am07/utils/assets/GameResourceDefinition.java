@@ -23,25 +23,19 @@
 
 package it.polimi.ingsw.am07.utils.assets;
 
-import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-class AssetsRegistryTest {
-
-    @Test
-    void getCardsJson() {
-        String cardsJson = AssetsRegistry.getInstance().getCardsJson();
-
-        assertNotNull(cardsJson);
-    }
-
-    @Test
-    void getObjectivesJson() {
-        String objectivesJson = AssetsRegistry.getInstance().getObjectivesJson();
-
-        assertNotNull(objectivesJson);
-    }
-
-}
+/**
+ * Represents the definition of the game resources.
+ *
+ * @param cardsCount the number of either gold or resource cards
+ * @param starterCardsCount the number of starter cards
+ * @param cardsJsonFileName the name of the JSON file containing the cards
+ * @param objectivesCount the number of objectives
+ * @param objectivesJsonFileName the name of the JSON file containing the objectives
+ */
+public record GameResourceDefinition(
+    int cardsCount,
+    int starterCardsCount,
+    String cardsJsonFileName,
+    int objectivesCount,
+    String objectivesJsonFileName
+) {}

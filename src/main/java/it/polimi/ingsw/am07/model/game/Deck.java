@@ -242,11 +242,11 @@ public record Deck(
             if (mustBeInitialized) {
                 return this.inflateNewDeck();
             } else {
-                if (resourceCards.size() > GameResources.CARDS_COUNT) {
+                if (resourceCards.size() > GameResources.getInstance().getCardsCount()) {
                     throw new IllegalArgumentException("Resource cards count exceeds the limit");
                 }
 
-                if (goldCards.size() > GameResources.CARDS_COUNT) {
+                if (goldCards.size() > GameResources.getInstance().getCardsCount()) {
                     throw new IllegalArgumentException("Gold cards count exceeds the limit");
                 }
 
