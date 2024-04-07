@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -243,6 +244,16 @@ class GameDataJsonParserTest {
 
         String finalJson = json;
         assertDoesNotThrow(() -> parser.listFromJson(finalJson));
+    }
+
+    @Test
+    void validateUUIDSerialization() {
+        GameDataJsonParser<UUID> parser = new GameDataJsonParser<>(UUID.class);
+
+        UUID uuid = UUID.randomUUID();
+        String json = parser.toJson(uuid);
+        UUID deserializedUUID = parser.fromJson(json);
+        assertEquals(uuid, deserializedUUID);
     }
 
 }
