@@ -89,8 +89,8 @@ public class CLISmallSideRepresentation extends CLISideRepresentation {
 
         // Draw the corners
         representation.set(1, 1, new CLIGameSymbol(side.fieldRepresentation().corners().get(0, 0), cardColor));
-        representation.set(WIDTH - 2, 1, new CLIGameSymbol(side.fieldRepresentation().corners().get(0, 1), cardColor));
-        representation.set(1, HEIGHT - 2, new CLIGameSymbol(side.fieldRepresentation().corners().get(1, 0), cardColor));
+        representation.set(WIDTH - 2, 1, new CLIGameSymbol(side.fieldRepresentation().corners().get(1, 0), cardColor));
+        representation.set(1, HEIGHT - 2, new CLIGameSymbol(side.fieldRepresentation().corners().get(0, 1), cardColor));
         representation.set(WIDTH - 2, HEIGHT - 2, new CLIGameSymbol(side.fieldRepresentation().corners().get(1, 1), cardColor));
 
         // Draw the center

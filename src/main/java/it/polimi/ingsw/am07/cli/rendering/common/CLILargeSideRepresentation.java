@@ -91,8 +91,8 @@ public class CLILargeSideRepresentation extends CLISideRepresentation {
 
         // Draw the corners
         CLIGameSymbol topLeft = new CLIGameSymbol(side.fieldRepresentation().corners().get(0, 0), cardColor);
-        CLIGameSymbol topRight = new CLIGameSymbol(side.fieldRepresentation().corners().get(0, 1), cardColor);
-        CLIGameSymbol bottomLeft = new CLIGameSymbol(side.fieldRepresentation().corners().get(1, 0), cardColor);
+        CLIGameSymbol topRight = new CLIGameSymbol(side.fieldRepresentation().corners().get(1, 0), cardColor);
+        CLIGameSymbol bottomLeft = new CLIGameSymbol(side.fieldRepresentation().corners().get(0, 1), cardColor);
         CLIGameSymbol bottomRight = new CLIGameSymbol(side.fieldRepresentation().corners().get(1, 1), cardColor);
 
         for (int i = 0; i < 2; i++) {
