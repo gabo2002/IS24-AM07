@@ -31,12 +31,14 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
+import it.polimi.ingsw.am07.utils.json.GameDataJsonParser;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PatternObjectiveCardTest {
@@ -563,6 +565,19 @@ class PatternObjectiveCardTest {
         pattern = getLPattern(2, Symbol.RED, Symbol.BLUE);
         card = new PatternObjectiveCard(5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
+    }
+
+    @Test
+    void ensureSerializability() {
+        assertDoesNotThrow(() -> {
+            ObjectiveCard card = new PatternObjectiveCard(5, getLeftDiagonalPattern(Symbol.RED));
+
+            GameDataJsonParser<ObjectiveCard> parser = new GameDataJsonParser<>(ObjectiveCard.class);
+
+            String json = parser.toJson(card);
+
+            ObjectiveCard deserialized = parser.fromJson(json);
+        });
     }
 
 }

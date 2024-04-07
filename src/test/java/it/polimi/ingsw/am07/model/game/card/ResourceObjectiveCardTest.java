@@ -25,8 +25,10 @@ package it.polimi.ingsw.am07.model.game.card;
 
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
+import it.polimi.ingsw.am07.utils.json.GameDataJsonParser;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ResourceObjectiveCardTest {
@@ -58,6 +60,23 @@ class ResourceObjectiveCardTest {
         requirements.incrementResource(Symbol.RED);
 
         assertEquals(0, resourceObjectiveCard.calculateScore(playerResources, null));
+    }
+
+    @Test
+    void ensureSerializability() {
+        assertDoesNotThrow(() -> {
+            ResourceHolder requirements = new ResourceHolder();
+            requirements.incrementResource(Symbol.RED);
+            requirements.incrementResource(Symbol.RED);
+
+            ObjectiveCard card = new ResourceObjectiveCard(5, requirements);
+
+            GameDataJsonParser<ObjectiveCard> parser = new GameDataJsonParser<>(ObjectiveCard.class);
+
+            String json = parser.toJson(card);
+
+            ObjectiveCard deserialized = parser.fromJson(json);
+        });
     }
 
 }
