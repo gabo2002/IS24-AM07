@@ -43,4 +43,11 @@ class AssetsRegistryTest {
         assertNotNull(objectivesJson);
     }
 
+    @Test
+    void getGameResourceDefinition() {
+        GameResourceDefinition gameResourceDefinition = AssetsRegistry.getInstance().getGameResourceDefinition();
+
+        assertNotNull(gameResourceDefinition);
+    }
+
 }

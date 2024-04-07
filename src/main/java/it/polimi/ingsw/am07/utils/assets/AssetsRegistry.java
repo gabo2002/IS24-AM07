@@ -109,6 +109,11 @@ public class AssetsRegistry {
         return objectivesJsonContent;
     }
 
+    /**
+     * Returns the game resource definition.
+     *
+     * @return The game resource definition.
+     */
     public GameResourceDefinition getGameResourceDefinition() {
         return gameResourceDefinition;
     }

@@ -64,4 +64,61 @@ class GameResourcesTest {
         assertEquals(GameResources.getInstance().getObjectivesCount(), objectiveCards.size());
     }
 
+    @Test
+    void getStarterCards() {
+        GameResources gameResources = GameResources.getInstance();
+
+        List<GameCard> starterCards = gameResources.getStarterCards();
+
+        assertNotNull(starterCards);
+        assertEquals(GameResources.getInstance().getStarterCardsCount(), starterCards.size());
+    }
+
+    @Test
+    void getShuffledObjectiveCards() {
+        GameResources gameResources = GameResources.getInstance();
+
+        List<ObjectiveCard> shuffledObjectiveCards = gameResources.getShuffledObjectiveCards();
+
+        assertNotNull(shuffledObjectiveCards);
+        assertEquals(GameResources.getInstance().getObjectivesCount(), shuffledObjectiveCards.size());
+
+        List<ObjectiveCard> objectiveCards = gameResources.getObjectiveCards();
+
+        for (ObjectiveCard card : objectiveCards) {
+            assertEquals(1, shuffledObjectiveCards.stream().filter(c -> c.equals(card)).count());
+        }
+    }
+
+    @Test
+    void getShuffledStarterCards() {
+        GameResources gameResources = GameResources.getInstance();
+
+        List<GameCard> shuffledStarterCards = gameResources.getShuffledStarterCards();
+
+        assertNotNull(shuffledStarterCards);
+        assertEquals(GameResources.getInstance().getStarterCardsCount(), shuffledStarterCards.size());
+
+        List<GameCard> starterCards = gameResources.getStarterCards();
+
+        for (GameCard card : starterCards) {
+            assertEquals(1, shuffledStarterCards.stream().filter(c -> c.equals(card)).count());
+        }
+    }
+
+    @Test
+    void getCardsCount() {
+        assertEquals(AssetsRegistry.getInstance().getGameResourceDefinition().cardsCount(), GameResources.getInstance().getCardsCount());
+    }
+
+    @Test
+    void getObjectivesCount() {
+        assertEquals(AssetsRegistry.getInstance().getGameResourceDefinition().objectivesCount(), GameResources.getInstance().getObjectivesCount());
+    }
+
+    @Test
+    void getStarterCardsCount() {
+        assertEquals(AssetsRegistry.getInstance().getGameResourceDefinition().starterCardsCount(), GameResources.getInstance().getStarterCardsCount());
+    }
+
 }

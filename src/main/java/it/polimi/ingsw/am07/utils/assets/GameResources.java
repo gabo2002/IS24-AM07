@@ -166,4 +166,13 @@ public class GameResources {
         return AssetsRegistry.getInstance().getGameResourceDefinition().objectivesCount();
     }
 
+    /**
+     * Returns the number of starter cards.
+     *
+     * @return the number of starter cards
+     */
+    public int getStarterCardsCount() {
+        return AssetsRegistry.getInstance().getGameResourceDefinition().starterCardsCount();
+    }
+
 }
