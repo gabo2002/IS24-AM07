@@ -179,7 +179,7 @@ public class Player implements Serializable {
 
         final ResourceHolder diff = playerGameField.placeOnFieldAt(card, pos);
 
-        playerResources.subtract(diff);
+        playerResources.add(diff);
 
         final int coveredCorners = playerGameField.countCoveredCorners(pos);
 

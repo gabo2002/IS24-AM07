@@ -106,11 +106,7 @@ public class CLILargeSideRepresentation extends CLISideRepresentation {
 
         // Draw the center
         CLIGameSymbol center = new CLIGameSymbol(side.color(), cardColor);
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                representation.set(WIDTH / 2 - 1 + i, HEIGHT / 2 - 1 + j, center);
-            }
-        }
+        representation.set(WIDTH / 2, HEIGHT / 2, center);
 
         // Draw the card type
         CLIGameSymbol cardSymbol = getCenterSymbol(cardColor, side);
