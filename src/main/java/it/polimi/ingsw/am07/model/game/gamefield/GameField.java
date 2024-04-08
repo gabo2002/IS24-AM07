@@ -70,29 +70,44 @@ public class GameField implements Serializable {
      * @author Andrea Biasion Somaschini
      */
     public boolean canBePlacedOnFieldAt(Side card, GameFieldPosition pos) {
+
+        // Check if the card is a starter card and if the field is empty at position (0, 0)
         if (pos.x() == 0 && pos.y() == 0) {
-            // Checks the first card --> starter card
             return fieldMatrix.get(0, 0) == Symbol.EMPTY && card.color() == Symbol.STARTER;
         }
+
 
         if ((pos.x() + pos.y()) % 2 != 0) {
             return false;
         }
 
-        boolean placeable = false;
+        // Check if the field is empty at position (0, 0) for non-starter card
+        if (fieldMatrix.get(0, 0) == Symbol.EMPTY && card.color() != Symbol.STARTER) {
+            return false;
+        }
+
+        int countCorners = 0;
+        int countEmpty = 0;
 
         for (int i = 0; i < SideFieldRepresentation.SIDE_SIZE; i++) {
             for (int j = 0; j < SideFieldRepresentation.SIDE_SIZE; j++) {
-                if (fieldMatrix.get(pos.x() + i, pos.y() + j) == Symbol.NONE)
+                if (fieldMatrix.get(pos.x() + i, pos.y() + j) == Symbol.NONE) {
                     return false;
-
-                if (fieldMatrix.get(pos.x() + i, pos.y() + j) != Symbol.EMPTY)
-                    placeable = true;
+                }
+                if (fieldMatrix.get(pos.x() + i, pos.y() + j) != Symbol.EMPTY) {
+                    countCorners++;
+                } else {
+                    countEmpty++;
+                }
             }
         }
 
-        return placeable;
+
+        return countCorners < 4 && countEmpty < 4;
     }
+
+
+
 
     /**
      * Retrieves the color at the specified position on the game field. if the card is not present in the game field, an exception is thrown.
