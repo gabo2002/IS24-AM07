@@ -95,10 +95,12 @@ public class TCPNetworkTest {
 
         server.start();
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        synchronized (controller) {
+            try {
+                controller.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         try {

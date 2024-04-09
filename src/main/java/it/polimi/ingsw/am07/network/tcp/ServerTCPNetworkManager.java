@@ -104,6 +104,10 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                             switch (packet) {
                                 case ActionNetworkPacket actionPacket:
                                     dispatcher.execute(actionPacket.getAction());
+
+                                    synchronized (dispatcher) {
+                                        dispatcher.notify();
+                                    }
                                     break;
                                 case IdentityNetworkPacket identityPacket:
                                     break;
