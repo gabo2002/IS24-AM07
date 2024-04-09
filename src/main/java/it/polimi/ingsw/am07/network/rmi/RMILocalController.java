@@ -21,12 +21,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.network;
+package it.polimi.ingsw.am07.network.rmi;
 
-public interface ServerNetworkManager {
+import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.reactive.Controller;
 
-    void start();
+public class RMILocalController implements Controller {
 
-    void stop();
+    private final RMIDispatcher dispatcher;
+
+    public RMILocalController(RMIDispatcher dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+
+    @Override
+    public void execute(Action action) {
+        try {
+            dispatcher.execute(action);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -24,8 +24,12 @@
 package it.polimi.ingsw.am07.network.tcp;
 
 import it.polimi.ingsw.am07.network.ServerNetworkManager;
+import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
+import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 
@@ -33,17 +37,21 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServerTCPNetworkManager implements ServerNetworkManager {
 
     private final int listeningPort;
     private final Dispatcher dispatcher;
-
+    private final List<Connection> connectionList;
     private ServerSocket serverSocket;
 
     public ServerTCPNetworkManager(int listeningPort, Dispatcher dispatcher) {
         this.dispatcher = dispatcher;
         this.listeningPort = listeningPort;
+
+        connectionList = new ArrayList<>();
     }
 
     @Override
@@ -57,6 +65,9 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        listenForConnections();
+        reactToConnections();
     }
 
     @Override
@@ -70,15 +81,50 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         serverSocket = null;
     }
 
-    @Override
-    public StatefulListener accept() {
+    private void listenForConnections() {
+        new Thread(() -> {
+            while (serverSocket != null) {
+                accept();
+            }
+        }).start();
+    }
+
+    private void reactToConnections() {
+        new Thread(() -> {
+            while (serverSocket != null) {
+                synchronized (connectionList) {
+                    for (Connection connection : connectionList) {
+                        if (connection.available() == 0) {
+                            continue;
+                        }
+
+                        NetworkPacket packet = connection.receive();
+
+                        if (packet != null) {
+                            switch (packet) {
+                                case ActionNetworkPacket actionPacket:
+                                    dispatcher.execute(actionPacket.getAction());
+                                    break;
+                                case IdentityNetworkPacket identityPacket:
+                                    break;
+                                case HeartbeatNetworkPacket heartbeatPacket:
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void accept() {
         Socket socket;
 
         try {
             socket = serverSocket.accept();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return;
         }
 
         DataInputStream reader;
@@ -89,7 +135,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
             writer = new DataOutputStream(socket.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return;
         }
 
         RemoteConnection connection = new RemoteConnection(reader, writer);
@@ -100,7 +146,11 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         StatefulListener listener = new ServerTCPListener(connection, identityPacket.getIdentity());
         dispatcher.registerNewListener(listener);
 
-        return listener;
+        synchronized (connectionList) {
+            connectionList.add(connection);
+        }
+
+        System.out.println("Accepted connection from " + identityPacket.getIdentity());
     }
 
 }

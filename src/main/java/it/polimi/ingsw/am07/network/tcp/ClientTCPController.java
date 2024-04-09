@@ -21,12 +21,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.network;
+package it.polimi.ingsw.am07.network.tcp;
 
-public interface ServerNetworkManager {
+import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.network.connection.Connection;
+import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
+import it.polimi.ingsw.am07.reactive.Controller;
 
-    void start();
+public class ClientTCPController implements Controller {
 
-    void stop();
+    private final Connection serverConnection;
+
+    public ClientTCPController(Connection serverConnection) {
+        this.serverConnection = serverConnection;
+    }
+
+    @Override
+    public synchronized void execute(Action action) {
+        serverConnection.send(new ActionNetworkPacket(action));
+    }
 
 }

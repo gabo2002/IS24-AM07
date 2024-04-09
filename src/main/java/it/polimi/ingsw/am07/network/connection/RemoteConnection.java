@@ -64,4 +64,13 @@ public class RemoteConnection implements Connection {
         }
     }
 
+    @Override
+    public int available() {
+        try {
+            return inputStream.available();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
 }

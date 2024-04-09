@@ -26,7 +26,7 @@ package it.polimi.ingsw.am07.network.tcp;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.network.connection.Connection;
-import it.polimi.ingsw.am07.network.packets.HeatbeatNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.reactive.ClientListener;
 
 public class ClientTCPListener extends ClientListener {
@@ -50,7 +50,7 @@ public class ClientTCPListener extends ClientListener {
 
     @Override
     public void heartbeat() {
-        serverConnection.send(new HeatbeatNetworkPacket());
+        serverConnection.send(new HeartbeatNetworkPacket());
     }
 
     @Override

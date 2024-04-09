@@ -21,12 +21,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.network;
+package it.polimi.ingsw.am07.reactive;
 
-public interface ServerNetworkManager {
+import it.polimi.ingsw.am07.action.Action;
 
-    void start();
+/**
+ * Interface for a controller that can execute an action.
+ */
+public interface Controller {
 
-    void stop();
+    /**
+     * Execute an action.
+     *
+     * @param action the action to execute
+     */
+    void execute(Action action);
 
 }

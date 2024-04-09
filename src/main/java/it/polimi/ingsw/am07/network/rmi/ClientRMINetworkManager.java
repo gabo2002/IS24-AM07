@@ -25,7 +25,7 @@ package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
-import it.polimi.ingsw.am07.reactive.Listener;
+import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 
 import java.rmi.registry.LocateRegistry;
@@ -36,13 +36,14 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     private final Registry registry;
     private final String identity;
     private RMIDispatcher dispatcher;
-    private RMIStatefulListener listener;
+    private RMIStatefulListener rmiStatefulListener;
+    private Controller controller;
 
-    public ClientRMINetworkManager(String identity) {
+    public ClientRMINetworkManager(String serverAddress, int serverPort, String identity) {
         Registry tempRegistry = null;
 
         try {
-            tempRegistry = LocateRegistry.getRegistry("127.0.0.1", 10999);
+            tempRegistry = LocateRegistry.getRegistry(serverAddress, serverPort);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,6 +56,8 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     public void connect() {
         try {
             dispatcher = (RMIDispatcher) registry.lookup("dispatcher");
+
+            controller = new RMILocalController(dispatcher);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,20 +69,21 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     }
 
     @Override
-    public Listener inflateListener(Game game) {
+    public void inflateListener(Game game) {
         StatefulListener listener = new RMIListener(game, identity);
-        RMIStatefulListener rmiListener;
 
         try {
-            rmiListener = new ClientRMIStatefulListener(listener);
+            rmiStatefulListener = new ClientRMIStatefulListener(listener);
 
-            dispatcher.registerNewListener(rmiListener);
+            dispatcher.registerNewListener(rmiStatefulListener);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+    }
 
-        return listener;
+    @Override
+    public Controller getController() {
+        return controller;
     }
 
 }

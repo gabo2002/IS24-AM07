@@ -23,10 +23,7 @@
 
 package it.polimi.ingsw.am07.network;
 
-public interface ServerNetworkManager {
-
-    void start();
-
-    void stop();
-
+public enum NetworkType {
+    TCP,
+    RMI
 }

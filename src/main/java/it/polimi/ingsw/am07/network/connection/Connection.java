@@ -31,4 +31,6 @@ public interface Connection {
 
     NetworkPacket receive();
 
+    int available();
+
 }

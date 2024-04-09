@@ -55,7 +55,8 @@ public class GameController implements Dispatcher {
      * @param action the action to execute
      */
     @Override
-    public void execute(Action action) {
+    public synchronized void execute(Action action) {
+        System.out.println("Executing action on model: " + gameModel);
         action.execute(gameModel);
 
         for (Listener listener : listeners) {
@@ -69,7 +70,7 @@ public class GameController implements Dispatcher {
      * @param listener the listener to register
      */
     @Override
-    public void registerNewListener(Listener listener) {
+    public synchronized void registerNewListener(Listener listener) {
         listeners.add(listener);
     }
 
@@ -79,7 +80,7 @@ public class GameController implements Dispatcher {
      * @param listener the listener to remove
      */
     @Override
-    public void removeListener(Listener listener) {
+    public synchronized void removeListener(Listener listener) {
         listeners.remove(listener);
     }
 

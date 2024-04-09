@@ -23,9 +23,9 @@
 
 package it.polimi.ingsw.am07.network.packets;
 
-public final class HeatbeatNetworkPacket extends NetworkPacket {
+public final class HeartbeatNetworkPacket extends NetworkPacket {
 
-    public HeatbeatNetworkPacket() {
+    public HeartbeatNetworkPacket() {
 
     }
 

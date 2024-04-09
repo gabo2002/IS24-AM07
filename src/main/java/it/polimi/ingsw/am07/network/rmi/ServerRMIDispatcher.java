@@ -49,6 +49,10 @@ public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispa
     @Override
     public synchronized void execute(Action action) throws RemoteException {
         dispatcher.execute(action);
+
+        synchronized (dispatcher) {
+            dispatcher.notify();
+        }
     }
 
     @Override

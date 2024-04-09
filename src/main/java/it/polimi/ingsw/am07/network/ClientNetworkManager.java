@@ -24,7 +24,9 @@
 package it.polimi.ingsw.am07.network;
 
 import it.polimi.ingsw.am07.model.game.Game;
-import it.polimi.ingsw.am07.reactive.Listener;
+import it.polimi.ingsw.am07.network.rmi.ClientRMINetworkManager;
+import it.polimi.ingsw.am07.network.tcp.ClientTCPNetworkManager;
+import it.polimi.ingsw.am07.reactive.Controller;
 
 public interface ClientNetworkManager {
 
@@ -32,6 +34,71 @@ public interface ClientNetworkManager {
 
     void disconnect();
 
-    Listener inflateListener(Game game);
+    void inflateListener(Game game);
+
+    Controller getController();
+
+    class Factory {
+
+        private String hostname;
+        private int port;
+        private String identity;
+        private Game gameModel;
+        private NetworkType networkType;
+
+        public Factory() {
+            hostname = null;
+            port = 0;
+            identity = null;
+            gameModel = null;
+            networkType = null;
+        }
+
+        public Factory withHostname(String hostname) {
+            this.hostname = hostname;
+            return this;
+        }
+
+        public Factory withPort(int port) {
+            this.port = port;
+            return this;
+        }
+
+        public Factory withIdentity(String identity) {
+            this.identity = identity;
+            return this;
+        }
+
+        public Factory withGameModel(Game gameModel) {
+            this.gameModel = gameModel;
+            return this;
+        }
+
+        public Factory withNetworkType(NetworkType networkType) {
+            this.networkType = networkType;
+            return this;
+        }
+
+        public ClientNetworkManager build() {
+            if (hostname == null || port == 0 || identity == null || gameModel == null || networkType == null) {
+                throw new IllegalStateException("Missing parameters");
+            }
+
+            ClientNetworkManager manager;
+
+            switch (networkType) {
+                case TCP -> manager = new ClientTCPNetworkManager(hostname, port, identity);
+                case RMI -> manager = new ClientRMINetworkManager(hostname, port, identity);
+                default -> throw new IllegalArgumentException("Invalid network type");
+            }
+
+            manager.connect();
+
+            manager.inflateListener(gameModel);
+
+            return manager;
+        }
+
+    }
 
 }

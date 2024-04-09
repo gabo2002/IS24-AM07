@@ -28,10 +28,10 @@ import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
-import it.polimi.ingsw.am07.network.packets.HeatbeatNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
-import it.polimi.ingsw.am07.reactive.Listener;
+import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 
 import java.io.DataInputStream;
@@ -49,11 +49,14 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
     private DataOutputStream writer;
     private Connection connection;
     private StatefulListener listener;
+    private Controller controller;
 
     public ClientTCPNetworkManager(String serverAddress, int serverPort, String identity) {
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
         this.identity = identity;
+
+        listener = null;
         socket = null;
     }
 
@@ -77,6 +80,8 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         }
 
         connection = new RemoteConnection(reader, writer);
+
+        controller = new ClientTCPController(connection);
 
         // Identify ourselves to the server
         connection.send(new IdentityNetworkPacket(identity));
@@ -106,16 +111,19 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
     }
 
     @Override
-    public Listener inflateListener(Game game) {
+    public void inflateListener(Game game) {
         if (listener != null) {
-            return listener;
+            return;
         }
 
         listener = new ClientTCPListener(game, connection);
 
         setupReceiverLoop();
+    }
 
-        return listener;
+    @Override
+    public Controller getController() {
+        return controller;
     }
 
     private void setupReceiverLoop() {
@@ -132,7 +140,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         if (packet != null) {
             switch (packet) {
                 case ActionNetworkPacket actionPacket -> listener.notify(actionPacket.getAction());
-                case HeatbeatNetworkPacket heartbeatPacket -> listener.heartbeat();
+                case HeartbeatNetworkPacket ignored -> listener.heartbeat();
                 default -> {
                 }
             }

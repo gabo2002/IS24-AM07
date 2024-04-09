@@ -23,19 +23,11 @@
 
 package it.polimi.ingsw.am07.reactive;
 
-import it.polimi.ingsw.am07.action.Action;
-
 /**
  * Interface for a dispatcher that can execute an action and notify listeners.
  */
-public interface Dispatcher {
+public interface Dispatcher extends Controller {
 
-    /**
-     * Execute an action.
-     *
-     * @param action the action to execute
-     */
-    void execute(Action action);
 
     /**
      * Register a new listener.

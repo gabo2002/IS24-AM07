@@ -23,17 +23,18 @@
 
 package it.polimi.ingsw.am07.network;
 
-import it.polimi.ingsw.am07.action.DebuggingAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.controller.GameController;
-import it.polimi.ingsw.am07.model.game.Game;
-import it.polimi.ingsw.am07.model.game.Pawn;
-import it.polimi.ingsw.am07.model.game.Player;
-import it.polimi.ingsw.am07.network.tcp.ClientTCPNetworkManager;
+import it.polimi.ingsw.am07.model.game.*;
+import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.side.SideBack;
+import it.polimi.ingsw.am07.model.game.side.SideFieldRepresentation;
+import it.polimi.ingsw.am07.model.game.side.SideFrontStarter;
 import it.polimi.ingsw.am07.network.tcp.ServerTCPNetworkManager;
-import it.polimi.ingsw.am07.reactive.Listener;
-import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,56 +43,148 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TCPNetworkTest {
 
+    private static final int PORT = 12345;
+
+    private final List<AssertionFailedError> exceptions = new ArrayList<>();
+
     @Test
     void testConnection() {
-        Player p = new Player("provola", Pawn.BLUE, null, null);
-        Game game = new Game(new ArrayList<>(List.of(p)), null);
-        GameController gameController = new GameController(game);
+        Thread serverThread = new Thread(this::serverThreadFunction);
+        Thread client1Thread = new Thread(this::client1ThreadFunction);
+        Thread client2Thread = new Thread(this::client2ThreadFunction);
 
-        ClientNetworkManager client = new ClientTCPNetworkManager("127.0.0.1", 11111, "provola");
-        ServerNetworkManager server = new ServerTCPNetworkManager(11111, gameController);
-
-        server.start();
-
-        Thread b = new Thread(() -> {
-            StatefulListener listener = server.accept();
-            assertEquals("provola", listener.getIdentity());
-            gameController.execute(new DebuggingAction());
-            gameController.execute(new PlayerPickCardAction(p.getNickname(), game.pickRandomResCard()));
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        b.start();
-
-        Player p_copy = new Player("provola", Pawn.BLUE, null, null);
-        Game game_copy = new Game(new ArrayList<>(List.of(p_copy)), null);
-
-        Thread a = new Thread(() -> {
-            client.connect();
-
-            client.inflateListener(game_copy);
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        a.start();
+        serverThread.start();
 
         try {
-            a.join();
-            b.join();
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        assertEquals(1, p.getPlayableCards().size());
-        assertEquals(1, p_copy.getPlayableCards().size());
+        client1Thread.start();
+        client2Thread.start();
+
+        try {
+            serverThread.join();
+            client1Thread.join();
+            client2Thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        synchronized (exceptions) {
+            for (AssertionFailedError e : exceptions) {
+                throw e;
+            }
+        }
+    }
+
+    private void serverThreadFunction() {
+        Player player1 = new Player("Player1", Pawn.BLUE, null, null);
+        Player player2 = new Player("Player2", Pawn.RED, null, null);
+
+        List<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+
+        Game game = new Game(players, null);
+
+        GameController controller = new GameController(game);
+
+        ServerNetworkManager server = new ServerTCPNetworkManager(PORT, controller);
+
+        server.start();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assertEquals(1, player1.getPlayableCards().size());
+        } catch (AssertionFailedError e) {
+            synchronized (exceptions) {
+                exceptions.add(e);
+            }
+        }
+    }
+
+    private void client1ThreadFunction() {
+        Player player1 = new Player("Player1", Pawn.BLUE, null, null);
+        Player player2 = new Player("Player2", Pawn.RED, null, null);
+
+        GameCard card = new GameCard(
+                new SideFrontStarter(1, new SideFieldRepresentation(new Matrix<>(2, 2)), new ResourceHolder()),
+                new SideBack(1, new SideFieldRepresentation(new Matrix<>(2, 2)), new ResourceHolder(), Symbol.BLUE)
+        );
+
+        List<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+
+        Game game = new Game(players, null);
+
+        ClientNetworkManager client = new ClientNetworkManager.Factory()
+                .withHostname("localhost")
+                .withPort(PORT)
+                .withIdentity("Player1")
+                .withGameModel(game)
+                .withNetworkType(NetworkType.TCP)
+                .build();
+
+        Controller controller = client.getController();
+
+        controller.execute(new PlayerPickCardAction("Player1", card));
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assertEquals(1, player1.getPlayableCards().size());
+        } catch (AssertionFailedError e) {
+            synchronized (exceptions) {
+                exceptions.add(e);
+            }
+        }
+    }
+
+    private void client2ThreadFunction() {
+        Player player1 = new Player("Player1", Pawn.BLUE, null, null);
+        Player player2 = new Player("Player2", Pawn.RED, null, null);
+
+        List<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+
+        Game game = new Game(players, null);
+
+        ClientNetworkManager client = new ClientNetworkManager.Factory()
+                .withHostname("localhost")
+                .withPort(PORT)
+                .withIdentity("Player2")
+                .withGameModel(game)
+                .withNetworkType(NetworkType.TCP)
+                .build();
+
+        Controller controller = client.getController();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assertEquals(1, player1.getPlayableCards().size());
+        } catch (AssertionFailedError e) {
+            synchronized (exceptions) {
+                exceptions.add(e);
+            }
+        }
     }
 
 }

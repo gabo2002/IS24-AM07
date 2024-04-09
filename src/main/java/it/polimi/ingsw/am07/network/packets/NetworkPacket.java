@@ -23,6 +23,6 @@
 
 package it.polimi.ingsw.am07.network.packets;
 
-public sealed abstract class NetworkPacket permits ActionNetworkPacket, HeatbeatNetworkPacket, IdentityNetworkPacket {
+public sealed abstract class NetworkPacket permits ActionNetworkPacket, HeartbeatNetworkPacket, IdentityNetworkPacket {
 
 }

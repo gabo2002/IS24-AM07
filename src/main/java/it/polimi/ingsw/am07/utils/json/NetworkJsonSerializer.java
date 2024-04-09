@@ -31,7 +31,7 @@ import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
-import it.polimi.ingsw.am07.network.packets.HeatbeatNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 
@@ -62,7 +62,7 @@ public class NetworkJsonSerializer {
 
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<NetworkPacket> networkPacketElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(NetworkPacket.class)
                 .registerSubclass(ActionNetworkPacket.class)
-                .registerSubclass(HeatbeatNetworkPacket.class)
+                .registerSubclass(HeartbeatNetworkPacket.class)
                 .registerSubclass(IdentityNetworkPacket.class);
 
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<Action> actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(Action.class)

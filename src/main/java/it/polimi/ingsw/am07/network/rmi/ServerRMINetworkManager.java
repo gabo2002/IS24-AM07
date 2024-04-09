@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.network.ServerNetworkManager;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
-import it.polimi.ingsw.am07.reactive.StatefulListener;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -36,13 +35,13 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
     private final Registry registry;
     private ServerRMIDispatcher serverRMIDispatcher;
 
-    public ServerRMINetworkManager(Dispatcher dispatcher) {
+    public ServerRMINetworkManager(int port, Dispatcher dispatcher) {
         this.dispatcher = dispatcher;
 
         Registry tempRegistry = null;
 
         try {
-            tempRegistry = LocateRegistry.createRegistry(10999);
+            tempRegistry = LocateRegistry.createRegistry(port);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,15 +67,6 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public StatefulListener accept() {
-        while (serverRMIDispatcher.getListeners().isEmpty()) {
-            // TODO fix
-        }
-
-        return serverRMIDispatcher.getListeners().getFirst();
     }
 
 }

@@ -49,25 +49,25 @@ public class PlayerTest {
         Player player = new Player("test", Pawn.GREEN, starterCard, null);
 
         // cant place without the starter card placed first
-        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0,0,0)));
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0, 0, 0)));
 
-        assertTrue(player.canBePlacedAt(front_starter, new GameFieldPosition(0,0,0)));
-        assertFalse(player.canBePlacedAt(front_starter, new GameFieldPosition(-1,0,0)));
-        assertFalse(player.canBePlacedAt(front_starter, new GameFieldPosition(1,0,0)));
-        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(1,1,0)));
+        assertTrue(player.canBePlacedAt(front_starter, new GameFieldPosition(0, 0, 0)));
+        assertFalse(player.canBePlacedAt(front_starter, new GameFieldPosition(-1, 0, 0)));
+        assertFalse(player.canBePlacedAt(front_starter, new GameFieldPosition(1, 0, 0)));
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(1, 1, 0)));
 
-        assertDoesNotThrow(() ->  player.placeAt(front_starter, new GameFieldPosition(0,0,0)));
+        assertDoesNotThrow(() -> player.placeAt(front_starter, new GameFieldPosition(0, 0, 0)));
 
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1,1,1)));
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(-1,-1,1)));
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1,-1,1)));
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(-1,1,1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1, 1, 1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(-1, -1, 1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1, -1, 1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(-1, 1, 1)));
 
         // invalid position
-        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(-2,0,1)));
-        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0,-1,1)));
-        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0,1,1)));
-        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(1,2,1)));
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(-2, 0, 1)));
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0, -1, 1)));
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0, 1, 1)));
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(1, 2, 1)));
 
         // new test card
         Matrix<Symbol> new_corners = new Matrix<>(2, 2, Symbol.RED);
@@ -78,58 +78,58 @@ public class PlayerTest {
         SideFront another_front_gold = new SideFrontGold(2, side, new ResourceHolder(), 2, null, test, Symbol.BLUE);
 
         // does not have the requirements needed
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,1,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1,-1,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,-1,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,1,1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, 1, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1, -1, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, -1, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, 1, 1)));
 
         SideFront front_gold2 = new SideFrontGold(3, side, test, 2, null, null, Symbol.BLUE);
 
-        assertTrue(player.canBePlacedAt(front_gold2, new GameFieldPosition(1,1,1)));
-        assertDoesNotThrow(() ->  player.placeAt(front_gold2, new GameFieldPosition(1,1,1)));
+        assertTrue(player.canBePlacedAt(front_gold2, new GameFieldPosition(1, 1, 1)));
+        assertDoesNotThrow(() -> player.placeAt(front_gold2, new GameFieldPosition(1, 1, 1)));
 
         // now should have the requirements needed
-        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1,-1,1)));
-        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,-1,1)));
-        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1,1,1)));
+        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1, -1, 1)));
+        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, -1, 1)));
+        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1, 1, 1)));
 
         // cant place on top of another card
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,1,1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, 1, 1)));
 
         // other invalid positions
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-2,-1,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-3,-3,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(0,1,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(0,0,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,0,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2,1,1)));
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(3,-1,1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-2, -1, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-3, -3, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(0, 1, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(0, 0, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, 0, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2, 1, 1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(3, -1, 1)));
 
-        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2,2,1)));
-        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1,1,1)));
-        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1,-1,1)));
-        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,-1,1)));
+        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2, 2, 1)));
+        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1, 1, 1)));
+        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1, -1, 1)));
+        assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, -1, 1)));
 
-        assertDoesNotThrow(() ->  player.placeAt(another_front_gold, new GameFieldPosition(2,2,1)));
+        assertDoesNotThrow(() -> player.placeAt(another_front_gold, new GameFieldPosition(2, 2, 1)));
 
-        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2,2,1)));
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2, 2, 1)));
 
-        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(2,2,2)));
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(2, 2, 2)));
 
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1,-1,1)));
-        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(1,-1,1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1, -1, 1)));
+        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(1, -1, 1)));
 
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2,-2,1)));
-        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(2,-2,1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2, -2, 1)));
+        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, -2, 1)));
 
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3,-1,1)));
-        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(3,-1,1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3, -1, 1)));
+        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(3, -1, 1)));
 
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3,1,1)));
-        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(3,1,1)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3, 1, 1)));
+        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(3, 1, 1)));
 
-        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2,0,2)));
-        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(2,0,2)));
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2, 0, 2)));
+        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));
 
     }
 }
