@@ -21,35 +21,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.reactive;
+package it.polimi.ingsw.am07.network.tcp;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.network.connection.RemoteConnection;
+import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
+import it.polimi.ingsw.am07.reactive.StatefulListener;
 
-/**
- * Local listener for testing.
- */
-public class LocalListener implements Listener {
+public class ServerTCPListener implements StatefulListener {
 
-    private final Game localModel;
+    public static final long HEARTBEAT_MAX_INTERVAL = 10000;
 
-    /**
-     * Constructor.
-     *
-     * @param localModel the local model
-     */
-    public LocalListener(Game localModel) {
-        this.localModel = localModel;
+    private final RemoteConnection remoteConnection;
+    private final String identity;
+    private long lastHeartbeatTime = 0;
+
+    public ServerTCPListener(RemoteConnection remoteConnection, String identity) {
+        this.remoteConnection = remoteConnection;
+        this.identity = identity;
     }
 
-    /**
-     * Notify the listener of an action.
-     *
-     * @param action the action to notify
-     */
     @Override
     public void notify(Action action) {
-        action.reflect(localModel);
+        remoteConnection.send(new ActionNetworkPacket(action));
+    }
+
+    @Override
+    public boolean checkPulse() {
+        return System.currentTimeMillis() - lastHeartbeatTime < HEARTBEAT_MAX_INTERVAL;
+    }
+
+    @Override
+    public void heartbeat() {
+        lastHeartbeatTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public String getIdentity() {
+        return identity;
     }
 
 }

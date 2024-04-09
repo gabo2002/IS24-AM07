@@ -23,7 +23,6 @@
 
 package it.polimi.ingsw.am07.cli.rendering.field;
 
-import it.polimi.ingsw.am07.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;

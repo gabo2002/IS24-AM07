@@ -40,8 +40,8 @@ public class PlayerPlaceCardAction extends PlayerAction {
      * Constructor.
      *
      * @param playerNickname the player nickname
-     * @param side the side
-     * @param position the position
+     * @param side           the side
+     * @param position       the position
      */
     public PlayerPlaceCardAction(String playerNickname, Side side, GameFieldPosition position) {
         super(playerNickname);

@@ -21,31 +21,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action;
+package it.polimi.ingsw.am07.network.rmi;
 
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.action.Action;
 
-import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-/**
- * Interface for an action that can be executed on the game model.
- */
-public interface Action extends Serializable {
+public interface RMIDispatcher extends Remote {
 
-    /**
-     * Execute the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was executed successfully, false otherwise
-     */
-    boolean execute(Game gameModel);
+    void execute(Action action) throws RemoteException;
 
-    /**
-     * Reflect the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    boolean reflect(Game gameModel);
+    void registerNewListener(RMIStatefulListener listener) throws RemoteException;
+
+    void removeListener(RMIStatefulListener listener) throws RemoteException;
 
 }

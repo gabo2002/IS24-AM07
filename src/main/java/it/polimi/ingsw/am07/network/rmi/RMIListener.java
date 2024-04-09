@@ -21,31 +21,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action;
+package it.polimi.ingsw.am07.network.rmi;
 
+import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.reactive.ClientListener;
 
-import java.io.Serializable;
+public class RMIListener extends ClientListener {
 
-/**
- * Interface for an action that can be executed on the game model.
- */
-public interface Action extends Serializable {
+    public static final long HEARTBEAT_MAX_INTERVAL = 10000;
 
-    /**
-     * Execute the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was executed successfully, false otherwise
-     */
-    boolean execute(Game gameModel);
+    private final String identity;
+    private long lastHeartbeatTime = 0;
 
-    /**
-     * Reflect the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    boolean reflect(Game gameModel);
+    public RMIListener(Game gameModel, String identity) {
+        super(gameModel);
+
+        this.identity = identity;
+    }
+
+    @Override
+    public void notify(Action action) {
+        action.reflect(gameModel);
+    }
+
+    @Override
+    public boolean checkPulse() {
+        return System.currentTimeMillis() - lastHeartbeatTime < HEARTBEAT_MAX_INTERVAL;
+    }
+
+    @Override
+    public void heartbeat() {
+        lastHeartbeatTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public String getIdentity() {
+        return identity;
+    }
 
 }

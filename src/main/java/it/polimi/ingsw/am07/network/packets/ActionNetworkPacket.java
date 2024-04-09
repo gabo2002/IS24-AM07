@@ -21,31 +21,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action;
+package it.polimi.ingsw.am07.network.packets;
 
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.action.Action;
 
-import java.io.Serializable;
+public final class ActionNetworkPacket extends NetworkPacket {
 
-/**
- * Interface for an action that can be executed on the game model.
- */
-public interface Action extends Serializable {
+    private final Action action;
 
-    /**
-     * Execute the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was executed successfully, false otherwise
-     */
-    boolean execute(Game gameModel);
+    public ActionNetworkPacket(Action action) {
+        this.action = action;
+    }
 
-    /**
-     * Reflect the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    boolean reflect(Game gameModel);
+    public Action getAction() {
+        return action;
+    }
 
 }

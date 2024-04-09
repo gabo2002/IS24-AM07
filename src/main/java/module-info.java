@@ -5,6 +5,7 @@ open module it.polimi.ingsw.am07 {
 
     requires org.controlsfx.controls;
     requires annotations;
+    requires java.rmi;
 
     exports it.polimi.ingsw.am07;
 }

@@ -39,11 +39,9 @@ public class AssetsRegistry {
     public static String GAME_RESOURCE_DEFINITION_JSON = "config.json";
 
     private static AssetsRegistry instance;
-
+    private final String starterCardsJsonContent;
     private String cardsJsonContent;
     private String objectivesJsonContent;
-    private final String starterCardsJsonContent;
-
     private GameResourceDefinition gameResourceDefinition;
 
     private AssetsRegistry() {

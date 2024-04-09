@@ -21,35 +21,54 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.reactive;
+package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.reactive.StatefulListener;
 
-/**
- * Local listener for testing.
- */
-public class LocalListener implements Listener {
+public class RMIRemoteListener implements StatefulListener {
 
-    private final Game localModel;
+    private final RMIStatefulListener rmiListener;
 
-    /**
-     * Constructor.
-     *
-     * @param localModel the local model
-     */
-    public LocalListener(Game localModel) {
-        this.localModel = localModel;
+    public RMIRemoteListener(RMIStatefulListener rmiListener) {
+        this.rmiListener = rmiListener;
     }
 
-    /**
-     * Notify the listener of an action.
-     *
-     * @param action the action to notify
-     */
     @Override
     public void notify(Action action) {
-        action.reflect(localModel);
+        try {
+            rmiListener.notify(action);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public boolean checkPulse() {
+        try {
+            return rmiListener.checkPulse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void heartbeat() {
+        try {
+            rmiListener.heartbeat();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getIdentity() {
+        try {
+            return rmiListener.getIdentity();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

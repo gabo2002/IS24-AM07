@@ -21,31 +21,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action;
+package it.polimi.ingsw.am07.network.tcp;
 
+import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.network.connection.Connection;
+import it.polimi.ingsw.am07.network.packets.HeatbeatNetworkPacket;
+import it.polimi.ingsw.am07.reactive.ClientListener;
 
-import java.io.Serializable;
+public class ClientTCPListener extends ClientListener {
 
-/**
- * Interface for an action that can be executed on the game model.
- */
-public interface Action extends Serializable {
+    private final Connection serverConnection;
 
-    /**
-     * Execute the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was executed successfully, false otherwise
-     */
-    boolean execute(Game gameModel);
+    public ClientTCPListener(Game gameModel, Connection serverConnection) {
+        super(gameModel);
+        this.serverConnection = serverConnection;
+    }
 
-    /**
-     * Reflect the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    boolean reflect(Game gameModel);
+    @Override
+    public synchronized void notify(Action action) {
+        action.reflect(gameModel);
+    }
+
+    @Override
+    public boolean checkPulse() {
+        return true;
+    }
+
+    @Override
+    public void heartbeat() {
+        serverConnection.send(new HeatbeatNetworkPacket());
+    }
+
+    @Override
+    public String getIdentity() {
+        return null;
+    }
 
 }

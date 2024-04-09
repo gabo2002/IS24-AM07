@@ -21,31 +21,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action;
+package it.polimi.ingsw.am07.network.rmi;
 
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.reactive.StatefulListener;
 
-import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-/**
- * Interface for an action that can be executed on the game model.
- */
-public interface Action extends Serializable {
+public class ClientRMIStatefulListener extends UnicastRemoteObject implements RMIStatefulListener {
 
-    /**
-     * Execute the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was executed successfully, false otherwise
-     */
-    boolean execute(Game gameModel);
+    private final StatefulListener listener;
 
-    /**
-     * Reflect the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    boolean reflect(Game gameModel);
+    public ClientRMIStatefulListener(StatefulListener listener) throws RemoteException {
+        super();
+
+        this.listener = listener;
+    }
+
+    @Override
+    public synchronized void notify(Action action) throws RemoteException {
+        listener.notify(action);
+    }
+
+    @Override
+    public synchronized boolean checkPulse() throws RemoteException {
+        return listener.checkPulse();
+    }
+
+    @Override
+    public synchronized void heartbeat() throws RemoteException {
+        listener.heartbeat();
+    }
+
+    @Override
+    public synchronized String getIdentity() throws RemoteException {
+        return listener.getIdentity();
+    }
 
 }

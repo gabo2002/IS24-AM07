@@ -38,7 +38,7 @@ public class PlayerPickCardAction extends PlayerAction {
      * Constructor.
      *
      * @param playerNickname the player nickname
-     * @param pickedCard the picked card
+     * @param pickedCard     the picked card
      */
     public PlayerPickCardAction(String playerNickname, GameCard pickedCard) {
         super(playerNickname);

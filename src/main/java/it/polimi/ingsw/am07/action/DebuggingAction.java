@@ -25,27 +25,18 @@ package it.polimi.ingsw.am07.action;
 
 import it.polimi.ingsw.am07.model.game.Game;
 
-import java.io.Serializable;
+public class DebuggingAction implements Action {
 
-/**
- * Interface for an action that can be executed on the game model.
- */
-public interface Action extends Serializable {
+    @Override
+    public boolean execute(Game gameModel) {
+        System.out.println("Action executed in " + Thread.currentThread().getName());
+        return true;
+    }
 
-    /**
-     * Execute the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was executed successfully, false otherwise
-     */
-    boolean execute(Game gameModel);
-
-    /**
-     * Reflect the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    boolean reflect(Game gameModel);
+    @Override
+    public boolean reflect(Game gameModel) {
+        System.out.println("Action reflected in " + Thread.currentThread().getName());
+        return true;
+    }
 
 }
