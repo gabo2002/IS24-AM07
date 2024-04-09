@@ -48,6 +48,9 @@ public class PlayerTest {
 
         Player player = new Player("test", Pawn.GREEN, starterCard, null);
 
+        // cant place without the starter card placed first
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0,0,0)));
+
         assertTrue(player.canBePlacedAt(front_starter, new GameFieldPosition(0,0,0)));
         assertFalse(player.canBePlacedAt(front_starter, new GameFieldPosition(-1,0,0)));
         assertFalse(player.canBePlacedAt(front_starter, new GameFieldPosition(1,0,0)));
@@ -106,6 +109,27 @@ public class PlayerTest {
         assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1,1,1)));
         assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1,-1,1)));
         assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1,-1,1)));
+
+        assertDoesNotThrow(() ->  player.placeAt(another_front_gold, new GameFieldPosition(2,2,1)));
+
+        assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2,2,1)));
+
+        assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(2,2,2)));
+
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1,-1,1)));
+        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(1,-1,1)));
+
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2,-2,1)));
+        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(2,-2,1)));
+
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3,-1,1)));
+        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(3,-1,1)));
+
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3,1,1)));
+        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(3,1,1)));
+
+        assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2,0,2)));
+        assertDoesNotThrow(() ->  player.placeAt(front_gold, new GameFieldPosition(2,0,2)));
 
     }
 }
