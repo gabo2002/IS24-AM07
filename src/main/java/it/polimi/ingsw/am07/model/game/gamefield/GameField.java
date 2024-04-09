@@ -23,7 +23,6 @@
 
 package it.polimi.ingsw.am07.model.game.gamefield;
 
-import it.polimi.ingsw.am07.exceptions.CardNotFoundException;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -48,7 +47,7 @@ public class GameField implements Serializable {
 
     private final Matrix<Symbol> fieldMatrix;
 
-    private final Map<Side, GameFieldPosition> placedCards;
+    private final Map<GameFieldPosition, Side> placedCards;
 
     private int currentZ;
 
@@ -70,13 +69,12 @@ public class GameField implements Serializable {
      * @author Andrea Biasion Somaschini
      */
     public boolean canBePlacedOnFieldAt(Side card, GameFieldPosition pos) {
-
         if (pos.x() == 0 && pos.y() == 0) {
             // Checks the first card --> starter card
             return fieldMatrix.get(0, 0) == Symbol.EMPTY && card.color() == Symbol.STARTER;
         }
 
-        if ((pos.x() + pos.y()) % 2 != 0 || placedCards.containsValue(pos)) {
+        if ((pos.x() + pos.y()) % 2 != 0 || placedCards.containsKey(pos)) {
             return false;
         }
 
@@ -96,30 +94,6 @@ public class GameField implements Serializable {
     }
 
     /**
-     * Retrieves the color at the specified position on the game field. if the card is not present in the game field, an exception is thrown.
-     *
-     * @param map the map containing the cards placed on the game field
-     * @param x   the x coordinate on the game field
-     * @param y   the y coordinate on the game field
-     * @return the color at the specified position on the game field
-     * @throws CardNotFoundException if the card is not present in the game field
-     */
-    private Symbol getCardColorAt(Map<Side, GameFieldPosition> map, int x, int y) throws CardNotFoundException {
-        if ((x + y) % 2 != 0) {
-            throw new CardNotFoundException("The card is not present in the game field");
-        }
-
-        for (Side card : map.keySet()) {
-            GameFieldPosition pos = map.get(card);
-            if (pos.x() == x && pos.y() == y) {
-                return card.color();
-            }
-        }
-
-        throw new CardNotFoundException("The card is not present in the game field");
-    }
-
-    /**
      * get the number of patterns that match the given pattern in the game field.
      *
      * @param pattern the pattern to match
@@ -128,7 +102,7 @@ public class GameField implements Serializable {
      */
     public int countMatches(GameFieldPattern pattern) {
         int matches = 0;
-        Map<Side, GameFieldPosition> placedCardsCopy = new HashMap<>(placedCards);  // copy the placed cards to avoid modifying the original map while iterating over it
+        Map<GameFieldPosition, Side> placedCardsCopy = new HashMap<>(placedCards);  // copy the placed cards to avoid modifying the original map while iterating over it
         Matrix<Symbol> shape = pattern.getShape();
         MatrixSubMatrixIterator<Symbol> subMatrixIterator = fieldMatrix.iterator(shape.getWidth(), shape.getHeight());
 
@@ -148,33 +122,25 @@ public class GameField implements Serializable {
             while (match && elementIterator.hasNext()) {
                 Symbol color = elementIterator.next();
                 if (!color.equals(Symbol.EMPTY)) {
-                    try {
-                        Symbol cardColor = getCardColorAt(placedCardsCopy, relativeX + elementIterator.getCurrentX(), relativeY + elementIterator.getCurrentY());
-                        if (!cardColor.equals(color)) {
-                            match = false;
-                        }
-                    } catch (CardNotFoundException e) {
+                    GameFieldPosition position = new GameFieldPosition(relativeX + elementIterator.getCurrentX(), relativeY + elementIterator.getCurrentY());
+                    Side card = placedCardsCopy.get(position);
+
+                    if (card == null || !card.color().equals(color)) {
                         match = false;
                     }
                 }
             }
 
             if (match) {
-                matches++;
+                ++matches;
                 //I have to remove from placedCardsCopy the cards that I have just found
                 MatrixElementIterator<Symbol> iterator = (MatrixElementIterator<Symbol>) pattern.pattern().iterator();
 
                 while (iterator.hasNext()) {
                     Symbol color = iterator.next();
                     if (!color.equals(Symbol.EMPTY)) {
-                        try {
-                            Symbol cardColor = getCardColorAt(placedCardsCopy, relativeX + iterator.getCurrentX(), relativeY + iterator.getCurrentY());
-                            if (cardColor.equals(color)) {
-                                placedCardsCopy.entrySet().removeIf(entry -> entry.getValue().x() == relativeX + iterator.getCurrentX() && entry.getValue().y() == relativeY + iterator.getCurrentY());
-                            }
-                        } catch (CardNotFoundException e) {
-                            //never happens, because I have already checked that the cards are present
-                        }
+                        GameFieldPosition position = new GameFieldPosition(relativeX + iterator.getCurrentX(), relativeY + iterator.getCurrentY());
+                        placedCardsCopy.remove(position);
                     }
                 }
             }
@@ -223,7 +189,7 @@ public class GameField implements Serializable {
         }
 
         GameFieldPosition fieldPosition = new GameFieldPosition(pos.x(), pos.y(), currentZ);
-        placedCards.put(card, fieldPosition);
+        placedCards.put(fieldPosition, card);
         ++currentZ;
 
         resource.add(card.resources());
@@ -236,7 +202,7 @@ public class GameField implements Serializable {
      *
      * @return A HashMap where the keys are the placed cards and the values are their corresponding positions on the game field.
      */
-    public Map<Side, GameFieldPosition> getPlacedCards() {
+    public Map<GameFieldPosition, Side> getPlacedCards() {
         return placedCards;
     }
 

@@ -53,4 +53,33 @@ public record GameFieldPosition(
         return (x + y) % 2 == 0;
     }
 
+    /**
+     * Calculates the hashcode of the position.
+     * Two positions with the same x and y coordinates will have the same hashcode.
+     *
+     * @return the hashcode of the position
+     */
+    @Override
+    public int hashCode() {
+        return x << 16 | y;
+    }
+
+    /**
+     * Compares the position with another object.
+     *
+     * @param obj the object to compare
+     * @return true if the object is a GameFieldPosition and has the same x and y coordinates, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        GameFieldPosition that = (GameFieldPosition) obj;
+        return x == that.x && y == that.y;
+    }
+
 }

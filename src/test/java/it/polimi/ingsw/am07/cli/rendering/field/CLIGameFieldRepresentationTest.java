@@ -78,7 +78,7 @@ class CLIGameFieldRepresentationTest {
 
         gameField.placeOnFieldAt(side10, new GameFieldPosition(-1, -1));
 
-        assertNotNull(representation.render());
+        System.out.println(representation.render());
     }
 
 

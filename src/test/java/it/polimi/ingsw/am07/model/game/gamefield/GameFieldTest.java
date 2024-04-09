@@ -282,14 +282,14 @@ class GameFieldTest {
         gameField.placeOnFieldAt(normal_card, new GameFieldPosition(0, -2, 5));
 
 
-        HashMap<Side, GameFieldPosition> placedCards = new HashMap<>();
+        HashMap<GameFieldPosition, Side> placedCards = new HashMap<>();
 
-        placedCards.put(starter_card, new GameFieldPosition(0, 0, 0));
-        placedCards.put(normal_card, new GameFieldPosition(-1, -1, 1));
-        placedCards.put(normal_card, new GameFieldPosition(1, -1, 2));
-        placedCards.put(normal_card, new GameFieldPosition(-1, 1, 3));
-        placedCards.put(normal_card, new GameFieldPosition(1, 1, 4));
-        placedCards.put(normal_card, new GameFieldPosition(0, -2, 5));
+        placedCards.put(new GameFieldPosition(0, 0, 0), starter_card);
+        placedCards.put(new GameFieldPosition(-1, -1, 1), normal_card);
+        placedCards.put(new GameFieldPosition(1, -1, 2), normal_card);
+        placedCards.put(new GameFieldPosition(-1, 1, 3), normal_card);
+        placedCards.put(new GameFieldPosition(1, 1, 4), normal_card);
+        placedCards.put(new GameFieldPosition(0, -2, 5), normal_card);
 
 
         assertEquals(placedCards, gameField.getPlacedCards());

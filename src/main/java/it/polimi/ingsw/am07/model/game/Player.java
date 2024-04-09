@@ -193,7 +193,7 @@ public class Player implements Serializable {
      *
      * @author Omar Chaabani
      */
-    public Map<Side, GameFieldPosition> getPlacedCards() {
+    public Map<GameFieldPosition, Side> getPlacedCards() {
         return playerGameField.getPlacedCards();
     }
 

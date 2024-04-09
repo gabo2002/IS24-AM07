@@ -96,21 +96,21 @@ public class CLIGameFieldRepresentation implements CLIElement {
      * @return true if the field representation was updated, false otherwise
      */
     private boolean updateFieldRepresentation() {
-        Map<Side, GameFieldPosition> fieldCards = gameField.getPlacedCards();
+        Map<GameFieldPosition, Side> fieldCards = gameField.getPlacedCards();
 
         if (fieldCards.size() == bufferedField.size()) {
             // No changes, no need to update
             return false;
         }
 
-        List<Map.Entry<Side, GameFieldPosition>> sortedEntrySet = fieldCards.entrySet().stream()
-                .sorted(Comparator.comparingInt(t -> t.getValue().z()))
+        List<Map.Entry<GameFieldPosition, Side>> sortedEntrySet = fieldCards.entrySet().stream()
+                .sorted(Comparator.comparingInt(t -> t.getKey().z()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        for (Map.Entry<Side, GameFieldPosition> entry : sortedEntrySet) {
-            if (!bufferedField.containsKey(entry.getKey())) {
-                addSideAt(entry.getKey(), entry.getValue());
-                bufferedField.put(entry.getKey(), entry.getValue());
+        for (Map.Entry<GameFieldPosition, Side> entry : sortedEntrySet) {
+            if (!bufferedField.containsKey(entry.getValue())) {
+                addSideAt(entry.getValue(), entry.getKey());
+                bufferedField.put(entry.getValue(), entry.getKey());
             }
         }
 
