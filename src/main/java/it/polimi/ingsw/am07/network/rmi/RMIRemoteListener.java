@@ -25,8 +25,11 @@ package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 public class RMIRemoteListener implements StatefulListener {
+
+    private final AppLogger LOGGER = new AppLogger(RMIRemoteListener.class);
 
     private final RMIStatefulListener rmiListener;
 
@@ -39,7 +42,7 @@ public class RMIRemoteListener implements StatefulListener {
         try {
             rmiListener.notify(action);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
@@ -48,7 +51,7 @@ public class RMIRemoteListener implements StatefulListener {
         try {
             return rmiListener.checkPulse();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             return false;
         }
     }
@@ -58,7 +61,7 @@ public class RMIRemoteListener implements StatefulListener {
         try {
             rmiListener.heartbeat();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
@@ -67,7 +70,7 @@ public class RMIRemoteListener implements StatefulListener {
         try {
             return rmiListener.getIdentity();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             return null;
         }
     }

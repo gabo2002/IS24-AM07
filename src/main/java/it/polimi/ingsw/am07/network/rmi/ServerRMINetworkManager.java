@@ -25,12 +25,14 @@ package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.network.ServerNetworkManager;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class ServerRMINetworkManager implements ServerNetworkManager {
 
+    private final AppLogger LOGGER = new AppLogger(ServerRMINetworkManager.class);
     private final Dispatcher dispatcher;
     private final Registry registry;
     private ServerRMIDispatcher serverRMIDispatcher;
@@ -43,7 +45,7 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
         try {
             tempRegistry = LocateRegistry.createRegistry(port);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         registry = tempRegistry;
@@ -56,7 +58,7 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
 
             registry.rebind("dispatcher", serverRMIDispatcher);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
@@ -65,7 +67,7 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
         try {
             registry.unbind("dispatcher");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 

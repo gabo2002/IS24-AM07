@@ -27,8 +27,11 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 public class ServerTCPListener implements StatefulListener {
+
+    private final AppLogger LOGGER = new AppLogger(ServerTCPListener.class);
 
     public static final long HEARTBEAT_MAX_INTERVAL = 10000;
 
@@ -43,6 +46,8 @@ public class ServerTCPListener implements StatefulListener {
 
     @Override
     public void notify(Action action) {
+        LOGGER.debug("Notifying action " + action.getIdentity() + " in " + Thread.currentThread().getName());
+
         remoteConnection.send(new ActionNetworkPacket(action));
     }
 

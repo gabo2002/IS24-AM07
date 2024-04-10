@@ -29,13 +29,17 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.DebuggingAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
 import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 public class NetworkJsonSerializer {
+
+    private final AppLogger LOGGER = new AppLogger(NetworkJsonSerializer.class);
 
     private static NetworkJsonSerializer instance;
 
@@ -68,13 +72,17 @@ public class NetworkJsonSerializer {
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<Action> actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(Action.class)
                 .registerSubclass(PlayerPickCardAction.class)
                 .registerSubclass(PlayerPlaceCardAction.class)
+                .registerSubclass(LobbyStateSyncAction.class)
                 .registerSubclass(DebuggingAction.class);
+
+        UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();
 
         return new Moshi.Builder()
                 .add(networkPacketElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(sideFrontElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(sideElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
+                .add(uuidJsonAdapter)
                 .build();
     }
 
@@ -93,7 +101,7 @@ public class NetworkJsonSerializer {
         try {
             return adapter.fromJson(json);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         return null;

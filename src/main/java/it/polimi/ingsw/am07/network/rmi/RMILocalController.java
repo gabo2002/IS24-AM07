@@ -25,8 +25,11 @@ package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 public class RMILocalController implements Controller {
+
+    private final AppLogger logger = new AppLogger(RMILocalController.class);
 
     private final RMIDispatcher dispatcher;
 
@@ -39,7 +42,7 @@ public class RMILocalController implements Controller {
         try {
             dispatcher.execute(action);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

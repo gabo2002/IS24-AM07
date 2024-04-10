@@ -25,11 +25,14 @@ package it.polimi.ingsw.am07.network.connection;
 
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.utils.json.NetworkJsonSerializer;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 public class RemoteConnection implements Connection {
+
+    private final AppLogger LOGGER = new AppLogger(RemoteConnection.class);
 
     private final DataOutputStream outputStream;
     private final DataInputStream inputStream;
@@ -45,17 +48,21 @@ public class RemoteConnection implements Connection {
 
     @Override
     public void send(NetworkPacket packet) {
+        LOGGER.debug("Sending packet " + packet.getClass().getSimpleName() + " to " + this);
+
         String json = serializer.toJson(packet);
 
         try {
             outputStream.writeUTF(json);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
     @Override
     public NetworkPacket receive() {
+        LOGGER.debug("Receiving packet from " + this);
+
         try {
             String json = inputStream.readUTF();
             return serializer.fromJson(json);

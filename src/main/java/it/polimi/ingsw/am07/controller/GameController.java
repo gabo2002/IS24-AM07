@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ import java.util.List;
  * Controller for the game.
  */
 public class GameController implements Dispatcher {
+
+    private final AppLogger LOGGER = new AppLogger(GameController.class);
 
     private final Game gameModel;
     private final List<Listener> listeners;
@@ -46,7 +49,7 @@ public class GameController implements Dispatcher {
      */
     public GameController(Game game) {
         gameModel = game;
-        listeners = new ArrayList<>();
+        listeners = new ArrayList<>(4);
     }
 
     /**
@@ -56,7 +59,8 @@ public class GameController implements Dispatcher {
      */
     @Override
     public synchronized void execute(Action action) {
-        System.out.println("Executing action on model: " + gameModel);
+        LOGGER.debug("Executing action on model: " + gameModel);
+
         action.execute(gameModel);
 
         for (Listener listener : listeners) {

@@ -32,6 +32,7 @@ import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerTCPNetworkManager implements ServerNetworkManager {
+
+    private final AppLogger LOGGER = new AppLogger(ServerTCPNetworkManager.class);
 
     private final int listeningPort;
     private final Dispatcher dispatcher;
@@ -63,7 +66,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         try {
             serverSocket = new ServerSocket(listeningPort);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         listenForConnections();
@@ -75,7 +78,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         try {
             serverSocket.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         serverSocket = null;
@@ -104,10 +107,6 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                             switch (packet) {
                                 case ActionNetworkPacket actionPacket:
                                     dispatcher.execute(actionPacket.getAction());
-
-                                    synchronized (dispatcher) {
-                                        dispatcher.notify();
-                                    }
                                     break;
                                 case IdentityNetworkPacket identityPacket:
                                     break;
@@ -127,7 +126,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         try {
             socket = serverSocket.accept();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             return;
         }
 
@@ -138,7 +137,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
             reader = new DataInputStream(socket.getInputStream());
             writer = new DataOutputStream(socket.getOutputStream());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             return;
         }
 
@@ -154,7 +153,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
             connectionList.add(connection);
         }
 
-        System.out.println("Accepted connection from " + identityPacket.getIdentity());
+        LOGGER.debug("Accepted connection from " + identityPacket.getIdentity());
     }
 
 }
