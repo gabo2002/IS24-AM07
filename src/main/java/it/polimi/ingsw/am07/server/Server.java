@@ -33,22 +33,33 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The game server.
+ */
 public class Server {
 
     private final AppLogger LOGGER = new AppLogger(Server.class);
 
-    private final ServerDispatcher dispatcher;
     private final ServerNetworkManager tcpNetworkManager;
     private final ServerNetworkManager rmiNetworkManager;
 
+    /**
+     * Constructor.
+     *
+     * @param tcpPort the TCP port
+     * @param rmiPort the RMI port
+     */
     public Server(int tcpPort, int rmiPort) {
         GameRegistry gameRegistry = GameRegistry.getInstance();
-        dispatcher = new ServerDispatcher(gameRegistry.getGames());
+        ServerDispatcher dispatcher = new ServerDispatcher(gameRegistry.getGames());
 
         tcpNetworkManager = new ServerTCPNetworkManager(tcpPort, dispatcher);
         rmiNetworkManager = new ServerRMINetworkManager(rmiPort, dispatcher);
     }
 
+    /**
+     * Start the server.
+     */
     public void main() {
         setupAutoSave();
 
@@ -56,6 +67,9 @@ public class Server {
         rmiNetworkManager.start();
     }
 
+    /**
+     * Automatically saves the state of any active game every five seconds.
+     */
     private void setupAutoSave() {
         Runnable autoSave = () -> {
             if (!GameRegistry.getInstance().saveState()) {

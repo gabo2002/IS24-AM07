@@ -23,10 +23,19 @@
 
 package it.polimi.ingsw.am07.network;
 
+/**
+ * A generic interface for a server-side network manager.
+ */
 public interface ServerNetworkManager {
 
+    /**
+     * Start the server.
+     */
     void start();
 
+    /**
+     * Stop the server.
+     */
     void stop();
 
 }

@@ -28,16 +28,38 @@ import it.polimi.ingsw.am07.network.rmi.ClientRMINetworkManager;
 import it.polimi.ingsw.am07.network.tcp.ClientTCPNetworkManager;
 import it.polimi.ingsw.am07.reactive.Controller;
 
+/**
+ * A generic interface for a client-side network manager.
+ */
 public interface ClientNetworkManager {
 
+    /**
+     * Connect to the server.
+     */
     void connect();
 
+    /**
+     * Disconnect from the server.
+     */
     void disconnect();
 
+    /**
+     * Inflate the local listener.
+     *
+     * @param clientState a reference to the local client state
+     */
     void inflateListener(ClientState clientState);
 
+    /**
+     * Get an interface to the remote controller.
+     *
+     * @return the controller
+     */
     Controller getController();
 
+    /**
+     * A factory for client network managers.
+     */
     class Factory {
 
         private String hostname;
@@ -46,6 +68,9 @@ public interface ClientNetworkManager {
         private ClientState clientState;
         private NetworkType networkType;
 
+        /**
+         * Constructor.
+         */
         public Factory() {
             hostname = null;
             port = 0;
@@ -54,31 +79,66 @@ public interface ClientNetworkManager {
             networkType = null;
         }
 
+        /**
+         * Set the remote hostname.
+         *
+         * @param hostname the hostname
+         * @return this factory
+         */
         public Factory withHostname(String hostname) {
             this.hostname = hostname;
             return this;
         }
 
+        /**
+         * Set the remote port.
+         *
+         * @param port the port
+         * @return this factory
+         */
         public Factory withPort(int port) {
             this.port = port;
             return this;
         }
 
+        /**
+         * Set the client identity.
+         *
+         * @param identity the identity
+         * @return this factory
+         */
         public Factory withIdentity(String identity) {
             this.identity = identity;
             return this;
         }
 
+        /**
+         * Set the reference to the client state.
+         *
+         * @param clientState the reference to the client state
+         * @return this factory
+         */
         public Factory withState(ClientState clientState) {
             this.clientState = clientState;
             return this;
         }
 
+        /**
+         * Set the network type.
+         *
+         * @param networkType the network type
+         * @return this factory
+         */
         public Factory withNetworkType(NetworkType networkType) {
             this.networkType = networkType;
             return this;
         }
 
+        /**
+         * Build the client network manager.
+         *
+         * @return the client network manager
+         */
         public ClientNetworkManager build() {
             if (hostname == null || port == 0 || identity == null || clientState == null || networkType == null) {
                 throw new IllegalStateException("Missing parameters");
@@ -92,8 +152,10 @@ public interface ClientNetworkManager {
                 default -> throw new IllegalArgumentException("Invalid network type");
             }
 
+            // Connect to the server
             manager.connect();
 
+            // Inflate the local listener that writes to the client state
             manager.inflateListener(clientState);
 
             return manager;

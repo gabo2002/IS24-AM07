@@ -37,6 +37,9 @@ import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+/**
+ * This class is a custom Moshi handler that can serialize and deserialize any network packet.
+ */
 public class NetworkJsonSerializer {
 
     private static NetworkJsonSerializer instance;
@@ -50,6 +53,11 @@ public class NetworkJsonSerializer {
         adapter = moshi.adapter(NetworkPacket.class);
     }
 
+    /**
+     * Initializes Moshi with the custom adapters required to serialize and deserialize the network packets
+     *
+     * @return Moshi
+     */
     private static Moshi initializeMoshi() {
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<SideFront> sideFrontElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(SideFront.class)
                 .registerSubclass(SideFrontGold.class)
@@ -84,6 +92,11 @@ public class NetworkJsonSerializer {
                 .build();
     }
 
+    /**
+     * Get the singleton instance of the class
+     *
+     * @return the singleton instance of the class
+     */
     public static NetworkJsonSerializer getInstance() {
         if (instance == null) {
             instance = new NetworkJsonSerializer();
@@ -91,10 +104,22 @@ public class NetworkJsonSerializer {
         return instance;
     }
 
+    /**
+     * Serialize a network packet to a JSON string
+     *
+     * @param packet the network packet to serialize
+     * @return the JSON string
+     */
     public String toJson(NetworkPacket packet) {
         return moshi.adapter(NetworkPacket.class).toJson(packet);
     }
 
+    /**
+     * Deserialize a JSON string to a network packet
+     *
+     * @param json the JSON string to deserialize
+     * @return the network packet
+     */
     public NetworkPacket fromJson(String json) {
         try {
             return adapter.fromJson(json);

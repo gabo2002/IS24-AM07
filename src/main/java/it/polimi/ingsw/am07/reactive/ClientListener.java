@@ -25,10 +25,18 @@ package it.polimi.ingsw.am07.reactive;
 
 import it.polimi.ingsw.am07.model.ClientState;
 
+/**
+ * A client listener is a StatefulListener that holds a reference to the local client state.
+ */
 public abstract class ClientListener implements StatefulListener {
 
     protected final ClientState clientState;
 
+    /**
+     * Constructor.
+     *
+     * @param clientState the client state
+     */
     protected ClientListener(ClientState clientState) {
         this.clientState = clientState;
     }

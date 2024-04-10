@@ -23,6 +23,9 @@
 
 package it.polimi.ingsw.am07.network;
 
+/**
+ * The type of network.
+ */
 public enum NetworkType {
     TCP,
     RMI

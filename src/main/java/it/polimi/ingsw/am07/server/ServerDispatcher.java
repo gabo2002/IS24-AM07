@@ -36,6 +36,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Server dispatcher.
+ */
 public class ServerDispatcher implements Dispatcher {
 
     private static final AppLogger LOGGER = new AppLogger(ServerDispatcher.class);
@@ -46,6 +49,11 @@ public class ServerDispatcher implements Dispatcher {
     private final Map<Lobby, LobbyController> lobbyControllers;
     private final Map<String, Dispatcher> listenerDispatchers;
 
+    /**
+     * Constructor.
+     *
+     * @param games the list of games, restored from storage
+     */
     public ServerDispatcher(Map<UUID, Game> games) {
         this.games = games;
         this.lobbies = new HashMap<>();
@@ -55,6 +63,12 @@ public class ServerDispatcher implements Dispatcher {
         listenerDispatchers = new HashMap<>();
     }
 
+    /**
+     * Execute an action.
+     * Internally, the action is dispatched to the correct listener based on the action's caller identity.
+     *
+     * @param action the action to dispatch
+     */
     @Override
     public synchronized void execute(Action action) {
         LOGGER.debug("Executing action " + action.getIdentity() + " in " + Thread.currentThread().getName());
@@ -66,6 +80,13 @@ public class ServerDispatcher implements Dispatcher {
         }
     }
 
+    /**
+     * Register a new listener.
+     * If the identity of the listener is already present in the server, the listener is registered to the correct game or lobby.
+     * Otherwise, a new lobby is created and the listener is registered to it.
+     *
+     * @param listener the listener to register
+     */
     @Override
     public synchronized void registerNewListener(Listener listener) {
         LOGGER.debug("Registering new listener " + listener.getIdentity());
@@ -114,6 +135,11 @@ public class ServerDispatcher implements Dispatcher {
         lobbyController.registerNewListener(listener);
     }
 
+    /**
+     * Remove a listener.
+     *
+     * @param listener the listener to remove
+     */
     @Override
     public synchronized void removeListener(Listener listener) {
         LOGGER.debug("Removing listener " + listener.getIdentity());
@@ -121,6 +147,11 @@ public class ServerDispatcher implements Dispatcher {
         listenerDispatchers.remove(listener.getIdentity());
     }
 
+    /**
+     * Migrate a lobby to a new game.
+     *
+     * @param lobby the lobby to migrate
+     */
     private synchronized void migrateLobbyToGame(Lobby lobby) {
         LOGGER.debug("Migrating lobby " + lobby.getId() + " to a new game");
 
