@@ -52,4 +52,14 @@ public class LocalListener implements Listener {
         action.reflect(localModel);
     }
 
+    /**
+     * Get the identity of the listener.
+     *
+     * @return the identity of the listener
+     */
+    @Override
+    public String getIdentity() {
+        return "LocalListener";
+    }
+
 }
