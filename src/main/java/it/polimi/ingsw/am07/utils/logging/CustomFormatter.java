@@ -34,14 +34,13 @@ public class CustomFormatter extends SimpleFormatter {
         String className = record.getLoggerName();
 
         // Format the log message
-        StringBuilder sb = new StringBuilder();
-        sb.append("[")
-                .append(className)
-                .append("] ")
-                .append(record.getMessage())
-                .append("\n");
+        String sb = "[" +
+                className +
+                "] " +
+                record.getMessage() +
+                "\n";
 
-        return sb.toString();
+        return sb;
     }
 
 }

@@ -33,7 +33,7 @@ public class ClientState {
     private Game gameModel;
     private Lobby lobbyModel;
 
-    private Consumer<ClientState> onGameModelUpdate;
+    private final Consumer<ClientState> onGameModelUpdate;
 
     public ClientState(Consumer<ClientState> onGameModelUpdate) {
         gameModel = null;

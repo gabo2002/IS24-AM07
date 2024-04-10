@@ -39,10 +39,8 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 public class NetworkJsonSerializer {
 
-    private final AppLogger LOGGER = new AppLogger(NetworkJsonSerializer.class);
-
     private static NetworkJsonSerializer instance;
-
+    private final AppLogger LOGGER = new AppLogger(NetworkJsonSerializer.class);
     private final Moshi moshi;
     private final JsonAdapter<NetworkPacket> adapter;
 
