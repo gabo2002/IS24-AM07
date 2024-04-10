@@ -21,13 +21,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli.rendering.deck;
+package it.polimi.ingsw.am07.client.cli.rendering.deck;
 
-import it.polimi.ingsw.am07.cli.rendering.CLIColor;
-import it.polimi.ingsw.am07.cli.rendering.CLIElement;
-import it.polimi.ingsw.am07.cli.rendering.CLIGameSymbol;
-import it.polimi.ingsw.am07.cli.rendering.common.CLILargeSideRepresentation;
-import it.polimi.ingsw.am07.cli.rendering.common.CLISideRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
+import it.polimi.ingsw.am07.client.cli.rendering.common.CLILargeSideRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.common.CLISideRepresentation;
 import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.Side;

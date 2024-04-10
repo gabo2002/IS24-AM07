@@ -21,18 +21,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli.rendering;
+package it.polimi.ingsw.am07.client.gui;
 
-/**
- * A generic CLI element
- */
-public interface CLIElement {
+import it.polimi.ingsw.am07.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    /**
-     * Render the element.
-     *
-     * @return a string can be printed to console
-     */
-    String render();
+import java.io.IOException;
+
+public class GUI extends javafx.application.Application {
+
+    public void entrypoint() {
+        launch();
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }

@@ -32,6 +32,7 @@ import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.LocalListener;
+import it.polimi.ingsw.am07.server.controller.GameController;
 import it.polimi.ingsw.am07.utils.assets.GameResources;
 import org.junit.jupiter.api.Test;
 

@@ -21,7 +21,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli;
+package it.polimi.ingsw.am07.client.cli;
 
 public class CLI {
+
+    public void entrypoint() {
+
+    }
+
 }

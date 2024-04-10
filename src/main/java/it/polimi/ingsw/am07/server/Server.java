@@ -71,7 +71,7 @@ public class Server {
     /**
      * Start the server.
      */
-    public void main() {
+    public void entrypoint() {
         setupAutoSave();
 
         tcpNetworkManager.start();

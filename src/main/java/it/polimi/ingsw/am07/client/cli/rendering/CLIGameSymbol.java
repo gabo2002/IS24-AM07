@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli.rendering;
+package it.polimi.ingsw.am07.client.cli.rendering;
 
 import it.polimi.ingsw.am07.model.game.Symbol;
 

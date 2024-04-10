@@ -1,24 +1,28 @@
 package it.polimi.ingsw.am07;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import it.polimi.ingsw.am07.client.cli.CLI;
+import it.polimi.ingsw.am07.client.gui.GUI;
+import it.polimi.ingsw.am07.server.Server;
 
-import java.io.IOException;
-
-public class Application extends javafx.application.Application {
+public class Application {
 
     public static void main(String[] args) {
-        launch();
-    }
+        if (args.length < 1) {
+            System.out.println("Usage: java -jar <jarfile> <cli|gui|server>");
+            System.exit(1);
+        }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        String option = args[0];
+
+        switch (option) {
+            case "cli" -> new CLI().entrypoint();
+            case "gui" -> new GUI().entrypoint();
+            case "server" -> new Server().entrypoint();
+            default -> {
+                System.out.println("Usage: java -jar <jarfile> <cli|gui|server>");
+                System.exit(1);
+            }
+        }
     }
 
 }

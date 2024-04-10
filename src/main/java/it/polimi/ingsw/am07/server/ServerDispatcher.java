@@ -24,8 +24,9 @@
 package it.polimi.ingsw.am07.server;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.controller.GameController;
-import it.polimi.ingsw.am07.controller.LobbyController;
+import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
+import it.polimi.ingsw.am07.server.controller.GameController;
+import it.polimi.ingsw.am07.server.controller.LobbyController;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
@@ -39,7 +40,7 @@ import java.util.UUID;
 /**
  * Server dispatcher.
  */
-public class ServerDispatcher implements Dispatcher {
+public class ServerDispatcher extends Dispatcher {
 
     private static final AppLogger LOGGER = new AppLogger(ServerDispatcher.class);
 
@@ -55,6 +56,8 @@ public class ServerDispatcher implements Dispatcher {
      * @param games the list of games, restored from storage
      */
     public ServerDispatcher(Map<UUID, Game> games) {
+        super();
+
         this.games = games;
         this.lobbies = new HashMap<>();
 
@@ -167,12 +170,18 @@ public class ServerDispatcher implements Dispatcher {
         games.put(game.getId(), game);
         gameControllers.put(game, gameController);
 
-        // Remove the lobby and its controller
-        lobbies.remove(lobby.getId());
-        lobbyControllers.remove(lobby);
-
         // Update the listener dispatchers
         lobby.getPlayers().forEach(player -> listenerDispatchers.put(player.getNickname(), gameController));
+
+        // Inherit the listeners from the lobby controller
+        gameController.inheritListeners(lobbyControllers.get(lobby));
+
+        // Delete the lobby and lobby controller
+        lobbyControllers.remove(lobby);
+        lobbies.remove(lobby.getId());
+
+        // Execute a game sync action to notify the listeners of the new game
+        gameController.execute(new GameStateSyncAction(game));
     }
 
 }

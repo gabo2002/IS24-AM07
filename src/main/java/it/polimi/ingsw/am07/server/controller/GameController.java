@@ -21,40 +21,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.controller;
+package it.polimi.ingsw.am07.server.controller;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 /**
- * Controller for the lobby.
+ * Controller for the game.
  */
-public class LobbyController implements Dispatcher {
+public class GameController extends Dispatcher {
 
-    private final AppLogger LOGGER = new AppLogger(LobbyController.class);
+    private final AppLogger LOGGER = new AppLogger(GameController.class);
 
-    private final Lobby lobby;
-    private final Consumer<Lobby> migrateToGame;
-    private final List<Listener> listeners;
+    private final Game gameModel;
 
     /**
      * Constructor.
      *
-     * @param lobby         the lobby model
-     * @param migrateToGame a callback that migrates the players in the lobby to a new game
+     * @param game the game model
      */
-    public LobbyController(Lobby lobby, Consumer<Lobby> migrateToGame) {
-        this.lobby = lobby;
-        this.migrateToGame = migrateToGame;
-        this.listeners = new ArrayList<>(4);
+    public GameController(Game game) {
+        super(Game.MAX_PLAYERS);
+        gameModel = game;
     }
 
     /**
@@ -64,17 +55,12 @@ public class LobbyController implements Dispatcher {
      */
     @Override
     public synchronized void execute(Action action) {
-        LOGGER.debug("Executing action " + action.getIdentity() + " in " + Thread.currentThread().getName());
+        LOGGER.debug("Executing action on model: " + gameModel);
 
-        action.execute(lobby);
+        action.execute(gameModel);
 
         for (Listener listener : listeners) {
-            LOGGER.debug("Notifying listener " + listener + " in " + Thread.currentThread().getName());
             listener.notify(action);
-        }
-
-        if (lobby.readyToStart()) {
-            migrateToGame.accept(lobby);
         }
     }
 
@@ -85,11 +71,7 @@ public class LobbyController implements Dispatcher {
      */
     @Override
     public synchronized void registerNewListener(Listener listener) {
-        LOGGER.debug("Registering new listener " + listener + " in " + Thread.currentThread().getName());
-
         listeners.add(listener);
-
-        execute(new LobbyStateSyncAction(lobby));
     }
 
     /**
@@ -99,11 +81,7 @@ public class LobbyController implements Dispatcher {
      */
     @Override
     public synchronized void removeListener(Listener listener) {
-        LOGGER.debug("Removing listener " + listener + " in " + Thread.currentThread().getName());
-
         listeners.remove(listener);
-
-        execute(new LobbyStateSyncAction(lobby));
     }
 
 }

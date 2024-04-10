@@ -23,9 +23,59 @@
 
 package it.polimi.ingsw.am07.action.server;
 
+import it.polimi.ingsw.am07.action.ServerAction;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.game.Game;
+
 /**
  * Action to synchronize the game state.
  */
-public class GameStateSyncAction {
+public class GameStateSyncAction extends ServerAction {
+
+    private final Game game;
+
+    /**
+     * Constructor.
+     *
+     * @param game the game
+     */
+    public GameStateSyncAction(Game game) {
+        this.game = game;
+    }
+
+    /**
+     * Execute the action. Since we are synchronizing the game state from the server model, no change is to be
+     * propagated to the server model.
+     *
+     * @param game the game model
+     * @return true if the action executed successfully, false otherwise
+     */
+    @Override
+    public boolean execute(Game game) {
+        return true;
+    }
+
+    /**
+     * Reflect the action on the client state.
+     *
+     * @param clientState the client state
+     * @return true if the action executed successfully, false otherwise
+     */
+    @Override
+    public boolean reflect(ClientState clientState) {
+        clientState.setGameModel(game);
+        super.reflect(clientState);
+        return true;
+    }
+
+    /**
+     * Get the identity of the client that sent the action.
+     *
+     * @return the identity of the client
+     */
+    @Override
+    public String getIdentity() {
+        return getClass().getSimpleName();
+    }
 
 }

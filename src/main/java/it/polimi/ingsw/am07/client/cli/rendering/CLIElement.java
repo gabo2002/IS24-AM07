@@ -21,53 +21,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.reactive;
-
-import java.util.ArrayList;
-import java.util.List;
+package it.polimi.ingsw.am07.client.cli.rendering;
 
 /**
- * Abstract class for a dispatcher that can execute an action and notify listeners.
+ * A generic CLI element
  */
-public abstract class Dispatcher implements Controller {
-
-    protected final List<Listener> listeners;
+public interface CLIElement {
 
     /**
-     * Constructor.
+     * Render the element.
      *
-     * @param defaultListenersSize the default size of the listeners list
+     * @return a string can be printed to console
      */
-    protected Dispatcher(int defaultListenersSize) {
-        listeners = new ArrayList<>(defaultListenersSize);
-    }
-
-    /**
-     * Constructor.
-     */
-    protected Dispatcher() {
-        listeners = new ArrayList<>();
-    }
-
-    /**
-     * Register a new listener.
-     *
-     * @param listener the listener to register
-     */
-    public abstract void registerNewListener(Listener listener);
-
-    /**
-     * Remove a listener.
-     *
-     * @param listener the listener to remove
-     */
-    public abstract void removeListener(Listener listener);
-
-    /**
-     * Inherit listeners from another dispatcher.
-     */
-    public void inheritListeners(Dispatcher dispatcher) {
-        listeners.addAll(dispatcher.listeners);
-    }
+    String render();
 
 }

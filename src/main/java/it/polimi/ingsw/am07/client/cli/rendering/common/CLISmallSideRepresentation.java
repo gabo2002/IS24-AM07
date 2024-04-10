@@ -21,10 +21,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli.rendering.common;
+package it.polimi.ingsw.am07.client.cli.rendering.common;
 
-import it.polimi.ingsw.am07.cli.rendering.CLIColor;
-import it.polimi.ingsw.am07.cli.rendering.CLIGameSymbol;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
 import it.polimi.ingsw.am07.model.game.side.Side;
 
 /**

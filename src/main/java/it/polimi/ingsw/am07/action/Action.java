@@ -90,14 +90,6 @@ public abstract class Action implements Serializable {
      * @return true if the action was executed successfully, false otherwise
      */
     public boolean reflect(ClientState clientState) {
-        if (clientState.getLobbyModel() != null) {
-            reflect(clientState.getLobbyModel());
-        } else if (clientState.getGameModel() != null) {
-            reflect(clientState.getGameModel());
-        } else {
-            throw new RuntimeException("No model to reflect on");
-        }
-
         clientState.notifyGameModelUpdate();
 
         return true;

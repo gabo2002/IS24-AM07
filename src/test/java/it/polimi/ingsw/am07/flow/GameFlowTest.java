@@ -35,7 +35,7 @@ public class GameFlowTest {
     void testGameFlow() {
         Server server = new Server(12345, 23456);
 
-        new Thread(server::main).start();
+        new Thread(server::entrypoint).start();
         new Thread(this::client1).start();
         new Thread(this::client2).start();
 

@@ -21,12 +21,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.cli.rendering.field;
+package it.polimi.ingsw.am07.client.cli.rendering.field;
 
-import it.polimi.ingsw.am07.cli.rendering.CLIColor;
-import it.polimi.ingsw.am07.cli.rendering.CLIElement;
-import it.polimi.ingsw.am07.cli.rendering.CLIGameSymbol;
-import it.polimi.ingsw.am07.cli.rendering.common.CLISideRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
+import it.polimi.ingsw.am07.client.cli.rendering.common.CLISideRepresentation;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;

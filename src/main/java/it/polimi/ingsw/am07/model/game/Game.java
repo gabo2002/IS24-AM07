@@ -39,6 +39,8 @@ import java.util.UUID;
 
 public class Game implements Serializable {
 
+    public static int MAX_PLAYERS = 4;
+
     private final UUID id;
 
     private final List<Player> players;
@@ -71,6 +73,11 @@ public class Game implements Serializable {
         gameState = GameState.STARTING;
     }
 
+    /**
+     * Constructor for the Game class, which creates a shallow copy of the game object.
+     *
+     * @param other the game object to be copied
+     */
     public Game(Game other) {
         this.id = other.id;
         this.players = new ArrayList<>(other.players);
