@@ -23,7 +23,7 @@
 
 package it.polimi.ingsw.am07.network.tcp;
 
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
@@ -33,12 +33,15 @@ import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
 public class ClientTCPNetworkManager implements ClientNetworkManager {
+
+    private final AppLogger LOGGER = new AppLogger(ClientTCPNetworkManager.class);
 
     private final String serverAddress;
     private final int serverPort;
@@ -62,6 +65,8 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
     @Override
     public void connect() {
+        LOGGER.debug("Connecting to " + serverAddress + ":" + serverPort);
+
         if (socket != null) {
             disconnect();
         }
@@ -69,14 +74,14 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         try {
             socket = new Socket(serverAddress, serverPort);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         try {
             reader = new DataInputStream(socket.getInputStream());
             writer = new DataOutputStream(socket.getOutputStream());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         connection = new RemoteConnection(reader, writer);
@@ -89,34 +94,36 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
     @Override
     public void disconnect() {
+        LOGGER.debug("Disconnecting from " + serverAddress + ":" + serverPort);
+
         try {
             reader.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         try {
             writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         try {
             socket.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         socket = null;
     }
 
     @Override
-    public void inflateListener(Game game) {
+    public void inflateListener(ClientState clientState) {
         if (listener != null) {
             return;
         }
 
-        listener = new ClientTCPListener(game, connection);
+        listener = new ClientTCPListener(clientState, connection);
 
         setupReceiverLoop();
     }
@@ -136,6 +143,8 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
     private void receivePacket() {
         NetworkPacket packet = connection.receive();
+
+        LOGGER.debug("Received packet: " + packet);
 
         if (packet != null) {
             switch (packet) {

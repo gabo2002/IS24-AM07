@@ -23,12 +23,10 @@
 
 package it.polimi.ingsw.am07.action;
 
-import java.io.Serializable;
-
 /**
  * Abstract class for a server initiated by the server.
  */
-public abstract class ServerAction implements Action, Serializable {
+public abstract class ServerAction extends Action {
 
     /**
      * Constructor.

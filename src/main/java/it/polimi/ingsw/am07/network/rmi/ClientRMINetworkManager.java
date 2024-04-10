@@ -23,20 +23,22 @@
 
 package it.polimi.ingsw.am07.network.rmi;
 
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class ClientRMINetworkManager implements ClientNetworkManager {
 
+    private final AppLogger LOGGER = new AppLogger(ClientRMINetworkManager.class);
+
     private final Registry registry;
     private final String identity;
     private RMIDispatcher dispatcher;
-    private RMIStatefulListener rmiStatefulListener;
     private Controller controller;
 
     public ClientRMINetworkManager(String serverAddress, int serverPort, String identity) {
@@ -45,7 +47,7 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
         try {
             tempRegistry = LocateRegistry.getRegistry(serverAddress, serverPort);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
 
         registry = tempRegistry;
@@ -59,7 +61,7 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
 
             controller = new RMILocalController(dispatcher);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
@@ -69,15 +71,15 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     }
 
     @Override
-    public void inflateListener(Game game) {
-        StatefulListener listener = new RMIListener(game, identity);
+    public void inflateListener(ClientState clientState) {
+        StatefulListener listener = new RMIListener(clientState, identity);
 
         try {
-            rmiStatefulListener = new ClientRMIStatefulListener(listener);
+            RMIStatefulListener rmiStatefulListener = new ClientRMIStatefulListener(listener);
 
             dispatcher.registerNewListener(rmiStatefulListener);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 

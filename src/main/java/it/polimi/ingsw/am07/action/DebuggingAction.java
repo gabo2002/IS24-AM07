@@ -24,18 +24,31 @@
 package it.polimi.ingsw.am07.action;
 
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
 
-public class DebuggingAction implements Action {
+public class DebuggingAction extends Action {
 
     @Override
     public boolean execute(Game gameModel) {
-        System.out.println("Action executed in " + Thread.currentThread().getName());
+        System.out.println("GameAction executed in " + Thread.currentThread().getName());
         return true;
     }
 
     @Override
     public boolean reflect(Game gameModel) {
-        System.out.println("Action reflected in " + Thread.currentThread().getName());
+        System.out.println("GameAction reflected in " + Thread.currentThread().getName());
+        return true;
+    }
+
+    @Override
+    public boolean execute(Lobby lobbyModel) {
+        System.out.println("LobbyAction executed in " + Thread.currentThread().getName());
+        return true;
+    }
+
+    @Override
+    public boolean reflect(Lobby lobbyModel) {
+        System.out.println("LobbyAction reflected in " + Thread.currentThread().getName());
         return true;
     }
 

@@ -24,23 +24,28 @@
 package it.polimi.ingsw.am07.network.tcp;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.reactive.ClientListener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 public class ClientTCPListener extends ClientListener {
 
+    private final AppLogger LOGGER = new AppLogger(ClientTCPListener.class);
+
     private final Connection serverConnection;
 
-    public ClientTCPListener(Game gameModel, Connection serverConnection) {
-        super(gameModel);
+    public ClientTCPListener(ClientState clientState, Connection serverConnection) {
+        super(clientState);
         this.serverConnection = serverConnection;
     }
 
     @Override
     public synchronized void notify(Action action) {
-        action.reflect(gameModel);
+        LOGGER.debug("Notifying action " + action.getIdentity() + " in " + Thread.currentThread().getName());
+
+        action.reflect(clientState);
     }
 
     @Override

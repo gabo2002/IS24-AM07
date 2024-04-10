@@ -23,14 +23,14 @@
 
 package it.polimi.ingsw.am07.reactive;
 
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.ClientState;
 
 public abstract class ClientListener implements StatefulListener {
 
-    protected final Game gameModel;
+    protected final ClientState clientState;
 
-    protected ClientListener(Game gameModel) {
-        this.gameModel = gameModel;
+    protected ClientListener(ClientState clientState) {
+        this.clientState = clientState;
     }
 
 }

@@ -23,7 +23,7 @@
 
 package it.polimi.ingsw.am07.network;
 
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.rmi.ClientRMINetworkManager;
 import it.polimi.ingsw.am07.network.tcp.ClientTCPNetworkManager;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -34,7 +34,7 @@ public interface ClientNetworkManager {
 
     void disconnect();
 
-    void inflateListener(Game game);
+    void inflateListener(ClientState clientState);
 
     Controller getController();
 
@@ -43,14 +43,14 @@ public interface ClientNetworkManager {
         private String hostname;
         private int port;
         private String identity;
-        private Game gameModel;
+        private ClientState clientState;
         private NetworkType networkType;
 
         public Factory() {
             hostname = null;
             port = 0;
             identity = null;
-            gameModel = null;
+            clientState = null;
             networkType = null;
         }
 
@@ -69,8 +69,8 @@ public interface ClientNetworkManager {
             return this;
         }
 
-        public Factory withGameModel(Game gameModel) {
-            this.gameModel = gameModel;
+        public Factory withState(ClientState clientState) {
+            this.clientState = clientState;
             return this;
         }
 
@@ -80,7 +80,7 @@ public interface ClientNetworkManager {
         }
 
         public ClientNetworkManager build() {
-            if (hostname == null || port == 0 || identity == null || gameModel == null || networkType == null) {
+            if (hostname == null || port == 0 || identity == null || clientState == null || networkType == null) {
                 throw new IllegalStateException("Missing parameters");
             }
 
@@ -94,7 +94,7 @@ public interface ClientNetworkManager {
 
             manager.connect();
 
-            manager.inflateListener(gameModel);
+            manager.inflateListener(clientState);
 
             return manager;
         }

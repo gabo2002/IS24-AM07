@@ -24,7 +24,7 @@
 package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.reactive.ClientListener;
 
 public class RMIListener extends ClientListener {
@@ -34,15 +34,15 @@ public class RMIListener extends ClientListener {
     private final String identity;
     private long lastHeartbeatTime = 0;
 
-    public RMIListener(Game gameModel, String identity) {
-        super(gameModel);
+    public RMIListener(ClientState clientState, String identity) {
+        super(clientState);
 
         this.identity = identity;
     }
 
     @Override
     public void notify(Action action) {
-        action.reflect(gameModel);
+        action.reflect(clientState);
     }
 
     @Override

@@ -26,14 +26,12 @@ package it.polimi.ingsw.am07.action;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Player;
 
-import java.io.Serializable;
-
 /**
  * Abstract class for an action initiated by a player.
  */
-public abstract class PlayerAction implements Action, Serializable {
+public abstract class PlayerAction extends Action {
 
-    protected final String playerNickname;
+    protected String playerNickname;
 
     /**
      * Constructor.
@@ -58,6 +56,26 @@ public abstract class PlayerAction implements Action, Serializable {
         }
 
         return null;
+    }
+
+    /**
+     * Get the identity of the action.
+     *
+     * @return the identity of the action
+     */
+    @Override
+    public String getIdentity() {
+        return playerNickname;
+    }
+
+    /**
+     * Set the identity of the action.
+     */
+    @Override
+    public void setIdentity(String identity) {
+        if (!playerNickname.equals(identity)) {
+            throw new IllegalArgumentException("The identity of a PlayerAction cannot be changed");
+        }
     }
 
 }

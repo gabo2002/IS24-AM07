@@ -23,14 +23,22 @@
 
 package it.polimi.ingsw.am07.action;
 
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 import java.io.Serializable;
 
 /**
  * Interface for an action that can be executed on the game model.
  */
-public interface Action extends Serializable {
+public abstract class Action implements Serializable {
+
+    private String identity;
+
+    protected Action() {
+
+    }
 
     /**
      * Execute the action on the game model.
@@ -38,7 +46,9 @@ public interface Action extends Serializable {
      * @param gameModel the game model
      * @return true if the action was executed successfully, false otherwise
      */
-    boolean execute(Game gameModel);
+    public boolean execute(Game gameModel) {
+        throw new RuntimeException("Not implemented");
+    }
 
     /**
      * Reflect the action on the game model.
@@ -46,6 +56,64 @@ public interface Action extends Serializable {
      * @param gameModel the game model
      * @return true if the action was reflected successfully, false otherwise
      */
-    boolean reflect(Game gameModel);
+    public boolean reflect(Game gameModel) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * Execute the action on the lobby model.
+     *
+     * @param lobbyModel the lobby model
+     * @return true if the action was executed successfully, false otherwise
+     */
+    public boolean execute(Lobby lobbyModel) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * Reflect the action on the lobby model.
+     *
+     * @param lobbyModel the lobby model
+     * @return true if the action was reflected successfully, false otherwise
+     */
+    public boolean reflect(Lobby lobbyModel) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * Execute the action on the client state.
+     *
+     * @param clientState the client state
+     * @return true if the action was executed successfully, false otherwise
+     */
+    public boolean reflect(ClientState clientState) {
+        if (clientState.getLobbyModel() != null) {
+            reflect(clientState.getLobbyModel());
+        } else if (clientState.getGameModel() != null) {
+            reflect(clientState.getGameModel());
+        } else {
+            throw new RuntimeException("No model to reflect on");
+        }
+
+        clientState.notifyGameModelUpdate();
+
+        return true;
+    }
+
+    /**
+     * Get the identity of the action.
+     *
+     * @return the identity of the action
+     */
+    public String getIdentity() {
+        return identity;
+    }
+
+    /**
+     * Set the identity of the action.
+     */
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
 
 }
