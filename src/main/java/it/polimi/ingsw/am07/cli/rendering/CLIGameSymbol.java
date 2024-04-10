@@ -39,9 +39,9 @@ public record CLIGameSymbol(
     /**
      * Constants for the different types of cards
      */
-    public static char CARD_GOLD = 'G';
-    public static char CARD_RES = 'R';
-    public static char CARD_STARTER = 'S';
+    public static final char CARD_GOLD = 'G';
+    public static final char CARD_RES = 'R';
+    public static final char CARD_STARTER = 'S';
 
     /**
      * Basic constructor for the CLIGameFieldSymbol, with the default color.

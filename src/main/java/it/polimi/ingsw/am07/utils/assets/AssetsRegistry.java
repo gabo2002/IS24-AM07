@@ -36,10 +36,9 @@ import java.util.stream.Collectors;
  */
 public class AssetsRegistry {
 
-    public static String GAME_RESOURCE_DEFINITION_JSON = "config.json";
+    public static final String GAME_RESOURCE_DEFINITION_JSON = "config.json";
 
     private static AssetsRegistry instance;
-    private final String starterCardsJsonContent;
     private String cardsJsonContent;
     private String objectivesJsonContent;
     private GameResourceDefinition gameResourceDefinition;
@@ -47,7 +46,6 @@ public class AssetsRegistry {
     private AssetsRegistry() {
         cardsJsonContent = null;
         objectivesJsonContent = null;
-        starterCardsJsonContent = null;
 
         loadGameDefinition();
     }

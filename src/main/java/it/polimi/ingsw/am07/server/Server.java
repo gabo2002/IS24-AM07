@@ -27,12 +27,15 @@ import it.polimi.ingsw.am07.network.ServerNetworkManager;
 import it.polimi.ingsw.am07.network.rmi.ServerRMINetworkManager;
 import it.polimi.ingsw.am07.network.tcp.ServerTCPNetworkManager;
 import it.polimi.ingsw.am07.utils.GameRegistry;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Server {
+
+    private final AppLogger LOGGER = new AppLogger(Server.class);
 
     private final ServerDispatcher dispatcher;
     private final ServerNetworkManager tcpNetworkManager;
@@ -55,7 +58,9 @@ public class Server {
 
     private void setupAutoSave() {
         Runnable autoSave = () -> {
-            GameRegistry.getInstance().saveState();
+            if (!GameRegistry.getInstance().saveState()) {
+                LOGGER.error("Failed to save the game state.");
+            }
         };
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);

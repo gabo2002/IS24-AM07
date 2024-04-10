@@ -35,7 +35,6 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
     private final AppLogger LOGGER = new AppLogger(ServerRMINetworkManager.class);
     private final Dispatcher dispatcher;
     private final Registry registry;
-    private ServerRMIDispatcher serverRMIDispatcher;
 
     public ServerRMINetworkManager(int port, Dispatcher dispatcher) {
         this.dispatcher = dispatcher;
@@ -54,7 +53,7 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
     @Override
     public void start() {
         try {
-            serverRMIDispatcher = new ServerRMIDispatcher(dispatcher);
+            ServerRMIDispatcher serverRMIDispatcher = new ServerRMIDispatcher(dispatcher);
 
             registry.rebind("dispatcher", serverRMIDispatcher);
         } catch (Exception e) {

@@ -31,7 +31,7 @@ import it.polimi.ingsw.am07.model.game.Player;
  */
 public abstract class PlayerAction extends Action {
 
-    protected String playerNickname;
+    protected final String playerNickname;
 
     /**
      * Constructor.

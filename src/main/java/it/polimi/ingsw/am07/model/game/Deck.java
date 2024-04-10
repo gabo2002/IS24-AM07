@@ -47,7 +47,7 @@ public record Deck(
         GameCard[] visibleGoldCards
 ) implements Serializable {
 
-    public static int VISIBLE_CARDS_COUNT = 2;
+    public static final int VISIBLE_CARDS_COUNT = 2;
 
     public Deck() {
         this(new ArrayList<>(), new ArrayList<>(), new GameCard[VISIBLE_CARDS_COUNT], new GameCard[VISIBLE_CARDS_COUNT]);
