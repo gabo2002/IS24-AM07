@@ -61,8 +61,8 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
      * Constructor.
      *
      * @param serverAddress the server address
-     * @param serverPort the server port
-     * @param identity the client identity
+     * @param serverPort    the server port
+     * @param identity      the client identity
      */
     public ClientTCPNetworkManager(String serverAddress, int serverPort, String identity) {
         this.serverAddress = serverAddress;

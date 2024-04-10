@@ -42,7 +42,7 @@ public class ClientTCPListener extends ClientListener {
     /**
      * Constructor.
      *
-     * @param clientState the client state
+     * @param clientState      the client state
      * @param serverConnection the connection to the server
      */
     public ClientTCPListener(ClientState clientState, Connection serverConnection) {

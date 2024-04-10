@@ -30,10 +30,9 @@ import java.util.function.Consumer;
 
 public class ClientState {
 
+    private final Consumer<ClientState> onGameModelUpdate;
     private Game gameModel;
     private Lobby lobbyModel;
-
-    private final Consumer<ClientState> onGameModelUpdate;
 
     public ClientState(Consumer<ClientState> onGameModelUpdate) {
         gameModel = null;

@@ -45,7 +45,7 @@ public class RemoteConnection implements Connection {
     /**
      * Constructor.
      *
-     * @param inputStream the input stream to read from
+     * @param inputStream  the input stream to read from
      * @param outputStream the output stream to write to
      */
     public RemoteConnection(DataInputStream inputStream, DataOutputStream outputStream) {

@@ -48,7 +48,7 @@ public class LobbyController implements Dispatcher {
     /**
      * Constructor.
      *
-     * @param lobby the lobby model
+     * @param lobby         the lobby model
      * @param migrateToGame a callback that migrates the players in the lobby to a new game
      */
     public LobbyController(Lobby lobby, Consumer<Lobby> migrateToGame) {

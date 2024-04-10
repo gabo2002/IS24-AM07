@@ -48,8 +48,8 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
      * Constructor.
      *
      * @param serverAddress the server address
-     * @param serverPort the server port
-     * @param identity the client identity
+     * @param serverPort    the server port
+     * @param identity      the client identity
      */
     public ClientRMINetworkManager(String serverAddress, int serverPort, String identity) {
         Registry tempRegistry = null;

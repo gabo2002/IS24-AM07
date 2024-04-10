@@ -42,7 +42,7 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
     /**
      * Constructor.
      *
-     * @param port the port
+     * @param port       the port
      * @param dispatcher the logic dispatcher
      */
     public ServerRMINetworkManager(int port, Dispatcher dispatcher) {

@@ -41,7 +41,7 @@ public class RMIListener extends ClientListener {
      * Constructor.
      *
      * @param clientState the client state
-     * @param identity the client's identity
+     * @param identity    the client's identity
      */
     public RMIListener(ClientState clientState, String identity) {
         super(clientState);

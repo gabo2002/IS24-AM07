@@ -57,7 +57,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
      * Constructor.
      *
      * @param listeningPort the listening port
-     * @param dispatcher the dispatcher
+     * @param dispatcher    the dispatcher
      */
     public ServerTCPNetworkManager(int listeningPort, Dispatcher dispatcher) {
         this.dispatcher = dispatcher;

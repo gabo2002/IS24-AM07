@@ -44,7 +44,7 @@ public class ServerTCPListener implements StatefulListener {
      * Constructor.
      *
      * @param remoteConnection the remote connection
-     * @param identity the identity
+     * @param identity         the identity
      */
     public ServerTCPListener(RemoteConnection remoteConnection, String identity) {
         this.remoteConnection = remoteConnection;
