@@ -71,6 +71,21 @@ public class Game implements Serializable {
         gameState = GameState.STARTING;
     }
 
+    public Game(Game other) {
+        this.id = other.id;
+        this.players = new ArrayList<>(other.players);
+        this.deck = new Deck.Factory()
+                .goldCards(other.deck.availableGoldCards())
+                .resourceCards(other.deck.availableResCards())
+                .visibleGoldCards(other.deck.visibleGoldCards())
+                .visibleResCards(other.deck.visibleResCards())
+                .build();
+        this.selfNickname = other.selfNickname;
+        this.commonObjectives = other.commonObjectives;
+        this.currentPlayerIndex = other.currentPlayerIndex;
+        this.gameState = other.gameState;
+    }
+
     /**
      * This method returns the unique identifier of the game.
      *
