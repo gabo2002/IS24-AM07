@@ -71,6 +71,47 @@ class LobbyTest {
         assertEquals(3, lobby.getPlayerCount());
         assertEquals("player3", test.getNickname());
         assertEquals(test, lobby.getPlayers().get(2));
+
+        assertDoesNotThrow(() -> lobby.addNewPlayer("player4"));
+        assertEquals(4, lobby.getPlayerCount());
+        assertTrue(lobby.isFull());
+
+        assertThrows(IllegalStateException.class, () -> lobby.addNewPlayer("player5"));
+        assertEquals(4, lobby.getPlayerCount());
+        assertTrue(lobby.isFull());
+    }
+
+    @Test
+    void removePlayer() {
+        Lobby lobby = new Lobby();
+
+        LobbyPlayer player1 = lobby.addNewPlayer("player1");
+        LobbyPlayer player2 = lobby.addNewPlayer("player2");
+        LobbyPlayer player3 = lobby.addNewPlayer("player3");
+        LobbyPlayer player4 = lobby.addNewPlayer("player4");
+
+        assertEquals(4, lobby.getPlayerCount());
+
+        assertDoesNotThrow(() -> lobby.removePlayer("player1"));
+        assertEquals(3, lobby.getPlayerCount());
+
+        assertDoesNotThrow(() -> lobby.addNewPlayer("player1"));
+        assertEquals(4, lobby.getPlayerCount());
+
+        assertDoesNotThrow(() -> lobby.removePlayer("player1"));
+        assertEquals(3, lobby.getPlayerCount());
+
+        assertDoesNotThrow(() -> lobby.removePlayer("player2"));
+        assertEquals(2, lobby.getPlayerCount());
+
+        assertDoesNotThrow(() -> lobby.removePlayer("player3"));
+        assertEquals(1, lobby.getPlayerCount());
+
+        assertDoesNotThrow(() -> lobby.removePlayer("player4"));
+        assertEquals(0, lobby.getPlayerCount());
+
+        assertDoesNotThrow(() -> lobby.removePlayer("player1"));
+        assertEquals(0, lobby.getPlayerCount());
     }
 
 }

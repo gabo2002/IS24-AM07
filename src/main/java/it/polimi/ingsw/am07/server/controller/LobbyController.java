@@ -42,6 +42,7 @@ public class LobbyController extends Dispatcher {
 
     private final Lobby lobby;
     private final Consumer<Lobby> migrateToGame;
+
     /**
      * Constructor.
      *

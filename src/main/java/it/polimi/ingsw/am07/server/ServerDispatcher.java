@@ -25,12 +25,12 @@ package it.polimi.ingsw.am07.server;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
-import it.polimi.ingsw.am07.server.controller.GameController;
-import it.polimi.ingsw.am07.server.controller.LobbyController;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
+import it.polimi.ingsw.am07.server.controller.GameController;
+import it.polimi.ingsw.am07.server.controller.LobbyController;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.HashMap;
