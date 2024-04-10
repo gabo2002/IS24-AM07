@@ -3,5 +3,7 @@
     "starterCardsCount": 6,
     "cardsJsonFileName": "cards.json",
     "objectivesCount": 16,
-    "objectivesJsonFileName": "objectives.json"
+    "objectivesJsonFileName": "objectives.json",
+    "tcpPort": 12345,
+    "rmiPort": 23456
 }

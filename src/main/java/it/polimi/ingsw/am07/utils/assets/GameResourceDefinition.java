@@ -31,12 +31,16 @@ package it.polimi.ingsw.am07.utils.assets;
  * @param cardsJsonFileName      the name of the JSON file containing the cards
  * @param objectivesCount        the number of objectives
  * @param objectivesJsonFileName the name of the JSON file containing the objectives
+ * @param tcpPort                the default TCP port for connections
+ * @param rmiPort                the default RMI port for connections
  */
 public record GameResourceDefinition(
         int cardsCount,
         int starterCardsCount,
         String cardsJsonFileName,
         int objectivesCount,
-        String objectivesJsonFileName
+        String objectivesJsonFileName,
+        int tcpPort,
+        int rmiPort
 ) {
 }

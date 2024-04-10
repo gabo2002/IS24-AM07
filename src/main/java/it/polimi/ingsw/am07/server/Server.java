@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.network.ServerNetworkManager;
 import it.polimi.ingsw.am07.network.rmi.ServerRMINetworkManager;
 import it.polimi.ingsw.am07.network.tcp.ServerTCPNetworkManager;
 import it.polimi.ingsw.am07.utils.GameRegistry;
+import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.concurrent.Executors;
@@ -55,6 +56,16 @@ public class Server {
 
         tcpNetworkManager = new ServerTCPNetworkManager(tcpPort, dispatcher);
         rmiNetworkManager = new ServerRMINetworkManager(rmiPort, dispatcher);
+    }
+
+    /**
+     * Constructor.
+     */
+    public Server() {
+        this(
+                AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort(),
+                AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort()
+        );
     }
 
     /**
