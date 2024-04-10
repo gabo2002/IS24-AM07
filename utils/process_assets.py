@@ -685,6 +685,8 @@ def side_resources_starters(side: Side):
         else:
             resources[symbol] = 1
 
+    eliminate_non_resources(resources)
+
     return f'''
     {{
         "resources": {{

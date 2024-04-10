@@ -5275,7 +5275,6 @@
             },
             "resources": {
                 "resources": {
-                    "BLANK": 2,
                     "GREEN": 1,
                     "PURPLE": 2
                 }
@@ -5343,7 +5342,6 @@
             "resources": {
                 "resources": {
                     "BLUE": 1,
-                    "BLANK": 2,
                     "RED": 2
                 }
             }
@@ -5409,7 +5407,6 @@
             },
             "resources": {
                 "resources": {
-                    "BLANK": 4,
                     "GREEN": 1,
                     "RED": 1
                 }
@@ -5476,7 +5473,6 @@
             },
             "resources": {
                 "resources": {
-                    "BLANK": 4,
                     "BLUE": 1,
                     "PURPLE": 1
                 }
@@ -5543,8 +5539,6 @@
             },
             "resources": {
                 "resources": {
-                    "BLANK": 2,
-                    "NONE": 2,
                     "BLUE": 1,
                     "PURPLE": 1,
                     "GREEN": 1
@@ -5612,8 +5606,6 @@
             },
             "resources": {
                 "resources": {
-                    "BLANK": 2,
-                    "NONE": 2,
                     "GREEN": 1,
                     "BLUE": 1,
                     "RED": 1
