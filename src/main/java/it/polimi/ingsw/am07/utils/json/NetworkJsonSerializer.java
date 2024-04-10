@@ -27,15 +27,22 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.DebuggingAction;
+import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.game.card.PatternObjectiveCard;
+import it.polimi.ingsw.am07.model.game.card.ResourceObjectiveCard;
 import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
+
+import java.io.IOException;
 
 /**
  * This class is a custom Moshi handler that can serialize and deserialize any network packet.
@@ -70,12 +77,18 @@ public class NetworkJsonSerializer {
                 .registerSubclass(SideFrontStarter.class)
                 .registerSubclass(SideBack.class);
 
+        ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<ObjectiveCard> objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(ObjectiveCard.class)
+                .registerSubclass(PatternObjectiveCard.class)
+                .registerSubclass(ResourceObjectiveCard.class);
+
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<NetworkPacket> networkPacketElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(NetworkPacket.class)
                 .registerSubclass(ActionNetworkPacket.class)
                 .registerSubclass(HeartbeatNetworkPacket.class)
                 .registerSubclass(IdentityNetworkPacket.class);
 
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<Action> actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(Action.class)
+                .registerSubclass(GameStartAction.class)
+                .registerSubclass(GameStateSyncAction.class)
                 .registerSubclass(PlayerPickCardAction.class)
                 .registerSubclass(PlayerPlaceCardAction.class)
                 .registerSubclass(LobbyStateSyncAction.class)
@@ -88,6 +101,7 @@ public class NetworkJsonSerializer {
                 .add(actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(sideFrontElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(sideElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
+                .add(objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(uuidJsonAdapter)
                 .build();
     }
@@ -123,11 +137,9 @@ public class NetworkJsonSerializer {
     public NetworkPacket fromJson(String json) {
         try {
             return adapter.fromJson(json);
-        } catch (Exception e) {
-            LOGGER.error(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
 }
