@@ -40,11 +40,4 @@ public interface StatefulListener extends Listener {
      */
     void heartbeat();
 
-    /**
-     * Get the identity of the listener.
-     *
-     * @return the identity of the listener
-     */
-    String getIdentity();
-
 }

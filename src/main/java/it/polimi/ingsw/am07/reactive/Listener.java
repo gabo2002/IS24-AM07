@@ -37,4 +37,11 @@ public interface Listener {
      */
     void notify(Action action);
 
+    /**
+     * Get the identity of the listener.
+     *
+     * @return the identity of the listener
+     */
+    String getIdentity();
+
 }
