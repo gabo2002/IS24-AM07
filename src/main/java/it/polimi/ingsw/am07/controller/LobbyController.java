@@ -34,6 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Controller for the lobby.
+ */
 public class LobbyController implements Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(LobbyController.class);
@@ -42,12 +45,23 @@ public class LobbyController implements Dispatcher {
     private final Consumer<Lobby> migrateToGame;
     private final List<Listener> listeners;
 
+    /**
+     * Constructor.
+     *
+     * @param lobby the lobby model
+     * @param migrateToGame a callback that migrates the players in the lobby to a new game
+     */
     public LobbyController(Lobby lobby, Consumer<Lobby> migrateToGame) {
         this.lobby = lobby;
         this.migrateToGame = migrateToGame;
         this.listeners = new ArrayList<>(4);
     }
 
+    /**
+     * Execute an action.
+     *
+     * @param action the action to execute
+     */
     @Override
     public synchronized void execute(Action action) {
         LOGGER.debug("Executing action " + action.getIdentity() + " in " + Thread.currentThread().getName());
@@ -64,6 +78,11 @@ public class LobbyController implements Dispatcher {
         }
     }
 
+    /**
+     * Register a new listener.
+     *
+     * @param listener the listener to register
+     */
     @Override
     public synchronized void registerNewListener(Listener listener) {
         LOGGER.debug("Registering new listener " + listener + " in " + Thread.currentThread().getName());
@@ -73,6 +92,11 @@ public class LobbyController implements Dispatcher {
         execute(new LobbyStateSyncAction(lobby));
     }
 
+    /**
+     * Remove a listener.
+     *
+     * @param listener the listener to remove
+     */
     @Override
     public synchronized void removeListener(Listener listener) {
         LOGGER.debug("Removing listener " + listener + " in " + Thread.currentThread().getName());

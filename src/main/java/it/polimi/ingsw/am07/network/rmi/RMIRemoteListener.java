@@ -27,16 +27,29 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+/**
+ * Remote listener for RMI, which calls the wrapped RMI listener.
+ */
 public class RMIRemoteListener implements StatefulListener {
 
     private final AppLogger LOGGER = new AppLogger(RMIRemoteListener.class);
 
     private final RMIStatefulListener rmiListener;
 
+    /**
+     * Constructor.
+     *
+     * @param rmiListener the RMI listener
+     */
     public RMIRemoteListener(RMIStatefulListener rmiListener) {
         this.rmiListener = rmiListener;
     }
 
+    /**
+     * Notify an action.
+     *
+     * @param action the action to notify
+     */
     @Override
     public void notify(Action action) {
         try {
@@ -46,6 +59,11 @@ public class RMIRemoteListener implements StatefulListener {
         }
     }
 
+    /**
+     * Check the pulse.
+     *
+     * @return true if the remote client is alive, false otherwise
+     */
     @Override
     public boolean checkPulse() {
         try {
@@ -56,6 +74,9 @@ public class RMIRemoteListener implements StatefulListener {
         }
     }
 
+    /**
+     * Update the last heartbeat time.
+     */
     @Override
     public void heartbeat() {
         try {
@@ -65,6 +86,11 @@ public class RMIRemoteListener implements StatefulListener {
         }
     }
 
+    /**
+     * Get the client's identity.
+     *
+     * @return the client's identity
+     */
     @Override
     public String getIdentity() {
         try {

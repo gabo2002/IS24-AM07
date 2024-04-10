@@ -27,16 +27,29 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+/**
+ * Interface to the remote controller for RMI.
+ */
 public class RMILocalController implements Controller {
 
     private final AppLogger logger = new AppLogger(RMILocalController.class);
 
     private final RMIDispatcher dispatcher;
 
+    /**
+     * Constructor.
+     *
+     * @param dispatcher the dispatcher
+     */
     public RMILocalController(RMIDispatcher dispatcher) {
         this.dispatcher = dispatcher;
     }
 
+    /**
+     * Execute an action.
+     *
+     * @param action the action
+     */
     @Override
     public void execute(Action action) {
         try {

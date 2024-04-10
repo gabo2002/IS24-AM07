@@ -30,12 +30,21 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+/**
+ * RMI network manager for the server.
+ */
 public class ServerRMINetworkManager implements ServerNetworkManager {
 
     private final AppLogger LOGGER = new AppLogger(ServerRMINetworkManager.class);
     private final Dispatcher dispatcher;
     private final Registry registry;
 
+    /**
+     * Constructor.
+     *
+     * @param port the port
+     * @param dispatcher the logic dispatcher
+     */
     public ServerRMINetworkManager(int port, Dispatcher dispatcher) {
         this.dispatcher = dispatcher;
 
@@ -50,6 +59,9 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
         registry = tempRegistry;
     }
 
+    /**
+     * Start listening for remote clients.
+     */
     @Override
     public void start() {
         try {
@@ -61,6 +73,9 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
         }
     }
 
+    /**
+     * Close the connection to the remote clients
+     */
     @Override
     public void stop() {
         try {

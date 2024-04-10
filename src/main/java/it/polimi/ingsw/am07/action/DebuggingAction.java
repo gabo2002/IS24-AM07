@@ -26,26 +26,53 @@ package it.polimi.ingsw.am07.action;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
+/**
+ * Interface for an action that just prints to STDOUT on execution and reflection.
+ */
 public class DebuggingAction extends Action {
 
+    /**
+     * Execute the action.
+     *
+     * @param gameModel the game model
+     * @return true if the action was successful, false otherwise
+     */
     @Override
     public boolean execute(Game gameModel) {
         System.out.println("GameAction executed in " + Thread.currentThread().getName());
         return true;
     }
 
+    /**
+     * Reflect the action.
+     *
+     * @param gameModel the game model
+     * @return true if the action was reflected successfully, false otherwise
+     */
     @Override
     public boolean reflect(Game gameModel) {
         System.out.println("GameAction reflected in " + Thread.currentThread().getName());
         return true;
     }
 
+    /**
+     * Execute the action.
+     *
+     * @param lobbyModel the lobby model
+     * @return true if the action was successful, false otherwise
+     */
     @Override
     public boolean execute(Lobby lobbyModel) {
         System.out.println("LobbyAction executed in " + Thread.currentThread().getName());
         return true;
     }
 
+    /**
+     * Reflect the action.
+     *
+     * @param lobbyModel the lobby model
+     * @return true if the action was reflected successfully, false otherwise
+     */
     @Override
     public boolean reflect(Lobby lobbyModel) {
         System.out.println("LobbyAction reflected in " + Thread.currentThread().getName());

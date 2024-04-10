@@ -23,6 +23,9 @@
 
 package it.polimi.ingsw.am07.action.server;
 
+/**
+ * Action to synchronize the game state.
+ */
 public class GameStateSyncAction {
 
 }

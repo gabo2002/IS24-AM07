@@ -25,14 +25,27 @@ package it.polimi.ingsw.am07.network.packets;
 
 import it.polimi.ingsw.am07.action.Action;
 
+/**
+ * Network packet that wraps an action.
+ */
 public final class ActionNetworkPacket extends NetworkPacket {
 
     private final Action action;
 
+    /**
+     * Constructor.
+     *
+     * @param action the action
+     */
     public ActionNetworkPacket(Action action) {
         this.action = action;
     }
 
+    /**
+     * Get the action.
+     *
+     * @return the action
+     */
     public Action getAction() {
         return action;
     }

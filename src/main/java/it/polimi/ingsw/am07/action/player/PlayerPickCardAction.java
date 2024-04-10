@@ -28,7 +28,7 @@ import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 
 /**
- * Action for a player to pick a card from the game model.
+ * Action for a player to pick a card from the deck.
  */
 public class PlayerPickCardAction extends PlayerAction {
 

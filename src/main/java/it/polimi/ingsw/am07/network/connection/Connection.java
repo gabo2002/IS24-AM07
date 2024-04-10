@@ -25,12 +25,30 @@ package it.polimi.ingsw.am07.network.connection;
 
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 
+/**
+ * Interface for a connection with a client.
+ */
 public interface Connection {
 
+    /**
+     * Send a packet.
+     *
+     * @param packet the packet to send
+     */
     void send(NetworkPacket packet);
 
+    /**
+     * Block until a package is received.
+     *
+     * @return the received packet
+     */
     NetworkPacket receive();
 
+    /**
+     * Check if there are packets available.
+     *
+     * @return a number higher than 0 if there are packets available
+     */
     int available();
 
 }

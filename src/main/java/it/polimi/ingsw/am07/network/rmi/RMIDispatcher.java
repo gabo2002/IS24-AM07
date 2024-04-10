@@ -28,12 +28,33 @@ import it.polimi.ingsw.am07.action.Action;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/**
+ * Interface for the RMI dispatcher (a simple wrapper over Dispatcher with knowledge of exceptions).
+ */
 public interface RMIDispatcher extends Remote {
 
+    /**
+     * Execute an action.
+     *
+     * @param action the action to execute
+     * @throws RemoteException if an error occurs
+     */
     void execute(Action action) throws RemoteException;
 
+    /**
+     * Register a new listener.
+     *
+     * @param listener the listener to register (wrapped in a RMIStatefulListener)
+     * @throws RemoteException if an error occurs
+     */
     void registerNewListener(RMIStatefulListener listener) throws RemoteException;
 
+    /**
+     * Remove a listener.
+     *
+     * @param listener the listener to remove
+     * @throws RemoteException if an error occurs
+     */
     void removeListener(RMIStatefulListener listener) throws RemoteException;
 
 }

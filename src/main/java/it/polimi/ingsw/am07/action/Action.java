@@ -36,6 +36,9 @@ public abstract class Action implements Serializable {
 
     private String identity;
 
+    /**
+     * Empty constructor.
+     */
     protected Action() {
 
     }

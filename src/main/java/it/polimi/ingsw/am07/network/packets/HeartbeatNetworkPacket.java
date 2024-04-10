@@ -23,8 +23,14 @@
 
 package it.polimi.ingsw.am07.network.packets;
 
+/**
+ * Network packet that represents a heartbeat, used to keep the connection alive.
+ */
 public final class HeartbeatNetworkPacket extends NetworkPacket {
 
+    /**
+     * Constructor.
+     */
     public HeartbeatNetworkPacket() {
 
     }

@@ -41,6 +41,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Server network manager for TCP.
+ */
 public class ServerTCPNetworkManager implements ServerNetworkManager {
 
     private final AppLogger LOGGER = new AppLogger(ServerTCPNetworkManager.class);
@@ -50,6 +53,12 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
     private final List<Connection> connectionList;
     private ServerSocket serverSocket;
 
+    /**
+     * Constructor.
+     *
+     * @param listeningPort the listening port
+     * @param dispatcher the dispatcher
+     */
     public ServerTCPNetworkManager(int listeningPort, Dispatcher dispatcher) {
         this.dispatcher = dispatcher;
         this.listeningPort = listeningPort;
@@ -57,6 +66,9 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         connectionList = new ArrayList<>();
     }
 
+    /**
+     * Start listening for remote clients.
+     */
     @Override
     public void start() {
         if (serverSocket != null) {
@@ -73,6 +85,9 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         reactToConnections();
     }
 
+    /**
+     * Close the connection to the remote clients.
+     */
     @Override
     public void stop() {
         try {
@@ -84,6 +99,9 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         serverSocket = null;
     }
 
+    /**
+     * Listens for incoming connections in a separate thread.
+     */
     private void listenForConnections() {
         new Thread(() -> {
             while (serverSocket != null) {
@@ -92,34 +110,50 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         }).start();
     }
 
+    /**
+     * Read from the open connections and parse the inbound packets.
+     * TODO: maybe use select syscall if possible in Java
+     */
     private void reactToConnections() {
         new Thread(() -> {
             while (serverSocket != null) {
                 synchronized (connectionList) {
                     for (Connection connection : connectionList) {
-                        if (connection.available() == 0) {
-                            continue;
-                        }
-
-                        NetworkPacket packet = connection.receive();
-
-                        if (packet != null) {
-                            switch (packet) {
-                                case ActionNetworkPacket actionPacket:
-                                    dispatcher.execute(actionPacket.getAction());
-                                    break;
-                                case IdentityNetworkPacket identityPacket:
-                                    break;
-                                case HeartbeatNetworkPacket heartbeatPacket:
-                                    break;
-                            }
-                        }
+                        checkConnection(connection);
                     }
                 }
             }
         }).start();
     }
 
+    /**
+     * Check the connection for incoming packets.
+     *
+     * @param connection the connection to check
+     */
+    private void checkConnection(Connection connection) {
+        if (connection.available() == 0) {
+            return;
+        }
+
+        NetworkPacket packet = connection.receive();
+
+        if (packet != null) {
+            switch (packet) {
+                case ActionNetworkPacket actionPacket:
+                    dispatcher.execute(actionPacket.getAction());
+                    break;
+                case IdentityNetworkPacket ignored:
+                    break;
+                case HeartbeatNetworkPacket ignored:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Accept a new connection.
+     */
     private void accept() {
         Socket socket;
 

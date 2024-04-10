@@ -32,6 +32,9 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+/**
+ * Client RMI network manager, which handles the connection to the server via RMI.
+ */
 public class ClientRMINetworkManager implements ClientNetworkManager {
 
     private final AppLogger LOGGER = new AppLogger(ClientRMINetworkManager.class);
@@ -41,6 +44,13 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     private RMIDispatcher dispatcher;
     private Controller controller;
 
+    /**
+     * Constructor.
+     *
+     * @param serverAddress the server address
+     * @param serverPort the server port
+     * @param identity the client identity
+     */
     public ClientRMINetworkManager(String serverAddress, int serverPort, String identity) {
         Registry tempRegistry = null;
 
@@ -54,6 +64,9 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
         this.identity = identity;
     }
 
+    /**
+     * Attempt to connect to the server.
+     */
     @Override
     public void connect() {
         try {
@@ -65,11 +78,19 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
         }
     }
 
+    /**
+     * Disconnect from the server.
+     */
     @Override
     public void disconnect() {
         dispatcher = null;
     }
 
+    /**
+     * Inflate the listener.
+     *
+     * @param clientState the local client state
+     */
     @Override
     public void inflateListener(ClientState clientState) {
         StatefulListener listener = new RMIListener(clientState, identity);
@@ -83,6 +104,11 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
         }
     }
 
+    /**
+     * Get a wrapper to the remote controller.
+     *
+     * @return the controller
+     */
     @Override
     public Controller getController() {
         return controller;

@@ -26,6 +26,9 @@ package it.polimi.ingsw.am07.action.lobby;
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
+/**
+ * This action can be sent by the lobby creator to start the game.
+ */
 public class GameStartAction extends PlayerAction {
 
     /**
@@ -37,6 +40,12 @@ public class GameStartAction extends PlayerAction {
         super(playerNickname);
     }
 
+    /**
+     * Execute the action.
+     *
+     * @param lobbyModel the lobby model
+     * @return true if the action executed successfully, false otherwise
+     */
     @Override
     public boolean execute(Lobby lobbyModel) {
         if (!getIdentity().equals(lobbyModel.getFirstPlayer().getNickname())) {
@@ -51,6 +60,12 @@ public class GameStartAction extends PlayerAction {
         }
     }
 
+    /**
+     * Reflect the action.
+     *
+     * @param lobbyModel the lobby model
+     * @return true if the action executed successfully, false otherwise
+     */
     @Override
     public boolean reflect(Lobby lobbyModel) {
         return execute(lobbyModel);

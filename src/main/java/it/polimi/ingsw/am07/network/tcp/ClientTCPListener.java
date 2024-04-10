@@ -30,17 +30,31 @@ import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.reactive.ClientListener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+/**
+ * Client listener for TCP.
+ */
 public class ClientTCPListener extends ClientListener {
 
     private final AppLogger LOGGER = new AppLogger(ClientTCPListener.class);
 
     private final Connection serverConnection;
 
+    /**
+     * Constructor.
+     *
+     * @param clientState the client state
+     * @param serverConnection the connection to the server
+     */
     public ClientTCPListener(ClientState clientState, Connection serverConnection) {
         super(clientState);
         this.serverConnection = serverConnection;
     }
 
+    /**
+     * Notify an action.
+     *
+     * @param action the action to notify
+     */
     @Override
     public synchronized void notify(Action action) {
         LOGGER.debug("Notifying action " + action.getIdentity() + " in " + Thread.currentThread().getName());
@@ -48,16 +62,29 @@ public class ClientTCPListener extends ClientListener {
         action.reflect(clientState);
     }
 
+    /**
+     * Check the pulse.
+     *
+     * @return true if the remote client is alive, false otherwise
+     */
     @Override
     public boolean checkPulse() {
         return true;
     }
 
+    /**
+     * Send a keep-alive signal.
+     */
     @Override
     public void heartbeat() {
         serverConnection.send(new HeartbeatNetworkPacket());
     }
 
+    /**
+     * Get the client's identity.
+     *
+     * @return the client's identity
+     */
     @Override
     public String getIdentity() {
         return null;

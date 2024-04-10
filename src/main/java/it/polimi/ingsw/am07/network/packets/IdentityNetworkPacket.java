@@ -23,14 +23,27 @@
 
 package it.polimi.ingsw.am07.network.packets;
 
+/**
+ * Network packet that wraps an identity, used by a remote client to identify itself.
+ */
 public final class IdentityNetworkPacket extends NetworkPacket {
 
     private final String identity;
 
+    /**
+     * Constructor.
+     *
+     * @param identity the identity
+     */
     public IdentityNetworkPacket(String identity) {
         this.identity = identity;
     }
 
+    /**
+     * Get the identity.
+     *
+     * @return the identity
+     */
     public String getIdentity() {
         return identity;
     }

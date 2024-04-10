@@ -29,31 +29,63 @@ import it.polimi.ingsw.am07.reactive.StatefulListener;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * RMI stateful listener for the client, used to receive actions from the server.
+ */
 public class ClientRMIStatefulListener extends UnicastRemoteObject implements RMIStatefulListener {
 
     private final StatefulListener listener;
 
+    /**
+     * Constructor.
+     *
+     * @param listener the listener to wrap
+     * @throws RemoteException if an error occurs
+     */
     public ClientRMIStatefulListener(StatefulListener listener) throws RemoteException {
         super();
 
         this.listener = listener;
     }
 
+    /**
+     * Notify an action.
+     *
+     * @param action the action
+     * @throws RemoteException if an error occurs
+     */
     @Override
     public synchronized void notify(Action action) throws RemoteException {
         listener.notify(action);
     }
 
+    /**
+     * Check the pulse.
+     *
+     * @return true if the client is alive, false otherwise
+     * @throws RemoteException if an error occurs
+     */
     @Override
     public synchronized boolean checkPulse() throws RemoteException {
         return listener.checkPulse();
     }
 
+    /**
+     * Send a keep-alive signal.
+     *
+     * @throws RemoteException if an error occurs
+     */
     @Override
     public synchronized void heartbeat() throws RemoteException {
         listener.heartbeat();
     }
 
+    /**
+     * Get the identity of the client.
+     *
+     * @return the identity
+     * @throws RemoteException if an error occurs
+     */
     @Override
     public synchronized String getIdentity() throws RemoteException {
         return listener.getIdentity();

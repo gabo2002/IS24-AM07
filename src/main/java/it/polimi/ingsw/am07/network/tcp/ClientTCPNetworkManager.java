@@ -39,6 +39,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
+/**
+ * Client network manager for TCP.
+ */
 public class ClientTCPNetworkManager implements ClientNetworkManager {
 
     private final AppLogger LOGGER = new AppLogger(ClientTCPNetworkManager.class);
@@ -54,6 +57,13 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
     private StatefulListener listener;
     private Controller controller;
 
+    /**
+     * Constructor.
+     *
+     * @param serverAddress the server address
+     * @param serverPort the server port
+     * @param identity the client identity
+     */
     public ClientTCPNetworkManager(String serverAddress, int serverPort, String identity) {
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
@@ -63,6 +73,9 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         socket = null;
     }
 
+    /**
+     * Connect to the server.
+     */
     @Override
     public void connect() {
         LOGGER.debug("Connecting to " + serverAddress + ":" + serverPort);
@@ -92,6 +105,9 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         connection.send(new IdentityNetworkPacket(identity));
     }
 
+    /**
+     * Disconnect from the server.
+     */
     @Override
     public void disconnect() {
         LOGGER.debug("Disconnecting from " + serverAddress + ":" + serverPort);
@@ -117,6 +133,11 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         socket = null;
     }
 
+    /**
+     * Inflate the listener.
+     *
+     * @param clientState the client state
+     */
     @Override
     public void inflateListener(ClientState clientState) {
         if (listener != null) {
@@ -128,11 +149,19 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         setupReceiverLoop();
     }
 
+    /**
+     * Get an interface to the remote controller.
+     *
+     * @return the controller
+     */
     @Override
     public Controller getController() {
         return controller;
     }
 
+    /**
+     * Setup the receiver loop in a background thread to handle inbounds packets.
+     */
     private void setupReceiverLoop() {
         new Thread(() -> {
             while (socket != null) {
@@ -141,6 +170,9 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         }).start();
     }
 
+    /**
+     * Receives, parses and handles a packet.
+     */
     private void receivePacket() {
         NetworkPacket packet = connection.receive();
 

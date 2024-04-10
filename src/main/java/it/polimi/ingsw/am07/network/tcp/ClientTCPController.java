@@ -28,14 +28,27 @@ import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.reactive.Controller;
 
+/**
+ * Client interface to the remote controller over TCP.
+ */
 public class ClientTCPController implements Controller {
 
     private final Connection serverConnection;
 
+    /**
+     * Constructor.
+     *
+     * @param serverConnection the connection to the server
+     */
     public ClientTCPController(Connection serverConnection) {
         this.serverConnection = serverConnection;
     }
 
+    /**
+     * Execute an action.
+     *
+     * @param action the action
+     */
     @Override
     public synchronized void execute(Action action) {
         serverConnection.send(new ActionNetworkPacket(action));

@@ -27,19 +27,40 @@ import it.polimi.ingsw.am07.action.ServerAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
+/**
+ * Action to synchronize the lobby state.
+ */
 public class LobbyStateSyncAction extends ServerAction {
 
     private final Lobby lobby;
 
+    /**
+     * Constructor.
+     *
+     * @param lobby the lobby
+     */
     public LobbyStateSyncAction(Lobby lobby) {
         this.lobby = lobby;
     }
 
+    /**
+     * Execute the action. Since we are synchronizing the lobby state from the server model, no change is to be
+     * propagated to the server model.
+     *
+     * @param lobby the lobby model
+     * @return true if the action executed successfully, false otherwise
+     */
     @Override
     public boolean execute(Lobby lobby) {
         return true;
     }
 
+    /**
+     * Reflect the action on the client state.
+     *
+     * @param clientState the client state
+     * @return true if the action was successful, false otherwise
+     */
     @Override
     public boolean reflect(ClientState clientState) {
         clientState.setLobbyModel(lobby);
@@ -47,6 +68,11 @@ public class LobbyStateSyncAction extends ServerAction {
         return true;
     }
 
+    /**
+     * Get the identity of the client that sent the action.
+     *
+     * @return the identity
+     */
     @Override
     public String getIdentity() {
         return getClass().getSimpleName();

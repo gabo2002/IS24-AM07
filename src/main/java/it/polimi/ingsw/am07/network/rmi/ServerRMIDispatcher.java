@@ -34,11 +34,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * RMI dispatcher for the server.
+ */
 public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispatcher {
 
     public final Dispatcher dispatcher;
     private final Map<RMIStatefulListener, StatefulListener> listeners;
 
+    /**
+     * Constructor.
+     *
+     * @param dispatcher the dispatcher
+     * @throws RemoteException if an error occurs
+     */
     public ServerRMIDispatcher(Dispatcher dispatcher) throws RemoteException {
         super();
 
@@ -46,15 +55,23 @@ public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispa
         listeners = new HashMap<>();
     }
 
+    /**
+     * Execute an action.
+     *
+     * @param action the action to execute
+     * @throws RemoteException if an error occurs
+     */
     @Override
     public synchronized void execute(Action action) throws RemoteException {
         dispatcher.execute(action);
-
-        synchronized (dispatcher) {
-            dispatcher.notify();
-        }
     }
 
+    /**
+     * Register a new listener.
+     *
+     * @param listener the listener to register (the wrapper over StatefulListener)
+     * @throws RemoteException if an error occurs
+     */
     @Override
     public synchronized void registerNewListener(RMIStatefulListener listener) throws RemoteException {
         RMIRemoteListener remoteListener = new RMIRemoteListener(listener);
@@ -64,16 +81,18 @@ public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispa
         dispatcher.registerNewListener(remoteListener);
     }
 
+    /**
+     * Remove a listener.
+     *
+     * @param listener the listener to remove
+     * @throws RemoteException if an error occurs
+     */
     @Override
     public synchronized void removeListener(RMIStatefulListener listener) throws RemoteException {
         if (listeners.containsKey(listener)) {
             dispatcher.removeListener(listeners.get(listener));
             listeners.remove(listener);
         }
-    }
-
-    public synchronized List<StatefulListener> getListeners() {
-        return new ArrayList<>(listeners.values());
     }
 
 }

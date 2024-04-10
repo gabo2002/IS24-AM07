@@ -28,14 +28,40 @@ import it.polimi.ingsw.am07.action.Action;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/**
+ * Thin wrapper over the StatefulListener interface but with knowledge of exceptions, to be used with RMI.
+ */
 public interface RMIStatefulListener extends Remote {
 
+    /**
+     * Notify an action.
+     *
+     * @param action the action to notify
+     * @throws RemoteException if an error occurs
+     */
     void notify(Action action) throws RemoteException;
 
+    /**
+     * Check if the connection is still alive.
+     *
+     * @return true if the connection is still alive, false otherwise
+     * @throws RemoteException if an error occurs
+     */
     boolean checkPulse() throws RemoteException;
 
+    /**
+     * Send a heartbeat to the server.
+     *
+     * @throws RemoteException if an error occurs
+     */
     void heartbeat() throws RemoteException;
 
+    /**
+     * Get the identity of the listener.
+     *
+     * @return the identity of the listener
+     * @throws RemoteException if an error occurs
+     */
     String getIdentity() throws RemoteException;
 
 }

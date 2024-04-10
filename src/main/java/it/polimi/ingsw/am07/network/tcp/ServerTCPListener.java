@@ -29,6 +29,9 @@ import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+/**
+ * Server TCP listener.
+ */
 public class ServerTCPListener implements StatefulListener {
 
     public static final long HEARTBEAT_MAX_INTERVAL = 10000;
@@ -37,11 +40,22 @@ public class ServerTCPListener implements StatefulListener {
     private final String identity;
     private long lastHeartbeatTime = 0;
 
+    /**
+     * Constructor.
+     *
+     * @param remoteConnection the remote connection
+     * @param identity the identity
+     */
     public ServerTCPListener(RemoteConnection remoteConnection, String identity) {
         this.remoteConnection = remoteConnection;
         this.identity = identity;
     }
 
+    /**
+     * Notify an action.
+     *
+     * @param action the action to notify
+     */
     @Override
     public void notify(Action action) {
         LOGGER.debug("Notifying action " + action.getIdentity() + " in " + Thread.currentThread().getName());
@@ -49,16 +63,29 @@ public class ServerTCPListener implements StatefulListener {
         remoteConnection.send(new ActionNetworkPacket(action));
     }
 
+    /**
+     * Check the pulse.
+     *
+     * @return true if the remote client is alive, false otherwise
+     */
     @Override
     public boolean checkPulse() {
         return System.currentTimeMillis() - lastHeartbeatTime < HEARTBEAT_MAX_INTERVAL;
     }
 
+    /**
+     * Update the last heartbeat time.
+     */
     @Override
     public void heartbeat() {
         lastHeartbeatTime = System.currentTimeMillis();
     }
 
+    /**
+     * Get the identity.
+     *
+     * @return the identity
+     */
     @Override
     public String getIdentity() {
         return identity;

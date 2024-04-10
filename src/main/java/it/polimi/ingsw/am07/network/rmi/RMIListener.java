@@ -27,6 +27,9 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.reactive.ClientListener;
 
+/**
+ * Wrapper over ClientListener for RMI.
+ */
 public class RMIListener extends ClientListener {
 
     public static final long HEARTBEAT_MAX_INTERVAL = 10000;
@@ -34,27 +37,51 @@ public class RMIListener extends ClientListener {
     private final String identity;
     private long lastHeartbeatTime = 0;
 
+    /**
+     * Constructor.
+     *
+     * @param clientState the client state
+     * @param identity the client's identity
+     */
     public RMIListener(ClientState clientState, String identity) {
         super(clientState);
 
         this.identity = identity;
     }
 
+    /**
+     * Notify an action.
+     *
+     * @param action the action to notify
+     */
     @Override
     public void notify(Action action) {
         action.reflect(clientState);
     }
 
+    /**
+     * Check the pulse.
+     *
+     * @return true if the last heartbeat was less than [HEARTBEAT_MAX_INTERVAL] seconds ago, false otherwise
+     */
     @Override
     public boolean checkPulse() {
         return System.currentTimeMillis() - lastHeartbeatTime < HEARTBEAT_MAX_INTERVAL;
     }
 
+    /**
+     * Update the last heartbeat time.
+     */
     @Override
     public void heartbeat() {
         lastHeartbeatTime = System.currentTimeMillis();
     }
 
+    /**
+     * Get the client's identity.
+     *
+     * @return the client's identity
+     */
     @Override
     public String getIdentity() {
         return identity;

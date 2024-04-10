@@ -30,6 +30,9 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
+/**
+ * Connection with a remote client.
+ */
 public class RemoteConnection implements Connection {
 
     private final AppLogger LOGGER = new AppLogger(RemoteConnection.class);
@@ -39,6 +42,12 @@ public class RemoteConnection implements Connection {
 
     private final NetworkJsonSerializer serializer;
 
+    /**
+     * Constructor.
+     *
+     * @param inputStream the input stream to read from
+     * @param outputStream the output stream to write to
+     */
     public RemoteConnection(DataInputStream inputStream, DataOutputStream outputStream) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
@@ -46,6 +55,11 @@ public class RemoteConnection implements Connection {
         this.serializer = NetworkJsonSerializer.getInstance();
     }
 
+    /**
+     * Send a packet.
+     *
+     * @param packet the packet to send
+     */
     @Override
     public void send(NetworkPacket packet) {
         LOGGER.debug("Sending packet " + packet.getClass().getSimpleName() + " to " + this);
@@ -59,6 +73,11 @@ public class RemoteConnection implements Connection {
         }
     }
 
+    /**
+     * Block until a packet is received.
+     *
+     * @return the received packet
+     */
     @Override
     public NetworkPacket receive() {
         LOGGER.debug("Receiving packet from " + this);
@@ -71,6 +90,11 @@ public class RemoteConnection implements Connection {
         }
     }
 
+    /**
+     * Check if there are packets available.
+     *
+     * @return a number higher than 0 if there are packets available
+     */
     @Override
     public int available() {
         try {
