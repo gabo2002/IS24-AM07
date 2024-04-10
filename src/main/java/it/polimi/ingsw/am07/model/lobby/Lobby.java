@@ -23,21 +23,41 @@
 
 package it.polimi.ingsw.am07.model.lobby;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 /**
  * This class represents the lobby of a game.
  */
-public class Lobby {
+public class Lobby implements Serializable {
+
+    private final UUID id;
 
     private final List<LobbyPlayer> players;
+
+    private LobbyState state;
 
     /**
      * Constructs a new Lobby object with an empty list of players.
      */
     public Lobby() {
         players = new ArrayList<>();
+        id = UUID.randomUUID();
+        state = LobbyState.WAITING_FOR_PLAYERS;
+    }
+
+    /**
+     * Constructs a new Lobby object as a copy of another lobby.
+     *
+     * @param other The lobby to copy.
+     */
+    public Lobby(Lobby other) {
+        players = new ArrayList<>(other.players);
+        id = other.id;
+        state = other.state;
     }
 
     /**
@@ -65,6 +85,10 @@ public class Lobby {
      * @throws IllegalArgumentException If the provided nickname is already taken.
      */
     public LobbyPlayer addNewPlayer(String nickname) throws IllegalArgumentException {
+        if (state == LobbyState.FULL) {
+            throw new IllegalStateException("Lobby is full");
+        }
+
         LobbyPlayer player = new LobbyPlayer(nickname);
 
         if (players.contains(player)) {
@@ -73,7 +97,62 @@ public class Lobby {
 
         players.add(player);
 
+        if (players.size() == 4) {
+            state = LobbyState.FULL;
+        }
+
         return player;
+    }
+
+    /**
+     * Retrieves the first player in the lobby.
+     *
+     * @return The first player in the lobby.
+     */
+    public LobbyPlayer getFirstPlayer() {
+        try {
+            return players.getFirst();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves the UUID of the lobby.
+     *
+     * @return The UUID of the lobby.
+     */
+    public UUID getId() {
+        return id;
+    }
+
+    /**
+     * Determines whether the lobby is ready to start the game.
+     *
+     * @return True if the lobby is ready to start the game, false otherwise.
+     */
+    public boolean readyToStart() {
+        return state == LobbyState.READY_TO_START;
+    }
+
+    /**
+     * Starts the game.
+     */
+    public void startGame() throws IllegalStateException {
+        if (players.size() < 2) {
+            throw new IllegalStateException("Not enough players to start the game");
+        }
+
+        state = LobbyState.READY_TO_START;
+    }
+
+    /**
+     * Determines whether the lobby is full.
+     *
+     * @return True if the lobby is full, false otherwise.
+     */
+    public boolean isFull() {
+        return state == LobbyState.FULL;
     }
 
 }

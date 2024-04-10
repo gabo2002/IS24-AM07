@@ -25,12 +25,13 @@ package it.polimi.ingsw.am07.model.lobby;
 
 import it.polimi.ingsw.am07.model.game.Pawn;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * This class represents a player in the lobby, which only has a nickname and a pawn.
  */
-public class LobbyPlayer {
+public class LobbyPlayer implements Serializable {
 
     private final String nickname;
 
