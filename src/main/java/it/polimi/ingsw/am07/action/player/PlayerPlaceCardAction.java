@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.action.player;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;

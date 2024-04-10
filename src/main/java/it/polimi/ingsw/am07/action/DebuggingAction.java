@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.action;
 
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
@@ -44,18 +45,6 @@ public class DebuggingAction extends Action {
     }
 
     /**
-     * Reflect the action.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    @Override
-    public boolean reflect(Game gameModel) {
-        System.out.println("GameAction reflected in " + Thread.currentThread().getName());
-        return true;
-    }
-
-    /**
      * Execute the action.
      *
      * @param lobbyModel the lobby model
@@ -70,11 +59,11 @@ public class DebuggingAction extends Action {
     /**
      * Reflect the action.
      *
-     * @param lobbyModel the lobby model
+     * @param clientState the client state
      * @return true if the action was reflected successfully, false otherwise
      */
     @Override
-    public boolean reflect(Lobby lobbyModel) {
+    public boolean reflect(ClientState clientState) {
         System.out.println("LobbyAction reflected in " + Thread.currentThread().getName());
         return true;
     }

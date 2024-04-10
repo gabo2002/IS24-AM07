@@ -90,9 +90,21 @@ public abstract class Action implements Serializable {
      * @return true if the action was executed successfully, false otherwise
      */
     public boolean reflect(ClientState clientState) {
-        clientState.notifyGameModelUpdate();
+        try {
+            execute(clientState.getGameModel());
+            clientState.notifyGameModelUpdate();
+            return true;
+        } catch (RuntimeException ignored) {
+            // Attempt to execute the action on the lobby model instead
+        }
 
-        return true;
+        try {
+            execute(clientState.getLobbyModel());
+            clientState.notifyGameModelUpdate();
+            return true;
+        } catch (RuntimeException e2) {
+            return false;
+        }
     }
 
     /**

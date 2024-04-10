@@ -27,16 +27,16 @@ import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 /**
- * This action can be sent by the lobby creator to start the game.
+ * Action to remove a player from the lobby.
  */
-public class GameStartAction extends PlayerAction {
+public class PlayerQuitAction extends PlayerAction {
 
     /**
      * Constructor.
      *
      * @param playerNickname the player nickname
      */
-    public GameStartAction(String playerNickname) {
+    protected PlayerQuitAction(String playerNickname) {
         super(playerNickname);
     }
 
@@ -44,24 +44,16 @@ public class GameStartAction extends PlayerAction {
      * Execute the action.
      *
      * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
+     * @return true if the action was successful, false otherwise
      */
     @Override
     public boolean execute(Lobby lobbyModel) {
-        if (!getIdentity().equals(lobbyModel.getFirstPlayer().getNickname())) {
-            return false;
-        }
-
-        try {
-            lobbyModel.startGame();
-            return true;
-        } catch (IllegalStateException e) {
-            return false;
-        }
+        lobbyModel.removePlayer(playerNickname);
+        return true;
     }
 
     /**
-     * Reflect the action.
+     * Reflect the action on the client state.
      *
      * @param lobbyModel the lobby model
      * @return true if the action executed successfully, false otherwise

@@ -64,7 +64,7 @@ public class GameStateSyncAction extends ServerAction {
     @Override
     public boolean reflect(ClientState clientState) {
         clientState.setGameModel(game);
-        super.reflect(clientState);
+        clientState.notifyGameModelUpdate();
         return true;
     }
 

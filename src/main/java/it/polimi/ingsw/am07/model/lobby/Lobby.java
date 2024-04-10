@@ -105,6 +105,19 @@ public class Lobby implements Serializable {
     }
 
     /**
+     * Removes a player from the lobby.
+     *
+     * @param nickname The nickname of the player to remove.
+     */
+    public void removePlayer(String nickname) {
+        players.removeIf(player -> player.getNickname().equals(nickname));
+
+        if (players.size() < 4) {
+            state = LobbyState.WAITING_FOR_PLAYERS;
+        }
+    }
+
+    /**
      * Retrieves the first player in the lobby.
      *
      * @return The first player in the lobby.
