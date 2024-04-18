@@ -31,6 +31,8 @@
 
 .nicknameField {
     -fx-background-radius: 8px;
+    -fx-background-color: #454754;
+    -fx-text-fill: white;
 }
 
 .play-button {
