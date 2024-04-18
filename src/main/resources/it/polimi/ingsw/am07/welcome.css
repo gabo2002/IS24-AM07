@@ -21,30 +21,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.client.gui;
+.container {
+    -fx-background-color: #30323D;
+}
 
-import it.polimi.ingsw.am07.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+.username {
+    -fx-text-fill: white;
+}
 
-import java.io.IOException;
+.nicknameField {
+    -fx-background-radius: 8px;
+}
 
-public class GUI extends javafx.application.Application {
+.play-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 8px;
+}
 
-    public void entrypoint() {
-        launch();
-    }
-
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("welcome-view.fxml"));
-
-        Scene scene = new Scene(loader.load(), 1500, 1000);
-        scene.getStylesheets().add(Application.class.getResource("welcome.css").toExternalForm());
-
-        stage.setScene(scene);
-        stage.show();
-    }
-
+.play-button:hover{
+    -fx-background-color: #45a049;
+    -fx-cursor: hand;
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="container" alignment="CENTER" prefHeight="653.0" prefWidth="800.0" maxHeight="653.0" spacing="20.0" styleClass="container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.HelloController">
+    <Label text="Codex Naturalis" textFill="WHITE" fx:id="welcomeText">
+        <font>
+            <Font name="Segoe UI Bold" size="40.0" />
+        </font>
+    </Label>
+    <Region prefHeight="20.0" />
+    <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <Label styleClass="username" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <font>
+                <Font name="Segoe UI" size="15.0" />
+            </font>
+        </Label>
+        <TextField fx:id="nicknameField" styleClass="nicknameField" prefHeight="40.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <font>
+                <Font name="Segoe UI Bold" size="15.0" />
+            </font>
+        </TextField>
+    </GridPane>
+    <Region prefHeight="10.0" />
+    <Button fx:id="playButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Gioca" styleClass="play-button" onAction="#onHelloButtonClick"/>
+
+</VBox>
