@@ -29,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class GUI extends javafx.application.Application {
 
@@ -41,7 +42,7 @@ public class GUI extends javafx.application.Application {
         FXMLLoader loader = new FXMLLoader(Application.class.getResource("welcome-view.fxml"));
 
         Scene scene = new Scene(loader.load(), 1500, 1000);
-        scene.getStylesheets().add(Application.class.getResource("welcome.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("welcome.css")).toExternalForm());
 
         stage.setScene(scene);
         stage.show();
