@@ -23,45 +23,61 @@
 
 package it.polimi.ingsw.am07.action.lobby;
 
+/*
+ * Codex Naturalis - Final Assignment for the Software Engineering Course
+ * Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Please note that the GNU General Public License applies only to the
+ * files that contain this license header. Other files within the project, such
+ * as assets and images, are property of the original owners and may be
+ * subject to different copyright terms.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 /**
- * This action can be sent by the lobby creator to start the game.
+ * Action to add a player to the lobby.
  */
-public class GameStartAction extends PlayerAction {
+public class PlayerJoinAction extends PlayerAction {
 
     /**
      * Constructor.
      *
      * @param playerNickname the player nickname
      */
-    public GameStartAction(String playerNickname) {
+    protected PlayerJoinAction(String playerNickname) {
         super(playerNickname);
     }
 
     /**
-     * Execute the action. Only the first player is able to start the lobby
+     * Execute the action.
      *
      * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
+     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean execute(Lobby lobbyModel) {
-        if (!getIdentity().equals(lobbyModel.getFirstPlayer().getNickname())) {
-            return false;
-        }
-
-        try {
-            lobbyModel.startGame();
-            return true;
-        } catch (IllegalStateException e) {
-            return false;
-        }
+    public boolean execute(Lobby lobbyModel) throws IllegalArgumentException {
+        lobbyModel.addNewPlayer(playerNickname);
+        return true;
     }
 
     /**
-     * Reflect the action.
+     * Reflect the action on the client state.
      *
      * @param lobbyModel the lobby model
      * @return true if the action executed successfully, false otherwise

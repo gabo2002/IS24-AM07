@@ -26,49 +26,22 @@ package it.polimi.ingsw.am07.action.lobby;
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
-/**
- * This action can be sent by the lobby creator to start the game.
- */
-public class GameStartAction extends PlayerAction {
+public class CreateLobbyAction extends PlayerAction {
 
-    /**
-     * Constructor.
-     *
-     * @param playerNickname the player nickname
-     */
-    public GameStartAction(String playerNickname) {
+    public CreateLobbyAction(String playerNickname) {
         super(playerNickname);
     }
 
-    /**
-     * Execute the action. Only the first player is able to start the lobby
-     *
-     * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
-     */
-    @Override
-    public boolean execute(Lobby lobbyModel) {
-        if (!getIdentity().equals(lobbyModel.getFirstPlayer().getNickname())) {
-            return false;
-        }
-
+    public boolean execute(){
         try {
-            lobbyModel.startGame();
+            Lobby lobby = new Lobby();
             return true;
-        } catch (IllegalStateException e) {
+        }catch (IllegalStateException e){
             return false;
         }
     }
 
-    /**
-     * Reflect the action.
-     *
-     * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
-     */
-    @Override
-    public boolean reflect(Lobby lobbyModel) {
-        return execute(lobbyModel);
+    public boolean reflect(){
+        return execute();
     }
-
 }

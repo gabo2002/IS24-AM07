@@ -21,54 +21,54 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action.lobby;
+package it.polimi.ingsw.am07.action.player;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 
-/**
- * This action can be sent by the lobby creator to start the game.
- */
-public class GameStartAction extends PlayerAction {
+public class PlayerPickPrivateObjectiveAction extends PlayerAction {
+    private final ObjectiveCard pickedCard;
 
     /**
      * Constructor.
      *
      * @param playerNickname the player nickname
+     * @param pickedCard     the picked card
      */
-    public GameStartAction(String playerNickname) {
+    public PlayerPickPrivateObjectiveAction(String playerNickname, ObjectiveCard pickedCard) {
         super(playerNickname);
+
+        this.pickedCard = pickedCard;
     }
 
     /**
-     * Execute the action. Only the first player is able to start the lobby
+     * Execute the action.
      *
-     * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
+     * @param gameModel the game model
+     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean execute(Lobby lobbyModel) {
-        if (!getIdentity().equals(lobbyModel.getFirstPlayer().getNickname())) {
+    public boolean execute(Game gameModel) {
+        try {
+            getCorrespondingPlayer(gameModel).setPlayerObjectiveCard(pickedCard);
+        } catch (Exception e) {
             return false;
         }
 
-        try {
-            lobbyModel.startGame();
-            return true;
-        } catch (IllegalStateException e) {
-            return false;
-        }
+        return false;
     }
 
     /**
      * Reflect the action.
      *
-     * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
+     * @param gameModel the game model
+     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean reflect(Lobby lobbyModel) {
-        return execute(lobbyModel);
+    public boolean reflect(Game gameModel) {
+        return execute(gameModel);
     }
 
 }
