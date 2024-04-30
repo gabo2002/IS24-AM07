@@ -35,6 +35,7 @@ public class CreateLobbyAction extends PlayerAction {
     public boolean execute(){
         try {
             Lobby lobby = new Lobby();
+            lobby.addNewPlayer(playerNickname);
             return true;
         }catch (IllegalStateException e){
             return false;

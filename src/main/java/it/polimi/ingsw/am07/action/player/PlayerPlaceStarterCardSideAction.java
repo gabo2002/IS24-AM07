@@ -24,14 +24,40 @@
 package it.polimi.ingsw.am07.action.player;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
+import it.polimi.ingsw.am07.model.game.side.Side;
 
-public class PlayerPickStarterCardSide extends PlayerAction {
+public class PlayerPlaceStarterCardSideAction extends PlayerAction {
+    private final Side chosenSide;
+    private final GameFieldPosition startPos = new GameFieldPosition(0,0,0);
     /**
      * Constructor.
      *
      * @param playerNickname the player nickname
      */
-    protected PlayerPickStarterCardSide(String playerNickname) {
+    protected PlayerPlaceStarterCardSideAction(String playerNickname, Side chosenSide) {
         super(playerNickname);
+        this.chosenSide = chosenSide;
+    }
+
+    public boolean execute(Game gameModel) {
+        try {
+            getCorrespondingPlayer(gameModel).placeAt(chosenSide, startPos);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Reflect the action.
+     *
+     * @param gameModel the game model
+     * @return true if the action was successful, false otherwise
+     */
+    @Override
+    public boolean reflect(Game gameModel) {
+        return execute(gameModel);
     }
 }

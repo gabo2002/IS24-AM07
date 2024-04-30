@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Game implements Serializable {
 
@@ -248,17 +249,39 @@ public class Game implements Serializable {
      * @throws IllegalGameStateException if the game has not ended yet
      */
     public List<Player> getWinners() throws IllegalGameStateException {
-        return null;
-    }
+        if (gameState == GameState.ENDING) {
 
+            int maxScore = players.stream()
+                    .mapToInt(Player::getPlayerScore)
+                    .max()
+                    .orElseThrow(IllegalGameStateException::new);
+
+            return players.stream()
+                    .filter(player -> player.getPlayerScore() == maxScore)
+                    .collect(Collectors.toList());
+        }
+
+        throw new IllegalGameStateException("Game has not ended yet");
+    }
     /**
      * This method returns the player associated with the current client.
      *
      * @return the player associated with the current client
      */
+    /**
+     * This method returns the player associated with the current client.
+     *
+     * @return the player associated with the current client, or null if not found
+     */
     public Player getSelf() {
-        return null;
+        for (Player player : players) {
+            if (player.getNickname().equals(selfNickname)) {
+                return player;
+            }
+        }
+        return null; // Player not found
     }
+
 
     /**
      * This method returns the currently playing player.
