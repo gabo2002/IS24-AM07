@@ -221,10 +221,9 @@ public class Player implements Serializable {
      * Evalutes the score the player has achieved for the provided objective card.
      *
      * @param objective The objective card for which the score is to be evaluated.
-     * @return the obtained score
      */
-    public int evaluateObjectiveScore(ObjectiveCard objective) {
-        return objective.calculateScore(new ResourceHolder(playerResources), playerGameField);
+    public void evaluateObjectiveScore(ObjectiveCard objective) {
+        this.playerScore += objective.calculateScore(new ResourceHolder(playerResources), playerGameField);
     }
 
 }

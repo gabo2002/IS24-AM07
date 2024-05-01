@@ -251,6 +251,13 @@ public class Game implements Serializable {
     public List<Player> getWinners() throws IllegalGameStateException {
         if (gameState == GameState.ENDING) {
 
+            // calculate contributing score of objective cards
+            for (Player player : players) {
+                player.evaluateObjectiveScore(player.getPlayerObjectiveCard());
+                player.evaluateObjectiveScore(commonObjectives[0]);
+                player.evaluateObjectiveScore(commonObjectives[1]);
+            }
+
             int maxScore = players.stream()
                     .mapToInt(Player::getPlayerScore)
                     .max()
