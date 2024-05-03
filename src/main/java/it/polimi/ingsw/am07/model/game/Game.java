@@ -259,13 +259,32 @@ public class Game implements Serializable {
             }
 
             int maxScore = players.stream()
-                    .mapToInt(Player::getPlayerScore)
+                    .mapToInt(player -> player.getPlayerScore() + player.getPlayerObjectiveScore())
                     .max()
                     .orElseThrow(IllegalGameStateException::new);
 
-            return players.stream()
-                    .filter(player -> player.getPlayerScore() == maxScore)
+            List<Player> winners = players.stream()
+                    .filter(player -> player.getPlayerScore() + player.getPlayerObjectiveScore() == maxScore)
                     .collect(Collectors.toList());
+
+
+            // case more than 1 winner
+            if(winners.size() > 1 ) {
+
+                int maxObjectiveScore = winners.stream()
+                        .mapToInt(Player::getPlayerObjectiveScore)
+                        .max()
+                        .orElseThrow(IllegalGameStateException::new);
+
+                return winners.stream()
+                        .filter(player -> player.getPlayerObjectiveScore() == maxObjectiveScore)
+                        .collect(Collectors.toList());
+
+            }
+
+            return winners;
+
+
         }
 
         throw new IllegalGameStateException("Game has not ended yet");
