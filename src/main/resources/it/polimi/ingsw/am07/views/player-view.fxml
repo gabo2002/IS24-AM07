@@ -154,7 +154,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <HBox alignment="CENTER" minHeight="3.0" prefHeight="190.0" prefWidth="1033.0" spacing="20.0">
+      <HBox alignment="CENTER" minHeight="210.0" prefHeight="190.0" prefWidth="1033.0" spacing="20.0">
          <children>
             <ImageView fx:id="card" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
