@@ -53,6 +53,7 @@ public class Player implements Serializable {
     private final GameCard starterCard;
     private final ObjectiveCard[] availableObjectives;
     private int playerScore;
+    private int playerObjectiveScore;
     private ObjectiveCard playerObjectiveCard;
 
     /**
@@ -223,7 +224,10 @@ public class Player implements Serializable {
      * @param objective The objective card for which the score is to be evaluated.
      */
     public void evaluateObjectiveScore(ObjectiveCard objective) {
-        this.playerScore += objective.calculateScore(new ResourceHolder(playerResources), playerGameField);
+        this.playerObjectiveScore += objective.calculateScore(new ResourceHolder(playerResources), playerGameField);
     }
 
+    public int getPlayerObjectiveScore() {
+        return playerObjectiveScore;
+    }
 }
