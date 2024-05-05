@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+  ~ Codex Naturalis - Final Assignment for the Software Engineering Course
+  ~ Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ Please note that the GNU General Public License applies only to the
+  ~ files that contain this license header. Other files within the project, such
+  ~ as assets and images, are property of the original owners and may be
+  ~ subject to different copyright terms.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="798.0" prefWidth="938.0" style="-fx-background-color: #252322;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER_LEFT" prefHeight="103.0" prefWidth="938.0">
+         <children>
+            <Label fx:id="go_back_btn" style="-fx-background-color: #37332F; -fx-background-radius: 8;" text="X" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Segoe UI Bold" size="24.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </children></VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="938.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/front_90.png" />
+               </image>
+            </ImageView>
+         </children></VBox>
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="113.0" prefHeight="200.0" prefWidth="938.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/front_97.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </children>
+</VBox>

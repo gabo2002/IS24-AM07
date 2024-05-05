@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--
+  ~ Codex Naturalis - Final Assignment for the Software Engineering Course
+  ~ Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ Please note that the GNU General Public License applies only to the
+  ~ files that contain this license header. Other files within the project, such
+  ~ as assets and images, are property of the original owners and may be
+  ~ subject to different copyright terms.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="916.0" style="-fx-background-color: #705B4F;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="916.0">
+         <children>
+            <Label fx:id="exit_btn" style="-fx-background-color: #37332F; -fx-background-radius: 8;" text="X" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="12.0" left="16.0" right="16.0" top="12.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </Label>
+         </children></VBox>
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="67.0" prefWidth="916.0">
+         <children>
+            <Label text="Chat">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="600.0" prefWidth="916.0">
+         <children>
+            <ListView fx:id="chat_field" prefHeight="477.0" prefWidth="916.0" style="-fx-background-color: #705B4F;" />
+            <TextField fx:id="message_field" prefHeight="40.0" prefWidth="335.0" promptText="Scrivi qui" style="-fx-background-radius: 20;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding></TextField>
+         </children></VBox>
+   </children>
+</VBox>

@@ -39,7 +39,7 @@ public class GUI extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("views/lobby-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource("views/player-view.fxml"));
 
         Scene scene = new Scene(loader.load(), 1500, 1000);
         scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("css/welcome.css")).toExternalForm());

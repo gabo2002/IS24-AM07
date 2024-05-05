@@ -29,136 +29,127 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;"
-      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="lobby_name" alignment="CENTER" prefHeight="39.0" prefWidth="600.0" text="Lobby name" textFill="WHITE">
       <font>
-         <Font name="Segoe UI Black" size="20.0"/>
+         <Font name="Segoe UI Black" size="20.0" />
       </font>
       <VBox.margin>
-         <Insets bottom="30.0"/>
+         <Insets bottom="30.0" />
       </VBox.margin>
    </Label>
-   <VBox maxHeight="400.0" maxWidth="400.0" prefHeight="300.0" prefWidth="400.0"
-         style="-fx-background-color: #454754; -fx-background-radius: 30;">
+   <VBox maxHeight="400.0" maxWidth="400.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #454754; -fx-background-radius: 30;">
       <HBox fx:id="player_box_list" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="400.0">
-         <Label fx:id="player_name" prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Chaba02"
-                textFill="WHITE">
+         <Label fx:id="player_name" prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Chaba02" textFill="WHITE">
             <font>
-               <Font name="Segoe UI Bold Italic" size="18.0"/>
+               <Font name="Segoe UI Bold Italic" size="18.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
             <HBox.margin>
-               <Insets left="20.0"/>
+               <Insets left="20.0" />
             </HBox.margin>
          </Label>
-         <Label fx:id="status_label" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0"
-                prefWidth="184.0" style="-fx-padding: 30;" text="Pronto" textFill="WHITE">
+         <Label fx:id="status_label" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Pronto" textFill="WHITE">
             <font>
-               <Font name="Segoe UI" size="14.0"/>
+               <Font name="Segoe UI" size="14.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
             <HBox.margin>
-               <Insets/>
+               <Insets />
             </HBox.margin>
          </Label>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0">
          <Label prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Roby" textFill="WHITE">
             <font>
-               <Font name="Segoe UI Bold Italic" size="18.0"/>
+               <Font name="Segoe UI Bold Italic" size="18.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
             <HBox.margin>
-               <Insets left="20.0"/>
+               <Insets left="20.0" />
             </HBox.margin>
          </Label>
-         <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="184.0"
-                style="-fx-padding: 30;" text="Non pronto" textFill="WHITE">
+         <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Non pronto" textFill="WHITE">
             <font>
-               <Font name="Segoe UI" size="14.0"/>
+               <Font name="Segoe UI" size="14.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
          </Label>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0">
          <Label prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Gabo2213" textFill="WHITE">
             <font>
-               <Font name="Segoe UI Bold Italic" size="18.0"/>
+               <Font name="Segoe UI Bold Italic" size="18.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
             <HBox.margin>
-               <Insets left="20.0"/>
+               <Insets left="20.0" />
             </HBox.margin>
          </Label>
-         <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="184.0"
-                style="-fx-padding: 30;" text="Pronto" textFill="WHITE">
+         <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Pronto" textFill="WHITE">
             <font>
-               <Font name="Segoe UI" size="14.0"/>
+               <Font name="Segoe UI" size="14.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
          </Label>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0">
          <Label prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Andre120" textFill="WHITE">
             <font>
-               <Font name="Segoe UI Bold Italic" size="18.0"/>
+               <Font name="Segoe UI Bold Italic" size="18.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
             <HBox.margin>
-               <Insets left="20.0"/>
+               <Insets left="20.0" />
             </HBox.margin>
          </Label>
-         <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="184.0"
-                style="-fx-padding: 30;" text="Pronto" textFill="WHITE">
+         <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="184.0" style="-fx-padding: 30;" text="Pronto" textFill="WHITE">
             <font>
-               <Font name="Segoe UI" size="14.0"/>
+               <Font name="Segoe UI" size="14.0" />
             </font>
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
          </Label>
       </HBox>
    </VBox>
    <VBox alignment="CENTER" prefHeight="76.0" prefWidth="800.0">
       <VBox.margin>
-         <Insets top="20.0"/>
+         <Insets top="20.0" />
       </VBox.margin>
-      <Button fx:id="start_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0"
-              style="-fx-background-color: #4CAF50; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;"
-              text="Start">
+      <Button fx:id="start_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" text="Start">
          <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
          </cursor>
+         <font>
+            <Font name="Segoe UI" size="12.0" />
+         </font>
       </Button>
    </VBox>
    <VBox alignment="CENTER" layoutX="10.0" layoutY="561.0" prefHeight="76.0" prefWidth="800.0">
       <VBox.margin>
-         <Insets/>
+         <Insets />
       </VBox.margin>
-      <Button fx:id="exit_btn" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0"
-              prefWidth="120.0"
-              style="-fx-background-color: #E1403D; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;"
-              text="Esci">
+      <Button fx:id="exit_btn" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #E1403D; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" text="Esci">
          <VBox.margin>
-            <Insets/>
+            <Insets />
          </VBox.margin>
          <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
    </VBox>
