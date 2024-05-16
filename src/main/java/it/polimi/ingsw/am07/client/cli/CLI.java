@@ -62,7 +62,7 @@ public class CLI {
 
         ClientState clientState = new ClientState(this::renderPickingCard);
 
-        if( choice == 0) {
+        if(choice == 0) {
             // RMI
         } else {
             // SOCKET
@@ -85,6 +85,7 @@ public class CLI {
     public void initializeInstructions() {
         this.instructionHandler = new HashMap<>();
 
+        // TODO: da riempire con le altre instructions
         this.instructionHandler.put(Instruction.PICK_CARD, (ClientState clientState, Controller dispatcher) ->
                 {
 
