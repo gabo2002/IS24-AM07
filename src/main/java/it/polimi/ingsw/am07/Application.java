@@ -1,5 +1,6 @@
 package it.polimi.ingsw.am07;
 
+import it.polimi.ingsw.am07.client.ClientHandler;
 import it.polimi.ingsw.am07.client.cli.CLI;
 import it.polimi.ingsw.am07.client.gui.GUI;
 import it.polimi.ingsw.am07.server.Server;
@@ -14,7 +15,11 @@ public class Application {
 
         String option = args[0];
 
+        // TODO: fare la classe ClientHandler
+        ClientHandler clientHandler = new ClientHandler();
+
         switch (option) {
+            // lo chiamerà il client handler
             case "cli" -> new CLI().entrypoint();
             case "gui" -> new GUI().entrypoint();
             case "server" -> new Server().entrypoint();

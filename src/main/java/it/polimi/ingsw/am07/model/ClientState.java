@@ -33,6 +33,7 @@ public class ClientState {
     private final Consumer<ClientState> onGameModelUpdate;
     private Game gameModel;
     private Lobby lobbyModel;
+    private PlayerState playerState;
 
     public ClientState(Consumer<ClientState> onGameModelUpdate) {
         gameModel = null;
@@ -66,6 +67,10 @@ public class ClientState {
         if (onGameModelUpdate != null) {
             onGameModelUpdate.accept(this);
         }
+    }
+
+    public PlayerState getPlayerState() {
+        return playerState;
     }
 
 }
