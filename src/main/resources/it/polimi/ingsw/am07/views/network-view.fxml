@@ -29,7 +29,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.NetworkViewController">
     <Label layoutX="353.0" layoutY="225.0" text="Codex Naturalis" textFill="WHITE">
         <font>
             <Font name="Segoe UI Bold" size="30.0" />
@@ -46,7 +46,7 @@
             <Insets top="20.0" />
         </VBox.margin>
     </Label>
-    <Button fx:id="rmi_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="RMI" textFill="WHITE">
+    <Button fx:id="rmi_btn" mnemonicParsing="false" onAction="#onRMIBtnClicked" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="RMI" textFill="WHITE">
         <font>
             <Font name="Segoe UI Bold" size="12.0" />
         </font>
@@ -57,7 +57,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </Button>
-   <Button fx:id="tcp_btn" layoutX="350.0" layoutY="403.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="TCP" textFill="WHITE">
+   <Button fx:id="tcp_btn" layoutX="350.0" layoutY="403.0" mnemonicParsing="false" onAction="#onTCPBtnClicked" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="TCP" textFill="WHITE">
       <font>
          <Font name="Segoe UI Bold" size="12.0" />
       </font>

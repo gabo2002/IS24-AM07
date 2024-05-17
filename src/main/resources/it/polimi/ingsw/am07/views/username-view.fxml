@@ -27,7 +27,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox fx:id="container" alignment="CENTER" prefHeight="653.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #30323D;" styleClass="container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.HelloController">
+<VBox fx:id="container" alignment="CENTER" prefHeight="653.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #30323D;" styleClass="container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.UsernameViewController">
     <Label fx:id="welcomeText" text="Codex Naturalis" textFill="WHITE">
         <font>
             <Font name="Segoe UI Bold" size="40.0" />
@@ -54,7 +54,7 @@
       </rowConstraints>
     </GridPane>
     <Region prefHeight="10.0" />
-    <Button fx:id="playButton" mnemonicParsing="false" onAction="#onHelloButtonClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-background-radius: 14; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" styleClass="play-button" text="Gioca">
+    <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlayBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-background-radius: 14; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" styleClass="play-button" text="Gioca">
       <font>
          <Font name="Segoe UI" size="12.0" />
       </font></Button>
