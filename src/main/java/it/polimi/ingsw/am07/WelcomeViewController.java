@@ -23,58 +23,34 @@
 
 package it.polimi.ingsw.am07;
 
-import it.polimi.ingsw.am07.model.ClientState;
-import it.polimi.ingsw.am07.network.ClientNetworkManager;
-import it.polimi.ingsw.am07.network.NetworkType;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class NetworkViewController {
+public class WelcomeViewController {
 
     @FXML
-    protected void onRMIBtnClicked(ActionEvent event)  {
-
-        ClientState clientState = new ClientState();
-
-        ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
-                .withHostname("localhost")
-                .withPort(12345)
-                .withNetworkType(NetworkType.RMI)
-                .withIdentity("client1")
-                .withState(clientState)
-                .build();
-
-        loadScene(event);
-
-    }
+    private Button create_lobby_btn;
 
     @FXML
-    protected void onTCPBtnClicked(ActionEvent event)  {
-
-        ClientState clientState = new ClientState();
-
-        ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
-                .withHostname("localhost")
-                .withPort(12345)
-                .withNetworkType(NetworkType.TCP)
-                .withIdentity("client1")
-                .withState(clientState)
-                .build();
+    protected void onLobbyBtnClick(ActionEvent event) {
+        Lobby lobby = new Lobby();
 
         loadScene(event);
     }
-
 
     @FXML
     protected void loadScene(ActionEvent event)  {
         try {
             // Carica la nuova scena
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/username-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/lobby-view.fxml"));
             Parent root = fxmlLoader.load();
 
             // Ottieni la finestra corrente tramite l'evento
@@ -88,4 +64,5 @@ public class NetworkViewController {
             e.printStackTrace();
         }
     }
+
 }
