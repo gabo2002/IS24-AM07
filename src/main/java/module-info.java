@@ -4,6 +4,7 @@ open module it.polimi.ingsw.am07 {
     requires com.squareup.moshi;
 
     requires org.controlsfx.controls;
+    requires org.jline;
     requires annotations;
     requires java.rmi;
     requires java.logging;
