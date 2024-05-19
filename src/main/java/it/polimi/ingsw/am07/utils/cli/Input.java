@@ -32,7 +32,6 @@ import org.jline.utils.NonBlockingReader;
 
 public class Input{
 
-
     public static int readInt(Scanner scanner) {
         while(!scanner.hasNextInt()) {
             System.err.println("Invalid input, please enter a valid integer number!");
@@ -61,5 +60,16 @@ public class Input{
             }
         }
         return returnValue;
+    }
+
+    public static int readInt(Scanner scanner, int min, int max) {
+        int value = readInt(scanner);
+
+        while(value < min || value > max) {
+            System.err.println("Invalid input, please enter a number between " + min + " and " + max + "!");
+            value = readInt(scanner);
+        }
+
+        return value;
     }
 }
