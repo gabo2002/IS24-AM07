@@ -29,6 +29,7 @@ import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.Pawn;
@@ -194,6 +195,14 @@ public class CLIInstructionLoader {
 
             int selectedColorIndex = menu.getSelectedOptionIndex();
             //TODO i should send the selected color to the server
+        });
+
+        instructionsMap.put(Instruction.SHOW_HAND, (ClientState clientState, Controller dispatcher) ->
+        {
+            List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
+            System.out.println("Your hand:");
+            CLIPlayableCardRepresentation handRepresentation = new CLIPlayableCardRepresentation(cards);
+            System.out.println(handRepresentation.render());
         });
     }
 

@@ -34,8 +34,9 @@ public enum Instruction {
     SELECT_CARD("select_card"),
     PLACE_CARD("place_card"),
     PICK_CARD("pick_card"),
-    SHOW_FIELD("get_field"),
-    SHOW_DECK("get_deck"),
+    SHOW_FIELD("show_field"),
+    SHOW_DECK("show_deck"),
+    SHOW_HAND("show_hand"),
     QUIT("quit");
 
     // linkare con le azioni
