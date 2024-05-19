@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.chat.PlayerChat;
 import it.polimi.ingsw.am07.exceptions.IllegalGamePositionException;
 import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
@@ -56,6 +57,8 @@ public class Player implements Serializable {
     private int playerObjectiveScore;
     private ObjectiveCard playerObjectiveCard;
 
+    private PlayerChat chat;
+
     /**
      * Constructs a new Player with the specified parameters.
      */
@@ -69,6 +72,8 @@ public class Player implements Serializable {
         this.playerGameField = new GameField();
         this.playableCards = new ArrayList<>();
         this.playerObjectiveCard = null;
+
+        this.chat = new PlayerChat(new ArrayList<>(), nickname);
     }
 
 
@@ -216,6 +221,14 @@ public class Player implements Serializable {
      */
     public void addPlayableCard(GameCard card) {
         playableCards.add(card);
+    }
+
+    /**
+     * Returns the chat associated with the player.
+     * @return The chat associated with the player.
+     */
+    public PlayerChat getChat() {
+        return chat;
     }
 
     /**

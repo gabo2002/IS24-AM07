@@ -24,9 +24,11 @@
 package it.polimi.ingsw.am07.client.cli;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.chat.ChatMessage;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
@@ -204,6 +206,42 @@ public class CLIInstructionLoader {
             System.out.println("Your hand:");
             CLIPlayableCardRepresentation handRepresentation = new CLIPlayableCardRepresentation(cards);
             System.out.println(handRepresentation.render());
+        });
+
+        instructionsMap.put(Instruction.SEND_MESSAGE, (ClientState clientState, Controller dispatcher) ->
+        {
+            List<String> prompt = List.of("Send message to everyone", "Send message to a specific player");
+            SelectableMenu<String> menu = new SelectableMenu<>(prompt, scanner);
+            ChatMessage message = null;
+            menu.show();
+            int choice = menu.getSelectedOptionIndex();
+
+            System.out.println("Insert the message you want to send:");
+            String stringMessage = scanner.nextLine();
+
+            if (choice == 0) {
+                message = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(stringMessage);
+            } else {
+                List<Player> players = clientState.getGameModel().getPlayers();
+                List<String> playerNicknames = players.stream().map(Player::getNickname).toList();
+                SelectableMenu<String> playerMenu = new SelectableMenu<>(playerNicknames, scanner);
+                playerMenu.show();
+                String playerNickname = playerMenu.getSelectedStringOption();
+                message = clientState.getGameModel().getSelf().getChat().sendPrivateMessage(playerNickname, stringMessage);
+            }
+
+            Action action = new SendMessageAction(clientState.getGameModel().getSelfNickname(), message);
+            dispatcher.execute(action);
+        });
+
+        instructionsMap.put(Instruction.SHOW_CHAT, (ClientState clientState, Controller dispatcher) ->
+        {
+            //Retrieve the last 20 messages
+            List<ChatMessage> messages = clientState.getGameModel().getSelf().getChat().getLastMessages(20);
+            System.out.println("Chat:");
+            for (ChatMessage message : messages) {
+                System.out.println("[" + message.timestamp() + "] " + message.senderNickname() + ": " + message.message());
+            }
         });
     }
 

@@ -21,27 +21,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.client.cli;
+package it.polimi.ingsw.am07.chat;
 
-public enum Instruction {
+import java.util.Date;
+import java.util.List;
 
-    // instruction_line = command you want to execute
-    // params = number of params of the command
-
-    CREATE_LOBBY("create_lobby"),
-    JOIN_LOBBY("join_lobby"),
-    SELECT_COLOR("select_color"),
-    SELECT_CARD("select_card"),
-    PLACE_CARD("place_card"),
-    PICK_CARD("pick_card"),
-    SHOW_FIELD("show_field"),
-    SHOW_DECK("show_deck"),
-    SHOW_HAND("show_hand"),
-    SEND_MESSAGE("send_message"),
-    SHOW_CHAT("show_chat"),
-    QUIT("quit");
-
-    // linkare con le azioni
-    Instruction(String instruction_line) {
+/**
+ * Represents a chat message.
+ *
+ * @param senderNickname    the sender nickname -> it is the nickname of the player who sent the message
+ * @param receiverNicknames the receiver nicknames -> it is the list of nicknames of the players who will receive the message
+ * @param message           the message
+ * @param timestamp         the timestamp of the message -> it is the time when the message was created
+ */
+public record ChatMessage(
+        String senderNickname,
+        List<String> receiverNicknames,
+        String message,
+        Date timestamp
+) {
+    public ChatMessage(String senderNickname, List<String> receiverNicknames, String message) {
+        this(senderNickname, receiverNicknames, message, new Date());
     }
 }
