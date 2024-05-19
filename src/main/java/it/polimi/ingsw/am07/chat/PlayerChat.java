@@ -23,11 +23,12 @@
 
 package it.polimi.ingsw.am07.chat;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public final class PlayerChat {
+public final class PlayerChat implements Serializable {
 
     private final List<ChatMessage> messages;
 

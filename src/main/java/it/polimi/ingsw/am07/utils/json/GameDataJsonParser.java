@@ -73,12 +73,14 @@ public final class GameDataJsonParser<T> {
                 .registerSubclass(ResourceObjectiveCard.class);
 
         UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();
+        DateJSONAdapter dateJSONAdapter = new DateJSONAdapter();
 
         return new Moshi.Builder()
                 .add(sideFrontElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(sideElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(uuidJsonAdapter)
+                .add(dateJSONAdapter)
                 .build();
     }
 

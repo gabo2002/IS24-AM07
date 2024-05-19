@@ -40,6 +40,7 @@ import it.polimi.ingsw.am07.network.packets.*;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * This class is a custom Moshi handler that can serialize and deserialize any network packet.
@@ -93,8 +94,10 @@ public class NetworkJsonSerializer {
                 .registerSubclass(DebuggingAction.class);
 
         UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();
+        DateJSONAdapter dateJSONAdapter = new DateJSONAdapter();
 
         return new Moshi.Builder()
+                .add(dateJSONAdapter)
                 .add(networkPacketElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(sideFrontElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
