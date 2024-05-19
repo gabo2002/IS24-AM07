@@ -34,6 +34,7 @@ import it.polimi.ingsw.am07.server.controller.LobbyController;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -64,6 +65,13 @@ public class ServerDispatcher extends Dispatcher {
         gameControllers = new HashMap<>(games.size());
         lobbyControllers = new HashMap<>();
         listenerDispatchers = new HashMap<>();
+    }
+
+    /**
+     * Get the list of open lobbies. This method is used to provide the list of lobbies to the clients.
+     */
+    public List<UUID> getLobbies() {
+        return this.lobbies.keySet().stream().toList();
     }
 
     /**
@@ -127,7 +135,6 @@ public class ServerDispatcher extends Dispatcher {
         LobbyController lobbyController = new LobbyController(lobby, this::migrateLobbyToGame);
 
         // Store the new lobby and its controller
-        lobbies.put(lobby.getId(), lobby);
         lobbyControllers.put(lobby, lobbyController);
         listenerDispatchers.put(listener.getIdentity(), lobbyController);
 

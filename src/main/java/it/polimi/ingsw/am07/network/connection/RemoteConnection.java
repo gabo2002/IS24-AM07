@@ -104,4 +104,10 @@ public class RemoteConnection implements Connection {
         }
     }
 
+    @Override
+    public String toString() {
+        //return just the id
+        return "RemoteConnection@" + Integer.toHexString(hashCode());
+    }
+
 }

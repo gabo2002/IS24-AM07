@@ -23,9 +23,18 @@
 
 package it.polimi.ingsw.am07.network.packets;
 
-/**
- * Network packet.
- */
-public sealed abstract class NetworkPacket permits ActionNetworkPacket, HeartbeatNetworkPacket, IdentityNetworkPacket, ListLobbiesNetworkPacket {
+import java.util.List;
+import java.util.UUID;
 
+public final class ListLobbiesNetworkPacket extends NetworkPacket{
+
+    private final List<UUID> lobbies;
+
+    public ListLobbiesNetworkPacket(List<UUID> lobbies) {
+        this.lobbies = lobbies;
+    }
+
+    public List<UUID> getLobbies() {
+        return lobbies;
+    }
 }

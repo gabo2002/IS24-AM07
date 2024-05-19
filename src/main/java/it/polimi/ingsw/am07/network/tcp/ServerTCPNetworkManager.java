@@ -26,12 +26,10 @@ package it.polimi.ingsw.am07.network.tcp;
 import it.polimi.ingsw.am07.network.ServerNetworkManager;
 import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
-import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
-import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
-import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
-import it.polimi.ingsw.am07.network.packets.NetworkPacket;
+import it.polimi.ingsw.am07.network.packets.*;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.server.ServerDispatcher;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.DataInputStream;
@@ -43,13 +41,14 @@ import java.util.List;
 
 /**
  * Server network manager for TCP.
+ * This class is responsible for managing the server-side network operations.
  */
 public class ServerTCPNetworkManager implements ServerNetworkManager {
 
     private final AppLogger LOGGER = new AppLogger(ServerTCPNetworkManager.class);
 
     private final int listeningPort;
-    private final Dispatcher dispatcher;
+    private final ServerDispatcher dispatcher;
     private final List<Connection> connectionList;
     private ServerSocket serverSocket;
 
@@ -59,7 +58,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
      * @param listeningPort the listening port
      * @param dispatcher    the dispatcher
      */
-    public ServerTCPNetworkManager(int listeningPort, Dispatcher dispatcher) {
+    public ServerTCPNetworkManager(int listeningPort, ServerDispatcher dispatcher) {
         this.dispatcher = dispatcher;
         this.listeningPort = listeningPort;
 
@@ -77,6 +76,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
 
         try {
             serverSocket = new ServerSocket(listeningPort);
+            LOGGER.info("Server started on port " + listeningPort);
         } catch (Exception e) {
             LOGGER.error(e);
         }
@@ -111,8 +111,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
     }
 
     /**
-     * Read from the open connections and parse the inbound packets.
-     * TODO: maybe use select syscall if possible in Java
+     * Read from the open connections and parse the inbound packets
      */
     private void reactToConnections() {
         new Thread(() -> {
@@ -147,18 +146,22 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                     break;
                 case HeartbeatNetworkPacket ignored:
                     break;
+                case ListLobbiesNetworkPacket ignored:
+                    break;
             }
         }
     }
 
     /**
      * Accept a new connection.
+     * This will also register a new listener for the connection and it will send the list of open lobbies.
      */
     private void accept() {
         Socket socket;
 
         try {
             socket = serverSocket.accept();
+            LOGGER.info("New connection accepted from " + socket.getInetAddress() + ":" + socket.getPort());
         } catch (Exception e) {
             LOGGER.error(e);
             return;
@@ -176,6 +179,10 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         }
 
         RemoteConnection connection = new RemoteConnection(reader, writer);
+
+        // As the server, I need to send the list of open lobbies to the client
+        ListLobbiesNetworkPacket lobbiesNetworkPacket = new ListLobbiesNetworkPacket(dispatcher.getLobbies());
+        connection.send(lobbiesNetworkPacket);
 
         // As the server, we expect the first packet to be an identity packet
         IdentityNetworkPacket identityPacket = (IdentityNetworkPacket) connection.receive();

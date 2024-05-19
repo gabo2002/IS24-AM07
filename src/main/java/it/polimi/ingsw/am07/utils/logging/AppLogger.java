@@ -43,7 +43,7 @@ public class AppLogger {
             consoleHandler.setLevel(Level.ALL);
             consoleHandler.setFormatter(new CustomFormatter());
             LOGGER.addHandler(consoleHandler);
-            LOGGER.setLevel(Level.WARNING);
+            LOGGER.setLevel(Level.ALL);
             LOGGER.setUseParentHandlers(false);
         }
     }

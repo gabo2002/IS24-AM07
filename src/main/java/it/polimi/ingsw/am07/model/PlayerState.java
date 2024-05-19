@@ -27,5 +27,7 @@ package it.polimi.ingsw.am07.model;
 public enum PlayerState {
     PLACING_CARD,
     PICKING_CARD,
-    SLEEPING
+    SLEEPING,
+    SELECTING_LOBBY,
+    WAITING_FOR_PLAYERS
 }

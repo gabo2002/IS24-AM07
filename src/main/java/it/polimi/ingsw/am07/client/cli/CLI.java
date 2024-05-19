@@ -30,6 +30,8 @@ import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.cli.Input;
+import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 
 
 import java.util.HashMap;
@@ -51,35 +53,36 @@ public class CLI {
     private static final List<Instruction> availableInstructionsPlacingCard = List.of();
     private static final List<Instruction> availableInstructionsSleeping = List.of();
 
+    /*
+        * Entry point of the CLI client. this function will be executed when the client starts in the main method.
+        * It initializes the network manager and the client state.
+        * It also initializes the instructions that the client can execute.
+     */
     public void entrypoint() {
-        // faccio scegliere tra tcp/rmi
-
-        System.out.println("Premi 0 per RMI\n Premi 1 per Socket");
-
         scanner = new Scanner(System.in);
-
-        int choice = scanner.nextInt();
-
         ClientState clientState = new ClientState(this::renderPickingCard);
 
-        if(choice == 0) {
-            // RMI
-        } else {
-            // SOCKET
-        }
+        // Select your identity
+        System.out.println("Insert your nickname:");
+        String nickname = scanner.nextLine();
 
+        // Choose network type
+        System.out.println("Press 0 for RMI, 1 for TCP:");
+        int choice = Input.readBinaryChoice(scanner);
+
+        NetworkType networkType = choice == 0 ? NetworkType.RMI : NetworkType.TCP;
         ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
                 .withHostname("localhost")
                 .withPort(12345)
-                .withNetworkType(NetworkType.TCP)
-                .withIdentity("client1")
+                .withNetworkType(networkType)
+                .withIdentity(nickname)
                 .withState(clientState)
                 .build();
 
+        //Initialize instructions: every instruction has a lambda that will be executed when the instruction is called
         initializeInstructions();
 
         controller = networkManager.getController();
-
     }
 
     public void initializeInstructions() {
