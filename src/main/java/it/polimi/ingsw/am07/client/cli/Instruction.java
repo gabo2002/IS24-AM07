@@ -28,16 +28,17 @@ public enum Instruction {
     // instruction_line = command you want to execute
     // params = number of params of the command
 
-    CREATE_LOBBY("create_lobby", 1),
-    JOIN_LOBBY("join_lobby", 1),
-    SELECT_COLOR("select_color", 1),
-    SELECT_CARD("select_card", 1),
-    PLACE_CARD("place_card", 2),
-    PICK_CARD("pick_card", 1),
-    GET_FIELD("get_field", 1),
-    QUIT("quit", 0);
+    CREATE_LOBBY("create_lobby"),
+    JOIN_LOBBY("join_lobby"),
+    SELECT_COLOR("select_color"),
+    SELECT_CARD("select_card"),
+    PLACE_CARD("place_card"),
+    PICK_CARD("pick_card"),
+    SHOW_FIELD("get_field"),
+    SHOW_DECK("get_deck"),
+    QUIT("quit");
 
     // linkare con le azioni
-    Instruction(String instruction_line, int params) {
+    Instruction(String instruction_line) {
     }
 }

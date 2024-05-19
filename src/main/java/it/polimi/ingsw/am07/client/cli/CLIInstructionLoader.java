@@ -24,17 +24,23 @@
 package it.polimi.ingsw.am07.client.cli;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
+import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.game.Deck;
+import it.polimi.ingsw.am07.model.game.Pawn;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
+import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.cli.Input;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 /**
@@ -101,7 +107,94 @@ public class CLIInstructionLoader {
             dispatcher.execute(action);
         });
 
+        instructionsMap.put(Instruction.SHOW_FIELD, (ClientState clientState, Controller dispatcher) ->
+        {
+            //The user has to select a field to get
+            List<Player> players = clientState.getGameModel().getPlayers();
+            SelectableMenu menu = new SelectableMenu(players.stream().map(Player::getNickname).toList(), scanner);
+            menu.show();
+            //get the selected player
+            String playerNickname = menu.getSelectedOption();
+            Player player = players.stream().filter(p -> p.getNickname().equals(playerNickname)).findFirst().orElse(null);
 
+            //render the field of the selected player
+            CLIGameFieldRepresentation render = new CLIGameFieldRepresentation(player.getPlayerGameField());
+            System.out.println(render.render());
+        });
+
+        instructionsMap.put(Instruction.PLACE_CARD, (ClientState clientState, Controller dispatcher) ->
+        {
+            List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
+            List<Side> sides = new ArrayList<>();
+            int selectedCardIndex, row = 0, column = 0;
+
+            for (GameCard card : cards) {
+                sides.add(card.front());
+                sides.add(card.back());
+            }
+            //TODO: dinamically render the cards and the sides
+            SelectableMenu menu = new SelectableMenu(sides.stream().map(Side::toString).toList(), scanner);
+            menu.show();
+            selectedCardIndex = menu.getSelectedOptionIndex();
+            boolean validPosition = false;
+
+            while (!validPosition) {
+                //choose the position where to place the card
+                System.out.println("Insert the row where you want to place the card: ");
+                row = Input.readInt(scanner);
+                System.out.println("Insert the column where you want to place the card: ");
+                column = Input.readInt(scanner);
+
+                GameFieldPosition position = new GameFieldPosition(row, column);
+                validPosition = clientState.getGameModel().getSelf().canBePlacedAt(sides.get(selectedCardIndex), position);
+
+                if (!validPosition) {
+                    System.out.println("Invalid position, please try again.");
+                }
+            }
+
+            Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), sides.get(selectedCardIndex), new GameFieldPosition(row, column));
+            dispatcher.execute(action);
+        });
+
+        instructionsMap.put(Instruction.SHOW_DECK, (ClientState clientState, Controller dispatcher) ->
+        {
+            CLIGameDeckRepresentation deckRepresentation = new CLIGameDeckRepresentation(clientState.getGameModel().getDeck());
+            System.out.println(deckRepresentation.render());
+        });
+
+        instructionsMap.put(Instruction.QUIT, (ClientState clientState, Controller dispatcher) ->
+        {
+            System.out.println("Quitting...");
+            System.exit(0);
+        });
+
+        instructionsMap.put(Instruction.CREATE_LOBBY, (ClientState clientState, Controller dispatcher) ->
+        {
+            System.out.println("Insert your nickname:");
+            String nickname = scanner.nextLine();
+
+            Action action = new CreateLobbyAction(nickname);
+            dispatcher.execute(action);
+        });
+
+        instructionsMap.put(Instruction.JOIN_LOBBY, (ClientState clientState, Controller dispatcher) ->
+        {
+            System.out.println("Insert the lobby code:");
+            //TODO i should retrieve the lobby code from the user
+        });
+
+        instructionsMap.put(Instruction.SELECT_COLOR, (ClientState clientState, Controller dispatcher) ->
+        {
+            System.out.println("Insert the color you want to play with:");
+            List<String> playerColors = new ArrayList<>(Arrays.stream(Pawn.values()).map(Pawn::toString).toList());
+            playerColors.remove("BLACK");
+            SelectableMenu menu = new SelectableMenu(playerColors, scanner);
+            menu.show();
+
+            int selectedColorIndex = menu.getSelectedOptionIndex();
+            //TODO i should send the selected color to the server
+        });
     }
 
     /**

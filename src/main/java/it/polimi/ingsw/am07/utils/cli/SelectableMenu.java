@@ -154,7 +154,6 @@ public class SelectableMenu {
         }
 
         while (true) {
-            clearScreen();
             printMenu();
 
             try {
@@ -176,7 +175,9 @@ public class SelectableMenu {
             if (key == 10 || key == 13) {
                 break;
             }
+            clearScreen();
         }
+
         //close the terminal
         try {
             reader.close();

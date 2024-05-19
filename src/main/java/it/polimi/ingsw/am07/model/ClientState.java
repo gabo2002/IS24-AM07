@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.model;
 
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 import java.util.function.Consumer;
@@ -38,6 +39,7 @@ public class ClientState {
     public ClientState(Consumer<ClientState> onGameModelUpdate) {
         gameModel = null;
         lobbyModel = null;
+        playerState = PlayerState.SELECTING_LOBBY;
         this.onGameModelUpdate = onGameModelUpdate;
     }
 
@@ -67,6 +69,10 @@ public class ClientState {
         if (onGameModelUpdate != null) {
             onGameModelUpdate.accept(this);
         }
+    }
+
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
     }
 
     public PlayerState getPlayerState() {

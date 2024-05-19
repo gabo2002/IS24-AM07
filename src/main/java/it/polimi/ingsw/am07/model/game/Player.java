@@ -230,4 +230,8 @@ public class Player implements Serializable {
     public int getPlayerObjectiveScore() {
         return playerObjectiveScore;
     }
+
+    public GameField getPlayerGameField() {
+        return playerGameField;
+    }
 }

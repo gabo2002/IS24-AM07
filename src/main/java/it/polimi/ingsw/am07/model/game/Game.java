@@ -243,6 +243,14 @@ public class Game implements Serializable {
     }
 
     /**
+     * This method returns the current deck state.
+     * @return the current deck state
+     */
+    public Deck getDeck() {
+        return deck;
+    }
+
+    /**
      * This method returns the list of winning players.
      *
      * @return the list of winning players (usually 1, but ties are possible)
