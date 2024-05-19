@@ -38,8 +38,8 @@ import java.util.Scanner;
  *
  * @author Gabriele Corti
  */
-public class SelectableMenu {
-    private final List<String> options;
+public class SelectableMenu<T> {
+    private final List<T> options;
 
     private int selectedOption;
     private Terminal terminal;
@@ -55,7 +55,7 @@ public class SelectableMenu {
      * @param options the options of the menu.
      * @author Gabriele Corti
      */
-    public SelectableMenu(List<String> options,Scanner scanner) {
+    public SelectableMenu(List<T> options,Scanner scanner) {
         this.options = options;
         this.scanner = scanner;
         selectedOption = 0;
@@ -95,10 +95,13 @@ public class SelectableMenu {
      * @return the selected option.
      * @author Gabriele Corti
      */
-    public String getSelectedOption() {
-        return options.get(selectedOption);
+    public String getSelectedStringOption() {
+        return options.get(selectedOption).toString();
     }
 
+    public T getSelectedOption() {
+        return options.get(selectedOption);
+    }
 
     public void show() {
         if ( System.getProperty("org.jline.terminal.dumb") != null) {   //if the terminal is not interactive

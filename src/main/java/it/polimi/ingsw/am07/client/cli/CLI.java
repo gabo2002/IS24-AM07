@@ -23,10 +23,8 @@
 
 package it.polimi.ingsw.am07.client.cli;
 
-import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.model.ClientState;
-import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -36,6 +34,7 @@ import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.function.BiConsumer;
 
@@ -45,13 +44,12 @@ public class CLI {
 
     private Controller controller;
 
-    private HashMap<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
+    private Map<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
 
 
-    // TODO: da aggiungere le istruzioni
-    private static final List<Instruction> availableInstructionsPickingCard = List.of();
-    private static final List<Instruction> availableInstructionsPlacingCard = List.of();
-    private static final List<Instruction> availableInstructionsSleeping = List.of();
+    private static final List<Instruction> availableInstructionsPickingCard = List.of(Instruction.PICK_CARD,Instruction.SHOW_DECK,Instruction.SHOW_FIELD,Instruction.QUIT,Instruction.SHOW_HAND);
+    private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD,Instruction.SHOW_FIELD,Instruction.QUIT,Instruction.SHOW_HAND,Instruction.SHOW_DECK);
+    private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT,Instruction.SHOW_DECK,Instruction.SHOW_HAND,Instruction.SHOW_FIELD);
 
     /*
         * Entry point of the CLI client. this function will be executed when the client starts in the main method.
@@ -60,7 +58,7 @@ public class CLI {
      */
     public void entrypoint() {
         scanner = new Scanner(System.in);
-        ClientState clientState = new ClientState(this::renderPickingCard);
+        ClientState clientState = new ClientState(this::render);
 
         // Select your identity
         System.out.println("Insert your nickname:");
@@ -80,64 +78,45 @@ public class CLI {
                 .build();
 
         //Initialize instructions: every instruction has a lambda that will be executed when the instruction is called
-        initializeInstructions();
+        CLIInstructionLoader loader = new CLIInstructionLoader(scanner);
+        instructionHandler = loader.getInstruction();
 
         controller = networkManager.getController();
     }
 
-    public void initializeInstructions() {
-        this.instructionHandler = new HashMap<>();
 
-        // TODO: da riempire con le altre instructions
-        this.instructionHandler.put(Instruction.PICK_CARD, (ClientState clientState, Controller dispatcher) ->
-                {
+    /**
+     * Render the client state, showing the current game state and a list of available instructions.
+     * Insructions are shown as a menu and the user can select one of them.
+     * @param clientState the client state to render
+     */
+    private void render(ClientState clientState) {
+        PlayerState currentState = clientState.getPlayerState();
 
-                    GameCard card = null;
-
-                    System.out.println("Quale carta vuoi scegliere: ");
-                    System.out.println("Inserisci 0 per risorsa \nInserisci 1 per oro");
-                    int choice = scanner.nextInt();
-
-                    if( choice == 0) {
-                        System.out.println("Inserisci 0 per deck risorsa \nInserisci 1 per carta 1\nInserisci 2 per carta 2");
-                        choice = scanner.nextInt();
-
-                        card = switch (choice) {
-                            case 0 -> clientState.getGameModel().pickRandomResCard();
-                            case 1 -> clientState.getGameModel().getVisibleResCards()[0];
-                            case 2 -> clientState.getGameModel().getVisibleResCards()[1];
-                            default -> card;
-                        };
-
-                    } else {
-                        System.out.println("Inserisci 0 per deck oro \nInserisci 1 per carta 1\nInserisci 2 per carta 2");
-                        choice = scanner.nextInt();
-
-                        card = switch (choice) {
-                            case 0 -> clientState.getGameModel().pickRandomGoldCard();
-                            case 1 -> clientState.getGameModel().getVisibleGoldCards()[0];
-                            case 2 -> clientState.getGameModel().getVisibleGoldCards()[1];
-                            default -> card;
-                        };
-                    }
-
-                    Action action = new PlayerPickCardAction(clientState.getGameModel().getSelfNickname(), card);
-                    // TODO: vedere error handling nelle actions (da definire)
-                    dispatcher.execute(action);
-
-                });
+        switch(currentState) {
+            case SELECTING_LOBBY:
+                //renderLobbySelection(clientState);
+                break;
+            case PICKING_CARD:
+                renderState(clientState, availableInstructionsPickingCard);
+                break;
+            case PLACING_CARD:
+                renderState(clientState, availableInstructionsPlacingCard);
+                break;
+            case SLEEPING:
+                renderState(clientState, availableInstructionsSleeping);
+                break;
+            default:
+                System.out.println("Invalid state");
+        }
     }
 
-    // same for every action
-    public void renderPickingCard(ClientState clientState) {
+    private void renderState(ClientState clientState, List<Instruction> availableInstructions) {
+        System.out.println("Select an action:");
+        SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, scanner);
+        int selectedOption = menu.getSelectedOptionIndex();
 
-        // TODO: lambda for action associated with instruction
-
-        // TODO: gabo fa il menu ;)
-
-        // esempio
-        instructionHandler.get(Instruction.PICK_CARD);
-
+        Instruction instruction = availableInstructions.get(selectedOption);
+        instructionHandler.get(instruction).accept(clientState, controller);
     }
-
 }

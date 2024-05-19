@@ -70,11 +70,11 @@ public class CLIInstructionLoader {
         instructionsMap.put(Instruction.PICK_CARD, (ClientState clientState, Controller dispatcher) ->
         {
             GameCard card = null;
-            SelectableMenu menu = null;
+            SelectableMenu<String> menu = null;
             int choice = 0;
 
             System.out.println("CARD SELECTION: ");
-            menu = new SelectableMenu(List.of("Pick a Resource Card", "Pick a Gold Card"), scanner);
+            menu = new SelectableMenu<>(List.of("Pick a Resource Card", "Pick a Gold Card"), scanner);
             menu.show();
             choice = menu.getSelectedOptionIndex();
 
@@ -112,10 +112,11 @@ public class CLIInstructionLoader {
         {
             //The user has to select a field to get
             List<Player> players = clientState.getGameModel().getPlayers();
-            SelectableMenu menu = new SelectableMenu(players.stream().map(Player::getNickname).toList(), scanner);
+            List<String> playerNicknames = players.stream().map(Player::getNickname).toList();
+            SelectableMenu<String> menu = new SelectableMenu<>(playerNicknames, scanner);
             menu.show();
             //get the selected player
-            String playerNickname = menu.getSelectedOption();
+            String playerNickname = menu.getSelectedStringOption();
             Player player = players.stream().filter(p -> p.getNickname().equals(playerNickname)).findFirst().orElse(null);
 
             //render the field of the selected player
@@ -134,7 +135,7 @@ public class CLIInstructionLoader {
                 sides.add(card.back());
             }
             //TODO: dinamically render the cards and the sides
-            SelectableMenu menu = new SelectableMenu(sides.stream().map(Side::toString).toList(), scanner);
+            SelectableMenu<Side> menu = new SelectableMenu<>(sides.stream().toList(), scanner);
             menu.show();
             selectedCardIndex = menu.getSelectedOptionIndex();
             boolean validPosition = false;
@@ -188,9 +189,9 @@ public class CLIInstructionLoader {
         instructionsMap.put(Instruction.SELECT_COLOR, (ClientState clientState, Controller dispatcher) ->
         {
             System.out.println("Insert the color you want to play with:");
-            List<String> playerColors = new ArrayList<>(Arrays.stream(Pawn.values()).map(Pawn::toString).toList());
-            playerColors.remove("BLACK");
-            SelectableMenu menu = new SelectableMenu(playerColors, scanner);
+            List<Pawn> playerColors = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
+            playerColors.remove(Pawn.BLACK);
+            SelectableMenu<Pawn> menu = new SelectableMenu<>(playerColors, scanner);
             menu.show();
 
             int selectedColorIndex = menu.getSelectedOptionIndex();
