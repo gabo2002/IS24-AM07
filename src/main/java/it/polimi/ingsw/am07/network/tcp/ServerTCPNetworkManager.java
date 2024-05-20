@@ -82,7 +82,6 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         }
 
         listenForConnections();
-        reactToConnections();
     }
 
     /**
@@ -111,31 +110,11 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
     }
 
     /**
-     * Read from the open connections and parse the inbound packets
-     */
-    private void reactToConnections() {
-        new Thread(() -> {
-            while (serverSocket != null) {
-                synchronized (connectionList) {
-                    for (Connection connection : connectionList) {
-                        checkConnection(connection);
-                    }
-                }
-            }
-        }).start();
-    }
-
-    /**
      * Check the connection for incoming packets.
      *
      * @param connection the connection to check
      */
-    private void checkConnection(Connection connection) {
-        // if (connection.available() == 0) {
-        //    return;
-        // }
-
-
+    private boolean checkConnection(Connection connection) {
         NetworkPacket packet = connection.receive();
 
         if (packet != null) {
@@ -150,7 +129,14 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                 case ListLobbiesNetworkPacket ignored:
                     break;
             }
+            return true;
+        } else {
+            synchronized (connectionList) {
+                LOGGER.error("Connection closed: " + connection);
+                connectionList.remove(connection);
+            }
         }
+        return false;
     }
 
     /**
@@ -182,6 +168,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         RemoteConnection connection = new RemoteConnection(reader, writer);
 
         new Thread(() -> {
+            boolean connectionOpen = true;
             // As the server, I need to send the list of open lobbies to the client
             ListLobbiesNetworkPacket lobbiesNetworkPacket = new ListLobbiesNetworkPacket(dispatcher.getLobbies());
             connection.send(lobbiesNetworkPacket);
@@ -197,8 +184,8 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
             }
 
 
-            while (true) {
-                checkConnection(connection);
+            while (connectionOpen) {
+                connectionOpen = checkConnection(connection);
                 // LOGGER.debug("Accepted connection from " + identityPacket.getIdentity());
             }
 

@@ -29,6 +29,7 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 
 /**
  * Connection with a remote client.
@@ -85,7 +86,11 @@ public class RemoteConnection implements Connection {
         try {
             String json = inputStream.readUTF();
             return serializer.fromJson(json);
+        } catch (EOFException e) {
+            LOGGER.error("Connection " + this + "Closed unexpectedly");
+            return null;
         } catch (Exception e) {
+            LOGGER.error(e);
             return null;
         }
     }

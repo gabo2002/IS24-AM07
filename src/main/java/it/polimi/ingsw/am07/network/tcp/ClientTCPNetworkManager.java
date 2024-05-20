@@ -185,6 +185,9 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
                 default -> {
                 }
             }
+        } else {
+            LOGGER.error("Connection closed");
+            disconnect();
         }
     }
 
