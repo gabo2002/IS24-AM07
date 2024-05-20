@@ -48,6 +48,7 @@ public class CLI {
     private static final List<Instruction> availableInstructionsPickingCard = List.of(Instruction.PICK_CARD, Instruction.SHOW_DECK, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND);
     private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
     private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
+    private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
 
     /*
      * Entry point of the CLI client. this function will be executed when the client starts in the main method.
@@ -65,11 +66,15 @@ public class CLI {
         System.out.println("Press 0 for RMI, 1 for TCP:");
         int choice = Input.readBinaryChoice(scanner);
 
+        //Hostname selection
+        System.out.println("Enter the hostname:");
+        String hostname = scanner.nextLine();
+
         NetworkType networkType = choice == 0 ? NetworkType.RMI : NetworkType.TCP;
         int port = choice == 0 ? AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort() : AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort();
 
         ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
-                .withHostname("localhost")
+                .withHostname(hostname)
                 .withPort(port)
                 .withNetworkType(networkType)
                 .withIdentity(identity)
@@ -95,7 +100,7 @@ public class CLI {
 
         switch (currentState) {
             case SELECTING_LOBBY:
-                //renderLobbySelection(clientState);
+                renderState(clientState, availableInstructionsLobby);
                 break;
             case PICKING_CARD:
                 renderState(clientState, availableInstructionsPickingCard);
