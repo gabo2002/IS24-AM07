@@ -23,18 +23,20 @@
 
 package it.polimi.ingsw.am07.network.packets;
 
+import it.polimi.ingsw.am07.model.lobby.Lobby;
+
 import java.util.List;
 import java.util.UUID;
 
 public final class ListLobbiesNetworkPacket extends NetworkPacket{
 
-    private final List<UUID> lobbies;
+    private final List<Lobby> lobbies;
 
-    public ListLobbiesNetworkPacket(List<UUID> lobbies) {
+    public ListLobbiesNetworkPacket(List<Lobby> lobbies) {
         this.lobbies = lobbies;
     }
 
-    public List<UUID> getLobbies() {
+    public List<Lobby> getLobbies() {
         return lobbies;
     }
 }

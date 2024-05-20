@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.reactive;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 
 /**
@@ -60,6 +61,11 @@ public class LocalListener implements Listener {
     @Override
     public String getIdentity() {
         return "LocalListener";
+    }
+
+    @Override
+    public ClientState getClientState() {
+        return null;
     }
 
 }

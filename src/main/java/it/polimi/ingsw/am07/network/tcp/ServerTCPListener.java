@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.network.tcp;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
@@ -89,6 +90,10 @@ public class ServerTCPListener implements StatefulListener {
     @Override
     public String getIdentity() {
         return identity;
+    }
+
+    public ClientState getClientState() {
+        return null;
     }
 
 }

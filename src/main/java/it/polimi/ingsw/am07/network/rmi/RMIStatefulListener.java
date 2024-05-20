@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.ClientState;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.reactive;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.ClientState;
 
 /**
  * Interface for a listener that can be notified of an action.
@@ -43,5 +44,10 @@ public interface Listener {
      * @return the identity of the listener
      */
     String getIdentity();
+
+    /**
+     * Get the clientState
+     */
+    ClientState getClientState();
 
 }

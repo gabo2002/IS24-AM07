@@ -32,6 +32,7 @@ import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.server.controller.GameController;
 import it.polimi.ingsw.am07.server.controller.LobbyController;
+import it.polimi.ingsw.am07.server.controller.OutOfLobbyController;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.HashMap;
@@ -76,8 +77,8 @@ public class ServerDispatcher extends Dispatcher {
     /**
      * Get the list of open lobbies. This method is used to provide the list of lobbies to the clients.
      */
-    public List<UUID> getLobbies() {
-        return this.lobbies.keySet().stream().toList();
+    public List<Lobby> getLobbies() {
+        return this.lobbies.values().stream().toList();
     }
 
     /**

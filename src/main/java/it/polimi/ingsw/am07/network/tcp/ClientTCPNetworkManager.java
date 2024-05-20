@@ -180,7 +180,8 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
                 case ActionNetworkPacket actionPacket -> listener.notify(actionPacket.getAction());
                 case HeartbeatNetworkPacket ignored -> listener.heartbeat();
                 case ListLobbiesNetworkPacket lobbies -> {
-                    //todo: implement
+                    LOGGER.debug("Received " + lobbies.getLobbies().size() + " lobbies from the server");
+                    listener.getClientState().setLobbies(lobbies.getLobbies());
                 }
                 default -> {
                 }

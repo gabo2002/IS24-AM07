@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ClientState {
@@ -34,6 +35,7 @@ public class ClientState {
     private final Consumer<ClientState> onGameModelUpdate;
     private Game gameModel;
     private Lobby lobbyModel;
+    private List<Lobby> availableLobbies;
     private PlayerState playerState;
 
     public ClientState(Consumer<ClientState> onGameModelUpdate) {
@@ -71,6 +73,9 @@ public class ClientState {
         }
     }
 
+    public void setLobbies(List<Lobby> availableLobbies) {
+        this.availableLobbies = availableLobbies;
+    }
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
     }

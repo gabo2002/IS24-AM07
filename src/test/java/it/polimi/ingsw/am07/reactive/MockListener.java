@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.reactive;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.ClientState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,11 @@ public class MockListener implements Listener {
 
     @Override
     public String getIdentity() {
+        return null;
+    }
+
+    @Override
+    public ClientState getClientState() {
         return null;
     }
 

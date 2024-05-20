@@ -21,17 +21,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.server;
+package it.polimi.ingsw.am07.server.controller;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
-import it.polimi.ingsw.am07.server.controller.LobbyController;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class OutOfLobbyController extends Dispatcher {
