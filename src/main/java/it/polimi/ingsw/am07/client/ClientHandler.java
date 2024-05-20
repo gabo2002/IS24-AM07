@@ -23,6 +23,32 @@
 
 package it.polimi.ingsw.am07.client;
 
-// TODO: deve inizializzare il clientState e il network
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.network.ClientNetworkManager;
+import it.polimi.ingsw.am07.network.NetworkType;
+
 public class ClientHandler {
+
+    private ClientState state;
+
+    private ClientNetworkManager networkManager;
+
+    public ClientHandler(int port, String hostname, String identity, NetworkType type, ClientState state) {
+        this.state = state;
+        this.networkManager =  new ClientNetworkManager.Factory()
+                .withHostname(hostname)
+                .withPort(port)
+                .withIdentity(identity)
+                .withState(state)
+                .withNetworkType(type)
+                .build();
+    }
+
+    public ClientNetworkManager getNetworkManager() {
+        return networkManager;
+    }
+
+    public ClientState getClientState() {
+        return state;
+    }
 }

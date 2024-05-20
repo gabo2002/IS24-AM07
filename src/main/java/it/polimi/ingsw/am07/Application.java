@@ -28,9 +28,6 @@ public class Application {
             System.setProperty("org.jline.terminal.dumb", "true");
         }
 
-        // TODO: fare la classe ClientHandler
-        ClientHandler clientHandler = new ClientHandler();
-
         switch (option) {
             // lo chiamerà il client handler
             case "cli" -> new CLI().entrypoint();
