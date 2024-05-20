@@ -47,7 +47,7 @@ class PlayerQuitActionTest {
 
         lobby.addNewPlayer("player1");
 
-        Action action = new PlayerQuitAction("player1");
+        Action action = new PlayerQuitAction("player1", "identity");
 
         lobbyController.execute(action);
 

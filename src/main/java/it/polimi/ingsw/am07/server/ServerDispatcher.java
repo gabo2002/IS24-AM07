@@ -170,7 +170,7 @@ public class ServerDispatcher extends Dispatcher {
         gameController.execute(new GameStateSyncAction(game));
     }
 
-    private synchronized void migrateToLobby(Listener listener) {
+    private synchronized void migrateToLobby(Listener listener,String firstPlayerNickname) {
         LOGGER.debug("Migrating to lobby");
 
         // Create a new lobby
@@ -180,8 +180,11 @@ public class ServerDispatcher extends Dispatcher {
         // Store the new lobby and its controller
         lobbyControllers.put(lobby, lobbyController);
 
+        // Store the new lobby
+        lobbies.put(lobby.getId(), lobby);
+
         // Add the new player to the lobby
-        lobby.addNewPlayer(listener.getIdentity());
+        lobby.addNewPlayer(firstPlayerNickname);
 
         // Add the listener to the lobby
         lobbyController.registerNewListener(listener);

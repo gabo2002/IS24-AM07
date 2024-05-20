@@ -39,7 +39,9 @@ public class Input{
         }
 
         try {
-            return scanner.nextInt();
+            int returnValue = scanner.nextInt();
+            scanner.nextLine();
+            return returnValue;
         } catch (Exception e) {
             return -1;
         }

@@ -63,8 +63,8 @@ public class PlayerJoinAction extends PlayerAction {
      *
      * @param playerNickname the player nickname
      */
-    public PlayerJoinAction(String playerNickname, UUID lobbyId) {
-        super(playerNickname);
+    public PlayerJoinAction(String playerNickname, String identity, UUID lobbyId) {
+        super(playerNickname,identity);
         this.lobbyId = lobbyId;
     }
 

@@ -96,10 +96,14 @@ public class SelectableMenu<T> {
      * @author Gabriele Corti
      */
     public String getSelectedStringOption() {
+        if(options.isEmpty())
+            return "";
         return options.get(selectedOption).toString();
     }
 
     public T getSelectedOption() {
+        if(options.isEmpty())
+            return null;
         return options.get(selectedOption);
     }
 

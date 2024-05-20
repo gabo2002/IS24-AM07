@@ -36,8 +36,8 @@ public class GameStartAction extends PlayerAction {
      *
      * @param playerNickname the player nickname
      */
-    public GameStartAction(String playerNickname) {
-        super(playerNickname);
+    public GameStartAction(String playerNickname,String identity) {
+        super(playerNickname,identity);
     }
 
     /**
@@ -48,7 +48,7 @@ public class GameStartAction extends PlayerAction {
      */
     @Override
     public boolean execute(Lobby lobbyModel) {
-        if (!getIdentity().equals(lobbyModel.getFirstPlayer().getNickname())) {
+        if (!getPlayerNickname().equals(lobbyModel.getFirstPlayer().getNickname())) {
             return false;
         }
 

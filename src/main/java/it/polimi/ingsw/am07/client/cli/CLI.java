@@ -57,10 +57,9 @@ public class CLI {
      */
     public void entrypoint() {
         scanner = new Scanner(System.in);
-        ClientState clientState = new ClientState(this::render);
-
         //generate Identity
         String identity = UUID.randomUUID().toString();
+        ClientState clientState = new ClientState(this::render,identity);
 
         // Choose network type
         System.out.println("Press 0 for RMI, 1 for TCP:");

@@ -28,19 +28,23 @@ import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.server.ServerDispatcher;
 
+import java.util.UUID;
+
 public class CreateLobbyAction extends PlayerAction {
 
-    public CreateLobbyAction(String playerNickname) {
-        super(playerNickname);
+    public CreateLobbyAction(String playerNickname, String identity) {
+        super(playerNickname, identity);
     }
 
     // TODO: change to void
     public boolean execute(OutOfLobbyModel outOfLobbyModel){
         outOfLobbyModel.setNewLobbyCreated(true);
+        outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
         return false;
     }
 
     public boolean reflect(OutOfLobbyModel outOfLobbyModel){
         return execute(outOfLobbyModel);
     }
+
 }

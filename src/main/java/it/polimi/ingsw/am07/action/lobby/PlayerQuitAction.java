@@ -36,8 +36,8 @@ public class PlayerQuitAction extends PlayerAction {
      *
      * @param playerNickname the player nickname
      */
-    protected PlayerQuitAction(String playerNickname) {
-        super(playerNickname);
+    protected PlayerQuitAction(String playerNickname, String identity) {
+        super(playerNickname, identity);
     }
 
     /**

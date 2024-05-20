@@ -29,16 +29,17 @@ import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class OutOfLobbyController extends Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(OutOfLobbyController.class);
     private final OutOfLobbyModel outOfLobbyModel;
-    private final Consumer<Listener> migrateToLobby;
+    private final BiConsumer<Listener,String> migrateToLobby;
 
 
-    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, Consumer<Listener> migrateToLobby) {
+    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, BiConsumer<Listener,String> migrateToLobby) {
         this.outOfLobbyModel = outOfLobbyModel;
         this.migrateToLobby = migrateToLobby;
     }
@@ -65,14 +66,14 @@ public class OutOfLobbyController extends Dispatcher {
         action.execute(outOfLobbyModel);
 
         for (Listener listener : listeners) {
-            LOGGER.debug("Notifying listener " + listener + " in " + Thread.currentThread().getName());
+            LOGGER.debug("Notifying listener " + listener + " with identity "+  listener.getIdentity() + " in " + Thread.currentThread().getName());
             listener.notify(action);
         }
 
         if (outOfLobbyModel.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
-            migrateToLobby.accept(listener);
+            migrateToLobby.accept(listener, outOfLobbyModel.getFirstPlayerNickname());
         }
     }
 }

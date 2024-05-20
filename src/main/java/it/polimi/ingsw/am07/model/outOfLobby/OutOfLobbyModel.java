@@ -32,6 +32,8 @@ public class OutOfLobbyModel {
 
     private boolean isNewLobbyCreated = false;
 
+    private String firstPlayerNickname;
+
     private Collection<Lobby> lobbies;
 
     public OutOfLobbyModel(Collection<Lobby> lobbies) {
@@ -44,6 +46,14 @@ public class OutOfLobbyModel {
 
     public void setNewLobbyCreated(boolean newLobbyCreated) {
         isNewLobbyCreated = newLobbyCreated;
+    }
+
+    public String getFirstPlayerNickname() {
+        return firstPlayerNickname;
+    }
+
+    public void setFirstPlayerNickname(String firstPlayerNickname) {
+        this.firstPlayerNickname = firstPlayerNickname;
     }
 
 

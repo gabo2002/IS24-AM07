@@ -107,7 +107,7 @@ public class CLIInstructionLoader {
                 };
             }
 
-            Action action = new PlayerPickCardAction(clientState.getGameModel().getSelfNickname(), card);
+            Action action = new PlayerPickCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), card);
             // TODO: vedere error handling nelle actions (da definire)
             dispatcher.execute(action);
         });
@@ -159,7 +159,7 @@ public class CLIInstructionLoader {
                 }
             }
 
-            Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), sides.get(selectedCardIndex), new GameFieldPosition(row, column));
+            Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sides.get(selectedCardIndex), new GameFieldPosition(row, column));
             dispatcher.execute(action);
         });
 
@@ -180,7 +180,7 @@ public class CLIInstructionLoader {
             System.out.println("Insert your nickname:");
             String nickname = scanner.nextLine();
 
-            Action action = new CreateLobbyAction(nickname);
+            Action action = new CreateLobbyAction(nickname, clientState.getIdentity());
             dispatcher.execute(action);
         });
 
@@ -203,7 +203,7 @@ public class CLIInstructionLoader {
             String nickname = scanner.nextLine();
 
             //Sending join lobby packet
-            Action action = new PlayerJoinAction(nickname, lobby.getId());
+            Action action = new PlayerJoinAction(nickname, clientState.getIdentity(), lobby.getId());
             dispatcher.execute(action);
         });
 
@@ -249,7 +249,7 @@ public class CLIInstructionLoader {
                 message = clientState.getGameModel().getSelf().getChat().sendPrivateMessage(playerNickname, stringMessage);
             }
 
-            Action action = new SendMessageAction(clientState.getGameModel().getSelfNickname(), message);
+            Action action = new SendMessageAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), message);
             dispatcher.execute(action);
         });
 

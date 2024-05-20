@@ -36,8 +36,8 @@ public class PlayerPlaceStarterCardSideAction extends PlayerAction {
      *
      * @param playerNickname the player nickname
      */
-    protected PlayerPlaceStarterCardSideAction(String playerNickname, Side chosenSide) {
-        super(playerNickname);
+    protected PlayerPlaceStarterCardSideAction(String playerNickname, String identity, Side chosenSide) {
+        super(playerNickname, identity);
         this.chosenSide = chosenSide;
     }
 

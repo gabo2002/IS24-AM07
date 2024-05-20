@@ -43,8 +43,8 @@ public class PlayerPlaceCardAction extends PlayerAction {
      * @param side           the side
      * @param position       the position
      */
-    public PlayerPlaceCardAction(String playerNickname, Side side, GameFieldPosition position) {
-        super(playerNickname);
+    public PlayerPlaceCardAction(String playerNickname, String identity, Side side, GameFieldPosition position) {
+        super(playerNickname, identity);
 
         this.placedSide = side;
         this.position = position;

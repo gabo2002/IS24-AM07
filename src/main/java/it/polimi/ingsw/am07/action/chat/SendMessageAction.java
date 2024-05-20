@@ -36,8 +36,8 @@ public class SendMessageAction extends PlayerAction {
 
     private final ChatMessage message;
 
-    public SendMessageAction(String playerNickname, ChatMessage message) {
-        super(playerNickname);
+    public SendMessageAction(String playerNickname, String identity, ChatMessage message) {
+        super(playerNickname, identity);
         this.message = message;
     }
 

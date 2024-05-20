@@ -82,6 +82,7 @@ class GameControllerTest {
 
         Action action = new PlayerPlaceCardAction(
                 player1.getNickname(),
+                "identity1",
                 player1.getStarterCard().front(),
                 new GameFieldPosition(0, 0)
         );

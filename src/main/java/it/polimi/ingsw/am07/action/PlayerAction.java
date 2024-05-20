@@ -38,7 +38,9 @@ public abstract class PlayerAction extends Action {
      *
      * @param playerNickname the player nickname
      */
-    protected PlayerAction(String playerNickname) {
+    protected PlayerAction(String playerNickname, String identity) {
+        super();
+        super.setIdentity(identity);
         this.playerNickname = playerNickname;
     }
 
@@ -59,12 +61,11 @@ public abstract class PlayerAction extends Action {
     }
 
     /**
-     * Get the identity of the action.
+     * Get the playerNickname of the action.
      *
-     * @return the identity of the action
+     * @return the playerNickname of the action
      */
-    @Override
-    public String getIdentity() {
+    public String getPlayerNickname() {
         return playerNickname;
     }
 
@@ -73,9 +74,7 @@ public abstract class PlayerAction extends Action {
      */
     @Override
     public void setIdentity(String identity) {
-        if (!playerNickname.equals(identity)) {
-            throw new IllegalArgumentException("The identity of a PlayerAction cannot be changed");
-        }
+        super.setIdentity(identity);
     }
 
 }

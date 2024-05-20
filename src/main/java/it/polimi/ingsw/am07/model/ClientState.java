@@ -32,16 +32,18 @@ import java.util.function.Consumer;
 
 public class ClientState {
 
+    private String identity;
     private final Consumer<ClientState> onGameModelUpdate;
     private Game gameModel;
     private Lobby lobbyModel;
     private List<Lobby> availableLobbies;
     private PlayerState playerState;
 
-    public ClientState(Consumer<ClientState> onGameModelUpdate) {
+    public ClientState(Consumer<ClientState> onGameModelUpdate, String identity) {
         gameModel = null;
         lobbyModel = null;
         playerState = PlayerState.SELECTING_LOBBY;
+        this.identity = identity;
         this.onGameModelUpdate = onGameModelUpdate;
     }
 
@@ -49,6 +51,7 @@ public class ClientState {
         gameModel = null;
         lobbyModel = null;
         onGameModelUpdate = null;
+        identity = null;
     }
 
     public Game getGameModel() {
@@ -86,6 +89,13 @@ public class ClientState {
 
     public List<Lobby> getAvailableLobbies() {
         return availableLobbies != null ? List.copyOf(availableLobbies) : List.of();
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+    public String getIdentity() {
+        return identity;
     }
 
 }

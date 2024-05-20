@@ -37,8 +37,8 @@ public class PlayerPickPrivateObjectiveAction extends PlayerAction {
      * @param playerNickname the player nickname
      * @param pickedCard     the picked card
      */
-    public PlayerPickPrivateObjectiveAction(String playerNickname, ObjectiveCard pickedCard) {
-        super(playerNickname);
+    public PlayerPickPrivateObjectiveAction(String playerNickname, String identity, ObjectiveCard pickedCard) {
+            super(playerNickname, identity);
 
         this.pickedCard = pickedCard;
     }
