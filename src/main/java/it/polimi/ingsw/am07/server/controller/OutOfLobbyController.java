@@ -28,7 +28,9 @@ import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
+import it.polimi.ingsw.am07.utils.trifunction.TriFunction;
 
+import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -37,11 +39,13 @@ public class OutOfLobbyController extends Dispatcher {
     private final AppLogger LOGGER = new AppLogger(OutOfLobbyController.class);
     private final OutOfLobbyModel outOfLobbyModel;
     private final BiConsumer<Listener,String> migrateToLobby;
+    private final TriFunction<Listener, String, UUID, Void> migratoToExistingLobby;
 
 
-    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, BiConsumer<Listener,String> migrateToLobby) {
+    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, BiConsumer<Listener,String> migrateToLobby, TriFunction<Listener, String, UUID, Void> migratoToExistingLobby) {
         this.outOfLobbyModel = outOfLobbyModel;
         this.migrateToLobby = migrateToLobby;
+        this.migratoToExistingLobby = migratoToExistingLobby;
     }
 
     @Override
@@ -74,6 +78,13 @@ public class OutOfLobbyController extends Dispatcher {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             migrateToLobby.accept(listener, outOfLobbyModel.getFirstPlayerNickname());
+            listeners.remove(listener);
+        } else if (outOfLobbyModel.getLobbyId() != null) {
+            Listener listener = listeners.stream()
+                    .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
+            //devo migrare il listener in una lobby esistente
+            migratoToExistingLobby.apply(listener, outOfLobbyModel.getFirstPlayerNickname(), outOfLobbyModel.getLobbyId());
+
         }
     }
 }

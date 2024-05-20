@@ -71,7 +71,7 @@ public class ServerDispatcher extends Dispatcher {
 
         OutOfLobbyModel outOfLobbyModel = new OutOfLobbyModel(lobbies.values());
 
-        outOfLobbyController = new OutOfLobbyController(outOfLobbyModel, this::migrateToLobby);
+        outOfLobbyController = new OutOfLobbyController(outOfLobbyModel, this::migrateToLobby,this::migrateToExistingLobby);
     }
 
     /**
@@ -168,6 +168,19 @@ public class ServerDispatcher extends Dispatcher {
 
         // Execute a game sync action to notify the listeners of the new game
         gameController.execute(new GameStateSyncAction(game));
+    }
+
+    private synchronized Void migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId) {
+        LOGGER.debug("Migrating to existing lobby");
+
+        Lobby lobby = lobbies.get(lobbyId);
+        if (lobby == null) {
+            throw new IllegalArgumentException("Lobby not found");
+        }
+
+        lobby.addNewPlayer(nickname);
+        lobbyControllers.get(lobby).registerNewListener(listener);
+        return null;
     }
 
     private synchronized void migrateToLobby(Listener listener,String firstPlayerNickname) {

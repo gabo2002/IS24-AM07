@@ -49,6 +49,7 @@ package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 
 import java.util.UUID;
 
@@ -71,24 +72,24 @@ public class PlayerJoinAction extends PlayerAction {
     /**
      * Execute the action.
      *
-     * @param lobbyModel the lobby model
+     * @param outOfLobbyModel the outOfLobbyModel model
      * @return true if the action was successful, false otherwise
      */
-    @Override
-    public boolean execute(Lobby lobbyModel) throws IllegalArgumentException {
-        lobbyModel.addNewPlayer(playerNickname);
-        return true;
+    // TODO: change to void
+    public boolean execute(OutOfLobbyModel outOfLobbyModel){
+        outOfLobbyModel.setNewLobbyCreated(false);
+        outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
+        outOfLobbyModel.setLobbyId(lobbyId);
+        return false;
     }
 
     /**
      * Reflect the action on the client state.
      *
-     * @param lobbyModel the lobby model
+     * @param outOfLobbyModel the lobby model
      * @return true if the action executed successfully, false otherwise
      */
-    @Override
-    public boolean reflect(Lobby lobbyModel) {
-        return execute(lobbyModel);
+    public boolean reflect(OutOfLobbyModel outOfLobbyModel) {
+        return execute(outOfLobbyModel);
     }
-
 }

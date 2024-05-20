@@ -27,10 +27,13 @@ import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 public class OutOfLobbyModel {
 
     private boolean isNewLobbyCreated = false;
+
+    private UUID lobbyId;
 
     private String firstPlayerNickname;
 
@@ -56,5 +59,12 @@ public class OutOfLobbyModel {
         this.firstPlayerNickname = firstPlayerNickname;
     }
 
+    public void setLobbyId(UUID lobbyId) {
+        this.lobbyId = lobbyId;
+    }
+
+    public UUID getLobbyId() {
+        return lobbyId;
+    }
 
 }
