@@ -182,6 +182,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
                 case ListLobbiesNetworkPacket lobbies -> {
                     LOGGER.debug("Received " + lobbies.getLobbies().size() + " lobbies from the server");
                     listener.getClientState().setLobbies(lobbies.getLobbies());
+                    listener.getClientState().notifyGameModelUpdate();
                 }
                 default -> {
                 }

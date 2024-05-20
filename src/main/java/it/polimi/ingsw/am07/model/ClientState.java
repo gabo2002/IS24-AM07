@@ -84,4 +84,8 @@ public class ClientState {
         return playerState;
     }
 
+    public List<Lobby> getAvailableLobbies() {
+        return availableLobbies != null ? List.copyOf(availableLobbies) : List.of();
+    }
+
 }

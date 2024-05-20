@@ -50,18 +50,22 @@ package it.polimi.ingsw.am07.action.lobby;
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
+import java.util.UUID;
+
 /**
  * Action to add a player to the lobby.
  */
 public class PlayerJoinAction extends PlayerAction {
 
+    private final UUID lobbyId;
     /**
      * Constructor.
      *
      * @param playerNickname the player nickname
      */
-    protected PlayerJoinAction(String playerNickname) {
+    public PlayerJoinAction(String playerNickname, UUID lobbyId) {
         super(playerNickname);
+        this.lobbyId = lobbyId;
     }
 
     /**

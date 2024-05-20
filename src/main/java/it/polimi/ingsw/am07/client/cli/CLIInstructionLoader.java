@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.client.cli;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
+import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
@@ -39,6 +40,7 @@ import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.cli.Input;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
@@ -184,8 +186,25 @@ public class CLIInstructionLoader {
 
         instructionsMap.put(Instruction.JOIN_LOBBY, (ClientState clientState, Controller dispatcher) ->
         {
-            System.out.println("Insert the lobby code:");
-            //TODO i should retrieve the lobby code from the user
+
+            if(clientState.getAvailableLobbies().isEmpty()){
+                System.out.println("No lobbies available, cannot execute the instruction.");
+                return;
+            }
+
+            System.out.println("Choose the lobby you want to join:");
+            SelectableMenu<Lobby> menu = new SelectableMenu<>(clientState.getAvailableLobbies(),scanner);
+            menu.show();
+            Lobby lobby = menu.getSelectedOption();
+
+
+            //Selecting nickname
+            System.out.println("Insert your nickname:");
+            String nickname = scanner.nextLine();
+
+            //Sending join lobby packet
+            Action action = new PlayerJoinAction(nickname, lobby.getId());
+            dispatcher.execute(action);
         });
 
         instructionsMap.put(Instruction.SELECT_COLOR, (ClientState clientState, Controller dispatcher) ->

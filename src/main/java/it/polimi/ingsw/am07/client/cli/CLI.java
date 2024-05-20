@@ -50,7 +50,7 @@ public class CLI {
     private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
     private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
 
-    /*
+    /**
      * Entry point of the CLI client. this function will be executed when the client starts in the main method.
      * It initializes the network manager and the client state.
      * It also initializes the instructions that the client can execute.
@@ -114,11 +114,12 @@ public class CLI {
             default:
                 System.out.println("Invalid state");
         }
+        clientState.notifyGameModelUpdate();
     }
 
     private void renderState(ClientState clientState, List<Instruction> availableInstructions) {
-        System.out.println("Select an action:");
         SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, scanner);
+        menu.show();
         int selectedOption = menu.getSelectedOptionIndex();
 
         Instruction instruction = availableInstructions.get(selectedOption);
