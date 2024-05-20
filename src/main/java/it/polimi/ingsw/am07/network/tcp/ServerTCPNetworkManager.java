@@ -131,9 +131,10 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
      * @param connection the connection to check
      */
     private void checkConnection(Connection connection) {
-        if (connection.available() == 0) {
-            return;
-        }
+        // if (connection.available() == 0) {
+        //    return;
+        // }
+
 
         NetworkPacket packet = connection.receive();
 
@@ -180,21 +181,31 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
 
         RemoteConnection connection = new RemoteConnection(reader, writer);
 
-        // As the server, I need to send the list of open lobbies to the client
-        ListLobbiesNetworkPacket lobbiesNetworkPacket = new ListLobbiesNetworkPacket(dispatcher.getLobbies());
-        connection.send(lobbiesNetworkPacket);
+        new Thread(() -> {
+            // As the server, I need to send the list of open lobbies to the client
+            ListLobbiesNetworkPacket lobbiesNetworkPacket = new ListLobbiesNetworkPacket(dispatcher.getLobbies());
+            connection.send(lobbiesNetworkPacket);
 
-        // As the server, we expect the first packet to be an identity packet
-        IdentityNetworkPacket identityPacket = (IdentityNetworkPacket) connection.receive();
+            // As the server, we expect the first packet to be an identity packet
+            IdentityNetworkPacket identityPacket = (IdentityNetworkPacket) connection.receive();
 
-        StatefulListener listener = new ServerTCPListener(connection, identityPacket.getIdentity());
-        dispatcher.registerNewListener(listener);
+            StatefulListener listener = new ServerTCPListener(connection, identityPacket.getIdentity());
+            dispatcher.registerNewListener(listener);
 
-        synchronized (connectionList) {
-            connectionList.add(connection);
-        }
+            synchronized (connectionList) {
+                connectionList.add(connection);
+            }
 
-        LOGGER.debug("Accepted connection from " + identityPacket.getIdentity());
+
+            while (true) {
+                checkConnection(connection);
+                // LOGGER.debug("Accepted connection from " + identityPacket.getIdentity());
+            }
+
+
+        }).start();
+
+
     }
 
 }

@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.server.controller.GameController;
@@ -50,6 +51,7 @@ public class ServerDispatcher extends Dispatcher {
     private final Map<Game, GameController> gameControllers;
     private final Map<Lobby, LobbyController> lobbyControllers;
     private final Map<String, Dispatcher> listenerDispatchers;
+    private final OutOfLobbyController outOfLobbyController;
 
     /**
      * Constructor.
@@ -65,6 +67,10 @@ public class ServerDispatcher extends Dispatcher {
         gameControllers = new HashMap<>(games.size());
         lobbyControllers = new HashMap<>();
         listenerDispatchers = new HashMap<>();
+
+        OutOfLobbyModel outOfLobbyModel = new OutOfLobbyModel(lobbies.values());
+
+        outOfLobbyController = new OutOfLobbyController(outOfLobbyModel, this::migrateToLobby);
     }
 
     /**
@@ -113,36 +119,8 @@ public class ServerDispatcher extends Dispatcher {
 
         LOGGER.debug("Listener " + listener.getIdentity() + " not found in any game");
 
-        // Find a lobby with an empty slot
-        for (Map.Entry<Lobby, LobbyController> entry : lobbyControllers.entrySet()) {
-            if (!entry.getKey().isFull()) {
-                // Store the new listener
-                listenerDispatchers.put(listener.getIdentity(), entry.getValue());
-
-                // Add the new player to the lobby
-                entry.getKey().addNewPlayer(listener.getIdentity());
-
-                // Add the listener to the lobby
-                entry.getValue().registerNewListener(listener);
-                return;
-            }
-        }
-
-        LOGGER.debug("Creating a new lobby for listener " + listener.getIdentity());
-
-        // Create a new lobby
-        Lobby lobby = new Lobby();
-        LobbyController lobbyController = new LobbyController(lobby, this::migrateLobbyToGame);
-
-        // Store the new lobby and its controller
-        lobbyControllers.put(lobby, lobbyController);
-        listenerDispatchers.put(listener.getIdentity(), lobbyController);
-
-        // Add the new player to the lobby
-        lobby.addNewPlayer(listener.getIdentity());
-
-        // Add the listener to the lobby
-        lobbyController.registerNewListener(listener);
+        listenerDispatchers.put(listener.getIdentity(), outOfLobbyController);
+        outOfLobbyController.registerNewListener(listener);
     }
 
     /**
@@ -189,6 +167,23 @@ public class ServerDispatcher extends Dispatcher {
 
         // Execute a game sync action to notify the listeners of the new game
         gameController.execute(new GameStateSyncAction(game));
+    }
+
+    private synchronized void migrateToLobby(Listener listener) {
+        LOGGER.debug("Migrating to lobby");
+
+        // Create a new lobby
+        Lobby lobby = new Lobby();
+        LobbyController lobbyController = new LobbyController(lobby, this::migrateLobbyToGame);
+
+        // Store the new lobby and its controller
+        lobbyControllers.put(lobby, lobbyController);
+
+        // Add the new player to the lobby
+        lobby.addNewPlayer(listener.getIdentity());
+
+        // Add the listener to the lobby
+        lobbyController.registerNewListener(listener);
     }
 
 }

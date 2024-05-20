@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.action;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 
 import java.io.Serializable;
 
@@ -83,6 +84,14 @@ public abstract class Action implements Serializable {
         throw new RuntimeException("Not implemented");
     }
 
+    public boolean execute(OutOfLobbyModel outOfLobbyModel) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    public boolean reflect(OutOfLobbyModel outOfLobbyModel) {
+        throw new RuntimeException("Not implemented");
+    }
+
     /**
      * Execute the action on the client state.
      *
@@ -122,5 +131,4 @@ public abstract class Action implements Serializable {
     public void setIdentity(String identity) {
         this.identity = identity;
     }
-
 }

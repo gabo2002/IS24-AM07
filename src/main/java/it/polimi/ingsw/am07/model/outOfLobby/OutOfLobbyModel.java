@@ -21,26 +21,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action.lobby;
+package it.polimi.ingsw.am07.model.outOfLobby;
 
-import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
-import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
-import it.polimi.ingsw.am07.server.ServerDispatcher;
 
-public class CreateLobbyAction extends PlayerAction {
+import java.util.Collection;
+import java.util.List;
 
-    public CreateLobbyAction(String playerNickname) {
-        super(playerNickname);
+public class OutOfLobbyModel {
+
+    private boolean isNewLobbyCreated = false;
+
+    private Collection<Lobby> lobbies;
+
+    public OutOfLobbyModel(Collection<Lobby> lobbies) {
+        this.lobbies = lobbies;
     }
 
-    // TODO: change to void
-    public boolean execute(OutOfLobbyModel outOfLobbyModel){
-        outOfLobbyModel.setNewLobbyCreated(true);
-        return false;
+    public boolean isNewLobbyCreated() {
+        return isNewLobbyCreated;
     }
 
-    public boolean reflect(OutOfLobbyModel outOfLobbyModel){
-        return execute(outOfLobbyModel);
+    public void setNewLobbyCreated(boolean newLobbyCreated) {
+        isNewLobbyCreated = newLobbyCreated;
     }
+
+
 }
