@@ -31,6 +31,7 @@ import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import it.polimi.ingsw.am07.utils.cli.Input;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
+import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
 
 
 import java.util.*;
@@ -42,6 +43,7 @@ import java.util.function.BiConsumer;
 public class CLI {
 
     private Scanner scanner;
+    private ThreadInputReader reader;
     private Controller controller;
 
     private Map<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
@@ -64,18 +66,22 @@ public class CLI {
      * It also initializes the instructions that the client can execute.
      */
     public void entrypoint() {
-        scanner = new Scanner(System.in);
+
+        reader = new ThreadInputReader();
+        // scanner = new Scanner(System.in);
+        
         //generate Identity
         String identity = UUID.randomUUID().toString();
         ClientState clientState = new ClientState(this::threadRender, identity);
 
         // Choose network type
         System.out.println("Press 0 for RMI, 1 for TCP:");
-        int choice = Input.readBinaryChoice(scanner);
+        int choice = Integer.parseInt(reader.getInput());
+        // int choice = Input.readBinaryChoice(scanner);
 
         //Hostname selection
         System.out.println("Enter the hostname:");
-        String hostname = scanner.nextLine();
+        String hostname = reader.getInput();
 
         if (hostname.isEmpty()) {
             hostname = "localhost";
@@ -93,7 +99,7 @@ public class CLI {
                 .build();
 
         //Initialize instructions: every instruction has a lambda that will be executed when the instruction is called
-        CLIInstructionLoader loader = new CLIInstructionLoader(scanner);
+        CLIInstructionLoader loader = new CLIInstructionLoader(reader);
         instructionHandler = loader.getInstruction();
 
         controller = networkManager.getController();
@@ -132,7 +138,7 @@ public class CLI {
     }
 
     private void renderState(ClientState clientState, List<Instruction> availableInstructions) {
-        SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, scanner);
+        SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, reader);
         menu.show();
         int selectedOption = menu.getSelectedOptionIndex();
 

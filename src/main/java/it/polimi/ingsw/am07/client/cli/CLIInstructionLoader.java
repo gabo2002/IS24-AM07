@@ -45,6 +45,7 @@ import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.cli.Input;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
+import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -57,9 +58,9 @@ public class CLIInstructionLoader {
 
     private final Map<Instruction, BiConsumer<ClientState, Controller>> instructionsMap;
 
-    private final Scanner scanner;
+    private final ThreadInputReader scanner;
 
-    public CLIInstructionLoader(Scanner scanner) {
+    public CLIInstructionLoader(ThreadInputReader scanner) {
         instructionsMap = new HashMap<>(Instruction.values().length);
         this.scanner = scanner;
         loadInstructions();
@@ -86,7 +87,7 @@ public class CLIInstructionLoader {
             if (choice == 0) {
                 System.out.println("RESOURCE CARD SELECTION: ");
                 System.out.println("Insert 0 to pick a resource deck card \nInsert 1 to pick the first visible resource card \nInsert 2 to pick the second visible resource card");
-                choice = Input.readInt(scanner,0,2);
+                choice = Integer.parseInt(scanner.getInput(0,2));
 
                 card = switch (choice) {
                     case 0 -> clientState.getGameModel().pickRandomResCard();
@@ -98,7 +99,7 @@ public class CLIInstructionLoader {
             } else {
                 System.out.println("GOLD CARD SELECTION: ");
                 System.out.println("Insert 0 for gold deck card \nInsert 1 for the first visible gold card \nInsert 2 for the second visible gold card");
-                choice = Input.readInt(scanner,0,2);
+                choice = Integer.parseInt(scanner.getInput(0,2));
 
                 card = switch (choice) {
                     case 0 -> clientState.getGameModel().pickRandomGoldCard();
@@ -148,9 +149,9 @@ public class CLIInstructionLoader {
             while (!validPosition) {
                 //choose the position where to place the card
                 System.out.println("Insert the row where you want to place the card: ");
-                row = Input.readInt(scanner);
+                row = Integer.parseInt(scanner.getInput());
                 System.out.println("Insert the column where you want to place the card: ");
-                column = Input.readInt(scanner);
+                column = Integer.parseInt(scanner.getInput());
 
                 GameFieldPosition position = new GameFieldPosition(row, column);
                 validPosition = clientState.getGameModel().getSelf().canBePlacedAt(sides.get(selectedCardIndex), position);
@@ -179,7 +180,7 @@ public class CLIInstructionLoader {
         instructionsMap.put(Instruction.CREATE_LOBBY, (ClientState clientState, Controller dispatcher) ->
         {
             System.out.println("Insert your nickname:");
-            String nickname = scanner.nextLine();
+            String nickname = scanner.getInput();
 
             Action action = new CreateLobbyAction(nickname, clientState.getIdentity());
             dispatcher.execute(action);
@@ -201,7 +202,7 @@ public class CLIInstructionLoader {
 
             //Selecting nickname
             System.out.println("Insert your nickname:");
-            String nickname = scanner.nextLine();
+            String nickname = scanner.getInput();
 
             //Sending join lobby packet
             Action action = new PlayerJoinAction(nickname, clientState.getIdentity(), lobby.getId());
@@ -237,7 +238,7 @@ public class CLIInstructionLoader {
             int choice = menu.getSelectedOptionIndex();
 
             System.out.println("Insert the message you want to send:");
-            String stringMessage = scanner.nextLine();
+            String stringMessage = scanner.getInput();
 
             if (choice == 0) {
                 message = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(stringMessage);
@@ -268,7 +269,7 @@ public class CLIInstructionLoader {
         {
             //Selecting nickname
             System.out.println("Insert your nickname:");
-            String nickname = scanner.nextLine();
+            String nickname = scanner.getInput();
 
             Action startGameAction = new GameStartAction(nickname, clientState.getIdentity());
             dispatcher.execute(startGameAction);

@@ -44,7 +44,7 @@ public class SelectableMenu<T> {
     private int selectedOption;
     private Terminal terminal;
 
-    private Scanner scanner;
+    private final ThreadInputReader scanner;
 
     private NonBlockingReader reader;
 
@@ -55,7 +55,7 @@ public class SelectableMenu<T> {
      * @param options the options of the menu.
      * @author Gabriele Corti
      */
-    public SelectableMenu(List<T> options,Scanner scanner) {
+    public SelectableMenu(List<T> options,ThreadInputReader scanner) {
         this.options = options;
         this.scanner = scanner;
         selectedOption = 0;
@@ -135,7 +135,7 @@ public class SelectableMenu<T> {
                 System.out.println(i + ". " + options.get(i));
             }
 
-            key = Input.readInt(scanner);
+            key = Integer.parseInt(scanner.getInput());
 
             if (key >= 0 && key < options.size()) {
                 selectedOption = key;

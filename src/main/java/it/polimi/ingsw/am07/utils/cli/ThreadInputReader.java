@@ -47,8 +47,10 @@ public class ThreadInputReader {
             while (true) {
                 String input = scanner.nextLine();
                 inputs.add(input);
-                LOGGER.debug("Input received: " + input);
-                lock.notifyAll();
+                // LOGGER.debug("Input received: " + input);
+                synchronized (lock) {
+                    lock.notifyAll();
+                }
             }
         });
         thread.start();
@@ -67,6 +69,25 @@ public class ThreadInputReader {
             }
         }
 
+        return inputs.removeFirst();
+    }
+
+    public String getInput(int min, int max) {
+
+        while(inputs.isEmpty()) {
+            synchronized (lock) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    LOGGER.error("Error while waiting for input");
+                    LOGGER.error(e.getMessage());
+                }
+            }
+        }
+
+        if (Integer.parseInt(inputs.removeFirst()) < min || Integer.parseInt(inputs.removeFirst()) > max) {
+            throw new IllegalArgumentException("Invalid input");
+        }
         return inputs.removeFirst();
     }
 }
