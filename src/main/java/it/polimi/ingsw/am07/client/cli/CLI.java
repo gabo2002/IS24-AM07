@@ -34,21 +34,28 @@ import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.function.BiConsumer;
 
 public class CLI {
 
     private Scanner scanner;
-
     private Controller controller;
 
     private Map<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
-
-
+    private final ExecutorService renderExecutor;
+    private Future<?> currentRenderTask;
     private static final List<Instruction> availableInstructionsPickingCard = List.of(Instruction.PICK_CARD, Instruction.SHOW_DECK, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND);
     private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
     private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
     private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
+
+    public CLI() {
+        renderExecutor = Executors.newSingleThreadExecutor();
+        currentRenderTask = null;
+    }
 
     /**
      * Entry point of the CLI client. this function will be executed when the client starts in the main method.
@@ -59,7 +66,7 @@ public class CLI {
         scanner = new Scanner(System.in);
         //generate Identity
         String identity = UUID.randomUUID().toString();
-        ClientState clientState = new ClientState(this::render,identity);
+        ClientState clientState = new ClientState(this::threadRender, identity);
 
         // Choose network type
         System.out.println("Press 0 for RMI, 1 for TCP:");
@@ -123,5 +130,16 @@ public class CLI {
 
         Instruction instruction = availableInstructions.get(selectedOption);
         instructionHandler.get(instruction).accept(clientState, controller);
+    }
+
+    private void threadRender(ClientState clientState) {
+        // Cancel the current render task if it is still running
+        if (currentRenderTask != null) {
+            currentRenderTask.cancel(true);
+            if(!currentRenderTask.isCancelled())
+                throw new RuntimeException("Render task could not be cancelled");
+            currentRenderTask = null;
+        }
+        currentRenderTask = renderExecutor.submit(() -> render(clientState));
     }
 }
