@@ -51,6 +51,7 @@ public class CLI {
     private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
     private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
     private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
+    private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.START_GAME,Instruction.QUIT);
 
     public CLI() {
         renderExecutor = Executors.newSingleThreadExecutor();
@@ -75,6 +76,10 @@ public class CLI {
         //Hostname selection
         System.out.println("Enter the hostname:");
         String hostname = scanner.nextLine();
+
+        if (hostname.isEmpty()) {
+            hostname = "localhost";
+        }
 
         NetworkType networkType = choice == 0 ? NetworkType.RMI : NetworkType.TCP;
         int port = choice == 0 ? AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort() : AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort();
@@ -102,9 +107,12 @@ public class CLI {
      * @param clientState the client state to render
      */
     private void render(ClientState clientState) {
+        System.out.println("Current state: "+clientState.getPlayerState());
         PlayerState currentState = clientState.getPlayerState();
 
         switch (currentState) {
+            case WAITING_FOR_PLAYERS:
+                renderState(clientState,availableInstructionsWaitingForPlayers);
             case SELECTING_LOBBY:
                 renderState(clientState, availableInstructionsLobby);
                 break;

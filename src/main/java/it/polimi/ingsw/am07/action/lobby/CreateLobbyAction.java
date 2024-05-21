@@ -24,6 +24,8 @@
 package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.server.ServerDispatcher;
@@ -32,8 +34,10 @@ import java.util.UUID;
 
 public class CreateLobbyAction extends PlayerAction {
 
+    private Lobby createdLobby;
     public CreateLobbyAction(String playerNickname, String identity) {
         super(playerNickname, identity);
+        createdLobby = null;
     }
     // TODO: change to void
     public boolean execute(OutOfLobbyModel outOfLobbyModel){
@@ -42,14 +46,32 @@ public class CreateLobbyAction extends PlayerAction {
         return false;
     }
 
-    public boolean reflect(OutOfLobbyModel outOfLobbyModel){
+    /**
+     * Execute the function client-side
+     * @param state the client state
+     * @return
+     */
+    public boolean reflect(ClientState state) {
+        System.out.println("Sto eseguendo la reflect lato client di un CreateLobbyAction");
 
-        return execute(outOfLobbyModel);
+        if (createdLobby == null) {
+            return true;
+        }
+
+        state.setLobbyModel(createdLobby);
+        state.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
+        System.out.println("Current ClientState: ");
+        System.out.println(state.toString());
+        return false;
     }
 
     @Override
     public String toString() {
         return "CreateLobbyAction Packet";
+    }
+
+    public void setCreatedLobby(Lobby lobby) {
+        createdLobby = lobby;
     }
 
 }

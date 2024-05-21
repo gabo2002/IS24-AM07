@@ -39,6 +39,7 @@ public enum Instruction {
     SHOW_HAND("show_hand"),
     SEND_MESSAGE("send_message"),
     SHOW_CHAT("show_chat"),
+    START_GAME("start_game"),
     QUIT("quit");
 
     // linkare con le azioni

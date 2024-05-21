@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.server;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
@@ -189,6 +190,11 @@ public class ServerDispatcher extends Dispatcher {
         // Create a new lobby
         Lobby lobby = new Lobby();
         LobbyController lobbyController = new LobbyController(lobby, this::migrateLobbyToGame);
+
+        //Notify the listener
+        CreateLobbyAction action = new CreateLobbyAction(firstPlayerNickname,listener.getIdentity());
+        action.setCreatedLobby(lobby);
+        listener.notify(action);
 
         // Store the new lobby and its controller
         lobbyControllers.put(lobby, lobbyController);

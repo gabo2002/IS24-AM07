@@ -98,4 +98,16 @@ public class ClientState {
         return identity;
     }
 
+    @Override
+    public String toString() {
+        return "ClientState{" +
+                "identity='" + identity + '\'' +
+                ", gameModel=" + gameModel +
+                ", lobbyModel=" + lobbyModel +
+                ", availableLobbies=" + availableLobbies +
+                ", playerState=" + playerState +
+                ", onGameModelUpdate=" + onGameModelUpdate +
+                '}';
+    }
+
 }

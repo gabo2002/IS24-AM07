@@ -168,4 +168,12 @@ public class Lobby implements Serializable {
         return state == LobbyState.FULL;
     }
 
+    @Override
+    public String toString() {
+        return "Lobby{" +
+                "id=" + id +
+                ", players=" + players +
+                ", state=" + state +
+                '}';
+    }
 }

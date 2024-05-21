@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.client.cli;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
+import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
@@ -261,6 +262,16 @@ public class CLIInstructionLoader {
             for (ChatMessage message : messages) {
                 System.out.println("[" + message.timestamp() + "] " + message.senderNickname() + ": " + message.message());
             }
+        });
+
+        instructionsMap.put(Instruction.START_GAME, (ClientState clientState, Controller dispatcher) ->
+        {
+            //Selecting nickname
+            System.out.println("Insert your nickname:");
+            String nickname = scanner.nextLine();
+
+            Action startGameAction = new GameStartAction(nickname, clientState.getIdentity());
+            dispatcher.execute(startGameAction);
         });
     }
 

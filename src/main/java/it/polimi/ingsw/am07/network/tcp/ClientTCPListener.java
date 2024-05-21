@@ -60,6 +60,7 @@ public class ClientTCPListener extends ClientListener {
         LOGGER.debug("Notifying action " + action.getIdentity() + " in " + Thread.currentThread().getName());
 
         action.reflect(clientState);
+        clientState.notifyGameModelUpdate();
     }
 
     /**

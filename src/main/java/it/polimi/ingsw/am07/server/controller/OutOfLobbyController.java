@@ -69,10 +69,12 @@ public class OutOfLobbyController extends Dispatcher {
 
         action.execute(outOfLobbyModel);
 
+        /*
         for (Listener listener : listeners) {
             LOGGER.debug("Notifying listener " + listener + " with identity "+  listener.getIdentity() + " in " + Thread.currentThread().getName());
             listener.notify(action);
         }
+         */
 
         if (outOfLobbyModel.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
