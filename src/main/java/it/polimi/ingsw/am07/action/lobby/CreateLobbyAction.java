@@ -35,7 +35,6 @@ public class CreateLobbyAction extends PlayerAction {
     public CreateLobbyAction(String playerNickname, String identity) {
         super(playerNickname, identity);
     }
-
     // TODO: change to void
     public boolean execute(OutOfLobbyModel outOfLobbyModel){
         outOfLobbyModel.setNewLobbyCreated(true);
@@ -44,7 +43,13 @@ public class CreateLobbyAction extends PlayerAction {
     }
 
     public boolean reflect(OutOfLobbyModel outOfLobbyModel){
+
         return execute(outOfLobbyModel);
+    }
+
+    @Override
+    public String toString() {
+        return "CreateLobbyAction Packet";
     }
 
 }

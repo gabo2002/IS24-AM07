@@ -177,8 +177,14 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
         if (packet != null) {
             switch (packet) {
-                case ActionNetworkPacket actionPacket -> listener.notify(actionPacket.getAction());
-                case HeartbeatNetworkPacket ignored -> listener.heartbeat();
+                case ActionNetworkPacket actionPacket -> {
+                    LOGGER.debug("Received ActionNetworkPacket with Action: "+actionPacket.getAction());
+                    listener.notify(actionPacket.getAction());
+                }
+                case HeartbeatNetworkPacket ignored -> {
+                    LOGGER.debug("Received HeartbeatNetworkPacket");
+                    listener.heartbeat();
+                }
                 case ListLobbiesNetworkPacket lobbies -> {
                     LOGGER.debug("Received " + lobbies.getLobbies().size() + " lobbies from the server");
                     listener.getClientState().setLobbies(lobbies.getLobbies());

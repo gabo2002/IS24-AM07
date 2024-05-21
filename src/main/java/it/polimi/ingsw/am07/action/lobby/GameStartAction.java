@@ -71,4 +71,9 @@ public class GameStartAction extends PlayerAction {
         return execute(lobbyModel);
     }
 
+    @Override
+    public String toString() {
+        return "GameStartAction NetworkPacket";
+    }
+
 }

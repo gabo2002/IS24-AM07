@@ -92,4 +92,9 @@ public class PlayerJoinAction extends PlayerAction {
     public boolean reflect(OutOfLobbyModel outOfLobbyModel) {
         return execute(outOfLobbyModel);
     }
+
+    @Override
+    public String toString() {
+        return "PlayJoinAction";
+    }
 }

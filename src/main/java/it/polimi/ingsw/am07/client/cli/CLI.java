@@ -136,7 +136,7 @@ public class CLI {
         // Cancel the current render task if it is still running
         if (currentRenderTask != null) {
             currentRenderTask.cancel(true);
-            if(!currentRenderTask.isCancelled())
+            if (!currentRenderTask.isCancelled())
                 throw new RuntimeException("Render task could not be cancelled");
             currentRenderTask = null;
         }
