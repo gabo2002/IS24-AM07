@@ -76,12 +76,21 @@ public class CLI {
 
         // Choose network type
         System.out.println("Press 0 for RMI, 1 for TCP:");
-        int choice = Integer.parseInt(reader.getInput());
-        // int choice = Input.readBinaryChoice(scanner);
+        int choice;
+        try {
+            choice = reader.getInt(0, 1);
+        } catch (InterruptedException e) {
+            choice = 0;
+        }
 
         //Hostname selection
         System.out.println("Enter the hostname:");
-        String hostname = reader.getInput();
+        String hostname;
+        try {
+            hostname = reader.getInput();
+        } catch (InterruptedException e) {
+            hostname = "";
+        }
 
         if (hostname.isEmpty()) {
             hostname = "localhost";
@@ -113,12 +122,12 @@ public class CLI {
      * @param clientState the client state to render
      */
     private void render(ClientState clientState) {
-        System.out.println("Current state: "+clientState.getPlayerState());
         PlayerState currentState = clientState.getPlayerState();
 
         switch (currentState) {
             case WAITING_FOR_PLAYERS:
                 renderState(clientState,availableInstructionsWaitingForPlayers);
+                break;
             case SELECTING_LOBBY:
                 renderState(clientState, availableInstructionsLobby);
                 break;
@@ -138,8 +147,14 @@ public class CLI {
     }
 
     private void renderState(ClientState clientState, List<Instruction> availableInstructions) {
+        //clear the screen
+        System.out.print("\033[H\033[2J");
         SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, reader);
-        menu.show();
+        try {
+            menu.show();
+        } catch(InterruptedException e) {
+            return; //I have killed the render thread
+        }
         int selectedOption = menu.getSelectedOptionIndex();
 
         Instruction instruction = availableInstructions.get(selectedOption);

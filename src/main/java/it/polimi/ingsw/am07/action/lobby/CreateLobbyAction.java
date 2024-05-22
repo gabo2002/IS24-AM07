@@ -52,7 +52,6 @@ public class CreateLobbyAction extends PlayerAction {
      * @return
      */
     public boolean reflect(ClientState state) {
-        System.out.println("Sto eseguendo la reflect lato client di un CreateLobbyAction");
 
         if (createdLobby == null) {
             return true;
@@ -60,8 +59,6 @@ public class CreateLobbyAction extends PlayerAction {
 
         state.setLobbyModel(createdLobby);
         state.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
-        System.out.println("Current ClientState: ");
-        System.out.println(state.toString());
         return false;
     }
 

@@ -29,7 +29,6 @@ import org.jline.utils.NonBlockingReader;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * A class that represents a selectable menu. Used in the CLI to show a list of options and let the user select one.
@@ -107,7 +106,7 @@ public class SelectableMenu<T> {
         return options.get(selectedOption);
     }
 
-    public void show() {
+    public void show() throws InterruptedException{
         if ( System.getProperty("org.jline.terminal.dumb") != null) {   //if the terminal is not interactive
             showNonInteractiveMenu();
         } else {
@@ -122,28 +121,18 @@ public class SelectableMenu<T> {
      * IMPORTANT: This method will be executed only if the terminal is not interactive, like in an IDE.
      * @author Gabriele Corti
      */
-    private void showNonInteractiveMenu() {
-        int key = 0;
+    private void showNonInteractiveMenu() throws InterruptedException{
 
         if (options.isEmpty()) {
             return;
         }
 
-        while(true) {
-            System.out.println("Select an option:");
-            for (int i = 0; i < options.size(); i++) {
-                System.out.println(i + ". " + options.get(i));
-            }
-
-            key = Integer.parseInt(scanner.getInput());
-
-            if (key >= 0 && key < options.size()) {
-                selectedOption = key;
-                break;
-            } else {
-                System.out.println("Invalid option.");
-            }
+        System.out.println("Select an option:");
+        for (int i = 0; i < options.size(); i++) {
+            System.out.println(i + ". " + options.get(i));
         }
+
+        selectedOption = scanner.getInt(0, options.size()-1);
     }
 
     /**

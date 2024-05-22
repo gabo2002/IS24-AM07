@@ -20,74 +20,62 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package it.polimi.ingsw.am07.utils.cli;
 
-import it.polimi.ingsw.am07.utils.logging.AppLogger;
-
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ThreadInputReader {
 
-    private final static AppLogger LOGGER = new AppLogger(ThreadInputReader.class);
-
-    private final Thread thread;
-
-    private final Object lock = new Object();
-
-    private List<String> inputs;
+    private Thread inputThread;
+    private BlockingQueue<String> inputs;
+    private Scanner scanner;
 
     public ThreadInputReader() {
-        inputs = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
-        thread = new Thread(() -> {
-            while (true) {
-                String input = scanner.nextLine();
-                inputs.add(input);
-                // LOGGER.debug("Input received: " + input);
-                synchronized (lock) {
-                    lock.notifyAll();
+        scanner = new Scanner(System.in);
+        inputs = new LinkedBlockingQueue<>();
+
+        inputThread = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    String input = scanner.nextLine();
+                    inputs.put(input);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
         });
-        thread.start();
+
+        inputThread.start();
     }
 
-    public String getInput() {
-
-        while(inputs.isEmpty()) {
-            synchronized (lock) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    LOGGER.error("Error while waiting for input");
-                    LOGGER.error(e.getMessage());
-                }
-            }
-        }
-
-        return inputs.removeFirst();
+    public void stop() {
+        inputThread.interrupt();
     }
 
-    public String getInput(int min, int max) {
+    public String getInput() throws InterruptedException {
+        return inputs.take();
+    }
 
-        while(inputs.isEmpty()) {
-            synchronized (lock) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    LOGGER.error("Error while waiting for input");
-                    LOGGER.error(e.getMessage());
-                }
+    public int getInt() throws InterruptedException {
+        while (true) {
+            try {
+                return Integer.parseInt(getInput());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number");
             }
         }
+    }
 
-        if (Integer.parseInt(inputs.removeFirst()) < min || Integer.parseInt(inputs.removeFirst()) > max) {
-            throw new IllegalArgumentException("Invalid input");
+    public int getInt(int min, int max) throws InterruptedException {
+        while (true) {
+            int input = getInt();
+            if (input >= min && input <= max) {
+                return input;
+            } else {
+                System.out.println("Please enter a number between " + min + " and " + max);
+            }
         }
-        return inputs.removeFirst();
     }
 }

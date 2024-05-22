@@ -81,13 +81,22 @@ public class CLIInstructionLoader {
 
             System.out.println("CARD SELECTION: ");
             menu = new SelectableMenu<>(List.of("Pick a Resource Card", "Pick a Gold Card"), scanner);
-            menu.show();
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             choice = menu.getSelectedOptionIndex();
 
             if (choice == 0) {
                 System.out.println("RESOURCE CARD SELECTION: ");
                 System.out.println("Insert 0 to pick a resource deck card \nInsert 1 to pick the first visible resource card \nInsert 2 to pick the second visible resource card");
-                choice = Integer.parseInt(scanner.getInput(0,2));
+
+                try {
+                    choice = scanner.getInt(0, 2);
+                } catch (InterruptedException e) {
+                    return;
+                }
 
                 card = switch (choice) {
                     case 0 -> clientState.getGameModel().pickRandomResCard();
@@ -99,7 +108,12 @@ public class CLIInstructionLoader {
             } else {
                 System.out.println("GOLD CARD SELECTION: ");
                 System.out.println("Insert 0 for gold deck card \nInsert 1 for the first visible gold card \nInsert 2 for the second visible gold card");
-                choice = Integer.parseInt(scanner.getInput(0,2));
+
+                try {
+                    choice = scanner.getInt(0, 2);
+                } catch (InterruptedException e) {
+                    return;
+                }
 
                 card = switch (choice) {
                     case 0 -> clientState.getGameModel().pickRandomGoldCard();
@@ -120,7 +134,11 @@ public class CLIInstructionLoader {
             List<Player> players = clientState.getGameModel().getPlayers();
             List<String> playerNicknames = players.stream().map(Player::getNickname).toList();
             SelectableMenu<String> menu = new SelectableMenu<>(playerNicknames, scanner);
-            menu.show();
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
             //get the selected player
             String playerNickname = menu.getSelectedStringOption();
             Player player = players.stream().filter(p -> p.getNickname().equals(playerNickname)).findFirst().orElse(null);
@@ -142,16 +160,28 @@ public class CLIInstructionLoader {
             }
             //TODO: dinamically render the cards and the sides
             SelectableMenu<Side> menu = new SelectableMenu<>(sides.stream().toList(), scanner);
-            menu.show();
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
             selectedCardIndex = menu.getSelectedOptionIndex();
             boolean validPosition = false;
 
             while (!validPosition) {
                 //choose the position where to place the card
                 System.out.println("Insert the row where you want to place the card: ");
-                row = Integer.parseInt(scanner.getInput());
+                try {
+                    row = scanner.getInt();
+                } catch (InterruptedException e) {
+                    return;
+                }
                 System.out.println("Insert the column where you want to place the card: ");
-                column = Integer.parseInt(scanner.getInput());
+                try {
+                    column = scanner.getInt();
+                } catch (InterruptedException e) {
+                    return;
+                }
 
                 GameFieldPosition position = new GameFieldPosition(row, column);
                 validPosition = clientState.getGameModel().getSelf().canBePlacedAt(sides.get(selectedCardIndex), position);
@@ -179,8 +209,13 @@ public class CLIInstructionLoader {
 
         instructionsMap.put(Instruction.CREATE_LOBBY, (ClientState clientState, Controller dispatcher) ->
         {
+            String nickname = "";
             System.out.println("Insert your nickname:");
-            String nickname = scanner.getInput();
+            try {
+                nickname = scanner.getInput();
+            } catch (InterruptedException e) {
+                return;
+            }
 
             Action action = new CreateLobbyAction(nickname, clientState.getIdentity());
             dispatcher.execute(action);
@@ -189,20 +224,29 @@ public class CLIInstructionLoader {
         instructionsMap.put(Instruction.JOIN_LOBBY, (ClientState clientState, Controller dispatcher) ->
         {
 
-            if(clientState.getAvailableLobbies().isEmpty()){
+            if (clientState.getAvailableLobbies().isEmpty()) {
                 System.out.println("No lobbies available, cannot execute the instruction.");
                 return;
             }
 
             System.out.println("Choose the lobby you want to join:");
-            SelectableMenu<Lobby> menu = new SelectableMenu<>(clientState.getAvailableLobbies(),scanner);
-            menu.show();
+            SelectableMenu<Lobby> menu = new SelectableMenu<>(clientState.getAvailableLobbies(), scanner);
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
             Lobby lobby = menu.getSelectedOption();
 
 
             //Selecting nickname
             System.out.println("Insert your nickname:");
-            String nickname = scanner.getInput();
+            String nickname;
+            try {
+                nickname = scanner.getInput();
+            } catch (InterruptedException e) {
+                return;
+            }
 
             //Sending join lobby packet
             Action action = new PlayerJoinAction(nickname, clientState.getIdentity(), lobby.getId());
@@ -215,7 +259,11 @@ public class CLIInstructionLoader {
             List<Pawn> playerColors = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
             playerColors.remove(Pawn.BLACK);
             SelectableMenu<Pawn> menu = new SelectableMenu<>(playerColors, scanner);
-            menu.show();
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
 
             int selectedColorIndex = menu.getSelectedOptionIndex();
             //TODO i should send the selected color to the server
@@ -234,11 +282,20 @@ public class CLIInstructionLoader {
             List<String> prompt = List.of("Send message to everyone", "Send message to a specific player");
             SelectableMenu<String> menu = new SelectableMenu<>(prompt, scanner);
             ChatMessage message = null;
-            menu.show();
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
             int choice = menu.getSelectedOptionIndex();
 
             System.out.println("Insert the message you want to send:");
-            String stringMessage = scanner.getInput();
+            String stringMessage;
+            try {
+                stringMessage = scanner.getInput();
+            } catch (InterruptedException e) {
+                return;
+            }
 
             if (choice == 0) {
                 message = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(stringMessage);
@@ -246,7 +303,11 @@ public class CLIInstructionLoader {
                 List<Player> players = clientState.getGameModel().getPlayers();
                 List<String> playerNicknames = players.stream().map(Player::getNickname).toList();
                 SelectableMenu<String> playerMenu = new SelectableMenu<>(playerNicknames, scanner);
-                playerMenu.show();
+                try {
+                    playerMenu.show();
+                } catch (InterruptedException e) {
+                    return;
+                }
                 String playerNickname = playerMenu.getSelectedStringOption();
                 message = clientState.getGameModel().getSelf().getChat().sendPrivateMessage(playerNickname, stringMessage);
             }
@@ -269,7 +330,12 @@ public class CLIInstructionLoader {
         {
             //Selecting nickname
             System.out.println("Insert your nickname:");
-            String nickname = scanner.getInput();
+            String nickname;
+            try {
+                nickname = scanner.getInput();
+            } catch (InterruptedException e) {
+                return;
+            }
 
             Action startGameAction = new GameStartAction(nickname, clientState.getIdentity());
             dispatcher.execute(startGameAction);
@@ -278,6 +344,7 @@ public class CLIInstructionLoader {
 
     /**
      * Get the instructions that the client can execute.
+     *
      * @return the instructions that the client can execute.
      */
     public Map<Instruction, BiConsumer<ClientState, Controller>> getInstruction() {
