@@ -29,7 +29,9 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      fx:controller="it.polimi.ingsw.am07.LobbyViewController"
+      xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="lobby_name" alignment="CENTER" prefHeight="39.0" prefWidth="600.0" text="Lobby name" textFill="WHITE">
       <font>
          <Font name="Segoe UI Black" size="20.0" />

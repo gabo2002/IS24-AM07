@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class UsernameViewController {
+public class LobbyViewController {
 
     @FXML
     private Label welcomeText;
@@ -48,6 +48,7 @@ public class UsernameViewController {
 
     private ClientState clientState;
     private Controller controller;
+
 
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
@@ -61,45 +62,9 @@ public class UsernameViewController {
 
     private void updateView(ClientState clientState) {
         // Logic to update the GUI based on the new clientState
-        System.out.println("Username view, Client state updated: " + clientState);
+        System.out.println("Lobby view, Client state updated: " + clientState);
         // welcomeText.setText("Current Player State: " + clientState.getPlayerState());
         // Additional GUI updates can go here
     }
 
-    @FXML
-    protected void onPlayBtnClick(ActionEvent event) {
-        // welcomeText.setText("Welcome " + nicknameField.getText());
-
-        if (nicknameField.getText().isEmpty()) {
-            welcomeText.setText("Inserisci uno username");
-            return;
-        }
-
-        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity());
-        controller.execute(action);
-
-        loadScene(event);
-    }
-
-
-    private void loadScene(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/welcome-view.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtain the controller for the new view
-            WelcomeViewController view_controller = fxmlLoader.getController();
-            view_controller.init(clientState, controller);
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the new scene
-            Scene scene = new Scene(root, 1500, 1000);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

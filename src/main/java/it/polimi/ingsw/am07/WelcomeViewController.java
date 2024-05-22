@@ -23,7 +23,11 @@
 
 package it.polimi.ingsw.am07;
 
+import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,35 +35,83 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class WelcomeViewController {
 
     @FXML
     private Button create_lobby_btn;
 
-    @FXML
-    protected void onLobbyBtnClick(ActionEvent event) {
-        Lobby lobby = new Lobby();
+    private ClientState clientState;
+    private Controller controller;
 
-        loadScene(event);
+    @FXML
+    private ListView<Parent> lobby_list;
+
+    public void init(ClientState clientState, Controller controller) {
+        this.clientState = clientState;
+        this.controller = controller;
+
+        // Bind the label to reflect the player state changes
+        updateView(clientState);
+        // clientState.onGameModelUpdate(this::updateView);
+    }
+
+    private void updateView(ClientState clientState) {
+        // Logic to update the GUI based on the new clientState
+        if(!clientState.getAvailableLobbies().isEmpty()) {
+            System.out.println("Lobby available: " + clientState.getAvailableLobbies().size());
+
+            for (Lobby lobby : clientState.getAvailableLobbies()) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/lobby-box.fxml"));
+                    Parent lobby_box = fxmlLoader.load();
+
+                    LobbyBoxController lobbyBoxController = fxmlLoader.getController();
+                    lobbyBoxController.setLobby_name_box("Lobby");
+                    lobbyBoxController.setN_players(lobby.getPlayers().size());
+
+                    lobby_list.getItems().add(lobby_box);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Welcome view, Client state updated: " + clientState);
+        // Additional GUI updates can go here
     }
 
     @FXML
-    protected void loadScene(ActionEvent event) {
+    protected void onLobbyBtnClick(ActionEvent event) {
+
+        Lobby lobby = new Lobby();
+
+        //Action action = new CreateLobbyAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
+        // controller.execute(action);
+        loadScene(event);
+    }
+
+    private void loadScene(ActionEvent event) {
         try {
-            // Carica la nuova scena
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/lobby-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/username-view.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Ottieni la finestra corrente tramite l'evento
+            // Obtain the controller for the new view
+            UsernameViewController view_controller = fxmlLoader.getController();
+            view_controller.init(clientState, controller);
+
+            // Get the current stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Imposta la nuova scena sulla finestra corrente
+            // Set the new scene
             Scene scene = new Scene(root, 1500, 1000);
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
