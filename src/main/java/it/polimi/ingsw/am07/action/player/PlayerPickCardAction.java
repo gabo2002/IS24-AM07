@@ -41,7 +41,7 @@ public class PlayerPickCardAction extends PlayerAction {
      * @param pickedCard     the picked card
      */
     public PlayerPickCardAction(String playerNickname, String identity, GameCard pickedCard) {
-        super(playerNickname,identity);
+        super(playerNickname, identity);
 
         this.pickedCard = pickedCard;
     }

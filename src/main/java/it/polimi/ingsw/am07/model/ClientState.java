@@ -24,7 +24,6 @@
 package it.polimi.ingsw.am07.model;
 
 import it.polimi.ingsw.am07.model.game.Game;
-import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 import java.util.List;
@@ -79,6 +78,7 @@ public class ClientState {
     public void setLobbies(List<Lobby> availableLobbies) {
         this.availableLobbies = availableLobbies;
     }
+
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
     }
@@ -94,6 +94,7 @@ public class ClientState {
     public void setIdentity(String identity) {
         this.identity = identity;
     }
+
     public String getIdentity() {
         return identity;
     }

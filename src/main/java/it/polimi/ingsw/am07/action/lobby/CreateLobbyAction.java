@@ -28,19 +28,18 @@ import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
-import it.polimi.ingsw.am07.server.ServerDispatcher;
-
-import java.util.UUID;
 
 public class CreateLobbyAction extends PlayerAction {
 
     private Lobby createdLobby;
+
     public CreateLobbyAction(String playerNickname, String identity) {
         super(playerNickname, identity);
         createdLobby = null;
     }
+
     // TODO: change to void
-    public boolean execute(OutOfLobbyModel outOfLobbyModel){
+    public boolean execute(OutOfLobbyModel outOfLobbyModel) {
         outOfLobbyModel.setNewLobbyCreated(true);
         outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
         return false;
@@ -48,6 +47,7 @@ public class CreateLobbyAction extends PlayerAction {
 
     /**
      * Execute the function client-side
+     *
      * @param state the client state
      * @return
      */

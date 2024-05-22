@@ -23,17 +23,12 @@
 
 package it.polimi.ingsw.am07.utils.cli;
 
-import java.io.IOException;
 import java.util.Scanner;
 
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-import org.jline.utils.NonBlockingReader;
-
-public class Input{
+public class Input {
 
     public static int readInt(Scanner scanner) {
-        while(!scanner.hasNextInt()) {
+        while (!scanner.hasNextInt()) {
             System.err.println("Invalid input, please enter a valid integer number!");
             scanner.next();
         }
@@ -54,10 +49,9 @@ public class Input{
         while (!validValue) {
             returnValue = readInt(scanner);
 
-            if(returnValue == 0 || returnValue == 1) {
+            if (returnValue == 0 || returnValue == 1) {
                 validValue = true;
-            }
-            else {
+            } else {
                 System.err.println("Invalid input, please enter 0 or 1!");
             }
         }
@@ -67,7 +61,7 @@ public class Input{
     public static int readInt(Scanner scanner, int min, int max) {
         int value = readInt(scanner);
 
-        while(value < min || value > max) {
+        while (value < min || value > max) {
             System.err.println("Invalid input, please enter a number between " + min + " and " + max + "!");
             value = readInt(scanner);
         }

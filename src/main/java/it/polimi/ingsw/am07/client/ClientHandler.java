@@ -35,7 +35,7 @@ public class ClientHandler {
 
     public ClientHandler(int port, String hostname, String identity, NetworkType type, ClientState state) {
         this.state = state;
-        this.networkManager =  new ClientNetworkManager.Factory()
+        this.networkManager = new ClientNetworkManager.Factory()
                 .withHostname(hostname)
                 .withPort(port)
                 .withIdentity(identity)

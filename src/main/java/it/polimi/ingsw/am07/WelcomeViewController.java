@@ -31,7 +31,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class WelcomeViewController {
@@ -47,7 +46,7 @@ public class WelcomeViewController {
     }
 
     @FXML
-    protected void loadScene(ActionEvent event)  {
+    protected void loadScene(ActionEvent event) {
         try {
             // Carica la nuova scena
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/lobby-view.fxml"));

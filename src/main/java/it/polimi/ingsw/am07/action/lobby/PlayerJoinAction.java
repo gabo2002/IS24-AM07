@@ -48,7 +48,6 @@ package it.polimi.ingsw.am07.action.lobby;
 
 
 import it.polimi.ingsw.am07.action.PlayerAction;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 
 import java.util.UUID;
@@ -59,13 +58,14 @@ import java.util.UUID;
 public class PlayerJoinAction extends PlayerAction {
 
     private final UUID lobbyId;
+
     /**
      * Constructor.
      *
      * @param playerNickname the player nickname
      */
     public PlayerJoinAction(String playerNickname, String identity, UUID lobbyId) {
-        super(playerNickname,identity);
+        super(playerNickname, identity);
         this.lobbyId = lobbyId;
     }
 
@@ -76,7 +76,7 @@ public class PlayerJoinAction extends PlayerAction {
      * @return true if the action was successful, false otherwise
      */
     // TODO: change to void
-    public boolean execute(OutOfLobbyModel outOfLobbyModel){
+    public boolean execute(OutOfLobbyModel outOfLobbyModel) {
         outOfLobbyModel.setNewLobbyCreated(false);
         outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
         outOfLobbyModel.setLobbyId(lobbyId);

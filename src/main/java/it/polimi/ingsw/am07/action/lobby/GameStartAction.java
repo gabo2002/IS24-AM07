@@ -36,8 +36,8 @@ public class GameStartAction extends PlayerAction {
      *
      * @param playerNickname the player nickname
      */
-    public GameStartAction(String playerNickname,String identity) {
-        super(playerNickname,identity);
+    public GameStartAction(String playerNickname, String identity) {
+        super(playerNickname, identity);
     }
 
     /**

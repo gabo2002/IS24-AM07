@@ -42,7 +42,6 @@ import it.polimi.ingsw.am07.network.packets.*;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * This class is a custom Moshi handler that can serialize and deserialize any network packet.

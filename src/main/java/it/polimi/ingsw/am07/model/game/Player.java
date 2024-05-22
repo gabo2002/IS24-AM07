@@ -225,6 +225,7 @@ public class Player implements Serializable {
 
     /**
      * Returns the chat associated with the player.
+     *
      * @return The chat associated with the player.
      */
     public PlayerChat getChat() {

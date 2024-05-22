@@ -26,7 +26,6 @@ package it.polimi.ingsw.am07.model.outOfLobby;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 public class OutOfLobbyModel {

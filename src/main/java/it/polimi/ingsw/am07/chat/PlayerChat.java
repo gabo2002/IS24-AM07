@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.chat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public final class PlayerChat implements Serializable {
@@ -76,8 +75,8 @@ public final class PlayerChat implements Serializable {
 
     public void insertMessage(ChatMessage message) {
         // Sort messages by timestamp
-        for(int i = messages.size() - 1 ; i >= 0; i--) {
-            if(messages.get(i).timestamp().before(message.timestamp())) {
+        for (int i = messages.size() - 1; i >= 0; i--) {
+            if (messages.get(i).timestamp().before(message.timestamp())) {
                 messages.add(i + 1, message);
                 return;
             }

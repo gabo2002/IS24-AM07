@@ -32,17 +32,16 @@ import it.polimi.ingsw.am07.utils.trifunction.TriFunction;
 
 import java.util.UUID;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class OutOfLobbyController extends Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(OutOfLobbyController.class);
     private final OutOfLobbyModel outOfLobbyModel;
-    private final BiConsumer<Listener,String> migrateToLobby;
+    private final BiConsumer<Listener, String> migrateToLobby;
     private final TriFunction<Listener, String, UUID, Void> migratoToExistingLobby;
 
 
-    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, BiConsumer<Listener,String> migrateToLobby, TriFunction<Listener, String, UUID, Void> migratoToExistingLobby) {
+    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, BiConsumer<Listener, String> migrateToLobby, TriFunction<Listener, String, UUID, Void> migratoToExistingLobby) {
         this.outOfLobbyModel = outOfLobbyModel;
         this.migrateToLobby = migrateToLobby;
         this.migratoToExistingLobby = migratoToExistingLobby;

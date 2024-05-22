@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.action.player;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.game.Game;
-import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 
 public class PlayerPickPrivateObjectiveAction extends PlayerAction {
@@ -38,7 +37,7 @@ public class PlayerPickPrivateObjectiveAction extends PlayerAction {
      * @param pickedCard     the picked card
      */
     public PlayerPickPrivateObjectiveAction(String playerNickname, String identity, ObjectiveCard pickedCard) {
-            super(playerNickname, identity);
+        super(playerNickname, identity);
 
         this.pickedCard = pickedCard;
     }

@@ -27,7 +27,6 @@ import it.polimi.ingsw.am07.network.ServerNetworkManager;
 import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
 import it.polimi.ingsw.am07.network.packets.*;
-import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 import it.polimi.ingsw.am07.server.ServerDispatcher;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;

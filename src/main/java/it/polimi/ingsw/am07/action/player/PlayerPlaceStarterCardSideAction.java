@@ -30,7 +30,8 @@ import it.polimi.ingsw.am07.model.game.side.Side;
 
 public class PlayerPlaceStarterCardSideAction extends PlayerAction {
     private final Side chosenSide;
-    private final GameFieldPosition startPos = new GameFieldPosition(0,0,0);
+    private final GameFieldPosition startPos = new GameFieldPosition(0, 0, 0);
+
     /**
      * Constructor.
      *

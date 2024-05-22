@@ -244,6 +244,7 @@ public class Game implements Serializable {
 
     /**
      * This method returns the current deck state.
+     *
      * @return the current deck state
      */
     public Deck getDeck() {
@@ -277,7 +278,7 @@ public class Game implements Serializable {
 
 
             // case more than 1 winner
-            if(winners.size() > 1 ) {
+            if (winners.size() > 1) {
 
                 int maxObjectiveScore = winners.stream()
                         .mapToInt(Player::getPlayerObjectiveScore)

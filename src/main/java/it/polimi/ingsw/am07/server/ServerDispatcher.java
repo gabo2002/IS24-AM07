@@ -72,7 +72,7 @@ public class ServerDispatcher extends Dispatcher {
 
         OutOfLobbyModel outOfLobbyModel = new OutOfLobbyModel(lobbies.values());
 
-        outOfLobbyController = new OutOfLobbyController(outOfLobbyModel, this::migrateToLobby,this::migrateToExistingLobby);
+        outOfLobbyController = new OutOfLobbyController(outOfLobbyModel, this::migrateToLobby, this::migrateToExistingLobby);
     }
 
     /**
@@ -184,7 +184,7 @@ public class ServerDispatcher extends Dispatcher {
         return null;
     }
 
-    private synchronized void migrateToLobby(Listener listener,String firstPlayerNickname) {
+    private synchronized void migrateToLobby(Listener listener, String firstPlayerNickname) {
         LOGGER.debug("Migrating to lobby");
 
         // Create a new lobby
@@ -192,7 +192,7 @@ public class ServerDispatcher extends Dispatcher {
         LobbyController lobbyController = new LobbyController(lobby, this::migrateLobbyToGame);
 
         //Notify the listener
-        CreateLobbyAction action = new CreateLobbyAction(firstPlayerNickname,listener.getIdentity());
+        CreateLobbyAction action = new CreateLobbyAction(firstPlayerNickname, listener.getIdentity());
         action.setCreatedLobby(lobby);
         listener.notify(action);
 

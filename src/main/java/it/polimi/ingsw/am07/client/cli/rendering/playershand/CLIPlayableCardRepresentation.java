@@ -28,7 +28,6 @@ import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLILargeSideRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLISideRepresentation;
-import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;

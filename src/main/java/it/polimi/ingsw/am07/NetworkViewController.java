@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 public class NetworkViewController {
 
     @FXML
-    protected void onRMIBtnClicked(ActionEvent event)  {
+    protected void onRMIBtnClicked(ActionEvent event) {
 
         ClientState clientState = new ClientState();
 
@@ -54,7 +54,7 @@ public class NetworkViewController {
     }
 
     @FXML
-    protected void onTCPBtnClicked(ActionEvent event)  {
+    protected void onTCPBtnClicked(ActionEvent event) {
 
         ClientState clientState = new ClientState();
 
@@ -71,7 +71,7 @@ public class NetworkViewController {
 
 
     @FXML
-    protected void loadScene(ActionEvent event)  {
+    protected void loadScene(ActionEvent event) {
         try {
             // Carica la nuova scena
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/username-view.fxml"));

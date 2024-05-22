@@ -54,7 +54,7 @@ public class SelectableMenu<T> {
      * @param options the options of the menu.
      * @author Gabriele Corti
      */
-    public SelectableMenu(List<T> options,ThreadInputReader scanner) {
+    public SelectableMenu(List<T> options, ThreadInputReader scanner) {
         this.options = options;
         this.scanner = scanner;
         selectedOption = 0;
@@ -95,19 +95,19 @@ public class SelectableMenu<T> {
      * @author Gabriele Corti
      */
     public String getSelectedStringOption() {
-        if(options.isEmpty())
+        if (options.isEmpty())
             return "";
         return options.get(selectedOption).toString();
     }
 
     public T getSelectedOption() {
-        if(options.isEmpty())
+        if (options.isEmpty())
             return null;
         return options.get(selectedOption);
     }
 
-    public void show() throws InterruptedException{
-        if ( System.getProperty("org.jline.terminal.dumb") != null) {   //if the terminal is not interactive
+    public void show() throws InterruptedException {
+        if (System.getProperty("org.jline.terminal.dumb") != null) {   //if the terminal is not interactive
             showNonInteractiveMenu();
         } else {
             showInteractiveMenu();
@@ -119,9 +119,10 @@ public class SelectableMenu<T> {
      * This method will block until the user selects an option. The selected option can be retrieved using the getSelectedOption method.
      * This method is non-interactive, so the user can't navigate through the options using the arrow keys.
      * IMPORTANT: This method will be executed only if the terminal is not interactive, like in an IDE.
+     *
      * @author Gabriele Corti
      */
-    private void showNonInteractiveMenu() throws InterruptedException{
+    private void showNonInteractiveMenu() throws InterruptedException {
 
         if (options.isEmpty()) {
             return;
@@ -132,7 +133,7 @@ public class SelectableMenu<T> {
             System.out.println(i + ". " + options.get(i));
         }
 
-        selectedOption = scanner.getInt(0, options.size()-1);
+        selectedOption = scanner.getInt(0, options.size() - 1);
     }
 
     /**

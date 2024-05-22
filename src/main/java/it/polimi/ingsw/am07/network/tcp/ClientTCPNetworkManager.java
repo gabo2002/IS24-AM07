@@ -178,7 +178,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         if (packet != null) {
             switch (packet) {
                 case ActionNetworkPacket actionPacket -> {
-                    LOGGER.debug("Received ActionNetworkPacket with Action: "+actionPacket.getAction());
+                    LOGGER.debug("Received ActionNetworkPacket with Action: " + actionPacket.getAction());
                     listener.notify(actionPacket.getAction());
                 }
                 case HeartbeatNetworkPacket ignored -> {

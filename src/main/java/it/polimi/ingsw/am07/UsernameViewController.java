@@ -54,7 +54,7 @@ public class UsernameViewController {
 
 
     @FXML
-    protected void loadScene(ActionEvent event)  {
+    protected void loadScene(ActionEvent event) {
         try {
             // Carica la nuova scena
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/welcome-view.fxml"));

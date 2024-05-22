@@ -29,12 +29,13 @@ import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
-import it.polimi.ingsw.am07.utils.cli.Input;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
 
-
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -53,7 +54,7 @@ public class CLI {
     private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
     private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
     private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
-    private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.START_GAME,Instruction.QUIT);
+    private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.START_GAME, Instruction.QUIT);
 
     public CLI() {
         renderExecutor = Executors.newSingleThreadExecutor();
@@ -69,7 +70,7 @@ public class CLI {
 
         reader = new ThreadInputReader();
         // scanner = new Scanner(System.in);
-        
+
         //generate Identity
         String identity = UUID.randomUUID().toString();
         ClientState clientState = new ClientState(this::threadRender, identity);
@@ -126,7 +127,7 @@ public class CLI {
 
         switch (currentState) {
             case WAITING_FOR_PLAYERS:
-                renderState(clientState,availableInstructionsWaitingForPlayers);
+                renderState(clientState, availableInstructionsWaitingForPlayers);
                 break;
             case SELECTING_LOBBY:
                 renderState(clientState, availableInstructionsLobby);
@@ -152,7 +153,7 @@ public class CLI {
         SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, reader);
         try {
             menu.show();
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             return; //I have killed the render thread
         }
         int selectedOption = menu.getSelectedOptionIndex();
