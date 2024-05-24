@@ -10,4 +10,5 @@ open module it.polimi.ingsw.am07 {
     requires java.logging;
 
     exports it.polimi.ingsw.am07;
+    exports it.polimi.ingsw.am07.client.gui.viewController;
 }

@@ -27,7 +27,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox fx:id="container" alignment="CENTER" prefHeight="653.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #30323D;" styleClass="container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.UsernameViewController">
+<VBox fx:id="container" alignment="CENTER" prefHeight="653.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #30323D;" styleClass="container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.UsernameViewController">
     <Label fx:id="welcomeText" text="Codex Naturalis" textFill="WHITE">
         <font>
             <Font name="Segoe UI Bold" size="40.0" />

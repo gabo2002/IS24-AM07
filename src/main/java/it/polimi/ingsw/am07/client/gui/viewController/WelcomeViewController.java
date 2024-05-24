@@ -21,10 +21,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07;
+package it.polimi.ingsw.am07.client.gui.viewController;
 
-import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -67,7 +65,7 @@ public class WelcomeViewController {
 
             for (Lobby lobby : clientState.getAvailableLobbies()) {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/lobby-box.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/lobby-box.fxml"));
                     Parent lobby_box = fxmlLoader.load();
 
                     LobbyBoxController lobbyBoxController = fxmlLoader.getController();
@@ -97,7 +95,7 @@ public class WelcomeViewController {
 
     private void loadScene(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/username-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/username-view.fxml"));
             Parent root = fxmlLoader.load();
 
             // Obtain the controller for the new view
