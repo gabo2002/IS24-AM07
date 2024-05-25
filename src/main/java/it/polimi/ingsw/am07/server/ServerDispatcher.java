@@ -191,7 +191,7 @@ public class ServerDispatcher extends Dispatcher {
         }
 
         try {
-            lobby.addNewPlayer(nickname);
+            lobby.addNewPlayer(nickname, playerPawn);
             //Notify the listener
             PlayerJoinAction action = new PlayerJoinAction(nickname, listener.getIdentity(), lobbyId);
             listener.notify(action);
