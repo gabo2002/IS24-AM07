@@ -126,6 +126,12 @@ public class CLI {
     private void render(ClientState clientState) {
         PlayerState currentState = clientState.getPlayerState();
 
+        String error = clientState.getClientStringErrorMessage();
+
+        if(error != null) {
+            System.out.println(error);
+        }
+
         switch (currentState) {
             case ADMIN_WAITING_FOR_PLAYERS:
                 renderState(clientState, availableInstructionAdminWaitingForPlayers);

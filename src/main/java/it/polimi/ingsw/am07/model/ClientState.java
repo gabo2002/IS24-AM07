@@ -38,6 +38,9 @@ public class ClientState {
     private List<Lobby> availableLobbies;
     private PlayerState playerState;
 
+
+    private String clientStringErrorMessage = null;
+
     public ClientState(Consumer<ClientState> onGameModelUpdate, String identity) {
         gameModel = null;
         lobbyModel = null;
@@ -97,6 +100,16 @@ public class ClientState {
 
     public String getIdentity() {
         return identity;
+    }
+
+    public void setClientStringErrorMessage(String clientStringErrorMessage) {
+        this.clientStringErrorMessage = clientStringErrorMessage;
+    }
+
+    public String getClientStringErrorMessage() {
+        String returnMessage = clientStringErrorMessage;
+        clientStringErrorMessage = null;
+        return returnMessage;
     }
 
     @Override

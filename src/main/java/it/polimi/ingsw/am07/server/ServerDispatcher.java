@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.server;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
@@ -177,13 +178,15 @@ public class ServerDispatcher extends Dispatcher {
 
         Lobby lobby = lobbies.get(lobbyId);
         if (lobby == null) {
-            //TODO: Maybe the lobby has already been migrated to a game, we should notify the client
-            throw new IllegalArgumentException("Lobby not found");
+            ErrorAction errorAction = new ErrorAction("Error: Lobby not found");
+            listener.notify(errorAction);
+            return null;
         }
 
         if(lobby.getPlayers().size() >= 4) {
-            //TODO: Notify the client that the lobby is full
-            throw new IllegalArgumentException("Lobby is full");
+            ErrorAction errorAction = new ErrorAction("Error: Lobby is full");
+            listener.notify(errorAction);
+            return null;
         }
 
         try {
@@ -192,8 +195,11 @@ public class ServerDispatcher extends Dispatcher {
             PlayerJoinAction action = new PlayerJoinAction(nickname, listener.getIdentity(), lobbyId);
             listener.notify(action);
         } catch(IllegalArgumentException e) {
-            //TODO: Notify the client that the nickname is already taken
+            ErrorAction errorAction = new ErrorAction("Error: Nickname already taken");
+            listener.notify(errorAction);
+            return null;
         }
+
         //Migrate the listener from OutOfLobbyController to LobbyController
         listenerDispatchers.put(listener.getIdentity(), lobbyControllers.get(lobby));
         lobbyControllers.get(lobby).registerNewListener(listener);
