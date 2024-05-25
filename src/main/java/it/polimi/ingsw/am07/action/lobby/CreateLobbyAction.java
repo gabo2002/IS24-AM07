@@ -41,7 +41,7 @@ public class CreateLobbyAction extends PlayerAction {
     // TODO: change to void
     public boolean execute(OutOfLobbyModel outOfLobbyModel) {
         outOfLobbyModel.setNewLobbyCreated(true);
-        outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
+        outOfLobbyModel.setPlayerNickname(getPlayerNickname());
         return false;
     }
 
@@ -59,6 +59,7 @@ public class CreateLobbyAction extends PlayerAction {
 
         state.setLobbyModel(createdLobby);
         state.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
+        state.notifyGameModelUpdate();
         return false;
     }
 

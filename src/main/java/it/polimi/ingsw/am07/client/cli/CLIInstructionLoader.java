@@ -41,6 +41,7 @@ import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
@@ -337,6 +338,17 @@ public class CLIInstructionLoader {
 
             Action startGameAction = new GameStartAction(nickname, clientState.getIdentity());
             dispatcher.execute(startGameAction);
+        });
+
+        instructionsMap.put(Instruction.SHOW_LOBBY_PLAYER, (ClientState clientState, Controller dispatcher) ->
+        {
+            List<LobbyPlayer> players = clientState.getLobbyModel().getPlayers();
+            System.out.println("Players:");
+
+            for (int i = 0; i < players.size(); i++) {
+                System.out.println((i + 1) + " - " + players.get(i).getNickname());
+            }
+
         });
     }
 

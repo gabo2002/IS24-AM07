@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.server;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
+import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
@@ -176,10 +177,23 @@ public class ServerDispatcher extends Dispatcher {
 
         Lobby lobby = lobbies.get(lobbyId);
         if (lobby == null) {
+            //TODO: Maybe the lobby has already been migrated to a game, we should notify the client
             throw new IllegalArgumentException("Lobby not found");
         }
 
-        lobby.addNewPlayer(nickname);
+        if(lobby.getPlayers().size() >= 4) {
+            //TODO: Notify the client that the lobby is full
+            throw new IllegalArgumentException("Lobby is full");
+        }
+
+        try {
+            lobby.addNewPlayer(nickname);
+            //Notify the listener
+            PlayerJoinAction action = new PlayerJoinAction(nickname, listener.getIdentity(), lobbyId);
+            listener.notify(action);
+        } catch(IllegalArgumentException e) {
+            //TODO: Notify the client that the nickname is already taken
+        }
         lobbyControllers.get(lobby).registerNewListener(listener);
         return null;
     }

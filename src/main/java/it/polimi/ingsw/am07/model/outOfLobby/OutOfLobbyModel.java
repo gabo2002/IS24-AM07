@@ -34,7 +34,7 @@ public class OutOfLobbyModel {
 
     private UUID lobbyId;
 
-    private String firstPlayerNickname;
+    private String playerNickname;
 
     private Collection<Lobby> lobbies;
 
@@ -50,12 +50,12 @@ public class OutOfLobbyModel {
         isNewLobbyCreated = newLobbyCreated;
     }
 
-    public String getFirstPlayerNickname() {
-        return firstPlayerNickname;
+    public String getPlayerNickname() {
+        return playerNickname;
     }
 
-    public void setFirstPlayerNickname(String firstPlayerNickname) {
-        this.firstPlayerNickname = firstPlayerNickname;
+    public void setPlayerNickname(String playerNickname) {
+        this.playerNickname = playerNickname;
     }
 
     public void setLobbyId(UUID lobbyId) {

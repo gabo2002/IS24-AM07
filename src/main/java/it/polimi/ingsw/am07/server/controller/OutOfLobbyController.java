@@ -78,13 +78,13 @@ public class OutOfLobbyController extends Dispatcher {
         if (outOfLobbyModel.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
-            migrateToLobby.accept(listener, outOfLobbyModel.getFirstPlayerNickname());
+            migrateToLobby.accept(listener, outOfLobbyModel.getPlayerNickname());
             listeners.remove(listener);
         } else if (outOfLobbyModel.getLobbyId() != null) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             //devo migrare il listener in una lobby esistente
-            migratoToExistingLobby.apply(listener, outOfLobbyModel.getFirstPlayerNickname(), outOfLobbyModel.getLobbyId());
+            migratoToExistingLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getLobbyId());
 
         }
     }

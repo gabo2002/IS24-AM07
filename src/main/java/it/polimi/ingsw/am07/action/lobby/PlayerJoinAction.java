@@ -48,6 +48,8 @@ package it.polimi.ingsw.am07.action.lobby;
 
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 
 import java.util.UUID;
@@ -78,7 +80,7 @@ public class PlayerJoinAction extends PlayerAction {
     // TODO: change to void
     public boolean execute(OutOfLobbyModel outOfLobbyModel) {
         outOfLobbyModel.setNewLobbyCreated(false);
-        outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
+        outOfLobbyModel.setPlayerNickname(getPlayerNickname());
         outOfLobbyModel.setLobbyId(lobbyId);
         return false;
     }
@@ -86,11 +88,13 @@ public class PlayerJoinAction extends PlayerAction {
     /**
      * Reflect the action on the client state.
      *
-     * @param outOfLobbyModel the lobby model
+     * @param state the client state
      * @return true if the action executed successfully, false otherwise
      */
-    public boolean reflect(OutOfLobbyModel outOfLobbyModel) {
-        return execute(outOfLobbyModel);
+    public boolean reflect(ClientState state) {
+        state.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
+        state.notifyGameModelUpdate();
+        return false;
     }
 
     @Override
