@@ -29,6 +29,7 @@ import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
@@ -173,7 +174,7 @@ public class ServerDispatcher extends Dispatcher {
         gameController.execute(new GameStateSyncAction(game));
     }
 
-    private synchronized Void migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId) {
+    private synchronized Void migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId, Pawn playerPawn) {
         LOGGER.debug("Migrating to existing lobby");
 
         Lobby lobby = lobbies.get(lobbyId);
@@ -183,7 +184,7 @@ public class ServerDispatcher extends Dispatcher {
             return null;
         }
 
-        if(lobby.getPlayers().size() >= 4) {
+        if (lobby.getPlayers().size() >= 4) {
             ErrorAction errorAction = new ErrorAction("Error: Lobby is full");
             listener.notify(errorAction);
             return null;
@@ -194,8 +195,8 @@ public class ServerDispatcher extends Dispatcher {
             //Notify the listener
             PlayerJoinAction action = new PlayerJoinAction(nickname, listener.getIdentity(), lobbyId);
             listener.notify(action);
-        } catch(IllegalArgumentException e) {
-            ErrorAction errorAction = new ErrorAction("Error: Nickname already taken");
+        } catch (IllegalArgumentException e) {
+            ErrorAction errorAction = new ErrorAction(e.getMessage());
             listener.notify(errorAction);
             return null;
         }
@@ -206,7 +207,7 @@ public class ServerDispatcher extends Dispatcher {
         return null;
     }
 
-    private synchronized void migrateToLobby(Listener listener, String firstPlayerNickname) {
+    private synchronized Void migrateToLobby(Listener listener, String firstPlayerNickname, Pawn playerPawn) {
         LOGGER.debug("Migrating to lobby");
 
         // Create a new lobby
@@ -214,7 +215,7 @@ public class ServerDispatcher extends Dispatcher {
         LobbyController lobbyController = new LobbyController(lobby, this::migrateLobbyToGame);
 
         //Notify the listener
-        CreateLobbyAction action = new CreateLobbyAction(firstPlayerNickname, listener.getIdentity());
+        CreateLobbyAction action = new CreateLobbyAction(firstPlayerNickname, listener.getIdentity(), playerPawn);
         action.setCreatedLobby(lobby);
         listener.notify(action);
 
@@ -225,11 +226,12 @@ public class ServerDispatcher extends Dispatcher {
         lobbies.put(lobby.getId(), lobby);
 
         // Add the new player to the lobby
-        lobby.addNewPlayer(firstPlayerNickname);
+        lobby.addNewPlayer(firstPlayerNickname, playerPawn);
 
         listenerDispatchers.put(listener.getIdentity(), lobbyController);
         // Add the listener to the lobby
         lobbyController.registerNewListener(listener);
+        return null;
     }
 
 }

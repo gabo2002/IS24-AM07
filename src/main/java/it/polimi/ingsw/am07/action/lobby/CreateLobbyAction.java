@@ -26,22 +26,26 @@ package it.polimi.ingsw.am07.action.lobby;
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 
 public class CreateLobbyAction extends PlayerAction {
 
     private Lobby createdLobby;
+    private final Pawn color;
 
-    public CreateLobbyAction(String playerNickname, String identity) {
+    public CreateLobbyAction(String playerNickname, String identity, Pawn color) {
         super(playerNickname, identity);
+        this.color = color;
         createdLobby = null;
     }
 
-    // TODO: change to void
+
     public boolean execute(OutOfLobbyModel outOfLobbyModel) {
         outOfLobbyModel.setNewLobbyCreated(true);
         outOfLobbyModel.setPlayerNickname(getPlayerNickname());
+        outOfLobbyModel.setPlayerPawn(color);
         return false;
     }
 

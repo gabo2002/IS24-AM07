@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.server.controller;
 
 import it.polimi.ingsw.am07.action.DebuggingAction;
 import it.polimi.ingsw.am07.action.lobby.GameStartAction;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.MockListener;
 import org.junit.jupiter.api.Test;
@@ -81,9 +82,9 @@ class LobbyControllerTest {
         assertEquals(5, mockListener.getCalled().size());
         assertEquals(4, mockListener2.getCalled().size());
 
-        lobby.addNewPlayer("player1");
-        lobby.addNewPlayer("player2");
-        lobby.addNewPlayer("player3");
+        lobby.addNewPlayer("player1", Pawn.YELLOW);
+        lobby.addNewPlayer("player2", Pawn.BLUE);
+        lobby.addNewPlayer("player3", Pawn.RED);
 
         lobbyController.execute(new GameStartAction("player1","identity1"));
 

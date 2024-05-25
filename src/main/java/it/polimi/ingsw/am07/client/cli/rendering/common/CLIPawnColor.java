@@ -21,39 +21,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action.lobby;
+package it.polimi.ingsw.am07.client.cli.rendering.common;
 
-import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.model.game.Pawn;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
-import it.polimi.ingsw.am07.reactive.MockListener;
-import it.polimi.ingsw.am07.server.controller.LobbyController;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+public class CLIPawnColor {
 
-class PlayerQuitActionTest {
-
-    @Test
-    void test() {
-        Lobby lobby = new Lobby();
-        LobbyController lobbyController = new LobbyController(lobby, (l) -> {
-        });
-
-        MockListener listener = new MockListener();
-
-        lobbyController.registerNewListener(listener);
-
-        assertEquals(1, listener.getCalled().size());
-
-        lobby.addNewPlayer("player1", Pawn.BLUE);
-
-        Action action = new PlayerQuitAction("player1", "identity");
-
-        lobbyController.execute(action);
-
-        assertEquals(0, lobby.getPlayerCount());
-        assertEquals(2, listener.getCalled().size());
+    public static String pawnToColor(Pawn pawn) {
+        return switch (pawn) {
+            case BLACK -> CLIColor.BLACK.getCode();
+            case RED -> CLIColor.RED.getCode();
+            case YELLOW -> CLIColor.YELLOW.getCode();
+            case BLUE -> CLIColor.BLUE.getCode();
+            case GREEN -> CLIColor.GREEN.getCode();
+            default -> CLIColor.WHITE.getCode();
+        };
     }
-
 }

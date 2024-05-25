@@ -23,8 +23,9 @@
 
 package it.polimi.ingsw.am07.model;
 
-// TODO: DEFINIRE ALTRI STATE NECESSARI
 public enum PlayerState {
+
+    SELECTING_STARTER_CARD_SIDE,
     PLACING_CARD,
     PICKING_CARD,
     SLEEPING,

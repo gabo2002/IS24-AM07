@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
@@ -70,9 +71,9 @@ class NetworkJsonSerializerTest {
         NetworkJsonSerializer networkJsonSerializer = NetworkJsonSerializer.getInstance();
 
         Lobby lobby = new Lobby();
-        lobby.addNewPlayer("test1");
-        lobby.addNewPlayer("test2");
-        lobby.addNewPlayer("test3");
+        lobby.addNewPlayer("test1", Pawn.YELLOW);
+        lobby.addNewPlayer("test2", Pawn.BLUE);
+        lobby.addNewPlayer("test3", Pawn.GREEN);
         Game game = new Game.Factory().fromLobby(lobby).build();
 
         assertDoesNotThrow(() -> {

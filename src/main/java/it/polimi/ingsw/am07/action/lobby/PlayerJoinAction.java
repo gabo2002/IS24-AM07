@@ -50,6 +50,7 @@ package it.polimi.ingsw.am07.action.lobby;
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 
 import java.util.UUID;
@@ -60,6 +61,16 @@ import java.util.UUID;
 public class PlayerJoinAction extends PlayerAction {
 
     private final UUID lobbyId;
+    private final Pawn color;
+
+    /**
+     * Constructor.
+     */
+    public PlayerJoinAction(String playerNickname, String identity, UUID lobbyId, Pawn color) {
+        super(playerNickname, identity);
+        this.lobbyId = lobbyId;
+        this.color = color;
+    }
 
     /**
      * Constructor.
@@ -69,6 +80,7 @@ public class PlayerJoinAction extends PlayerAction {
     public PlayerJoinAction(String playerNickname, String identity, UUID lobbyId) {
         super(playerNickname, identity);
         this.lobbyId = lobbyId;
+        this.color = null;
     }
 
     /**
@@ -77,10 +89,10 @@ public class PlayerJoinAction extends PlayerAction {
      * @param outOfLobbyModel the outOfLobbyModel model
      * @return true if the action was successful, false otherwise
      */
-    // TODO: change to void
     public boolean execute(OutOfLobbyModel outOfLobbyModel) {
         outOfLobbyModel.setNewLobbyCreated(false);
         outOfLobbyModel.setPlayerNickname(getPlayerNickname());
+        outOfLobbyModel.setPlayerPawn(color);
         outOfLobbyModel.setLobbyId(lobbyId);
         return false;
     }

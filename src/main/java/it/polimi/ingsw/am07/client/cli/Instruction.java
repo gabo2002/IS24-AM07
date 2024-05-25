@@ -30,7 +30,6 @@ public enum Instruction {
 
     CREATE_LOBBY("create_lobby"),
     JOIN_LOBBY("join_lobby"),
-    SELECT_COLOR("select_color"),
     SELECT_CARD("select_card"),
     PLACE_CARD("place_card"),
     PICK_CARD("pick_card"),

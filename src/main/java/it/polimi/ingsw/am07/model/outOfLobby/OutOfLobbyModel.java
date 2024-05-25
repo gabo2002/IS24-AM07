@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.model.outOfLobby;
 
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 import java.util.Collection;
@@ -35,6 +36,8 @@ public class OutOfLobbyModel {
     private UUID lobbyId;
 
     private String playerNickname;
+
+    private Pawn playerPawn;
 
     private Collection<Lobby> lobbies;
 
@@ -56,6 +59,14 @@ public class OutOfLobbyModel {
 
     public void setPlayerNickname(String playerNickname) {
         this.playerNickname = playerNickname;
+    }
+
+    public Pawn getPlayerPawn() {
+        return playerPawn;
+    }
+
+    public void setPlayerPawn(Pawn playerPawn) {
+        this.playerPawn = playerPawn;
     }
 
     public void setLobbyId(UUID lobbyId) {

@@ -21,39 +21,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.action.lobby;
+package it.polimi.ingsw.am07.utils.multipleFunction;
 
-import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.model.game.Pawn;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
-import it.polimi.ingsw.am07.reactive.MockListener;
-import it.polimi.ingsw.am07.server.controller.LobbyController;
-import org.junit.jupiter.api.Test;
+import java.util.Objects;
+import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+@FunctionalInterface
+public interface TriFunction<A, B, C, R> {
 
-class PlayerQuitActionTest {
+    R apply(A a, B b, C c);
 
-    @Test
-    void test() {
-        Lobby lobby = new Lobby();
-        LobbyController lobbyController = new LobbyController(lobby, (l) -> {
-        });
-
-        MockListener listener = new MockListener();
-
-        lobbyController.registerNewListener(listener);
-
-        assertEquals(1, listener.getCalled().size());
-
-        lobby.addNewPlayer("player1", Pawn.BLUE);
-
-        Action action = new PlayerQuitAction("player1", "identity");
-
-        lobbyController.execute(action);
-
-        assertEquals(0, lobby.getPlayerCount());
-        assertEquals(2, listener.getCalled().size());
+    default <V> TriFunction<A, B, C, V> andThen(
+            Function<? super R, ? extends V> after) {
+        Objects.requireNonNull(after);
+        return (A a, B b, C c) -> after.apply(apply(a, b, c));
     }
-
 }

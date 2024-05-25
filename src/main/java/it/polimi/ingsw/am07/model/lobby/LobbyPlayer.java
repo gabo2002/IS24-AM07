@@ -47,6 +47,11 @@ public class LobbyPlayer implements Serializable {
         this.playerPawn = null;
     }
 
+    public LobbyPlayer(String nickname, Pawn playerPawn) {
+        this.nickname = nickname;
+        this.playerPawn = playerPawn;
+    }
+
     /**
      * Retrieves the nickname of the player.
      *

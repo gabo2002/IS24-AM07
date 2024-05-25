@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.model.lobby;
 
+import it.polimi.ingsw.am07.model.game.Pawn;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,15 +86,19 @@ public class Lobby implements Serializable {
      * @param nickname The nickname of the player to add.
      * @throws IllegalArgumentException If the provided nickname is already taken.
      */
-    public LobbyPlayer addNewPlayer(String nickname) throws IllegalArgumentException {
+    public LobbyPlayer addNewPlayer(String nickname, Pawn pawn) throws IllegalArgumentException {
         if (state == LobbyState.FULL) {
             throw new IllegalStateException("Lobby is full");
         }
 
-        LobbyPlayer player = new LobbyPlayer(nickname);
+        LobbyPlayer player = new LobbyPlayer(nickname, pawn);
 
         if (players.contains(player)) {
             throw new IllegalArgumentException("Nickname already taken");
+        }
+
+        if (players.stream().anyMatch(p -> p.getPlayerPawn().equals(pawn))) {
+            throw new IllegalArgumentException("Pawn already taken");
         }
 
         players.add(player);
@@ -154,6 +160,13 @@ public class Lobby implements Serializable {
     public void startGame() throws IllegalStateException {
         if (players.size() < 2) {
             throw new IllegalStateException("Not enough players to start the game");
+        }
+
+        // Everyone should have set their pawns
+        for (LobbyPlayer player : players) {
+            if (player.getPlayerPawn() == null) {
+                throw new IllegalStateException("Not all players have set their pawns");
+            }
         }
 
         state = LobbyState.READY_TO_START;

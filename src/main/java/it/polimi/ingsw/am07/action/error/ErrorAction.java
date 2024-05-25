@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.action.error;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.ClientState;
-import it.polimi.ingsw.am07.model.game.Game;
 
 public class ErrorAction extends Action {
 
@@ -45,7 +44,6 @@ public class ErrorAction extends Action {
         clientState.notifyGameModelUpdate();
         return false;
     }
-
 
 
 }

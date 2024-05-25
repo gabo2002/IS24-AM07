@@ -54,7 +54,7 @@ public class CLI {
     private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
     private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
     private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
-    private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.QUIT,Instruction.SHOW_LOBBY_PLAYER);
+    private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
     private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(Instruction.START_GAME, Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
 
     public CLI() {
@@ -128,7 +128,7 @@ public class CLI {
 
         String error = clientState.getClientStringErrorMessage();
 
-        if(error != null) {
+        if (error != null) {
             System.out.println(error);
         }
 

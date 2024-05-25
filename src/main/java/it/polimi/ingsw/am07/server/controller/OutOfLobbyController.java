@@ -24,27 +24,28 @@
 package it.polimi.ingsw.am07.server.controller;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
-import it.polimi.ingsw.am07.utils.trifunction.TriFunction;
+import it.polimi.ingsw.am07.utils.multipleFunction.QuadFunction;
+import it.polimi.ingsw.am07.utils.multipleFunction.TriFunction;
 
 import java.util.UUID;
-import java.util.function.BiConsumer;
 
 public class OutOfLobbyController extends Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(OutOfLobbyController.class);
     private final OutOfLobbyModel outOfLobbyModel;
-    private final BiConsumer<Listener, String> migrateToLobby;
-    private final TriFunction<Listener, String, UUID, Void> migratoToExistingLobby;
+    private final TriFunction<Listener, String, Pawn, Void> migrateToLobby;
+    private final QuadFunction<Listener, String, UUID, Pawn, Void> migratoToExistingLobby;
 
 
-    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, BiConsumer<Listener, String> migrateToLobby, TriFunction<Listener, String, UUID, Void> migratoToExistingLobby) {
+    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, TriFunction<Listener, String, Pawn, Void> migrateToLobby, QuadFunction<Listener, String, UUID, Pawn, Void> migrateToExistingLobby) {
         this.outOfLobbyModel = outOfLobbyModel;
         this.migrateToLobby = migrateToLobby;
-        this.migratoToExistingLobby = migratoToExistingLobby;
+        this.migratoToExistingLobby = migrateToExistingLobby;
     }
 
     @Override
@@ -71,13 +72,13 @@ public class OutOfLobbyController extends Dispatcher {
         if (outOfLobbyModel.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
-            migrateToLobby.accept(listener, outOfLobbyModel.getPlayerNickname());
+            migrateToLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getPlayerPawn());
             listeners.remove(listener);
         } else if (outOfLobbyModel.getLobbyId() != null) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             //I have to migrate the player to an existing lobby
-            migratoToExistingLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getLobbyId());
+            migratoToExistingLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getLobbyId(), outOfLobbyModel.getPlayerPawn());
             //Remove the listener from the out of lobby controller
             listeners.remove(listener);
         }

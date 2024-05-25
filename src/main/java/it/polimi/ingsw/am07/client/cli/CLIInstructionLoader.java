@@ -31,6 +31,8 @@ import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
@@ -216,7 +218,17 @@ public class CLIInstructionLoader {
                 return;
             }
 
-            Action action = new CreateLobbyAction(nickname, clientState.getIdentity());
+            List<Pawn> pawns = new ArrayList<>(List.of(Pawn.values()));
+            pawns.remove(Pawn.BLACK);
+            System.out.println("Selection your PAWN Color: ");
+            SelectableMenu<Pawn> pawnSelectableMenu = new SelectableMenu<>(pawns, scanner);
+            try {
+                pawnSelectableMenu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
+
+            Action action = new CreateLobbyAction(nickname, clientState.getIdentity(), pawnSelectableMenu.getSelectedOption());
             dispatcher.execute(action);
         });
 
@@ -247,25 +259,27 @@ public class CLIInstructionLoader {
                 return;
             }
 
-            //Sending join lobby packet
-            Action action = new PlayerJoinAction(nickname, clientState.getIdentity(), lobby.getId());
-            dispatcher.execute(action);
-        });
-
-        instructionsMap.put(Instruction.SELECT_COLOR, (ClientState clientState, Controller dispatcher) ->
-        {
-            System.out.println("Insert the color you want to play with:");
+            //Choosing the color
             List<Pawn> playerColors = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
             playerColors.remove(Pawn.BLACK);
-            SelectableMenu<Pawn> menu = new SelectableMenu<>(playerColors, scanner);
+
+            for (LobbyPlayer player : lobby.getPlayers()) {
+                System.out.println(player.getPlayerPawn());
+                playerColors.remove(player.getPlayerPawn());
+            }
+
+            System.out.println("Insert the color you want to play with:");
+            SelectableMenu<Pawn> colorMenu = new SelectableMenu<>(playerColors, scanner);
             try {
-                menu.show();
+                colorMenu.show();
             } catch (InterruptedException e) {
                 return;
             }
+            Pawn color = colorMenu.getSelectedOption();
 
-            int selectedColorIndex = menu.getSelectedOptionIndex();
-            //TODO i should send the selected color to the server
+            //Sending join lobby packet
+            Action action = new PlayerJoinAction(nickname, clientState.getIdentity(), lobby.getId(), color);
+            dispatcher.execute(action);
         });
 
         instructionsMap.put(Instruction.SHOW_HAND, (ClientState clientState, Controller dispatcher) ->
@@ -337,7 +351,10 @@ public class CLIInstructionLoader {
             System.out.println("Players:");
 
             for (int i = 0; i < players.size(); i++) {
+                //setting current Color
+                System.out.print(CLIPawnColor.pawnToColor(players.get(i).getPlayerPawn()));
                 System.out.println((i + 1) + " - " + players.get(i).getNickname());
+                System.out.print(CLIColor.RESET.getCode());
             }
 
         });

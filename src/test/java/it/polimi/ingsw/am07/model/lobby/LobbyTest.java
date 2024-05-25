@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.model.lobby;
 
+import it.polimi.ingsw.am07.model.game.Pawn;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,13 +41,13 @@ class LobbyTest {
 
         assertEquals(0, lobby.getPlayerCount());
 
-        lobby.addNewPlayer("player1");
+        lobby.addNewPlayer("player1", Pawn.BLUE);
         assertEquals(1, lobby.getPlayerCount());
 
-        lobby.addNewPlayer("player2");
+        lobby.addNewPlayer("player2",Pawn.YELLOW);
         assertEquals(2, lobby.getPlayerCount());
 
-        lobby.addNewPlayer("player3");
+        lobby.addNewPlayer("player3",Pawn.RED);
         assertEquals(3, lobby.getPlayerCount());
     }
 
@@ -54,29 +55,29 @@ class LobbyTest {
     void addNewPlayer() {
         Lobby lobby = new Lobby();
 
-        assertDoesNotThrow(() -> lobby.addNewPlayer("player1"));
+        assertDoesNotThrow(() -> lobby.addNewPlayer("player1",Pawn.YELLOW));
 
         assertEquals(1, lobby.getPlayerCount());
 
-        assertDoesNotThrow(() -> lobby.addNewPlayer("player2"));
+        assertDoesNotThrow(() -> lobby.addNewPlayer("player2",Pawn.RED));
 
         assertEquals(2, lobby.getPlayerCount());
 
-        assertThrows(IllegalArgumentException.class, () -> lobby.addNewPlayer("player1"));
+        assertThrows(IllegalArgumentException.class, () -> lobby.addNewPlayer("player1",Pawn.YELLOW));
 
         assertEquals(2, lobby.getPlayerCount());
 
-        LobbyPlayer test = lobby.addNewPlayer("player3");
+        LobbyPlayer test = lobby.addNewPlayer("player3",Pawn.BLUE);
 
         assertEquals(3, lobby.getPlayerCount());
         assertEquals("player3", test.getNickname());
         assertEquals(test, lobby.getPlayers().get(2));
 
-        assertDoesNotThrow(() -> lobby.addNewPlayer("player4"));
+        assertDoesNotThrow(() -> lobby.addNewPlayer("player4",Pawn.GREEN));
         assertEquals(4, lobby.getPlayerCount());
         assertTrue(lobby.isFull());
 
-        assertThrows(IllegalStateException.class, () -> lobby.addNewPlayer("player5"));
+        assertThrows(IllegalStateException.class, () -> lobby.addNewPlayer("player5",Pawn.BLUE));
         assertEquals(4, lobby.getPlayerCount());
         assertTrue(lobby.isFull());
     }
@@ -85,17 +86,17 @@ class LobbyTest {
     void removePlayer() {
         Lobby lobby = new Lobby();
 
-        LobbyPlayer player1 = lobby.addNewPlayer("player1");
-        LobbyPlayer player2 = lobby.addNewPlayer("player2");
-        LobbyPlayer player3 = lobby.addNewPlayer("player3");
-        LobbyPlayer player4 = lobby.addNewPlayer("player4");
+        LobbyPlayer player1 = lobby.addNewPlayer("player1",Pawn.YELLOW);
+        LobbyPlayer player2 = lobby.addNewPlayer("player2", Pawn.BLUE);
+        LobbyPlayer player3 = lobby.addNewPlayer("player3", Pawn.RED);
+        LobbyPlayer player4 = lobby.addNewPlayer("player4", Pawn.GREEN);
 
         assertEquals(4, lobby.getPlayerCount());
 
         assertDoesNotThrow(() -> lobby.removePlayer("player1"));
         assertEquals(3, lobby.getPlayerCount());
 
-        assertDoesNotThrow(() -> lobby.addNewPlayer("player1"));
+        assertDoesNotThrow(() -> lobby.addNewPlayer("player1",Pawn.YELLOW));
         assertEquals(4, lobby.getPlayerCount());
 
         assertDoesNotThrow(() -> lobby.removePlayer("player1"));

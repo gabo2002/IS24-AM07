@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.MockListener;
 import it.polimi.ingsw.am07.server.controller.LobbyController;
@@ -44,9 +45,9 @@ class GameStartActionTest {
         lobbyController.registerNewListener(listener);
         assertEquals(1, listener.getCalled().size());
 
-        lobby.addNewPlayer("player1");
-        lobby.addNewPlayer("player2");
-        lobby.addNewPlayer("player3");
+        lobby.addNewPlayer("player1", Pawn.BLUE);
+        lobby.addNewPlayer("player2", Pawn.RED);
+        lobby.addNewPlayer("player3", Pawn.YELLOW);
 
         Action action = new GameStartAction("player1","identity1");
         lobbyController.execute(action);
