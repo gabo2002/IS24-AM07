@@ -56,6 +56,7 @@ public class CLI {
     private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
     private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
     private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(Instruction.START_GAME, Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
+    private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(Instruction.SELECT_CARD, Instruction.SHOW_HAND, Instruction.SHOW_FIELD, Instruction.QUIT);
 
     public CLI() {
         renderExecutor = Executors.newSingleThreadExecutor();
@@ -150,6 +151,9 @@ public class CLI {
                 break;
             case SLEEPING:
                 renderState(clientState, availableInstructionsSleeping);
+                break;
+            case SELECTING_STARTER_CARD_SIDE:
+                renderState(clientState, availableInstructionsSelectingStarterCardSide);
                 break;
             default:
                 System.out.println("Invalid state");

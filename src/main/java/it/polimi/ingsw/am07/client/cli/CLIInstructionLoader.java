@@ -36,6 +36,7 @@ import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.starterCard.CLIStarterCardRepresentation;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.game.Player;
@@ -217,7 +218,7 @@ public class CLIInstructionLoader {
             } catch (InterruptedException e) {
                 return;
             }
-
+            clientState.setNickname(nickname);
             List<Pawn> pawns = new ArrayList<>(List.of(Pawn.values()));
             pawns.remove(Pawn.BLACK);
             System.out.println("Selection your PAWN Color: ");
@@ -259,6 +260,7 @@ public class CLIInstructionLoader {
                 return;
             }
 
+            clientState.setNickname(nickname);
             //Choosing the color
             List<Pawn> playerColors = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
             playerColors.remove(Pawn.BLACK);
@@ -356,6 +358,40 @@ public class CLIInstructionLoader {
                 System.out.println((i + 1) + " - " + players.get(i).getNickname());
                 System.out.print(CLIColor.RESET.getCode());
             }
+
+        });
+
+        instructionsMap.put(Instruction.SELECT_CARD, (ClientState clientState, Controller dispatcher) ->
+        {
+            // 1. Select Starter Card Side
+            System.out.println(clientState.getGameModel().getSelf());
+            GameCard card = clientState.getGameModel().getSelf().getStarterCard();
+
+            //display the card
+            System.out.println("Starter Card: ");
+            CLIStarterCardRepresentation representation = new CLIStarterCardRepresentation(card);
+            System.out.println(representation.render());
+
+            List<String> options = List.of("Front", "Back");
+            SelectableMenu<String> menu = new SelectableMenu<>(options, scanner);
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
+            int choice = menu.getSelectedOptionIndex();
+
+            Side side = switch (choice) {
+                case 0 -> card.front();
+                case 1 -> card.back();
+                default -> null;
+            };
+
+            System.out.println("Selected side: " + choice);
+
+            //TODO action bla bla bla
+
+            // 2. Select Objective Card
 
         });
     }

@@ -33,6 +33,7 @@ import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.action.server.GameStateStartAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
@@ -96,6 +97,7 @@ public class NetworkJsonSerializer {
                 .registerSubclass(CreateLobbyAction.class)
                 .registerSubclass(PlayerJoinAction.class)
                 .registerSubclass(ErrorAction.class)
+                .registerSubclass(GameStateStartAction.class)
                 .registerSubclass(DebuggingAction.class);
 
         UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();

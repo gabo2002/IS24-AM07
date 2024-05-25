@@ -48,7 +48,7 @@ public class Game implements Serializable {
 
     private final Deck deck;
 
-    private final String selfNickname;
+    private String selfNickname;
 
     private final ObjectiveCard[] commonObjectives; //only 2 cards
 
@@ -119,6 +119,19 @@ public class Game implements Serializable {
      */
     public String getSelfNickname() {
         return selfNickname;
+    }
+
+    /**
+     * This method sets the nickname of the current player.
+     * <strong>SHOULD NEVER BE CALLED IF NOT BY THE COMPANION FACTORY!</strong>
+     * <p>
+     * This method is used to set the nickname of the player associated with the current client.
+     * It is called by the companion factory class.
+     * <strong>SHOULD NEVER BE CALLED IF NOT BY THE COMPANION FACTORY!</strong>
+     * <p>
+     */
+    public void setSelfNickname(String selfNickname) {
+        this.selfNickname = selfNickname;
     }
 
     /**

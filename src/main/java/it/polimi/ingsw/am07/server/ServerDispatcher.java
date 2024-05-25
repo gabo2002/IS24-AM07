@@ -27,7 +27,7 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
-import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
+import it.polimi.ingsw.am07.action.server.GameStateStartAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
@@ -171,7 +171,7 @@ public class ServerDispatcher extends Dispatcher {
         lobbies.remove(lobby.getId());
 
         // Execute a game sync action to notify the listeners of the new game
-        gameController.execute(new GameStateSyncAction(game));
+        gameController.execute(new GameStateStartAction(game));
     }
 
     private synchronized Void migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId, Pawn playerPawn) {

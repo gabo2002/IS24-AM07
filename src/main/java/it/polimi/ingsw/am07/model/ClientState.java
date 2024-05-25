@@ -32,6 +32,8 @@ import java.util.function.Consumer;
 public class ClientState {
 
     private String identity;
+
+    private String nickname;
     private final Consumer<ClientState> onGameModelUpdate;
     private Game gameModel;
     private Lobby lobbyModel;
@@ -44,6 +46,7 @@ public class ClientState {
     public ClientState(Consumer<ClientState> onGameModelUpdate, String identity) {
         gameModel = null;
         lobbyModel = null;
+        nickname = null;
         playerState = PlayerState.SELECTING_LOBBY;
         this.identity = identity;
         this.onGameModelUpdate = onGameModelUpdate;
@@ -100,6 +103,14 @@ public class ClientState {
 
     public String getIdentity() {
         return identity;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 
     public void setClientStringErrorMessage(String clientStringErrorMessage) {
