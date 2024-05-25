@@ -194,6 +194,8 @@ public class ServerDispatcher extends Dispatcher {
         } catch(IllegalArgumentException e) {
             //TODO: Notify the client that the nickname is already taken
         }
+        //Migrate the listener from OutOfLobbyController to LobbyController
+        listenerDispatchers.put(listener.getIdentity(), lobbyControllers.get(lobby));
         lobbyControllers.get(lobby).registerNewListener(listener);
         return null;
     }
@@ -219,6 +221,7 @@ public class ServerDispatcher extends Dispatcher {
         // Add the new player to the lobby
         lobby.addNewPlayer(firstPlayerNickname);
 
+        listenerDispatchers.put(listener.getIdentity(), lobbyController);
         // Add the listener to the lobby
         lobbyController.registerNewListener(listener);
     }

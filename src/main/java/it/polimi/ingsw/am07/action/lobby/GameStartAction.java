@@ -24,6 +24,8 @@
 package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 /**
@@ -63,12 +65,12 @@ public class GameStartAction extends PlayerAction {
     /**
      * Reflect the action.
      *
-     * @param lobbyModel the lobby model
+     * @param state the ClientState
      * @return true if the action executed successfully, false otherwise
      */
     @Override
-    public boolean reflect(Lobby lobbyModel) {
-        return execute(lobbyModel);
+    public boolean reflect(ClientState state) {
+        return false;
     }
 
     @Override

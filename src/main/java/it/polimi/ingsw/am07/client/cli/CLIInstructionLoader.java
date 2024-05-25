@@ -327,16 +327,7 @@ public class CLIInstructionLoader {
 
         instructionsMap.put(Instruction.START_GAME, (ClientState clientState, Controller dispatcher) ->
         {
-            //Selecting nickname
-            System.out.println("Insert your nickname:");
-            String nickname;
-            try {
-                nickname = scanner.getInput();
-            } catch (InterruptedException e) {
-                return;
-            }
-
-            Action startGameAction = new GameStartAction(nickname, clientState.getIdentity());
+            Action startGameAction = new GameStartAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
             dispatcher.execute(startGameAction);
         });
 

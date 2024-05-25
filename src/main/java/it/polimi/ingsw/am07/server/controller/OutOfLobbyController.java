@@ -64,16 +64,9 @@ public class OutOfLobbyController extends Dispatcher {
 
     @Override
     public synchronized void execute(Action action) {
-        LOGGER.debug("Executing action " + action.getIdentity() + " in " + Thread.currentThread().getName());
+        LOGGER.debug("Executing action " + action + " in " + Thread.currentThread().getName());
 
         action.execute(outOfLobbyModel);
-
-        /*
-        for (Listener listener : listeners) {
-            LOGGER.debug("Notifying listener " + listener + " with identity "+  listener.getIdentity() + " in " + Thread.currentThread().getName());
-            listener.notify(action);
-        }
-         */
 
         if (outOfLobbyModel.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
@@ -83,9 +76,10 @@ public class OutOfLobbyController extends Dispatcher {
         } else if (outOfLobbyModel.getLobbyId() != null) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
-            //devo migrare il listener in una lobby esistente
+            //I have to migrate the player to an existing lobby
             migratoToExistingLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getLobbyId());
-
+            //Remove the listener from the out of lobby controller
+            listeners.remove(listener);
         }
     }
 }
