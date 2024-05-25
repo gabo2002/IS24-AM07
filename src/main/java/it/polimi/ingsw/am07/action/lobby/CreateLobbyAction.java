@@ -58,7 +58,7 @@ public class CreateLobbyAction extends PlayerAction {
         }
 
         state.setLobbyModel(createdLobby);
-        state.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
+        state.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);
         state.notifyGameModelUpdate();
         return false;
     }
