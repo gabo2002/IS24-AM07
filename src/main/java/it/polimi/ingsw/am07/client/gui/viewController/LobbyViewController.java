@@ -21,47 +21,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07;
+package it.polimi.ingsw.am07.client.gui.viewController;
 
-import it.polimi.ingsw.am07.model.lobby.Lobby;
-import javafx.event.ActionEvent;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
-public class WelcomeViewController {
+public class LobbyViewController {
 
     @FXML
-    private Button create_lobby_btn;
-
+    private Label welcomeText;
     @FXML
-    protected void onLobbyBtnClick(ActionEvent event) {
-        Lobby lobby = new Lobby();
+    private TextField nicknameField;
 
-        loadScene(event);
+    private ClientState clientState;
+    private Controller controller;
+
+
+    public void init(ClientState clientState, Controller controller) {
+        this.clientState = clientState;
+        this.controller = controller;
+
+        // Bind the label to reflect the player state changes
+        updateView(clientState);
+        // clientState.onGameModelUpdate(this::updateView);
     }
 
-    @FXML
-    protected void loadScene(ActionEvent event) {
-        try {
-            // Carica la nuova scena
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("views/lobby-view.fxml"));
-            Parent root = fxmlLoader.load();
 
-            // Ottieni la finestra corrente tramite l'evento
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Imposta la nuova scena sulla finestra corrente
-            Scene scene = new Scene(root, 1500, 1000);
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void updateView(ClientState clientState) {
+        // Logic to update the GUI based on the new clientState
+        System.out.println("Lobby view, Client state updated: " + clientState);
+        // welcomeText.setText("Current Player State: " + clientState.getPlayerState());
+        // Additional GUI updates can go here
     }
 
 }

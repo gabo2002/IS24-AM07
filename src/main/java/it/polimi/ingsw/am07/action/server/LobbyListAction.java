@@ -21,60 +21,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model.outOfLobby;
+package it.polimi.ingsw.am07.action.server;
 
-import it.polimi.ingsw.am07.model.game.Pawn;
+import it.polimi.ingsw.am07.action.ServerAction;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
-import java.util.Collection;
-import java.util.UUID;
+import java.util.List;
 
-public class OutOfLobbyModel {
+public class LobbyListAction extends ServerAction {
 
-    private boolean isNewLobbyCreated = false;
+    private final List<Lobby> lobbies;
 
-    private UUID lobbyId;
-
-    private String playerNickname;
-
-    private Pawn playerPawn;
-
-    private Collection<Lobby> lobbies;
-
-    public OutOfLobbyModel(Collection<Lobby> lobbies) {
+    public LobbyListAction(List<Lobby> lobbies) {
         this.lobbies = lobbies;
     }
 
-    public boolean isNewLobbyCreated() {
-        return isNewLobbyCreated;
+    @Override
+    public boolean execute(Matchmaking matchmaking) {
+        return true;
     }
 
-    public void setNewLobbyCreated(boolean newLobbyCreated) {
-        isNewLobbyCreated = newLobbyCreated;
-    }
+    @Override
+    public boolean reflect(ClientState clientState) {
+        clientState.setLobbies(lobbies);
+        clientState.notifyGameModelUpdate();
 
-    public String getPlayerNickname() {
-        return playerNickname;
-    }
-
-    public void setPlayerNickname(String playerNickname) {
-        this.playerNickname = playerNickname;
-    }
-
-    public Pawn getPlayerPawn() {
-        return playerPawn;
-    }
-
-    public void setPlayerPawn(Pawn playerPawn) {
-        this.playerPawn = playerPawn;
-    }
-
-    public void setLobbyId(UUID lobbyId) {
-        this.lobbyId = lobbyId;
-    }
-
-    public UUID getLobbyId() {
-        return lobbyId;
+        return true;
     }
 
 }

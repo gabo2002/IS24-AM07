@@ -21,8 +21,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.server.controller;
+package it.polimi.ingsw.am07.client.gui.viewController;
 
-class GameControllerTest {
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
+public class LobbyBoxController {
+
+    @FXML
+    private Label lobby_name_box;
+
+    @FXML
+    private Label n_players;
+
+    @FXML
+    protected void setLobby_name_box(String name) {
+        lobby_name_box.setText(name);
+    }
+
+    @FXML
+    protected void setN_players(int n) {
+        n_players.setText(String.valueOf(n));
+    }
 }

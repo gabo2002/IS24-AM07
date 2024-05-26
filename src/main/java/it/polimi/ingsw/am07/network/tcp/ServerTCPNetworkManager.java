@@ -26,7 +26,10 @@ package it.polimi.ingsw.am07.network.tcp;
 import it.polimi.ingsw.am07.network.ServerNetworkManager;
 import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
-import it.polimi.ingsw.am07.network.packets.*;
+import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 import it.polimi.ingsw.am07.server.ServerDispatcher;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
@@ -125,8 +128,6 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                     break;
                 case HeartbeatNetworkPacket ignored:
                     break;
-                case ListLobbiesNetworkPacket ignored:
-                    break;
             }
             return true;
         } else {
@@ -168,9 +169,6 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
 
         new Thread(() -> {
             boolean connectionOpen = true;
-            // As the server, I need to send the list of open lobbies to the client
-            ListLobbiesNetworkPacket lobbiesNetworkPacket = new ListLobbiesNetworkPacket(dispatcher.getLobbies());
-            connection.send(lobbiesNetworkPacket);
 
             // As the server, we expect the first packet to be an identity packet
             IdentityNetworkPacket identityPacket = (IdentityNetworkPacket) connection.receive();
@@ -182,16 +180,11 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                 connectionList.add(connection);
             }
 
-
             while (connectionOpen) {
                 connectionOpen = checkConnection(connection);
                 // LOGGER.debug("Accepted connection from " + identityPacket.getIdentity());
             }
-
-
         }).start();
-
-
     }
 
 }

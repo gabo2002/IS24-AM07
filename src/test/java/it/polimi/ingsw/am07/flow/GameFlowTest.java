@@ -29,8 +29,6 @@ import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.server.Server;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
-
 public class GameFlowTest {
 
     @Test
@@ -57,9 +55,9 @@ public class GameFlowTest {
 
         ClientState clientState = new ClientState((ClientState state) -> {
             System.out.println("Received state update");
-            if(state.getLobbyModel() != null)
+            if (state.getLobbyModel() != null)
                 System.out.println("Player count: " + state.getLobbyModel().getPlayerCount());
-        },"client1");
+        }, "client1");
 
         ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
                 .withHostname("localhost")
@@ -86,7 +84,7 @@ public class GameFlowTest {
         ClientState clientState = new ClientState((ClientState state) -> {
             System.out.println("Received state update");
             System.out.println("Player count: " + state.getLobbyModel().getPlayerCount());
-        },"client2");
+        }, "client2");
 
         ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
                 .withHostname("localhost")

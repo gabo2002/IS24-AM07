@@ -24,8 +24,9 @@
 package it.polimi.ingsw.am07.server.controller;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.server.LobbyListAction;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.model.game.Pawn;
-import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
@@ -34,16 +35,18 @@ import it.polimi.ingsw.am07.utils.multipleFunction.TriFunction;
 
 import java.util.UUID;
 
-public class OutOfLobbyController extends Dispatcher {
+public class MatchmakingController extends Dispatcher {
 
+    private final AppLogger LOGGER = new AppLogger(MatchmakingController.class);
+    private final Matchmaking matchmaking;
     private final AppLogger LOGGER = new AppLogger(OutOfLobbyController.class);
     private final OutOfLobbyModel outOfLobbyModel;
     private final TriFunction<Listener, String, Pawn, Void> migrateToLobby;
     private final QuadFunction<Listener, String, UUID, Pawn, Void> migratoToExistingLobby;
 
 
-    public OutOfLobbyController(OutOfLobbyModel outOfLobbyModel, TriFunction<Listener, String, Pawn, Void> migrateToLobby, QuadFunction<Listener, String, UUID, Pawn, Void> migrateToExistingLobby) {
-        this.outOfLobbyModel = outOfLobbyModel;
+    public MatchmakingController(Matchmaking matchmaking, BiConsumer<Listener, String> migrateToLobby, TriFunction<Listener, String, UUID, Void> migratoToExistingLobby) {
+        this.matchmaking = matchmaking;
         this.migrateToLobby = migrateToLobby;
         this.migratoToExistingLobby = migrateToExistingLobby;
     }
@@ -54,6 +57,7 @@ public class OutOfLobbyController extends Dispatcher {
 
         listeners.add(listener);
 
+        listener.notify(new LobbyListAction(matchmaking.getLobbies()));
     }
 
     @Override
@@ -67,14 +71,17 @@ public class OutOfLobbyController extends Dispatcher {
     public synchronized void execute(Action action) {
         LOGGER.debug("Executing action " + action + " in " + Thread.currentThread().getName());
 
-        action.execute(outOfLobbyModel);
+        action.execute(matchmaking);
 
-        if (outOfLobbyModel.isNewLobbyCreated()) {
+        if (matchmaking.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             migrateToLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getPlayerPawn());
             listeners.remove(listener);
-        } else if (outOfLobbyModel.getLobbyId() != null) {
+
+            Action stateSyncAction = new LobbyListAction(matchmaking.getLobbies());
+            listeners.forEach(l -> l.notify(stateSyncAction));
+        } else if (matchmaking.getLobbyId() != null) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             //I have to migrate the player to an existing lobby

@@ -27,10 +27,11 @@ import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepr
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.utils.assets.GameResources;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CLIPlayableCardRepresentationTest {
 
@@ -39,9 +40,9 @@ public class CLIPlayableCardRepresentationTest {
 
         List<GameCard> cards = new ArrayList<>();
 
-        GameCard card1  = GameResources.getInstance().getGoldCards().getFirst();
-        GameCard card2  = GameResources.getInstance().getGoldCards().get(12);
-        GameCard card3  = GameResources.getInstance().getGoldCards().get(31);
+        GameCard card1 = GameResources.getInstance().getGoldCards().getFirst();
+        GameCard card2 = GameResources.getInstance().getGoldCards().get(12);
+        GameCard card3 = GameResources.getInstance().getGoldCards().get(31);
         GameCard res1 = GameResources.getInstance().getResourceCards().get(20);
         GameCard res2 = GameResources.getInstance().getResourceCards().get(31);
         GameCard res3 = GameResources.getInstance().getResourceCards().get(1);

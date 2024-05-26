@@ -39,12 +39,9 @@ import java.util.List;
  */
 public class SelectableMenu<T> {
     private final List<T> options;
-
+    private final ThreadInputReader scanner;
     private int selectedOption;
     private Terminal terminal;
-
-    private final ThreadInputReader scanner;
-
     private NonBlockingReader reader;
 
     /**

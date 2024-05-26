@@ -49,25 +49,25 @@ class GameStartActionTest {
         lobby.addNewPlayer("player2", "player2", Pawn.RED);
         lobby.addNewPlayer("player3", "player3", Pawn.YELLOW);
 
-        Action action = new GameStartAction("player1","identity1");
+        Action action = new GameStartAction("player1", "identity1");
         lobbyController.execute(action);
         assertTrue(lobby.readyToStart());
 
         lobby.removePlayer("player3");
         assertFalse(lobby.readyToStart());
 
-        action = new GameStartAction("player2","identity2");
+        action = new GameStartAction("player2", "identity2");
         lobbyController.execute(action);
         assertFalse(lobby.readyToStart());
 
-        action = new GameStartAction("player1","identity1");
+        action = new GameStartAction("player1", "identity1");
         lobbyController.execute(action);
         assertTrue(lobby.readyToStart());
 
         lobby.removePlayer("player2");
         assertFalse(lobby.readyToStart());
 
-        action = new GameStartAction("player1","identity1");
+        action = new GameStartAction("player1", "identity1");
         lobbyController.execute(action);
         assertFalse(lobby.readyToStart());
     }

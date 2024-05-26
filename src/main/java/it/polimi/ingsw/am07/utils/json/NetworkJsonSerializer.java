@@ -37,12 +37,16 @@ import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceStarterCardSideAction;
 import it.polimi.ingsw.am07.action.server.GameStateStartAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
+import it.polimi.ingsw.am07.action.server.LobbyListAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.card.PatternObjectiveCard;
 import it.polimi.ingsw.am07.model.game.card.ResourceObjectiveCard;
 import it.polimi.ingsw.am07.model.game.side.*;
-import it.polimi.ingsw.am07.network.packets.*;
+import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.IOException;
@@ -87,8 +91,7 @@ public class NetworkJsonSerializer {
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<NetworkPacket> networkPacketElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(NetworkPacket.class)
                 .registerSubclass(ActionNetworkPacket.class)
                 .registerSubclass(HeartbeatNetworkPacket.class)
-                .registerSubclass(IdentityNetworkPacket.class)
-                .registerSubclass(ListLobbiesNetworkPacket.class);
+                .registerSubclass(IdentityNetworkPacket.class);
 
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<Action> actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(Action.class)
                 .registerSubclass(GameStartAction.class)
@@ -98,6 +101,7 @@ public class NetworkJsonSerializer {
                 .registerSubclass(LobbyStateSyncAction.class)
                 .registerSubclass(CreateLobbyAction.class)
                 .registerSubclass(PlayerJoinAction.class)
+                .registerSubclass(LobbyListAction.class)
                 .registerSubclass(ErrorAction.class)
                 .registerSubclass(PlayerPlaceStarterCardSideAction.class)
                 .registerSubclass(PlayerInitialChoiceAction.class)

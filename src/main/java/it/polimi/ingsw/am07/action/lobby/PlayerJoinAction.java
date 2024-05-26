@@ -48,6 +48,7 @@ package it.polimi.ingsw.am07.action.lobby;
 
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Pawn;
@@ -86,21 +87,21 @@ public class PlayerJoinAction extends PlayerAction {
     /**
      * Execute the action.
      *
-     * @param outOfLobbyModel the outOfLobbyModel model
+     * @param matchmaking the outOfLobbyModel model
      * @return true if the action was successful, false otherwise
      */
-    public boolean execute(OutOfLobbyModel outOfLobbyModel) {
-        outOfLobbyModel.setNewLobbyCreated(false);
-        outOfLobbyModel.setPlayerNickname(getPlayerNickname());
-        outOfLobbyModel.setPlayerPawn(color);
-        outOfLobbyModel.setLobbyId(lobbyId);
+    public boolean execute(Matchmaking matchmaking) {
+        matchmaking.setNewLobbyCreated(false);
+        matchmaking.setFirstPlayerNickname(getPlayerNickname());
+        matchmaking.setPlayerPawn(color);
+        matchmaking.setLobbyId(lobbyId);
         return false;
     }
 
     /**
      * Reflect the action on the client state.
      *
-     * @param state the client state
+     * @param matchmaking the lobby model
      * @return true if the action executed successfully, false otherwise
      */
     public boolean reflect(ClientState state) {

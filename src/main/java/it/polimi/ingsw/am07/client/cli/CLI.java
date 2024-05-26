@@ -127,16 +127,7 @@ public class CLI {
     private void render(ClientState clientState) {
         PlayerState currentState = clientState.getPlayerState();
 
-        String error = clientState.getClientStringErrorMessage();
-
-        if (error != null) {
-            System.out.println(error);
-        }
-
         switch (currentState) {
-            case ADMIN_WAITING_FOR_PLAYERS:
-                renderState(clientState, availableInstructionAdminWaitingForPlayers);
-                break;
             case WAITING_FOR_PLAYERS:
                 renderState(clientState, availableInstructionsWaitingForPlayers);
                 break;
@@ -151,13 +142,6 @@ public class CLI {
                 break;
             case SLEEPING:
                 renderState(clientState, availableInstructionsSleeping);
-                break;
-            case SELECTING_STARTER_CARD_SIDE:
-                renderState(clientState, availableInstructionsSelectingStarterCardSide);
-                break;
-            case WAITING_FOR_GAME_START:
-                System.out.println("Waiting for game to start");
-                renderState(clientState, List.of(Instruction.QUIT));
                 break;
             default:
                 System.out.println("Invalid state");

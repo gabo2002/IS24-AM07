@@ -21,21 +21,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.network.packets;
+package it.polimi.ingsw.am07.client.gui.viewController;
 
-import it.polimi.ingsw.am07.model.lobby.Lobby;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
-import java.util.List;
+public class HelloController {
+    @FXML
+    private Label welcomeText;
+    @FXML
+    private TextField nicknameField;
 
-public final class ListLobbiesNetworkPacket extends NetworkPacket {
-
-    private final List<Lobby> lobbies;
-
-    public ListLobbiesNetworkPacket(List<Lobby> lobbies) {
-        this.lobbies = lobbies;
-    }
-
-    public List<Lobby> getLobbies() {
-        return lobbies;
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome " + nicknameField.getText());
     }
 }

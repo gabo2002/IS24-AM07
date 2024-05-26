@@ -24,14 +24,31 @@
 package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
+import it.polimi.ingsw.am07.client.gui.viewController.NetworkViewController;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 public class GUI extends javafx.application.Application {
+
+    private final Object lock = new Object();
+    private ClientState state;
+    private Stage stage;
+    private boolean shouldRender = false;
+
+    public GUI() {
+    }
 
     public void entrypoint() {
         launch();
@@ -39,13 +56,69 @@ public class GUI extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("views/network-view.fxml"));
+        //generate identifier
+        String identity = UUID.randomUUID().toString();
+        state = new ClientState(this::notifyRenderThread, identity);
+        //initialize the stage
+        this.stage = stage;
 
-        Scene scene = new Scene(loader.load(), 1500, 1000);
-        scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("css/welcome.css")).toExternalForm());
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/network-view.fxml"));
+        Parent root = loader.load();
+        NetworkViewController controller = loader.getController();
+        controller.init(state, identity);
+
+        Scene scene = new Scene(root, 1500, 1000);
+        scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
 
         stage.setScene(scene);
         stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> renderLoop()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    private void renderLoop() {
+        boolean rerender;
+
+        synchronized (lock) {
+            rerender = shouldRender;
+            shouldRender = false;
+        }
+
+        if (rerender) {
+            Platform.runLater(() -> render(state));
+        }
+    }
+
+    public void render(ClientState state) {
+        //Switch case to render the correct view based on the state
+        PlayerState playerState = state.getPlayerState();
+
+        switch (playerState) {
+            case SELECTING_LOBBY:
+                break;
+            case WAITING_FOR_PLAYERS:
+                FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(loader.load(), 1500, 1000);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.show();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + playerState);
+        }
+    }
+
+    private void notifyRenderThread(ClientState state) {
+        synchronized (lock) {
+            shouldRender = true;
+        }
     }
 
 }

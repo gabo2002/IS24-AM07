@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
 <!--
   ~ Codex Naturalis - Final Assignment for the Software Engineering Course
   ~ Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
@@ -29,38 +23,49 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="it.polimi.ingsw.am07.WelcomeViewController">
-   <Label layoutX="353.0" layoutY="225.0" text="Codex Naturalis" textFill="WHITE">
-      <font>
-         <Font name="Segoe UI Bold" size="30.0" />
-      </font>
-      <VBox.margin>
-         <Insets bottom="20.0" />
-      </VBox.margin>
-   </Label>
-   <Label text="Lobby disponibili" textFill="WHITE">
-      <font>
-         <Font name="Segoe UI" size="15.0" />
-      </font>
-      <VBox.margin>
-         <Insets top="20.0" />
-      </VBox.margin>
-   </Label>
-   <ListView fx:id="lobby_list" orientation="HORIZONTAL" prefHeight="236.0" prefWidth="800.0" style="-fx-background-color: #30323D;">
-      <VBox.margin>
-         <Insets bottom="20.0" top="20.0" />
-      </VBox.margin>
-   </ListView>
-   <Button fx:id="create_lobby_btn" mnemonicParsing="false" onAction="#onLobbyBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="Crea lobby" textFill="WHITE">
-      <font>
-         <Font name="Segoe UI Bold" size="12.0" />
-      </font>
-      <VBox.margin>
-         <Insets top="10.0" />
-      </VBox.margin>
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="720.0" prefWidth="800.0"
+      style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      fx:controller="it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController">
+    <Label layoutX="353.0" layoutY="225.0" text="Codex Naturalis" textFill="WHITE">
+        <font>
+            <Font name="Segoe UI Bold" size="30.0"/>
+        </font>
+        <VBox.margin>
+            <Insets bottom="20.0"/>
+        </VBox.margin>
+    </Label>
+    <Label text="Lobby disponibili" textFill="WHITE">
+        <font>
+            <Font name="Segoe UI" size="15.0"/>
+        </font>
+        <VBox.margin>
+            <Insets top="20.0"/>
+        </VBox.margin>
+    </Label>
+    <ListView fx:id="lobby_list" orientation="HORIZONTAL" prefHeight="236.0" prefWidth="800.0"
+              style="-fx-background-color: #30323D;">
+        <VBox.margin>
+            <Insets bottom="20.0" top="20.0"/>
+        </VBox.margin>
+    </ListView>
+    <Button fx:id="create_lobby_btn" mnemonicParsing="false" onAction="#onLobbyBtnClick" prefHeight="40.0"
+            prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="Crea lobby"
+            textFill="WHITE">
+        <font>
+            <Font name="Segoe UI Bold" size="12.0"/>
+        </font>
+        <VBox.margin>
+            <Insets top="10.0"/>
+        </VBox.margin>
+        <cursor>
+            <Cursor fx:constant="HAND"/>
+        </cursor>
+    </Button>
 </VBox>
