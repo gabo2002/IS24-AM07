@@ -25,8 +25,7 @@ package it.polimi.ingsw.am07.model.game.gamefield;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameFieldPositionTest {
 
@@ -41,6 +40,40 @@ class GameFieldPositionTest {
         assertFalse(new GameFieldPosition(0, 1, 0).isValid());
         assertFalse(new GameFieldPosition(2, 1, 0).isValid());
         assertFalse(new GameFieldPosition(1, 2, 0).isValid());
+    }
+
+    @Test
+    void jsonTest() {
+        GameFieldPosition position = new GameFieldPosition(0, 0, 0);
+        String json = position.toString();
+        GameFieldPosition position2 = GameFieldPosition.fromString(json);
+        assertEquals(position, position2);
+
+        assertEquals(0, position2.y());
+        assertEquals(0, position2.x());
+        assertEquals(0, position2.z());
+        assertEquals(json,"GameFieldPosition{x=0, y=0, z=0}");
+
+        position = new GameFieldPosition(0, 2, 0);
+        json = position.toString();
+        position2 = GameFieldPosition.fromString(json);
+        assertEquals(position, position2);
+
+        assertEquals(2, position2.y());
+        assertEquals(0, position2.x());
+        assertEquals(0, position2.z());
+        assertEquals(json,"GameFieldPosition{x=0, y=2, z=0}");
+
+        position = new GameFieldPosition(2343, 4324, 3434);
+
+        json = position.toString();
+        position2 = GameFieldPosition.fromString(json);
+        assertEquals(position, position2);
+
+        assertEquals(4324, position2.y());
+        assertEquals(2343, position2.x());
+        assertEquals(3434, position2.z());
+        assertEquals(json,"GameFieldPosition{x=2343, y=4324, z=3434}");
     }
 
 }

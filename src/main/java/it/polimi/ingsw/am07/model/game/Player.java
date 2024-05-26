@@ -248,4 +248,8 @@ public class Player implements Serializable {
     public GameField getPlayerGameField() {
         return playerGameField;
     }
+
+    public void setStarterCardSide(Side side) throws IllegalPlacementException {
+        playerGameField.setStarerCard(side);
+    }
 }

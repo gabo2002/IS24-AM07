@@ -74,6 +74,7 @@ public final class GameDataJsonParser<T> {
 
         UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();
         DateJSONAdapter dateJSONAdapter = new DateJSONAdapter();
+        GameFieldPositionCardMapAdapter gameFieldPositionCardMapAdapter = new GameFieldPositionCardMapAdapter();
 
         return new Moshi.Builder()
                 .add(sideFrontElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
@@ -81,6 +82,7 @@ public final class GameDataJsonParser<T> {
                 .add(objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(uuidJsonAdapter)
                 .add(dateJSONAdapter)
+                .add(gameFieldPositionCardMapAdapter)
                 .build();
     }
 

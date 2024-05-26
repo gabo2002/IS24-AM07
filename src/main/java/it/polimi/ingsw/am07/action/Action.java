@@ -36,12 +36,13 @@ import java.io.Serializable;
 public abstract class Action implements Serializable {
 
     private String identity;
+    protected boolean executedCorrectly;
 
     /**
      * Empty constructor.
      */
     protected Action() {
-
+        executedCorrectly = false;
     }
 
     /**

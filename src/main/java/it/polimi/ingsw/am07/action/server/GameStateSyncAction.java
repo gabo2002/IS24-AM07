@@ -64,8 +64,14 @@ public class GameStateSyncAction extends ServerAction {
     @Override
     public boolean reflect(ClientState clientState) {
         clientState.setGameModel(game);
+        clientState.getGameModel().setSelfNickname(clientState.getNickname());
         clientState.notifyGameModelUpdate();
         return true;
+    }
+
+    @Override
+    public boolean reflect(Game game) {
+        return false;
     }
 
     /**
@@ -76,6 +82,13 @@ public class GameStateSyncAction extends ServerAction {
     @Override
     public String getIdentity() {
         return getClass().getSimpleName();
+    }
+
+    @Override
+    public String toString() {
+        return "GameStateSyncAction{" +
+                "game=" + game +
+                '}';
     }
 
 }

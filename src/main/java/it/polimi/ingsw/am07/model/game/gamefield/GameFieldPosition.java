@@ -82,4 +82,18 @@ public record GameFieldPosition(
         return x == that.x && y == that.y;
     }
 
+    @Override
+    public String toString() {
+        return "GameFieldPosition{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
+    }
+
+    public static GameFieldPosition fromString(String string) {
+        String[] parts = string.split("[=,]|[=}]");
+        return new GameFieldPosition(Integer.parseInt(parts[1]), Integer.parseInt(parts[3]), Integer.parseInt(parts[5]));
+    }
+
 }

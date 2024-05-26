@@ -31,8 +31,10 @@ import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
+import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.action.player.PlayerPlaceStarterCardSideAction;
 import it.polimi.ingsw.am07.action.server.GameStateStartAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
@@ -97,11 +99,14 @@ public class NetworkJsonSerializer {
                 .registerSubclass(CreateLobbyAction.class)
                 .registerSubclass(PlayerJoinAction.class)
                 .registerSubclass(ErrorAction.class)
+                .registerSubclass(PlayerPlaceStarterCardSideAction.class)
+                .registerSubclass(PlayerInitialChoiceAction.class)
                 .registerSubclass(GameStateStartAction.class)
                 .registerSubclass(DebuggingAction.class);
 
         UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();
         DateJSONAdapter dateJSONAdapter = new DateJSONAdapter();
+        GameFieldPositionCardMapAdapter gameFieldPositionCardMapAdapter = new GameFieldPositionCardMapAdapter();
 
         return new Moshi.Builder()
                 .add(dateJSONAdapter)
@@ -111,6 +116,7 @@ public class NetworkJsonSerializer {
                 .add(sideElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(uuidJsonAdapter)
+                .add(gameFieldPositionCardMapAdapter)
                 .build();
     }
 

@@ -23,13 +23,19 @@
 
 package it.polimi.ingsw.am07.model.game.gamefield;
 
+import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
+import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.*;
+import it.polimi.ingsw.am07.utils.GameRegistry;
+import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
+import it.polimi.ingsw.am07.utils.assets.GameResources;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -293,6 +299,20 @@ class GameFieldTest {
 
 
         assertEquals(placedCards, gameField.getPlacedCards());
+    }
+
+    @Test
+    public void setStarterCardTest() {
+        GameField gameField = new GameField();
+
+        List<GameCard> cards =  GameResources.getInstance().getStarterCards();
+
+        Side starterCard =  cards.get(0).front();
+
+        assertDoesNotThrow(() -> gameField.setStarerCard(starterCard));
+
+        assertThrows(IllegalPlacementException.class, () -> gameField.setStarerCard(starterCard));
+
     }
 
 }

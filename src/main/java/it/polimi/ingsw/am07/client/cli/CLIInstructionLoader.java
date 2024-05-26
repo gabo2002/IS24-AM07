@@ -28,6 +28,7 @@ import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
+import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
@@ -35,12 +36,14 @@ import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.objectiveCardSelection.CLIObjectiveCardSelectionRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.starterCard.CLIStarterCardRepresentation;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
@@ -144,6 +147,11 @@ public class CLIInstructionLoader {
             //get the selected player
             String playerNickname = menu.getSelectedStringOption();
             Player player = players.stream().filter(p -> p.getNickname().equals(playerNickname)).findFirst().orElse(null);
+
+            if (player == null) {
+                System.out.println("Player not found");
+                return;
+            }
 
             //render the field of the selected player
             CLIGameFieldRepresentation render = new CLIGameFieldRepresentation(player.getPlayerGameField());
@@ -387,12 +395,25 @@ public class CLIInstructionLoader {
                 default -> null;
             };
 
-            System.out.println("Selected side: " + choice);
-
-            //TODO action bla bla bla
-
             // 2. Select Objective Card
+            ObjectiveCard[] objectiveCards = clientState.getGameModel().getSelf().getAvailableObjectives();
+            //display the cards
+            System.out.println("Objective Cards: ");
+            CLIObjectiveCardSelectionRepresentation objectiveCardRepresentation = new CLIObjectiveCardSelectionRepresentation(objectiveCards);
+            System.out.println(objectiveCardRepresentation.render());
 
+            //select the card
+            SelectableMenu<String> objectiveCardMenu = new SelectableMenu<>(List.of("First","Second"), scanner);
+            try {
+                objectiveCardMenu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
+            int selectedCardIndex = objectiveCardMenu.getSelectedOptionIndex();
+
+            // Sending the action to notify the server the selected cards
+            Action action = new PlayerInitialChoiceAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), objectiveCards[selectedCardIndex], side);
+            dispatcher.execute(action);
         });
     }
 
