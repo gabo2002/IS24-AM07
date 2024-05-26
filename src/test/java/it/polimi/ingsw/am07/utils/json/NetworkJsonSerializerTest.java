@@ -72,7 +72,7 @@ class NetworkJsonSerializerTest {
 
         Lobby lobby = new Lobby();
         lobby.addNewPlayer("test1", "test1", Pawn.YELLOW);
-        lobby.addNewPlayer("test2","test2", Pawn.BLUE);
+        lobby.addNewPlayer("test2", "test2", Pawn.BLUE);
         lobby.addNewPlayer("test3", "test3", Pawn.GREEN);
         Game game = new Game.Factory().fromLobby(lobby).build();
 

@@ -33,15 +33,13 @@ import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
 public class CLIStarterCardRepresentation implements CLIElement {
-    private GameCard starterCard;
-
     private static final char LEFT_ANGLE = '/';
     private static final char RIGHT_ANGLE = '\\';
     private static final char HORIZONTAL = '-';
     private static final char VERTICAL = '|';
-
     private final StringBuilder bufferedRender;
     private final Matrix<CLIGameSymbol> cardRepresentation;
+    private GameCard starterCard;
 
     public CLIStarterCardRepresentation(GameCard card) {
         cardRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));

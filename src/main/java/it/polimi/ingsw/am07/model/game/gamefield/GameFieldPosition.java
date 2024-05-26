@@ -44,6 +44,11 @@ public record GameFieldPosition(
         this(x, y, -1);
     }
 
+    public static GameFieldPosition fromString(String string) {
+        String[] parts = string.split("[=,]|[=}]");
+        return new GameFieldPosition(Integer.parseInt(parts[1]), Integer.parseInt(parts[3]), Integer.parseInt(parts[5]));
+    }
+
     /**
      * Verifies if the position is valid within the game field position system.
      *
@@ -89,11 +94,6 @@ public record GameFieldPosition(
                 ", y=" + y +
                 ", z=" + z +
                 '}';
-    }
-
-    public static GameFieldPosition fromString(String string) {
-        String[] parts = string.split("[=,]|[=}]");
-        return new GameFieldPosition(Integer.parseInt(parts[1]), Integer.parseInt(parts[3]), Integer.parseInt(parts[5]));
     }
 
 }

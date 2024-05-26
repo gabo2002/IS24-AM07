@@ -26,22 +26,18 @@ package it.polimi.ingsw.am07.client.cli.rendering.objectiveCardSelection;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
-import it.polimi.ingsw.am07.client.cli.rendering.common.objectiveCard.CLILargeObjectiveCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.common.objectiveCard.CLIObjectiveCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLILargeSideRepresentation;
-import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLISideRepresentation;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
 public class CLIObjectiveCardSelectionRepresentation implements CLIElement {
 
-    private final ObjectiveCard[] cards;
-
     private static final char LEFT_ANGLE = '/';
     private static final char RIGHT_ANGLE = '\\';
     private static final char HORIZONTAL = '-';
     private static final char VERTICAL = '|';
-
+    private final ObjectiveCard[] cards;
     private final StringBuilder bufferedRender;
     private final Matrix<CLIGameSymbol> cardRepresentation;
 

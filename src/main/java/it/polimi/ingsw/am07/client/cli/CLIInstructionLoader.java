@@ -403,7 +403,7 @@ public class CLIInstructionLoader {
             System.out.println(objectiveCardRepresentation.render());
 
             //select the card
-            SelectableMenu<String> objectiveCardMenu = new SelectableMenu<>(List.of("First","Second"), scanner);
+            SelectableMenu<String> objectiveCardMenu = new SelectableMenu<>(List.of("First", "Second"), scanner);
             try {
                 objectiveCardMenu.show();
             } catch (InterruptedException e) {

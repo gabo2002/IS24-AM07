@@ -43,13 +43,6 @@ import java.util.function.BiConsumer;
 
 public class CLI {
 
-    private Scanner scanner;
-    private ThreadInputReader reader;
-    private Controller controller;
-
-    private Map<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
-    private final ExecutorService renderExecutor;
-    private Future<?> currentRenderTask;
     private static final List<Instruction> availableInstructionsPickingCard = List.of(Instruction.PICK_CARD, Instruction.SHOW_DECK, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND);
     private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
     private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
@@ -57,6 +50,12 @@ public class CLI {
     private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
     private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(Instruction.START_GAME, Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
     private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(Instruction.SELECT_CARD, Instruction.SHOW_HAND, Instruction.SHOW_FIELD, Instruction.QUIT);
+    private final ExecutorService renderExecutor;
+    private Scanner scanner;
+    private ThreadInputReader reader;
+    private Controller controller;
+    private Map<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
+    private Future<?> currentRenderTask;
 
     public CLI() {
         renderExecutor = Executors.newSingleThreadExecutor();

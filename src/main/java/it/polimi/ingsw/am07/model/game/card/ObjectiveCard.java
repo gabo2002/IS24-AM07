@@ -29,7 +29,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 /**
  * Represents an objective card that requires a certain amount of resources to be completed.
  */
-public abstract sealed class ObjectiveCard permits ResourceObjectiveCard, PatternObjectiveCard{
+public abstract sealed class ObjectiveCard permits ResourceObjectiveCard, PatternObjectiveCard {
 
     protected final int associatedScore;
 

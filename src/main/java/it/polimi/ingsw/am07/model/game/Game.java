@@ -47,11 +47,8 @@ public class Game implements Serializable {
     private final List<Player> players;
 
     private final Deck deck;
-
-    private String selfNickname;
-
     private final ObjectiveCard[] commonObjectives; //only 2 cards
-
+    private String selfNickname;
     private int currentPlayerIndex;    //Reminder: randomly generated first
 
     private GameState gameState;

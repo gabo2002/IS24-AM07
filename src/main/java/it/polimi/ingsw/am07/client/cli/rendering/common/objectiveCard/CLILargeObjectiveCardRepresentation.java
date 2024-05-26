@@ -33,13 +33,19 @@ import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
  */
 public class CLILargeObjectiveCardRepresentation extends CLIObjectiveCardRepresentation {
 
-    /** The width of the large objective card representation. */
+    /**
+     * The width of the large objective card representation.
+     */
     public static final int WIDTH = 13;
 
-    /** The height of the large objective card representation. */
+    /**
+     * The height of the large objective card representation.
+     */
     public static final int HEIGHT = 9;
 
-    /** The amount of overlap for the corners of the card. */
+    /**
+     * The amount of overlap for the corners of the card.
+     */
     public static final int CORNER_OVERLAP = 1;
 
     /**

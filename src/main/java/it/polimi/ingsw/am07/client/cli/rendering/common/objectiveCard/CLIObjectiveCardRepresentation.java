@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.client.cli.rendering.common.objectiveCard;
 
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
-import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.card.PatternObjectiveCard;

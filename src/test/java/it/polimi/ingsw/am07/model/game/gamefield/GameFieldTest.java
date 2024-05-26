@@ -28,8 +28,6 @@ import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.*;
-import it.polimi.ingsw.am07.utils.GameRegistry;
-import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import it.polimi.ingsw.am07.utils.assets.GameResources;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import org.junit.jupiter.api.Test;
@@ -305,9 +303,9 @@ class GameFieldTest {
     public void setStarterCardTest() {
         GameField gameField = new GameField();
 
-        List<GameCard> cards =  GameResources.getInstance().getStarterCards();
+        List<GameCard> cards = GameResources.getInstance().getStarterCards();
 
-        Side starterCard =  cards.get(0).front();
+        Side starterCard = cards.get(0).front();
 
         assertDoesNotThrow(() -> gameField.setStarerCard(starterCard));
 

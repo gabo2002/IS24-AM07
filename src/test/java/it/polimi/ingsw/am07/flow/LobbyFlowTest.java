@@ -26,7 +26,6 @@ package it.polimi.ingsw.am07.flow;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
-import it.polimi.ingsw.am07.client.cli.Instruction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
@@ -78,7 +77,7 @@ public class LobbyFlowTest {
                 .build();
 
         Controller controller = networkManager.getController();
-        Action createLobby = new CreateLobbyAction("client1","client1", Pawn.RED);
+        Action createLobby = new CreateLobbyAction("client1", "client1", Pawn.RED);
         controller.execute(createLobby);
 
         try {

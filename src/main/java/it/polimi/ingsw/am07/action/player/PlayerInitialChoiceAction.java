@@ -41,9 +41,9 @@ public class PlayerInitialChoiceAction extends PlayerAction {
      * Constructor.
      *
      * @param playerNickname the player nickname
-     * @param identity      the identity
-     * @param selectedCard  the selected card
-     *  @param starterSide the starter side
+     * @param identity       the identity
+     * @param selectedCard   the selected card
+     * @param starterSide    the starter side
      */
     public PlayerInitialChoiceAction(String playerNickname, String identity, ObjectiveCard selectedCard, Side starterSide) {
         super(playerNickname, identity);

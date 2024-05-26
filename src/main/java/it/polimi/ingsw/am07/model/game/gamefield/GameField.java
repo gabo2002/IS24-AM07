@@ -210,8 +210,8 @@ public class GameField implements Serializable {
     /**
      * Set the starter card on the game field.
      * The starter card is placed at x=0, y=0.
-     * @throws IllegalPlacementException if the starter card has already been placed on the game field
      *
+     * @throws IllegalPlacementException if the starter card has already been placed on the game field
      */
     public void setStarerCard(Side side) throws IllegalPlacementException {
 

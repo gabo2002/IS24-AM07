@@ -52,7 +52,7 @@ class GameFieldPositionTest {
         assertEquals(0, position2.y());
         assertEquals(0, position2.x());
         assertEquals(0, position2.z());
-        assertEquals(json,"GameFieldPosition{x=0, y=0, z=0}");
+        assertEquals(json, "GameFieldPosition{x=0, y=0, z=0}");
 
         position = new GameFieldPosition(0, 2, 0);
         json = position.toString();
@@ -62,7 +62,7 @@ class GameFieldPositionTest {
         assertEquals(2, position2.y());
         assertEquals(0, position2.x());
         assertEquals(0, position2.z());
-        assertEquals(json,"GameFieldPosition{x=0, y=2, z=0}");
+        assertEquals(json, "GameFieldPosition{x=0, y=2, z=0}");
 
         position = new GameFieldPosition(2343, 4324, 3434);
 
@@ -73,7 +73,7 @@ class GameFieldPositionTest {
         assertEquals(4324, position2.y());
         assertEquals(2343, position2.x());
         assertEquals(3434, position2.z());
-        assertEquals(json,"GameFieldPosition{x=2343, y=4324, z=3434}");
+        assertEquals(json, "GameFieldPosition{x=2343, y=4324, z=3434}");
     }
 
 }

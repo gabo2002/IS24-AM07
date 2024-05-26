@@ -32,8 +32,8 @@ import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 public class CreateLobbyAction extends PlayerAction {
 
-    private Lobby createdLobby;
     private final Pawn color;
+    private Lobby createdLobby;
 
     public CreateLobbyAction(String playerNickname, String identity, Pawn color) {
         super(playerNickname, identity);

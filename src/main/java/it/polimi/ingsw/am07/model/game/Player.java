@@ -53,11 +53,10 @@ public class Player implements Serializable {
     private final List<GameCard> playableCards;    //handCards?
     private final GameCard starterCard;
     private final ObjectiveCard[] availableObjectives;
+    private final PlayerChat chat;
     private int playerScore;
     private int playerObjectiveScore;
     private ObjectiveCard playerObjectiveCard;
-
-    private final PlayerChat chat;
 
     /**
      * Constructs a new Player with the specified parameters.

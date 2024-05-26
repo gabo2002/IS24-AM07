@@ -44,10 +44,10 @@ class LobbyTest {
         lobby.addNewPlayer("player1", "player1", Pawn.BLUE);
         assertEquals(1, lobby.getPlayerCount());
 
-        lobby.addNewPlayer("player2","player2", Pawn.YELLOW);
+        lobby.addNewPlayer("player2", "player2", Pawn.YELLOW);
         assertEquals(2, lobby.getPlayerCount());
 
-        lobby.addNewPlayer("player3","player3", Pawn.RED);
+        lobby.addNewPlayer("player3", "player3", Pawn.RED);
         assertEquals(3, lobby.getPlayerCount());
     }
 
@@ -63,21 +63,21 @@ class LobbyTest {
 
         assertEquals(2, lobby.getPlayerCount());
 
-        assertThrows(IllegalArgumentException.class, () -> lobby.addNewPlayer("player1","player1", Pawn.YELLOW));
+        assertThrows(IllegalArgumentException.class, () -> lobby.addNewPlayer("player1", "player1", Pawn.YELLOW));
 
         assertEquals(2, lobby.getPlayerCount());
 
-        LobbyPlayer test = lobby.addNewPlayer("player3","player3",Pawn.BLUE);
+        LobbyPlayer test = lobby.addNewPlayer("player3", "player3", Pawn.BLUE);
 
         assertEquals(3, lobby.getPlayerCount());
         assertEquals("player3", test.getNickname());
         assertEquals(test, lobby.getPlayers().get(2));
 
-        assertDoesNotThrow(() -> lobby.addNewPlayer("player4","player4", Pawn.GREEN));
+        assertDoesNotThrow(() -> lobby.addNewPlayer("player4", "player4", Pawn.GREEN));
         assertEquals(4, lobby.getPlayerCount());
         assertTrue(lobby.isFull());
 
-        assertThrows(IllegalStateException.class, () -> lobby.addNewPlayer("player5","player5", Pawn.BLUE));
+        assertThrows(IllegalStateException.class, () -> lobby.addNewPlayer("player5", "player5", Pawn.BLUE));
         assertEquals(4, lobby.getPlayerCount());
         assertTrue(lobby.isFull());
     }
@@ -86,10 +86,10 @@ class LobbyTest {
     void removePlayer() {
         Lobby lobby = new Lobby();
 
-        LobbyPlayer player1 = lobby.addNewPlayer("player1", "player1",Pawn.YELLOW);
+        LobbyPlayer player1 = lobby.addNewPlayer("player1", "player1", Pawn.YELLOW);
         LobbyPlayer player2 = lobby.addNewPlayer("player2", "player2", Pawn.BLUE);
-        LobbyPlayer player3 = lobby.addNewPlayer("player3","player3", Pawn.RED);
-        LobbyPlayer player4 = lobby.addNewPlayer("player4", "player4",Pawn.GREEN);
+        LobbyPlayer player3 = lobby.addNewPlayer("player3", "player3", Pawn.RED);
+        LobbyPlayer player4 = lobby.addNewPlayer("player4", "player4", Pawn.GREEN);
 
         assertEquals(4, lobby.getPlayerCount());
 
