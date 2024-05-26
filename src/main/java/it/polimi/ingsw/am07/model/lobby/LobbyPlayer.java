@@ -34,7 +34,7 @@ import java.util.Objects;
 public class LobbyPlayer implements Serializable {
 
     private final String nickname;
-
+    private final String identifier;
     private Pawn playerPawn;
 
     /**
@@ -45,11 +45,13 @@ public class LobbyPlayer implements Serializable {
     public LobbyPlayer(String nickname) {
         this.nickname = nickname;
         this.playerPawn = null;
+        this.identifier = null;
     }
 
-    public LobbyPlayer(String nickname, Pawn playerPawn) {
+    public LobbyPlayer(String nickname, String identifier, Pawn playerPawn) {
         this.nickname = nickname;
         this.playerPawn = playerPawn;
+        this.identifier = identifier;
     }
 
     /**
@@ -77,6 +79,15 @@ public class LobbyPlayer implements Serializable {
      */
     public void setPlayerPawn(Pawn playerPawn) {
         this.playerPawn = playerPawn;
+    }
+
+    /**
+     * Retrieves the identifier of the player.
+     *
+     * @return The identifier of the player.
+     */
+    public String getIdentity() {
+        return identifier;
     }
 
     /**

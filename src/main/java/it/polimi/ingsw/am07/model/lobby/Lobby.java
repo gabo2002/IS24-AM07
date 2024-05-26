@@ -86,12 +86,12 @@ public class Lobby implements Serializable {
      * @param nickname The nickname of the player to add.
      * @throws IllegalArgumentException If the provided nickname is already taken.
      */
-    public LobbyPlayer addNewPlayer(String nickname, Pawn pawn) throws IllegalArgumentException {
+    public LobbyPlayer addNewPlayer(String nickname, String identity, Pawn pawn) throws IllegalArgumentException {
         if (state == LobbyState.FULL) {
             throw new IllegalStateException("Lobby is full");
         }
 
-        LobbyPlayer player = new LobbyPlayer(nickname, pawn);
+        LobbyPlayer player = new LobbyPlayer(nickname, identity, pawn);
 
         if (players.contains(player)) {
             throw new IllegalArgumentException("Nickname already taken");

@@ -161,7 +161,7 @@ public class ServerDispatcher extends Dispatcher {
         gameControllers.put(game, gameController);
 
         // Update the listener dispatchers
-        lobby.getPlayers().forEach(player -> listenerDispatchers.put(player.getNickname(), gameController));
+        lobby.getPlayers().forEach(player -> listenerDispatchers.put(player.getIdentity(), gameController));
 
         // Inherit the listeners from the lobby controller
         gameController.inheritListeners(lobbyControllers.get(lobby));
@@ -191,7 +191,7 @@ public class ServerDispatcher extends Dispatcher {
         }
 
         try {
-            lobby.addNewPlayer(nickname, playerPawn);
+            lobby.addNewPlayer(nickname, listener.getIdentity(), playerPawn);
             //Notify the listener
             PlayerJoinAction action = new PlayerJoinAction(nickname, listener.getIdentity(), lobbyId);
             listener.notify(action);
@@ -226,7 +226,7 @@ public class ServerDispatcher extends Dispatcher {
         lobbies.put(lobby.getId(), lobby);
 
         // Add the new player to the lobby
-        lobby.addNewPlayer(firstPlayerNickname, playerPawn);
+        lobby.addNewPlayer(firstPlayerNickname, listener.getIdentity(), playerPawn);
 
         listenerDispatchers.put(listener.getIdentity(), lobbyController);
         // Add the listener to the lobby

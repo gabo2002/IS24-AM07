@@ -45,9 +45,9 @@ class GameStartActionTest {
         lobbyController.registerNewListener(listener);
         assertEquals(1, listener.getCalled().size());
 
-        lobby.addNewPlayer("player1", Pawn.BLUE);
-        lobby.addNewPlayer("player2", Pawn.RED);
-        lobby.addNewPlayer("player3", Pawn.YELLOW);
+        lobby.addNewPlayer("player1", "player1", Pawn.BLUE);
+        lobby.addNewPlayer("player2", "player2", Pawn.RED);
+        lobby.addNewPlayer("player3", "player3", Pawn.YELLOW);
 
         Action action = new GameStartAction("player1","identity1");
         lobbyController.execute(action);

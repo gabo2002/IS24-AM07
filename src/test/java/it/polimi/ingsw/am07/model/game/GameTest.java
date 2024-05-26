@@ -215,7 +215,7 @@ class GameTest {
     @Test
     void factoryTest() {
         Lobby lobby = new Lobby();
-        LobbyPlayer a = lobby.addNewPlayer("player1",Pawn.YELLOW);
+        LobbyPlayer a = lobby.addNewPlayer("player1", "player1", Pawn.YELLOW);
 
         Game game = new Game.Factory()
                 .fromLobby(lobby)

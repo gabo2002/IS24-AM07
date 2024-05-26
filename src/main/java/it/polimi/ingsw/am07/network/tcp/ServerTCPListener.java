@@ -59,7 +59,7 @@ public class ServerTCPListener implements StatefulListener {
      */
     @Override
     public void notify(Action action) {
-        LOGGER.debug("Notifying action " + action.getIdentity() + " in " + Thread.currentThread().getName());
+        LOGGER.debug("Notifying action " + action + " in " + Thread.currentThread().getName());
 
         remoteConnection.send(new ActionNetworkPacket(action));
     }

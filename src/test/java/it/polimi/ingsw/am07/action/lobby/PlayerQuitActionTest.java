@@ -46,7 +46,7 @@ class PlayerQuitActionTest {
 
         assertEquals(1, listener.getCalled().size());
 
-        lobby.addNewPlayer("player1", Pawn.BLUE);
+        lobby.addNewPlayer("player1", listener.getIdentity(), Pawn.BLUE);
 
         Action action = new PlayerQuitAction("player1", "identity");
 

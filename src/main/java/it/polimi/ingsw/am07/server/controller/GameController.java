@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.server.controller;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
@@ -61,6 +62,8 @@ public class GameController extends Dispatcher {
 
         for (Listener listener : listeners) {
             listener.notify(action);
+            GameStateSyncAction gameStateSyncAction = new GameStateSyncAction(gameModel);
+            listener.notify(gameStateSyncAction);
         }
     }
 
