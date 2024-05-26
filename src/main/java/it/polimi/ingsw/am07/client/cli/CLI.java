@@ -155,6 +155,10 @@ public class CLI {
             case SELECTING_STARTER_CARD_SIDE:
                 renderState(clientState, availableInstructionsSelectingStarterCardSide);
                 break;
+            case WAITING_FOR_GAME_START:
+                System.out.println("Waiting for game to start");
+                renderState(clientState, List.of(Instruction.QUIT));
+                break;
             default:
                 System.out.println("Invalid state");
         }
