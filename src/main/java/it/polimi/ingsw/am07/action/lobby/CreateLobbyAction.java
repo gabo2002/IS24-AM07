@@ -44,8 +44,9 @@ public class CreateLobbyAction extends PlayerAction {
     // TODO: change to void
     public boolean execute(Matchmaking matchmaking) {
         matchmaking.setNewLobbyCreated(true);
-        matchmaking.setFirstPlayerNickname(getPlayerNickname());
+        matchmaking.setPlayerNickname(getPlayerNickname());
         matchmaking.setPlayerPawn(color);
+        return false;
     }
 
     /**

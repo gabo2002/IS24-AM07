@@ -39,13 +39,11 @@ public class MatchmakingController extends Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(MatchmakingController.class);
     private final Matchmaking matchmaking;
-    private final AppLogger LOGGER = new AppLogger(OutOfLobbyController.class);
-    private final OutOfLobbyModel outOfLobbyModel;
     private final TriFunction<Listener, String, Pawn, Void> migrateToLobby;
     private final QuadFunction<Listener, String, UUID, Pawn, Void> migratoToExistingLobby;
 
 
-    public MatchmakingController(Matchmaking matchmaking, BiConsumer<Listener, String> migrateToLobby, TriFunction<Listener, String, UUID, Void> migratoToExistingLobby) {
+    public MatchmakingController(Matchmaking matchmaking, TriFunction<Listener, String, Pawn, Void> migrateToLobby, QuadFunction<Listener, String, UUID, Pawn, Void> migrateToExistingLobby) {
         this.matchmaking = matchmaking;
         this.migrateToLobby = migrateToLobby;
         this.migratoToExistingLobby = migrateToExistingLobby;
@@ -76,7 +74,7 @@ public class MatchmakingController extends Dispatcher {
         if (matchmaking.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
-            migrateToLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getPlayerPawn());
+            migrateToLobby.apply(listener, matchmaking.getPlayerNickname(), matchmaking.getPlayerPawn());
             listeners.remove(listener);
 
             Action stateSyncAction = new LobbyListAction(matchmaking.getLobbies());
@@ -85,7 +83,7 @@ public class MatchmakingController extends Dispatcher {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             //I have to migrate the player to an existing lobby
-            migratoToExistingLobby.apply(listener, outOfLobbyModel.getPlayerNickname(), outOfLobbyModel.getLobbyId(), outOfLobbyModel.getPlayerPawn());
+            migratoToExistingLobby.apply(listener, matchmaking.getPlayerNickname(), matchmaking.getLobbyId(), matchmaking.getPlayerPawn());
             //Remove the listener from the out of lobby controller
             listeners.remove(listener);
         }

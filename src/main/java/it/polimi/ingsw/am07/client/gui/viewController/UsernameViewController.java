@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,8 +75,8 @@ public class UsernameViewController {
             welcomeText.setText("Inserisci uno username");
             return;
         }
-
-        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity());
+        //TODO add Pawn selection
+        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), Pawn.RED);
         controller.execute(action);
 
         loadScene(event);

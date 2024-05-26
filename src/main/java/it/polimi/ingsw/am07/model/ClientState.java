@@ -93,17 +93,11 @@ public class ClientState {
         return playerState;
     }
 
-    public void setPlayerState(PlayerState playerState) {
-        this.playerState = playerState;
-    }
 
     public List<Lobby> getAvailableLobbies() {
         return availableLobbies != null ? List.copyOf(availableLobbies) : List.of();
     }
 
-    public String getIdentity() {
-        return identity;
-    }
 
     public void setIdentity(String identity) {
         this.identity = identity;
