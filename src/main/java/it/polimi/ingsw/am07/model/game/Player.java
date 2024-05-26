@@ -57,7 +57,7 @@ public class Player implements Serializable {
     private int playerObjectiveScore;
     private ObjectiveCard playerObjectiveCard;
 
-    private PlayerChat chat;
+    private final PlayerChat chat;
 
     /**
      * Constructs a new Player with the specified parameters.

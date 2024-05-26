@@ -48,7 +48,7 @@ package it.polimi.ingsw.am07.action.lobby;
 
 
 import it.polimi.ingsw.am07.action.PlayerAction;
-import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 import java.util.UUID;
 
@@ -72,25 +72,25 @@ public class PlayerJoinAction extends PlayerAction {
     /**
      * Execute the action.
      *
-     * @param outOfLobbyModel the outOfLobbyModel model
+     * @param matchmaking the outOfLobbyModel model
      * @return true if the action was successful, false otherwise
      */
     // TODO: change to void
-    public boolean execute(OutOfLobbyModel outOfLobbyModel) {
-        outOfLobbyModel.setNewLobbyCreated(false);
-        outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
-        outOfLobbyModel.setLobbyId(lobbyId);
+    public boolean execute(Matchmaking matchmaking) {
+        matchmaking.setNewLobbyCreated(false);
+        matchmaking.setFirstPlayerNickname(getPlayerNickname());
+        matchmaking.setLobbyId(lobbyId);
         return false;
     }
 
     /**
      * Reflect the action on the client state.
      *
-     * @param outOfLobbyModel the lobby model
+     * @param matchmaking the lobby model
      * @return true if the action executed successfully, false otherwise
      */
-    public boolean reflect(OutOfLobbyModel outOfLobbyModel) {
-        return execute(outOfLobbyModel);
+    public boolean reflect(Matchmaking matchmaking) {
+        return execute(matchmaking);
     }
 
     @Override

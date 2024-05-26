@@ -25,14 +25,12 @@ package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
 import it.polimi.ingsw.am07.client.gui.viewController.NetworkViewController;
-import it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -44,14 +42,13 @@ import java.util.UUID;
 
 public class GUI extends javafx.application.Application {
 
-    private ClientState state;
-
-    private Stage stage;
-
-    public GUI() {}
-
     private final Object lock = new Object();
+    private ClientState state;
+    private Stage stage;
     private boolean shouldRender = false;
+
+    public GUI() {
+    }
 
     public void entrypoint() {
         launch();
@@ -100,6 +97,8 @@ public class GUI extends javafx.application.Application {
 
         switch (playerState) {
             case SELECTING_LOBBY:
+                break;
+            case WAITING_FOR_PLAYERS:
                 FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
                 Scene scene = null;
                 try {
@@ -110,8 +109,6 @@ public class GUI extends javafx.application.Application {
                 scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.show();
-                break;
-            case WAITING_FOR_PLAYERS:
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + playerState);

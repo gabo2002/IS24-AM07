@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
 <!--
   ~ Codex Naturalis - Final Assignment for the Software Engineering Course
   ~ Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
@@ -28,21 +23,29 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #454754;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.LobbyBoxController">
-   <Label fx:id="lobby_name_box" prefHeight="30.0" prefWidth="200.0" text="Lobby #123" textFill="WHITE">
-      <VBox.margin>
-         <Insets left="10.0" top="10.0" />
-      </VBox.margin>
-      <font>
-         <Font name="System Bold" size="12.0" />
-      </font>
-   </Label>
-   <Label fx:id="n_players" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" text="2 players" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="12.0" />
-      </font>
-      <VBox.margin>
-         <Insets left="10.0" top="10.0" />
-      </VBox.margin>
-   </Label>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0"
+      prefWidth="200.0" style="-fx-background-color: #454754;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea"
+      fx:controller="it.polimi.ingsw.am07.client.gui.viewController.LobbyBoxController">
+    <Label fx:id="lobby_name_box" prefHeight="30.0" prefWidth="200.0" text="Lobby #123" textFill="WHITE">
+        <VBox.margin>
+            <Insets left="10.0" top="10.0"/>
+        </VBox.margin>
+        <font>
+            <Font name="System Bold" size="12.0"/>
+        </font>
+    </Label>
+    <Label fx:id="n_players" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="200.0" text="2 players"
+           textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="12.0"/>
+        </font>
+        <VBox.margin>
+            <Insets left="10.0" top="10.0"/>
+        </VBox.margin>
+    </Label>
 </VBox>

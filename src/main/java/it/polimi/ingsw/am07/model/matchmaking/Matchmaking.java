@@ -21,21 +21,51 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.network.packets;
+package it.polimi.ingsw.am07.model.matchmaking;
 
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
-public final class ListLobbiesNetworkPacket extends NetworkPacket {
+public class Matchmaking {
 
-    private final List<Lobby> lobbies;
+    private final Collection<Lobby> lobbies;
+    private boolean isNewLobbyCreated = false;
+    private UUID lobbyId;
+    private String firstPlayerNickname;
 
-    public ListLobbiesNetworkPacket(List<Lobby> lobbies) {
+    public Matchmaking(Collection<Lobby> lobbies) {
         this.lobbies = lobbies;
     }
 
-    public List<Lobby> getLobbies() {
-        return lobbies;
+    public boolean isNewLobbyCreated() {
+        return isNewLobbyCreated;
     }
+
+    public void setNewLobbyCreated(boolean newLobbyCreated) {
+        isNewLobbyCreated = newLobbyCreated;
+    }
+
+    public String getFirstPlayerNickname() {
+        return firstPlayerNickname;
+    }
+
+    public void setFirstPlayerNickname(String firstPlayerNickname) {
+        this.firstPlayerNickname = firstPlayerNickname;
+    }
+
+    public UUID getLobbyId() {
+        return lobbyId;
+    }
+
+    public void setLobbyId(UUID lobbyId) {
+        this.lobbyId = lobbyId;
+    }
+
+    public List<Lobby> getLobbies() {
+        return List.copyOf(lobbies);
+    }
+
 }

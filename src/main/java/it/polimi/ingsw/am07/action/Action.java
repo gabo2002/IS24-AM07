@@ -26,7 +26,7 @@ package it.polimi.ingsw.am07.action;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
-import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 import java.io.Serializable;
 
@@ -84,11 +84,11 @@ public abstract class Action implements Serializable {
         throw new RuntimeException("Not implemented");
     }
 
-    public boolean execute(OutOfLobbyModel outOfLobbyModel) {
+    public boolean execute(Matchmaking matchmaking) {
         throw new RuntimeException("Not implemented");
     }
 
-    public boolean reflect(OutOfLobbyModel outOfLobbyModel) {
+    public boolean reflect(Matchmaking matchmaking) {
         throw new RuntimeException("Not implemented");
     }
 

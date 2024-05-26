@@ -23,21 +23,11 @@
 
 package it.polimi.ingsw.am07.client.gui.viewController;
 
-import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.reactive.Controller;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class LobbyViewController {
 

@@ -28,12 +28,12 @@ import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
-import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.server.controller.GameController;
 import it.polimi.ingsw.am07.server.controller.LobbyController;
-import it.polimi.ingsw.am07.server.controller.OutOfLobbyController;
+import it.polimi.ingsw.am07.server.controller.MatchmakingController;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.HashMap;
@@ -53,7 +53,7 @@ public class ServerDispatcher extends Dispatcher {
     private final Map<Game, GameController> gameControllers;
     private final Map<Lobby, LobbyController> lobbyControllers;
     private final Map<String, Dispatcher> listenerDispatchers;
-    private final OutOfLobbyController outOfLobbyController;
+    private final MatchmakingController matchmakingController;
 
     /**
      * Constructor.
@@ -70,9 +70,9 @@ public class ServerDispatcher extends Dispatcher {
         lobbyControllers = new HashMap<>();
         listenerDispatchers = new HashMap<>();
 
-        OutOfLobbyModel outOfLobbyModel = new OutOfLobbyModel(lobbies.values());
+        Matchmaking matchmaking = new Matchmaking(lobbies.values());
 
-        outOfLobbyController = new OutOfLobbyController(outOfLobbyModel, this::migrateToLobby, this::migrateToExistingLobby);
+        matchmakingController = new MatchmakingController(matchmaking, this::migrateToLobby, this::migrateToExistingLobby);
     }
 
     /**
@@ -121,8 +121,8 @@ public class ServerDispatcher extends Dispatcher {
 
         LOGGER.debug("Listener " + listener.getIdentity() + " not found in any game");
 
-        listenerDispatchers.put(listener.getIdentity(), outOfLobbyController);
-        outOfLobbyController.registerNewListener(listener);
+        listenerDispatchers.put(listener.getIdentity(), matchmakingController);
+        matchmakingController.registerNewListener(listener);
     }
 
     /**

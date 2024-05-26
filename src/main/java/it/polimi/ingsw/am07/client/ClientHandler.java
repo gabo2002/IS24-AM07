@@ -29,9 +29,9 @@ import it.polimi.ingsw.am07.network.NetworkType;
 
 public class ClientHandler {
 
-    private ClientState state;
+    private final ClientState state;
 
-    private ClientNetworkManager networkManager;
+    private final ClientNetworkManager networkManager;
 
     public ClientHandler(int port, String hostname, String identity, NetworkType type, ClientState state) {
         this.state = state;

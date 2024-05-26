@@ -27,7 +27,7 @@ import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
-import it.polimi.ingsw.am07.model.outOfLobby.OutOfLobbyModel;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 public class CreateLobbyAction extends PlayerAction {
 
@@ -39,9 +39,9 @@ public class CreateLobbyAction extends PlayerAction {
     }
 
     // TODO: change to void
-    public boolean execute(OutOfLobbyModel outOfLobbyModel) {
-        outOfLobbyModel.setNewLobbyCreated(true);
-        outOfLobbyModel.setFirstPlayerNickname(getPlayerNickname());
+    public boolean execute(Matchmaking matchmaking) {
+        matchmaking.setNewLobbyCreated(true);
+        matchmaking.setFirstPlayerNickname(getPlayerNickname());
         return false;
     }
 
@@ -52,7 +52,6 @@ public class CreateLobbyAction extends PlayerAction {
      * @return
      */
     public boolean reflect(ClientState state) {
-
         if (createdLobby == null) {
             return true;
         }

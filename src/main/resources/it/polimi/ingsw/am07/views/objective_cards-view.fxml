@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
 <!--
   ~ Codex Naturalis - Final Assignment for the Software Engineering Course
   ~ Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
@@ -30,41 +23,53 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="798.0" prefWidth="938.0" style="-fx-background-color: #252322;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox alignment="CENTER_LEFT" prefHeight="103.0" prefWidth="938.0">
-         <children>
-            <Label fx:id="go_back_btn" style="-fx-background-color: #37332F; -fx-background-radius: 8;" text="X" textFill="WHITE">
-               <VBox.margin>
-                  <Insets left="50.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Segoe UI Bold" size="24.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-               </padding>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Label>
-         </children></VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="938.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/front_90.png" />
-               </image>
-            </ImageView>
-         </children></VBox>
-      <VBox alignment="CENTER" layoutX="10.0" layoutY="113.0" prefHeight="200.0" prefWidth="938.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/front_97.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
-   </children>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="798.0" prefWidth="938.0" style="-fx-background-color: #252322;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea">
+    <children>
+        <VBox alignment="CENTER_LEFT" prefHeight="103.0" prefWidth="938.0">
+            <children>
+                <Label fx:id="go_back_btn" style="-fx-background-color: #37332F; -fx-background-radius: 8;" text="X"
+                       textFill="WHITE">
+                    <VBox.margin>
+                        <Insets left="50.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font name="Segoe UI Bold" size="24.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
+                    </padding>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Label>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="938.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/front_90.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER" layoutX="10.0" layoutY="113.0" prefHeight="200.0" prefWidth="938.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/front_97.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+    </children>
 </VBox>

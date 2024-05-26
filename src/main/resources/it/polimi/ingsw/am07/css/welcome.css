@@ -43,7 +43,7 @@
     -fx-background-radius: 8px;
 }
 
-.play-button:hover{
+.play-button:hover {
     -fx-background-color: #45a049;
     -fx-cursor: hand;
 }

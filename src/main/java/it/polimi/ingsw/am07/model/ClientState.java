@@ -31,8 +31,8 @@ import java.util.function.Consumer;
 
 public class ClientState {
 
-    private String identity;
     private final Consumer<ClientState> onGameModelUpdate;
+    private String identity;
     private Game gameModel;
     private Lobby lobbyModel;
     private List<Lobby> availableLobbies;
@@ -79,24 +79,24 @@ public class ClientState {
         this.availableLobbies = availableLobbies;
     }
 
-    public void setPlayerState(PlayerState playerState) {
-        this.playerState = playerState;
-    }
-
     public PlayerState getPlayerState() {
         return playerState;
+    }
+
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
     }
 
     public List<Lobby> getAvailableLobbies() {
         return availableLobbies != null ? List.copyOf(availableLobbies) : List.of();
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
-
     public String getIdentity() {
         return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
     @Override

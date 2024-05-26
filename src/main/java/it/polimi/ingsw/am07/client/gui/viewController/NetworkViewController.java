@@ -37,7 +37,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class NetworkViewController {
 
@@ -90,7 +89,7 @@ public class NetworkViewController {
         }
     }
 
-    public void init(ClientState state,String identity) {
+    public void init(ClientState state, String identity) {
         this.clientState = state;
         this.identity = identity;
     }

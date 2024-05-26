@@ -63,9 +63,9 @@ public class LobbyFlowTest {
 
         ClientState clientState = new ClientState((ClientState state) -> {
             System.out.println("Received state update");
-            if(state.getLobbyModel() != null)
+            if (state.getLobbyModel() != null)
                 System.out.println("Player count: " + state.getLobbyModel().getPlayerCount());
-        },"client1");
+        }, "client1");
 
         ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
                 .withHostname("localhost")
@@ -76,7 +76,7 @@ public class LobbyFlowTest {
                 .build();
 
         Controller controller = networkManager.getController();
-        Action createLobby = new CreateLobbyAction("client1","client1");
+        Action createLobby = new CreateLobbyAction("client1", "client1");
         controller.execute(createLobby);
 
         try {
@@ -96,11 +96,11 @@ public class LobbyFlowTest {
 
         ClientState clientState = new ClientState((ClientState state) -> {
             System.out.println("Received state update");
-            if(!state.getAvailableLobbies().isEmpty()) {
+            if (!state.getAvailableLobbies().isEmpty()) {
                 System.out.println("Lobby count: " + state.getAvailableLobbies().size());
                 availableLobbies.addAll(state.getAvailableLobbies());
             }
-        },"client2");
+        }, "client2");
 
         ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
                 .withHostname("localhost")
@@ -118,9 +118,9 @@ public class LobbyFlowTest {
 
         Controller controller = networkManager.getController();
 
-        if(availableLobbies.isEmpty())
+        if (availableLobbies.isEmpty())
             return;
-        Action joinLobby = new PlayerJoinAction("client2","client2",availableLobbies.get(0).getId());
+        Action joinLobby = new PlayerJoinAction("client2", "client2", availableLobbies.get(0).getId());
         controller.execute(joinLobby);
         try {
             Thread.sleep(500);

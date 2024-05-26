@@ -27,7 +27,10 @@ import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.connection.Connection;
 import it.polimi.ingsw.am07.network.connection.RemoteConnection;
-import it.polimi.ingsw.am07.network.packets.*;
+import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
+import it.polimi.ingsw.am07.network.packets.NetworkPacket;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
@@ -184,11 +187,6 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
                 case HeartbeatNetworkPacket ignored -> {
                     LOGGER.debug("Received HeartbeatNetworkPacket");
                     listener.heartbeat();
-                }
-                case ListLobbiesNetworkPacket lobbies -> {
-                    LOGGER.debug("Received " + lobbies.getLobbies().size() + " lobbies from the server");
-                    listener.getClientState().setLobbies(lobbies.getLobbies());
-                    listener.getClientState().notifyGameModelUpdate();
                 }
                 default -> {
                 }

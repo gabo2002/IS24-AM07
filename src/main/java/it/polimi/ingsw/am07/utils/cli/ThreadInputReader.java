@@ -28,9 +28,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class ThreadInputReader {
 
-    private Thread inputThread;
-    private BlockingQueue<String> inputs;
-    private Scanner scanner;
+    private final Thread inputThread;
+    private final BlockingQueue<String> inputs;
+    private final Scanner scanner;
 
     public ThreadInputReader() {
         scanner = new Scanner(System.in);

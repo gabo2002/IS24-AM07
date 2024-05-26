@@ -60,7 +60,7 @@ public class WelcomeViewController {
 
     private void updateView(ClientState clientState) {
         // Logic to update the GUI based on the new clientState
-        if(!clientState.getAvailableLobbies().isEmpty()) {
+        if (!clientState.getAvailableLobbies().isEmpty()) {
             System.out.println("Lobby available: " + clientState.getAvailableLobbies().size());
 
             for (Lobby lobby : clientState.getAvailableLobbies()) {
