@@ -25,33 +25,34 @@ package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
 import it.polimi.ingsw.am07.client.gui.viewController.NetworkViewController;
+import it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
-import it.polimi.ingsw.am07.model.game.Player;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class GUI extends javafx.application.Application {
 
-    private Future<?> currentRenderTask;
-
-    private final ExecutorService renderExecutor;
     private ClientState state;
 
     private Stage stage;
 
-    public GUI() {
-        renderExecutor = Executors.newSingleThreadExecutor();
-    }
+    public GUI() {}
+
+    private final Object lock = new Object();
+    private boolean shouldRender = false;
+
     public void entrypoint() {
         launch();
     }
@@ -60,7 +61,7 @@ public class GUI extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         //generate identifier
         String identity = UUID.randomUUID().toString();
-        state = new ClientState(this::renderThread, identity);
+        state = new ClientState(this::notifyRenderThread, identity);
         //initialize the stage
         this.stage = stage;
 
@@ -74,13 +75,30 @@ public class GUI extends javafx.application.Application {
 
         stage.setScene(scene);
         stage.show();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> renderLoop()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    private void renderLoop() {
+        boolean rerender;
+
+        synchronized (lock) {
+            rerender = shouldRender;
+            shouldRender = false;
+        }
+
+        if (rerender) {
+            Platform.runLater(() -> render(state));
+        }
     }
 
     public void render(ClientState state) {
         //Switch case to render the correct view based on the state
         PlayerState playerState = state.getPlayerState();
 
-        switch(playerState) {
+        switch (playerState) {
             case SELECTING_LOBBY:
                 FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
                 Scene scene = null;
@@ -94,22 +112,16 @@ public class GUI extends javafx.application.Application {
                 stage.show();
                 break;
             case WAITING_FOR_PLAYERS:
-            break;
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + playerState);
-
         }
     }
 
-    private void renderThread(ClientState state) {
-        // Cancel the current render task if it is still running
-        if (currentRenderTask != null) {
-            currentRenderTask.cancel(true);
-            if (!currentRenderTask.isCancelled())
-                throw new RuntimeException("Render task could not be cancelled");
-            currentRenderTask = null;
+    private void notifyRenderThread(ClientState state) {
+        synchronized (lock) {
+            shouldRender = true;
         }
-        currentRenderTask = renderExecutor.submit(() -> render(state));
     }
 
 }
