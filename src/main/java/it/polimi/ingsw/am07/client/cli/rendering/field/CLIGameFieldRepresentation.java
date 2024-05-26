@@ -26,7 +26,7 @@ package it.polimi.ingsw.am07.client.cli.rendering.field;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
-import it.polimi.ingsw.am07.client.cli.rendering.common.CLISideRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLISideRepresentation;
 import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;

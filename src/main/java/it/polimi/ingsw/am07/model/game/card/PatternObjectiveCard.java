@@ -30,7 +30,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPattern;
 /**
  * Represents an objective card that requires a certain pattern to be completed.
  */
-public class PatternObjectiveCard extends ObjectiveCard {
+public final class PatternObjectiveCard extends ObjectiveCard {
 
     private final GameFieldPattern pattern;
 
@@ -57,6 +57,10 @@ public class PatternObjectiveCard extends ObjectiveCard {
         int matchingPatterns = playerGameField.countMatches(pattern);
 
         return matchingPatterns * associatedScore;
+    }
+
+    public GameFieldPattern getPattern() {
+        return pattern;
     }
 
 }

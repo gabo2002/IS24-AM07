@@ -21,19 +21,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.client.cli.rendering.starterCard;
+package it.polimi.ingsw.am07.client.cli.rendering.objectiveCardSelection;
 
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
+import it.polimi.ingsw.am07.client.cli.rendering.common.objectiveCard.CLILargeObjectiveCardRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.common.objectiveCard.CLIObjectiveCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLILargeSideRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLISideRepresentation;
-import it.polimi.ingsw.am07.model.game.card.GameCard;
-import it.polimi.ingsw.am07.model.game.side.Side;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
-public class CLIStarterCardRepresentation implements CLIElement {
-    private GameCard starterCard;
+public class CLIObjectiveCardSelectionRepresentation implements CLIElement {
+
+    private final ObjectiveCard[] cards;
 
     private static final char LEFT_ANGLE = '/';
     private static final char RIGHT_ANGLE = '\\';
@@ -43,15 +45,15 @@ public class CLIStarterCardRepresentation implements CLIElement {
     private final StringBuilder bufferedRender;
     private final Matrix<CLIGameSymbol> cardRepresentation;
 
-    public CLIStarterCardRepresentation(GameCard card) {
+    public CLIObjectiveCardSelectionRepresentation(ObjectiveCard[] cards) {
         cardRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));
-        starterCard = card;
+        this.cards = cards;
         bufferedRender = new StringBuilder();
     }
 
 
-    private void drawStartCard() {
-        final int cardWidth = 1 + (CLILargeSideRepresentation.WIDTH + 1) * 2;
+    private void drawObjectiveCard() {
+        final int cardWidth = 1 + (CLILargeSideRepresentation.WIDTH + 1) * 3;
         final int cardHeight = 1 + (CLILargeSideRepresentation.HEIGHT + 1);
 
         // Draw the borders
@@ -74,8 +76,8 @@ public class CLIStarterCardRepresentation implements CLIElement {
         cardRepresentation.set(cardWidth - 1, cardHeight - 1, new CLIGameSymbol(LEFT_ANGLE, CLIColor.WHITE));
 
         //draw the cards
-        renderSideAt(1, 1, starterCard.front());
-        renderSideAt(1 + CLILargeSideRepresentation.WIDTH + 1, 1, starterCard.back());
+        renderObjectiveCardAt(1, 1, cards[0]);
+        renderObjectiveCardAt(1 + 2 * (CLILargeSideRepresentation.WIDTH + 1), 1, cards[1]);
 
     }
 
@@ -84,19 +86,19 @@ public class CLIStarterCardRepresentation implements CLIElement {
      *
      * @param x    the x coordinate
      * @param y    the y coordinate
-     * @param side the side to render
+     * @param card the ObjectiveCard to render
      */
-    private void renderSideAt(int x, int y, Side side) {
-        CLISideRepresentation sideRepresentation = new CLISideRepresentation.Factory(side).large();
-        for (int i = 0; i < sideRepresentation.width(); i++) {
-            for (int j = 0; j < sideRepresentation.height(); j++) {
-                cardRepresentation.set(x + i, y + j, sideRepresentation.getMatrix().get(i, j));
+    private void renderObjectiveCardAt(int x, int y, ObjectiveCard card) {
+        CLIObjectiveCardRepresentation representation = new CLIObjectiveCardRepresentation.Factory(card).large();
+        for (int i = 0; i < representation.width(); i++) {
+            for (int j = 0; j < representation.height(); j++) {
+                cardRepresentation.set(x + i, y + j, representation.getMatrix().get(i, j));
             }
         }
     }
 
     public String render() {
-        drawStartCard();
+        drawObjectiveCard();
 
         CLIColor currentColor = CLIColor.RESET;
 

@@ -21,33 +21,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model.game.card;
+package it.polimi.ingsw.am07.cli.rendering.objectiveCard;
 
-import it.polimi.ingsw.am07.model.game.ResourceHolder;
-import it.polimi.ingsw.am07.model.game.gamefield.GameField;
+import it.polimi.ingsw.am07.client.cli.rendering.objectiveCardSelection.CLIObjectiveCardSelectionRepresentation;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.utils.assets.GameResources;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-/**
- * Represents an objective card that requires a certain amount of resources to be completed.
- */
-public abstract sealed class ObjectiveCard permits ResourceObjectiveCard, PatternObjectiveCard{
+import java.util.List;
 
-    protected final int associatedScore;
+public class CliObjectiveCardSelectionRepresentationTest {
 
-    protected ObjectiveCard(int associatedScore) {
-        this.associatedScore = associatedScore;
+    @Test
+    public void testLargeRendering() {
+
+        List<ObjectiveCard> cards = GameResources.getInstance().getObjectiveCards();
+
+        for (int i = 0; i < cards.size() - 1; i++) {
+            ObjectiveCard[] cardArray = new ObjectiveCard[2];
+            cardArray[0] = cards.get(i);
+            cardArray[1] = cards.get(i + 1);
+            CLIObjectiveCardSelectionRepresentation representation = new CLIObjectiveCardSelectionRepresentation(cardArray);
+            String terminal = representation.render();
+            Assertions.assertNotNull(terminal);
+        }
     }
-
-    /**
-     * Calculates the score associated with the card, based on the player's resources and game field.
-     *
-     * @param playerResources the resources of the player
-     * @param playerGameField the game field of the player
-     * @return the score associated with the card
-     */
-    public abstract int calculateScore(ResourceHolder playerResources, GameField playerGameField);
-
-    public int getAssociatedScore() {
-        return associatedScore;
-    }
-
 }

@@ -192,4 +192,15 @@ public class ResourceHolder implements Serializable {
         return resources.getOrDefault(symbol, 0);
     }
 
+    /**
+     * Returns the resources of the resource holder.
+     * The returned map is a copy of the internal map.
+     * Modifying the returned map does not affect the resource holder.
+     * To modify the resource holder, use the provided methods.
+     * @return the resources of the resource holder.
+     */
+    public Map<Symbol, Integer> getResources() {
+        return new EnumMap<>(resources);
+    }
+
 }

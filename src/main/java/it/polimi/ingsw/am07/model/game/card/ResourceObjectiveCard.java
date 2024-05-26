@@ -29,7 +29,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 /**
  * Represents an objective card that requires a certain amount of resources to be completed.
  */
-public class ResourceObjectiveCard extends ObjectiveCard {
+public final class ResourceObjectiveCard extends ObjectiveCard {
 
     private final ResourceHolder requirements;
 
@@ -63,6 +63,10 @@ public class ResourceObjectiveCard extends ObjectiveCard {
         }
 
         return divisionResult * associatedScore;
+    }
+
+    public ResourceHolder getRequirements() {
+        return requirements;
     }
 
 }
