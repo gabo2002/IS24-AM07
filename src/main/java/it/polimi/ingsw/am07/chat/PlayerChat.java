@@ -74,6 +74,12 @@ public final class PlayerChat implements Serializable {
     }
 
     public void insertMessage(ChatMessage message) {
+
+        if (messages.isEmpty()) {
+            messages.add(message);
+            return;
+        }
+
         // Sort messages by timestamp
         for (int i = messages.size() - 1; i >= 0; i--) {
             if (messages.get(i).timestamp().before(message.timestamp())) {

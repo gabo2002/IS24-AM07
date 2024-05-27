@@ -52,6 +52,7 @@ import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
 
+import java.text.DateFormat;
 import java.util.*;
 import java.util.function.BiConsumer;
 
@@ -345,7 +346,9 @@ public class CLIInstructionLoader {
             List<ChatMessage> messages = clientState.getGameModel().getSelf().getChat().getLastMessages(20);
             System.out.println("Chat:");
             for (ChatMessage message : messages) {
-                System.out.println("[" + message.timestamp() + "] " + message.senderNickname() + ": " + message.message());
+                //Formatting the timestamp
+                DateFormat dateFormat = DateFormat.getTimeInstance();
+                System.out.println("[" + dateFormat.format(message.timestamp()) + "] " + message.senderNickname() + ": " + message.message());
             }
         });
 

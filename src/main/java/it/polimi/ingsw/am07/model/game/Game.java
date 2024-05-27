@@ -400,6 +400,13 @@ public class Game implements Serializable {
                 player.addPlayableCard(game.pickRandomGoldCard());
             }
 
+            // Add the players to the chat system
+            for (Player player : players) {
+                for (Player otherPlayer : players) {
+                    player.getChat().addPlayer(otherPlayer.getNickname());
+                }
+            }
+
             // Shuffle the player list
             Collections.shuffle(players);
 

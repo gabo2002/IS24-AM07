@@ -61,9 +61,13 @@ public class SendMessageAction extends PlayerAction {
      */
     @Override
     public boolean reflect(Game gameModel) {
-        if (message.receiverNicknames().contains(gameModel.getSelf().getNickname()) || message.senderNickname().equals(gameModel.getSelf().getNickname()))
-            gameModel.getSelf().getChat().insertMessage(message);
-
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "SendMessageAction{" +
+                "message=" + message +
+                '}';
     }
 }
