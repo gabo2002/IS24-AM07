@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
@@ -85,33 +86,17 @@ public class WelcomeViewController {
 
     @FXML
     protected void onLobbyBtnClick(ActionEvent event) {
-
-        Lobby lobby = new Lobby();
-
-        //Action action = new CreateLobbyAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
-        // controller.execute(action);
+        clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
         loadScene(event);
     }
 
     private void loadScene(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/username-view.fxml"));
-            Parent root = fxmlLoader.load();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/username-view.fxml"));
 
-            // Obtain the controller for the new view
-            UsernameViewController view_controller = fxmlLoader.getController();
-            view_controller.init(clientState, controller);
+        // Obtain the controller for the new view
+        UsernameViewController view_controller = fxmlLoader.getController();
+        view_controller.init(clientState, controller);
 
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the new scene
-            Scene scene = new Scene(root, 1500, 1000);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

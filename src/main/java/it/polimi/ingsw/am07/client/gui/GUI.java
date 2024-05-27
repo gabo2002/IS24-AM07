@@ -24,9 +24,18 @@
 package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
+import it.polimi.ingsw.am07.client.gui.viewController.LobbyBoxController;
 import it.polimi.ingsw.am07.client.gui.viewController.NetworkViewController;
+import it.polimi.ingsw.am07.client.gui.viewController.UsernameViewController;
+import it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.network.ClientNetworkManager;
+import it.polimi.ingsw.am07.network.NetworkType;
+import it.polimi.ingsw.am07.network.rmi.ClientRMINetworkManager;
+import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -46,6 +55,7 @@ public class GUI extends javafx.application.Application {
     private ClientState state;
     private Stage stage;
     private boolean shouldRender = false;
+    private ClientNetworkManager clientNetworkManager;
 
     public GUI() {
     }
@@ -58,14 +68,17 @@ public class GUI extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         //generate identifier
         String identity = UUID.randomUUID().toString();
+
+        ClientNetworkManager.Factory networkManager = new ClientNetworkManager.Factory();
+
         state = new ClientState(this::notifyRenderThread, identity);
         //initialize the stage
         this.stage = stage;
 
         FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/network-view.fxml"));
         Parent root = loader.load();
-        NetworkViewController controller = loader.getController();
-        controller.init(state, identity);
+        NetworkViewController networkViewController = loader.getController();
+        networkViewController.init(state, identity, networkManager);
 
         Scene scene = new Scene(root, 1500, 1000);
         scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
@@ -95,17 +108,53 @@ public class GUI extends javafx.application.Application {
         //Switch case to render the correct view based on the state
         PlayerState playerState = state.getPlayerState();
 
+        FXMLLoader loader;
+        Scene scene = null;
+
         switch (playerState) {
             case SELECTING_LOBBY:
-                break;
-            case WAITING_FOR_PLAYERS:
-                FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
-                Scene scene = null;
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/welcome-view.fxml"));
                 try {
                     scene = new Scene(loader.load(), 1500, 1000);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.show();
+                break;
+            case INSERTING_USERNAME:
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/username-view.fxml"));
+                try {
+                    scene = new Scene(loader.load(), 1500, 1000);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.show();
+                break;
+            case WAITING_FOR_PLAYERS:
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
+                try {
+                    scene = new Scene(loader.load(), 1500, 1000);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
+                stage.setScene(scene);
+                stage.show();
+                break;
+            case ADMIN_WAITING_FOR_PLAYERS:
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
+                try {
+                    scene = new Scene(loader.load(), 1500, 1000);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.show();

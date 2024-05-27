@@ -90,6 +90,7 @@ public class ClientState {
 
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
+        notifyGameModelUpdate();
     }
 
     public List<Lobby> getAvailableLobbies() {

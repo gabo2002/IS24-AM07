@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -40,57 +41,31 @@ import java.io.IOException;
 
 public class NetworkViewController {
 
-    private Controller controller;
     private ClientState clientState;
+    private ClientNetworkManager.Factory clientNetworkManager;
     private String identity;
 
     @FXML
     protected void onRMIBtnClicked(ActionEvent event) {
         initializeClientState(NetworkType.RMI);
-        loadScene(event);
+        clientState.setPlayerState(PlayerState.SELECTING_LOBBY);
     }
 
     @FXML
     protected void onTCPBtnClicked(ActionEvent event) {
         initializeClientState(NetworkType.TCP);
-        loadScene(event);
+        clientState.setPlayerState(PlayerState.SELECTING_LOBBY);
     }
 
     private void initializeClientState(NetworkType networkType) {
-        ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
-                .withHostname("localhost")
+        clientNetworkManager
                 .withPort(networkType == NetworkType.RMI ? AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort() : AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort())
-                .withNetworkType(networkType)
-                .withIdentity(identity)
-                .withState(clientState)
-                .build();
-
-        controller = networkManager.getController();
+                .withNetworkType(networkType);
     }
 
-    private void loadScene(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/welcome-view.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtain the controller for the new view
-            WelcomeViewController view_controller = fxmlLoader.getController();
-            view_controller.init(clientState, controller);
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the new scene
-            Scene scene = new Scene(root, 1500, 1000);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void init(ClientState state, String identity) {
+    public void init(ClientState state, String identity, ClientNetworkManager.Factory clientNetworkManager) {
         this.clientState = state;
         this.identity = identity;
+        this.clientNetworkManager = clientNetworkManager;
     }
 }

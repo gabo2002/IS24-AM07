@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
@@ -79,7 +80,10 @@ public class UsernameViewController {
         Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), Pawn.RED);
         controller.execute(action);
 
-        loadScene(event);
+        clientState.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);
+
+        //loadScene(event);
+
     }
 
 
