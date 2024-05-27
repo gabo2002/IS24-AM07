@@ -34,6 +34,7 @@ import it.polimi.ingsw.am07.model.game.side.Side;
 
 public class PlayerInitialChoiceAction extends PlayerAction {
 
+    private boolean gameHasToStart = false;
     private ObjectiveCard selectedCard;
     private Side starterSide;
 
@@ -76,17 +77,24 @@ public class PlayerInitialChoiceAction extends PlayerAction {
             executedCorrectly = false;
             return true;
         }
+
+        // If all players have chosen their objective card and starter side, the game can start
+        if (gameModel.getPlayers().stream().allMatch(player -> player.getPlayerObjectiveCard() != null)) {
+            gameHasToStart = true;
+        }
+
         executedCorrectly = true;
         return false;
     }
 
     @Override
     public boolean reflect(ClientState state) {
-        //getting the player
-        Player correspondingPlayer = state.getGameModel().getPlayers().stream().filter(player -> player.getNickname().equals(playerNickname)).findFirst().orElse(null);
+        //If the action was executed correctly and the player is the one who sent the action, the player is waiting for the game to start
+        boolean amITheFirstPlayer = state.getGameModel().getPlayingPlayer().getNickname().equals(state.getNickname());
 
-        if (correspondingPlayer == null) {
-            return true;
+        if (gameHasToStart && executedCorrectly) {
+            state.setPlayerState(amITheFirstPlayer ? PlayerState.PLACING_CARD : PlayerState.SLEEPING);
+            return false;
         }
 
         if (executedCorrectly && state.getIdentity().equals(getIdentity())) {
