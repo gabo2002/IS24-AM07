@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.chat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public record ChatMessage(
         List<String> receiverNicknames,
         String message,
         Date timestamp
-) {
+) implements Serializable {
     public ChatMessage(String senderNickname, List<String> receiverNicknames, String message) {
         this(senderNickname, receiverNicknames, message, new Date());
     }

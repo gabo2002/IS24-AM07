@@ -87,7 +87,7 @@ public class ClientTCPListener extends ClientListener {
      */
     @Override
     public String getIdentity() {
-        return clientState.getLobbyModel().getId().toString();
+        return clientState.getIdentity();
     }
 
     /**
