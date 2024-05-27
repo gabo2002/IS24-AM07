@@ -86,7 +86,7 @@ class LobbyControllerTest {
         lobby.addNewPlayer("player2", "player2", Pawn.BLUE);
         lobby.addNewPlayer("player3", "player3", Pawn.RED);
 
-        lobbyController.execute(new GameStartAction("player1", "identity1"));
+        lobbyController.execute(new GameStartAction("player1", "player1"));
 
         assertEquals(5, mockListener.getCalled().size());
 
