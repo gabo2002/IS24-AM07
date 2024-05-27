@@ -222,6 +222,7 @@ public class Player implements Serializable {
 
     /**
      * Removes a card from the hand of the player.
+     *
      * @param side The side of the card to be removed.
      * @throws IllegalArgumentException if the card is not in the hand.
      * @author Gabriele Corti

@@ -27,17 +27,9 @@ import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
-import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class NetworkViewController {
 

@@ -24,18 +24,10 @@
 package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
-import it.polimi.ingsw.am07.client.gui.viewController.LobbyBoxController;
 import it.polimi.ingsw.am07.client.gui.viewController.NetworkViewController;
-import it.polimi.ingsw.am07.client.gui.viewController.UsernameViewController;
-import it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
-import it.polimi.ingsw.am07.network.NetworkType;
-import it.polimi.ingsw.am07.network.rmi.ClientRMINetworkManager;
-import it.polimi.ingsw.am07.reactive.Controller;
-import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;

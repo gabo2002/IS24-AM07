@@ -27,7 +27,6 @@ import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Game;
-import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 
 /**
@@ -89,13 +88,13 @@ public class PlayerPickCardAction extends PlayerAction {
     @Override
     public boolean reflect(ClientState state) {
 
-        if(!executedCorrectly) {
+        if (!executedCorrectly) {
             state.setClientStringErrorMessage(getErrorMessage());
             return true;
         }
 
         // Update the client state
-        if(state.getNickname().equals(playerNickname)) {
+        if (state.getNickname().equals(playerNickname)) {
             state.setPlayerState(PlayerState.SLEEPING);
             return false;
         } else if (nextPlayer.equals(state.getNickname())) {
