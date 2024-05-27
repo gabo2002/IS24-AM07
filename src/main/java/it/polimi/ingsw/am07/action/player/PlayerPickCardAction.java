@@ -24,7 +24,10 @@
 package it.polimi.ingsw.am07.action.player;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 
 /**
@@ -33,6 +36,7 @@ import it.polimi.ingsw.am07.model.game.card.GameCard;
 public class PlayerPickCardAction extends PlayerAction {
 
     private final GameCard pickedCard;
+    private String nextPlayer;
 
     /**
      * Constructor.
@@ -42,8 +46,8 @@ public class PlayerPickCardAction extends PlayerAction {
      */
     public PlayerPickCardAction(String playerNickname, String identity, GameCard pickedCard) {
         super(playerNickname, identity);
-
         this.pickedCard = pickedCard;
+        nextPlayer = null;
     }
 
     /**
@@ -57,7 +61,14 @@ public class PlayerPickCardAction extends PlayerAction {
         try {
             getCorrespondingPlayer(gameModel).addPlayableCard(pickedCard);
             gameModel.popCard(pickedCard);
+
+            // I can increment the turn
+            gameModel.incrementTurn();
+            nextPlayer = gameModel.getPlayingPlayer().getNickname();
+            executedCorrectly = true;
         } catch (Exception e) {
+            executedCorrectly = false;
+            super.setErrorMessage(e.getMessage());
             return false;
         }
 
@@ -73,6 +84,26 @@ public class PlayerPickCardAction extends PlayerAction {
     @Override
     public boolean reflect(Game gameModel) {
         return execute(gameModel);
+    }
+
+    @Override
+    public boolean reflect(ClientState state) {
+
+        if(!executedCorrectly) {
+            state.setClientStringErrorMessage(getErrorMessage());
+            return true;
+        }
+
+        // Update the client state
+        if(state.getNickname().equals(playerNickname)) {
+            state.setPlayerState(PlayerState.SLEEPING);
+            return false;
+        } else if (nextPlayer.equals(state.getNickname())) {
+            state.setPlayerState(PlayerState.PICKING_CARD);
+            return false;
+        }
+
+        return false;
     }
 
 }

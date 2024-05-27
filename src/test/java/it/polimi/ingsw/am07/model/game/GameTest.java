@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.*;
@@ -96,31 +97,32 @@ class GameTest {
         assertEquals(GameState.STARTING, game.getGameState());
         assertEquals(0, game.getCurrentPlayerIndex());
 
-        assertDoesNotThrow(() -> player1.placeAt(starter, new GameFieldPosition(0, 0, 0)));
+        assertDoesNotThrow(() ->  player1.setStarterCardSide(starter));
         assertEquals(0, player1.getPlayerScore());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player2.placeAt(starter, new GameFieldPosition(0, 0, 0)));
+        assertDoesNotThrow(() -> player2.setStarterCardSide(starter));
 
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(1, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player3.placeAt(starter, new GameFieldPosition(0, 0, 0)));
+        assertDoesNotThrow(() -> player3.setStarterCardSide(starter));
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(2, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player4.placeAt(starter, new GameFieldPosition(0, 0, 0)));
+        assertDoesNotThrow(() -> player4.setStarterCardSide(starter));
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(3, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
         // player 1
+        player1.addPlayableCard(new GameCard(sideFront, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player1.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player1.getPlayerScore());
 
@@ -130,6 +132,7 @@ class GameTest {
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(1, game.getCurrentPlayerIndex());
 
+        player2.addPlayableCard(new GameCard(sideFront, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player2.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player2.getPlayerScore());
 
@@ -138,6 +141,7 @@ class GameTest {
         // player 3
         assertEquals(GameState.PLAYING, game.getGameState());
 
+        player3.addPlayableCard(new GameCard(sideFront, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player3.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player3.getPlayerScore());
 
@@ -145,6 +149,7 @@ class GameTest {
         game.incrementTurn();
 
         // player 4
+        player4.addPlayableCard(new GameCard(sideFront, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player4.placeAt(sideFront, new GameFieldPosition(1, 1, 1)));
         assertEquals(20, player4.getPlayerScore());
 

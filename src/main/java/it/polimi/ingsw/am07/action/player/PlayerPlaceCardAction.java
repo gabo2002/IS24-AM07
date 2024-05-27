@@ -24,6 +24,8 @@
 package it.polimi.ingsw.am07.action.player;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -61,18 +63,36 @@ public class PlayerPlaceCardAction extends PlayerAction {
         try {
             getCorrespondingPlayer(gameModel).placeAt(placedSide, position);
         } catch (Exception e) {
+            super.setErrorMessage(e.getMessage());
+            executedCorrectly = false;
             return false;
         }
-
+        executedCorrectly = true;
         return false;
     }
 
     /**
      * Reflect the action.
      *
-     * @param gameModel the game model
+     * @param clientState the ClientState
      * @return true if the action was successful, false otherwise
      */
+    @Override
+    public boolean reflect(ClientState clientState) {
+
+        if (!executedCorrectly) {
+            clientState.setClientStringErrorMessage(getErrorMessage());
+            return true;
+        }
+
+        if (clientState.getNickname().equals(playerNickname)) {
+            clientState.setPlayerState(PlayerState.PICKING_CARD);
+            return false;
+        }
+
+        return false;
+    }
+
     @Override
     public boolean reflect(Game gameModel) {
         return execute(gameModel);

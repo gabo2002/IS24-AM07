@@ -56,6 +56,7 @@ public class PlayerTest {
         assertFalse(player.canBePlacedAt(front_starter, new GameFieldPosition(1, 0, 0)));
         assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(1, 1, 0)));
 
+        player.addPlayableCard(new GameCard(front_starter, new SideBack(0, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(front_starter, new GameFieldPosition(0, 0, 0)));
 
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1, 1, 1)));
@@ -86,6 +87,7 @@ public class PlayerTest {
         SideFront front_gold2 = new SideFrontGold(3, side, test, 2, null, null, Symbol.BLUE);
 
         assertTrue(player.canBePlacedAt(front_gold2, new GameFieldPosition(1, 1, 1)));
+        player.addPlayableCard(new GameCard(front_gold2, new SideBack(3, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(front_gold2, new GameFieldPosition(1, 1, 1)));
 
         // now should have the requirements needed
@@ -110,6 +112,7 @@ public class PlayerTest {
         assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(-1, -1, 1)));
         assertTrue(player.canBePlacedAt(another_front_gold, new GameFieldPosition(1, -1, 1)));
 
+        player.addPlayableCard(new GameCard(another_front_gold, new SideBack(2, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(another_front_gold, new GameFieldPosition(2, 2, 1)));
 
         assertFalse(player.canBePlacedAt(another_front_gold, new GameFieldPosition(2, 2, 1)));
@@ -117,18 +120,23 @@ public class PlayerTest {
         assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(2, 2, 2)));
 
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(1, -1, 1)));
+        player.addPlayableCard(new GameCard(front_gold, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(1, -1, 1)));
 
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2, -2, 1)));
+        player.addPlayableCard(new GameCard(front_gold, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, -2, 1)));
 
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3, -1, 1)));
+        player.addPlayableCard(new GameCard(front_gold, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(3, -1, 1)));
 
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(3, 1, 1)));
+        player.addPlayableCard(new GameCard(front_gold, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(3, 1, 1)));
 
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2, 0, 2)));
+        player.addPlayableCard(new GameCard(front_gold, new SideBack(1, null, null, null)));
         assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));
 
     }

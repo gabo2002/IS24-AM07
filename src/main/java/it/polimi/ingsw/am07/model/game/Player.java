@@ -190,6 +190,13 @@ public class Player implements Serializable {
 
         // the associated score of a gold card includes the resources added by the card itself
         playerScore += card.calculateAssociatedScore(playerResources, coveredCorners);
+
+        // I have to remove the card from the hand
+        try {
+            removeCardFromHand(card);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalPlacementException("The card is not in the hand");
+        }
     }
 
     /**
@@ -210,6 +217,24 @@ public class Player implements Serializable {
      */
     public List<GameCard> getPlayableCards() {
         return playableCards;
+    }
+
+
+    /**
+     * Removes a card from the hand of the player.
+     * @param side The side of the card to be removed.
+     * @throws IllegalArgumentException if the card is not in the hand.
+     * @author Gabriele Corti
+     */
+    private void removeCardFromHand(Side side) throws IllegalArgumentException {
+
+        for (GameCard c : playableCards) {
+            if (c.front().equals(side) || c.back().equals(side)) {
+                playableCards.remove(c);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("The card is not in the hand");
     }
 
     /**
