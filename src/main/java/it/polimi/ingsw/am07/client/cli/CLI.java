@@ -43,13 +43,13 @@ import java.util.function.BiConsumer;
 
 public class CLI {
 
-    private static final List<Instruction> availableInstructionsPickingCard = List.of(Instruction.PICK_CARD, Instruction.SHOW_DECK, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND);
-    private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
-    private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
+    private static final List<Instruction> availableInstructionsPickingCard = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.PICK_CARD, Instruction.SHOW_DECK, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND);
+    private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
+    private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
     private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
     private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
     private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(Instruction.START_GAME, Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
-    private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(Instruction.SELECT_CARD, Instruction.SHOW_HAND, Instruction.SHOW_FIELD, Instruction.QUIT);
+    private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.SELECT_CARD, Instruction.SHOW_HAND, Instruction.SHOW_FIELD, Instruction.QUIT);
     private final ExecutorService renderExecutor;
     private Scanner scanner;
     private ThreadInputReader reader;
@@ -125,6 +125,12 @@ public class CLI {
      */
     private void render(ClientState clientState) {
         PlayerState currentState = clientState.getPlayerState();
+
+        String message = clientState.getClientStringErrorMessage();
+
+        if (message != null) {
+            System.out.println(message);
+        }
 
         switch (currentState) {
             case ADMIN_WAITING_FOR_PLAYERS:

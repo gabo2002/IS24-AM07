@@ -37,6 +37,7 @@ public abstract class Action implements Serializable {
 
     protected boolean executedCorrectly;
     private String identity;
+    private String error;
 
     /**
      * Empty constructor.
@@ -131,5 +132,21 @@ public abstract class Action implements Serializable {
      */
     public void setIdentity(String identity) {
         this.identity = identity;
+    }
+
+    /**
+     * Get the error message.
+     *
+     * @return the error message
+     */
+    public String getErrorMessage() {
+        return error;
+    }
+
+    /**
+     * Set the error message.
+     */
+    public void setErrorMessage(String errorMessage) {
+        this.error = errorMessage;
     }
 }
