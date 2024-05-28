@@ -23,41 +23,36 @@
 
 package it.polimi.ingsw.am07.client.gui.viewController;
 
+import it.polimi.ingsw.am07.client.gui.NetworkInitializer;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
-import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class NetworkViewController {
 
     private ClientState clientState;
-    private ClientNetworkManager.Factory clientNetworkManager;
+    private ClientNetworkManager.Factory clientNetworkManagerFactory;
     private String identity;
+    private NetworkInitializer networkInitializer;
 
     @FXML
     protected void onRMIBtnClicked(ActionEvent event) {
-        initializeClientState(NetworkType.RMI);
-        clientState.setPlayerState(PlayerState.SELECTING_LOBBY);
+        networkInitializer.initializeClientState(NetworkType.RMI);
     }
 
     @FXML
     protected void onTCPBtnClicked(ActionEvent event) {
-        initializeClientState(NetworkType.TCP);
-        clientState.setPlayerState(PlayerState.SELECTING_LOBBY);
+        networkInitializer.initializeClientState(NetworkType.TCP);
     }
 
-    private void initializeClientState(NetworkType networkType) {
-        clientNetworkManager
-                .withPort(networkType == NetworkType.RMI ? AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort() : AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort())
-                .withNetworkType(networkType);
-    }
-
-    public void init(ClientState state, String identity, ClientNetworkManager.Factory clientNetworkManager) {
+    public void init(ClientState state, String identity, ClientNetworkManager.Factory clientNetworkManagerFactory, NetworkInitializer networkInitializer) {
         this.clientState = state;
         this.identity = identity;
-        this.clientNetworkManager = clientNetworkManager;
+        this.clientNetworkManagerFactory = clientNetworkManagerFactory;
+        this.networkInitializer = networkInitializer;
     }
 }
+

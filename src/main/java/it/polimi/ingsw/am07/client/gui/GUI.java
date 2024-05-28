@@ -24,10 +24,17 @@
 package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
+import it.polimi.ingsw.am07.client.gui.viewController.LobbyViewController;
 import it.polimi.ingsw.am07.client.gui.viewController.NetworkViewController;
+import it.polimi.ingsw.am07.client.gui.viewController.UsernameViewController;
+import it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
+import it.polimi.ingsw.am07.network.NetworkType;
+import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -41,13 +48,15 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
-public class GUI extends javafx.application.Application {
+public class GUI extends javafx.application.Application implements NetworkInitializer {
 
     private final Object lock = new Object();
     private ClientState state;
     private Stage stage;
     private boolean shouldRender = false;
     private ClientNetworkManager clientNetworkManager;
+    private ClientNetworkManager.Factory networkManagerFactory;
+    private Controller controller;
 
     public GUI() {
     }
@@ -58,19 +67,19 @@ public class GUI extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //generate identifier
+        // generate identifier
         String identity = UUID.randomUUID().toString();
 
-        ClientNetworkManager.Factory networkManager = new ClientNetworkManager.Factory();
+        networkManagerFactory = new ClientNetworkManager.Factory();
 
         state = new ClientState(this::notifyRenderThread, identity);
-        //initialize the stage
+        // initialize the stage
         this.stage = stage;
 
         FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/network-view.fxml"));
         Parent root = loader.load();
         NetworkViewController networkViewController = loader.getController();
-        networkViewController.init(state, identity, networkManager);
+        networkViewController.init(state, identity, networkManagerFactory, this);
 
         Scene scene = new Scene(root, 1500, 1000);
         scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
@@ -81,6 +90,20 @@ public class GUI extends javafx.application.Application {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> renderLoop()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    @Override
+    public void initializeClientState(NetworkType networkType) {
+        clientNetworkManager = networkManagerFactory
+                .withPort(networkType == NetworkType.RMI ? AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort() : AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort())
+                .withNetworkType(networkType)
+                .withIdentity(state.getIdentity())
+                .withState(state)
+                .withHostname("localhost")
+                .build();
+
+        controller = clientNetworkManager.getController();
+        state.setPlayerState(PlayerState.SELECTING_LOBBY);
     }
 
     private void renderLoop() {
@@ -97,7 +120,7 @@ public class GUI extends javafx.application.Application {
     }
 
     public void render(ClientState state) {
-        //Switch case to render the correct view based on the state
+        // Switch case to render the correct view based on the state
         PlayerState playerState = state.getPlayerState();
 
         FXMLLoader loader;
@@ -106,11 +129,15 @@ public class GUI extends javafx.application.Application {
         switch (playerState) {
             case SELECTING_LOBBY:
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/welcome-view.fxml"));
+
                 try {
                     scene = new Scene(loader.load(), 1500, 1000);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+
+                WelcomeViewController welcomeViewController = loader.getController();
+                welcomeViewController.init(state, controller);
 
                 scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
                 stage.setScene(scene);
@@ -124,6 +151,9 @@ public class GUI extends javafx.application.Application {
                     throw new RuntimeException(e);
                 }
 
+                UsernameViewController usernameViewController = loader.getController();
+                usernameViewController.init(state, controller);
+
                 scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.show();
@@ -135,17 +165,25 @@ public class GUI extends javafx.application.Application {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+
+                LobbyViewController lobbyViewController = loader.getController();
+                lobbyViewController.init(state, controller);
+
                 scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.show();
                 break;
             case ADMIN_WAITING_FOR_PLAYERS:
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
+
                 try {
                     scene = new Scene(loader.load(), 1500, 1000);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+
+                LobbyViewController lobbyViewController1 = loader.getController();
+                lobbyViewController1.init(state, controller);
 
                 scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
                 stage.setScene(scene);
@@ -161,5 +199,5 @@ public class GUI extends javafx.application.Application {
             shouldRender = true;
         }
     }
-
 }
+

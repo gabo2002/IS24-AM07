@@ -58,9 +58,8 @@ public class WelcomeViewController {
 
     private void updateView(ClientState clientState) {
         // Logic to update the GUI based on the new clientState
+        System.out.println("Lobby available: " + clientState.getAvailableLobbies().size());
         if (!clientState.getAvailableLobbies().isEmpty()) {
-            System.out.println("Lobby available: " + clientState.getAvailableLobbies().size());
-
             for (Lobby lobby : clientState.getAvailableLobbies()) {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/lobby-box.fxml"));
@@ -84,16 +83,7 @@ public class WelcomeViewController {
     @FXML
     protected void onLobbyBtnClick(ActionEvent event) {
         clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
-        loadScene(event);
-    }
-
-    private void loadScene(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/username-view.fxml"));
-
-        // Obtain the controller for the new view
-        UsernameViewController view_controller = fxmlLoader.getController();
-        view_controller.init(clientState, controller);
-
+        // loadScene(event);
     }
 
 }

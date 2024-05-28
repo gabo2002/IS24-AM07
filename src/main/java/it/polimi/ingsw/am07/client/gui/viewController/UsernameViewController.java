@@ -85,26 +85,4 @@ public class UsernameViewController {
         //loadScene(event);
 
     }
-
-
-    private void loadScene(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/welcome-view.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtain the controller for the new view
-            WelcomeViewController view_controller = fxmlLoader.getController();
-            view_controller.init(clientState, controller);
-
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the new scene
-            Scene scene = new Scene(root, 1500, 1000);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
