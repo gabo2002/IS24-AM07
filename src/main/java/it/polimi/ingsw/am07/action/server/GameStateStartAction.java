@@ -30,7 +30,7 @@ import it.polimi.ingsw.am07.model.game.Game;
 
 public class GameStateStartAction extends ServerAction {
 
-    private Game game;
+    private final Game game;
 
     public GameStateStartAction(Game game) {
         this.game = game;

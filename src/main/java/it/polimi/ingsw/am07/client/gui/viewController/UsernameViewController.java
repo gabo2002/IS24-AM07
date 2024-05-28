@@ -29,10 +29,8 @@ import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Pawn;
-import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,10 +63,10 @@ public class UsernameViewController {
         List<Pawn> availablePawns = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
         availablePawns.remove(Pawn.BLACK);
 
-        if(clientState.getLobbyModel() != null) {
-            for(LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
+        if (clientState.getLobbyModel() != null) {
+            for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
                 for (Pawn pawn : availablePawns) {
-                    if(!pawn.equals(player.getPlayerPawn())) {
+                    if (!pawn.equals(player.getPlayerPawn())) {
                         // System.out.println(pawn.toString());
                         pawn_list.getItems().add(pawn.toString());
                     }
@@ -103,7 +101,7 @@ public class UsernameViewController {
             return;
         }
 
-        if(clientState.getLobbyModel() != null) {
+        if (clientState.getLobbyModel() != null) {
 
             Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId());
             controller.execute(action);

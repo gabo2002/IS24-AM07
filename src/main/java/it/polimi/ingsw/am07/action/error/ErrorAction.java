@@ -28,7 +28,7 @@ import it.polimi.ingsw.am07.model.ClientState;
 
 public class ErrorAction extends Action {
 
-    private String errorMessage;
+    private final String errorMessage;
 
     public ErrorAction(String errorMessage) {
         super();

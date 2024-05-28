@@ -35,8 +35,8 @@ import it.polimi.ingsw.am07.model.game.side.Side;
 public class PlayerInitialChoiceAction extends PlayerAction {
 
     private boolean gameHasToStart = false;
-    private ObjectiveCard selectedCard;
-    private Side starterSide;
+    private final ObjectiveCard selectedCard;
+    private final Side starterSide;
 
     /**
      * Constructor.

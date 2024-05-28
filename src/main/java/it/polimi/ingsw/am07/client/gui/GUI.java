@@ -30,7 +30,6 @@ import it.polimi.ingsw.am07.client.gui.viewController.UsernameViewController;
 import it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;

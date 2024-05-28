@@ -25,14 +25,11 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
-import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 
 public class LobbyViewController {
 
@@ -65,11 +62,11 @@ public class LobbyViewController {
 
         start_btn.setDisable(true);
 
-        for(LobbyPlayer player: clientState.getLobbyModel().getPlayers()) {
+        for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
             players_list.getItems().add(player.getNickname());
         }
 
-        if(clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
+        if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
             start_btn.setVisible(true);
         }
     }

@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.client.gui.NetworkInitializer;
 import it.polimi.ingsw.am07.model.ClientState;
-import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import javafx.event.ActionEvent;

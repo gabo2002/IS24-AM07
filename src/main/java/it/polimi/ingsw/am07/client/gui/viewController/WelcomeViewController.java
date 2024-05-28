@@ -23,26 +23,19 @@
 
 package it.polimi.ingsw.am07.client.gui.viewController;
 
-import it.polimi.ingsw.am07.Application;
-import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
-import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class WelcomeViewController {
 
@@ -71,7 +64,7 @@ public class WelcomeViewController {
     }
 
     private void onListItemClick(MouseEvent event) {
-        Parent selectedItem = (Parent) lobby_list.getSelectionModel().getSelectedItem();
+        Parent selectedItem = lobby_list.getSelectionModel().getSelectedItem();
 
         // Retrieve the Lobby object from user data
         Lobby lobby = (Lobby) selectedItem.getUserData();

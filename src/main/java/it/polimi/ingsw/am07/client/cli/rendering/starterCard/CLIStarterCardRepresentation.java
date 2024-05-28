@@ -39,7 +39,7 @@ public class CLIStarterCardRepresentation implements CLIElement {
     private static final char VERTICAL = '|';
     private final StringBuilder bufferedRender;
     private final Matrix<CLIGameSymbol> cardRepresentation;
-    private GameCard starterCard;
+    private final GameCard starterCard;
 
     public CLIStarterCardRepresentation(GameCard card) {
         cardRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));
