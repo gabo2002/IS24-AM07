@@ -64,7 +64,7 @@
                <Insets top="10.0" />
             </VBox.margin>
          </Label>
-         <ListView fx:id="pawn_list" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+         <ListView fx:id="pawn_list" orientation="HORIZONTAL"  prefHeight="200.0" style="-fx-background-color: transparent;" />
       </children>
    </VBox>
     <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlayBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-background-radius: 14; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" styleClass="play-button" text="Gioca">

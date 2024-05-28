@@ -29,11 +29,20 @@ import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Pawn;
+import it.polimi.ingsw.am07.model.game.Player;
+import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UsernameViewController {
 
@@ -41,6 +50,10 @@ public class UsernameViewController {
     private Label welcomeText;
     @FXML
     private TextField nicknameField;
+    @FXML
+    private ListView<String> pawn_list;
+
+    private ObservableList<String> options;
 
     private ClientState clientState;
     private Controller controller;
@@ -48,6 +61,25 @@ public class UsernameViewController {
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
         this.controller = controller;
+
+        List<Pawn> availablePawns = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
+        availablePawns.remove(Pawn.BLACK);
+
+        if(clientState.getLobbyModel() != null) {
+            for(LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
+                for (Pawn pawn : availablePawns) {
+                    if(!pawn.equals(player.getPlayerPawn())) {
+                        // System.out.println(pawn.toString());
+                        pawn_list.getItems().add(pawn.toString());
+                    }
+                }
+            }
+        } else {
+            for (Pawn pawn : availablePawns) {
+                // System.out.println(pawn.toString());
+                pawn_list.getItems().add(pawn.toString());
+            }
+        }
 
         // Bind the label to reflect the player state changes
         updateView(clientState);
@@ -72,6 +104,7 @@ public class UsernameViewController {
         }
 
         if(clientState.getLobbyModel() != null) {
+
             Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId());
             controller.execute(action);
 
