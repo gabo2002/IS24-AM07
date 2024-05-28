@@ -40,7 +40,7 @@
     </Label>
     <VBox maxHeight="400.0" maxWidth="400.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #454754; -fx-background-radius: 30;">
       <children>
-         <ListView prefHeight="312.0" prefWidth="400.0" />
+         <ListView fx:id="players_list" prefHeight="312.0" prefWidth="400.0" />
       </children>
     </VBox>
     <VBox alignment="CENTER" prefHeight="76.0" prefWidth="800.0">

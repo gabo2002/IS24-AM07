@@ -24,20 +24,27 @@
 package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.game.Player;
+import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 public class LobbyViewController {
 
+
     @FXML
-    private Label welcomeText;
-    @FXML
-    private TextField nicknameField;
+    private Button start_btn;
 
     private ClientState clientState;
     private Controller controller;
+
+    @FXML
+    private ListView players_list;
 
 
     public void init(ClientState clientState, Controller controller) {
@@ -55,6 +62,14 @@ public class LobbyViewController {
         System.out.println("Lobby view, Client state updated: " + clientState);
         // welcomeText.setText("Current Player State: " + clientState.getPlayerState());
         // Additional GUI updates can go here
+
+        for(LobbyPlayer player: clientState.getLobbyModel().getPlayers()) {
+            players_list.getItems().add(player.getNickname());
+        }
+
+        if(clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
+            start_btn.setVisible(true);
+        }
     }
 
 }
