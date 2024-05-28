@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.client.gui.viewController;
 
+import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
@@ -33,6 +35,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
@@ -56,6 +59,29 @@ public class WelcomeViewController {
         // clientState.onGameModelUpdate(this::updateView);
     }
 
+    @FXML
+    public void initialize() {
+        // Add a listener to handle selection events
+        lobby_list.setOnMouseClicked(event -> onListItemClick(event));
+    }
+
+    private void onListItemClick(MouseEvent event) {
+        Parent selectedItem = (Parent) lobby_list.getSelectionModel().getSelectedItem();
+
+        // Retrieve the Lobby object from user data
+        Lobby lobby = (Lobby) selectedItem.getUserData();
+
+        Action action = new PlayerJoinAction(clientState.getNickname(), clientState.getIdentity(), lobby.getId());
+        controller.execute(action);
+
+        clientState.setLobbyModel(lobby);
+        clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
+
+        System.out.println("Clicked Lobby: " + lobby);
+
+        // Now you have access to the Lobby object and can perform further actions
+    }
+
     private void updateView(ClientState clientState) {
         // Logic to update the GUI based on the new clientState
         System.out.println("Lobby available: " + clientState.getAvailableLobbies().size());
@@ -64,6 +90,8 @@ public class WelcomeViewController {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/lobby-box.fxml"));
                     Parent lobby_box = fxmlLoader.load();
+
+                    lobby_box.setUserData(lobby);
 
                     LobbyBoxController lobbyBoxController = fxmlLoader.getController();
                     lobbyBoxController.setLobby_name_box("Lobby of " + lobby.getFirstPlayer().getNickname());
