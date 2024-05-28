@@ -25,21 +25,15 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
+import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class UsernameViewController {
 
@@ -76,6 +70,15 @@ public class UsernameViewController {
             welcomeText.setText("Inserisci uno username");
             return;
         }
+
+        if(clientState.getLobbyModel() != null) {
+            Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId());
+            controller.execute(action);
+
+            clientState.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
+            return;
+        }
+
         //TODO add Pawn selection
         Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), Pawn.RED);
         controller.execute(action);

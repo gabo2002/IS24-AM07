@@ -63,6 +63,8 @@ public class LobbyViewController {
         // welcomeText.setText("Current Player State: " + clientState.getPlayerState());
         // Additional GUI updates can go here
 
+        start_btn.setDisable(true);
+
         for(LobbyPlayer player: clientState.getLobbyModel().getPlayers()) {
             players_list.getItems().add(player.getNickname());
         }
