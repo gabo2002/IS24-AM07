@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.model.game.gamefield;
 
+import java.io.Serializable;
+
 /**
  * Represents a position within the game field.
  *
@@ -32,7 +34,7 @@ package it.polimi.ingsw.am07.model.game.gamefield;
  */
 public record GameFieldPosition(
         int x, int y, int z
-) {
+) implements Serializable {
 
     /**
      * Constructs a new GameFieldPosition with the specified parameters and no z-index.

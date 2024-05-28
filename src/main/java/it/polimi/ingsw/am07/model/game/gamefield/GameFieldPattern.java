@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import it.polimi.ingsw.am07.utils.matrix.MatrixElementIterator;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ import java.util.List;
  */
 public record GameFieldPattern(
         Matrix<Symbol> pattern
-) {
+) implements Serializable {
 
     /**
      * Create a new GameFieldPattern with the given pattern.

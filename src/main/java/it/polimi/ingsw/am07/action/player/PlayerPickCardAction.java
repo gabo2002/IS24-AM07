@@ -98,7 +98,7 @@ public class PlayerPickCardAction extends PlayerAction {
             state.setPlayerState(PlayerState.SLEEPING);
             return false;
         } else if (nextPlayer.equals(state.getNickname())) {
-            state.setPlayerState(PlayerState.PICKING_CARD);
+            state.setPlayerState(PlayerState.PLACING_CARD);
             return false;
         }
 
