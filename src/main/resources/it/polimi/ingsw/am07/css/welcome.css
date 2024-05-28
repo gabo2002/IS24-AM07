@@ -1,3 +1,4 @@
+
 /*
  * Codex Naturalis - Final Assignment for the Software Engineering Course
  * Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
@@ -33,6 +34,10 @@
     -fx-background-radius: 8px;
     -fx-background-color: #454754;
     -fx-text-fill: white;
+}
+
+.list-cell{
+    -fx-background-color: transparent;
 }
 
 .play-button {
