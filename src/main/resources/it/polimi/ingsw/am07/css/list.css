@@ -21,11 +21,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+.username {
+    -fx-text-fill: white;
+}
+
+.nicknameField {
+    -fx-background-radius: 8px;
+    -fx-background-color: #454754;
+    -fx-text-fill: white;
+}
+
 .list-cell{
     -fx-background-color: transparent;
     -fx-font-size: 20px;
     -fx-font: SegoeUI;
     -fx-alignment: CENTER;
     -fx-text-fill: white;
-    -fx-padding: 20px 0px;
+    -fx-padding: 20px 20px;
+}
+
+.list-cell:hover{
+    -fx-cursor: hand;
 }
