@@ -39,58 +39,9 @@
         </VBox.margin>
     </Label>
     <VBox maxHeight="400.0" maxWidth="400.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #454754; -fx-background-radius: 30;">
-        <HBox fx:id="player_box_list" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="400.0">
-            <Label fx:id="player_name" alignment="CENTER" prefHeight="81.0" prefWidth="523.0" style="-fx-padding: 30;" textFill="WHITE">
-                <font>
-                    <Font name="Segoe UI Bold Italic" size="18.0" />
-                </font>
-                <opaqueInsets>
-                    <Insets />
-                </opaqueInsets>
-                <HBox.margin>
-                    <Insets />
-                </HBox.margin>
-            </Label>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0">
-            <Label alignment="CENTER" prefHeight="81.0" prefWidth="516.0" style="-fx-padding: 30;" textFill="WHITE">
-                <font>
-                    <Font name="Segoe UI Bold Italic" size="18.0" />
-                </font>
-                <opaqueInsets>
-                    <Insets />
-                </opaqueInsets>
-                <HBox.margin>
-                    <Insets />
-                </HBox.margin>
-            </Label>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0">
-            <Label alignment="CENTER" prefHeight="81.0" prefWidth="474.0" style="-fx-padding: 30;" textFill="WHITE">
-                <font>
-                    <Font name="Segoe UI Bold Italic" size="18.0" />
-                </font>
-                <opaqueInsets>
-                    <Insets />
-                </opaqueInsets>
-                <HBox.margin>
-                    <Insets />
-                </HBox.margin>
-            </Label>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0">
-            <Label alignment="CENTER" prefHeight="81.0" prefWidth="445.0" style="-fx-padding: 30;" textFill="WHITE">
-                <font>
-                    <Font name="Segoe UI Bold Italic" size="18.0" />
-                </font>
-                <opaqueInsets>
-                    <Insets />
-                </opaqueInsets>
-                <HBox.margin>
-                    <Insets />
-                </HBox.margin>
-            </Label>
-        </HBox>
+      <children>
+         <ListView prefHeight="312.0" prefWidth="400.0" />
+      </children>
     </VBox>
     <VBox alignment="CENTER" prefHeight="76.0" prefWidth="800.0">
         <VBox.margin>
