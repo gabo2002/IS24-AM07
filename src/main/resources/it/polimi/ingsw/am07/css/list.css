@@ -21,26 +21,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.client.gui.viewController;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-
-public class LobbyBoxController {
-
-    @FXML
-    private Label lobby_name_box;
-
-    @FXML
-    private Label n_players;
-
-    @FXML
-    protected void setLobby_name_box(String name) {
-        lobby_name_box.setText(name);
-    }
-
-    @FXML
-    protected void setN_players(String text) {
-        n_players.setText(text);
-    }
+.list-cell{
+    -fx-background-color: transparent;
+    -fx-font-size: 20px;
+    -fx-font: SegoeUI;
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-padding: 20px 0px;
 }

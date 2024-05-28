@@ -169,7 +169,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 LobbyViewController lobbyViewController = loader.getController();
                 lobbyViewController.init(state, controller);
 
-                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/list.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.show();
                 break;
@@ -185,7 +185,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 LobbyViewController lobbyViewController1 = loader.getController();
                 lobbyViewController1.init(state, controller);
 
-                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/list.css")).toExternalForm());
                 stage.setScene(scene);
                 stage.show();
                 break;

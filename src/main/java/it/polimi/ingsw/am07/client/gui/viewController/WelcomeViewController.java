@@ -66,8 +66,8 @@ public class WelcomeViewController {
                     Parent lobby_box = fxmlLoader.load();
 
                     LobbyBoxController lobbyBoxController = fxmlLoader.getController();
-                    lobbyBoxController.setLobby_name_box("Lobby");
-                    lobbyBoxController.setN_players(lobby.getPlayers().size());
+                    lobbyBoxController.setLobby_name_box("Lobby of " + lobby.getFirstPlayer().getNickname());
+                    lobbyBoxController.setN_players("Players: " + lobby.getPlayers().size());
 
                     lobby_list.getItems().add(lobby_box);
 
