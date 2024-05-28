@@ -45,24 +45,21 @@ public class GameStartAction extends PlayerAction {
      * Execute the action. Only the first player is able to start the lobby
      *
      * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
      */
     @Override
-    public boolean execute(Lobby lobbyModel) {
+    public void execute(Lobby lobbyModel) {
         if (!getIdentity().equals(lobbyModel.getFirstPlayer().getIdentity())) {
             executedCorrectly = false;
             super.setErrorMessage("Only the first player can start the game");
-            return false;
+            return;
         }
 
         try {
             lobbyModel.startGame();
             executedCorrectly = true;
-            return true;
         } catch (IllegalStateException e) {
             executedCorrectly = false;
             super.setErrorMessage(e.getMessage());
-            return false;
         }
     }
 
@@ -70,18 +67,13 @@ public class GameStartAction extends PlayerAction {
      * Reflect the action.
      *
      * @param state the ClientState
-     * @return true if the action executed successfully, false otherwise
      */
     @Override
-    public boolean reflect(ClientState state) {
-
+    public void reflect(ClientState state) {
         if (state.getIdentity().equals(getIdentity()) && !executedCorrectly) {
             state.setClientStringErrorMessage(getErrorMessage());
             state.notifyGameModelUpdate();
-            return true;
         }
-
-        return false;
     }
 
     @Override

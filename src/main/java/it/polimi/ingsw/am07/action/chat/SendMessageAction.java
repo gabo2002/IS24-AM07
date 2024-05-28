@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.action.chat;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 
 /**
@@ -34,8 +35,18 @@ import it.polimi.ingsw.am07.model.game.Game;
  */
 public class SendMessageAction extends PlayerAction {
 
+    /**
+     * The message to send.
+     */
     private final ChatMessage message;
 
+    /**
+     * Constructor.
+     *
+     * @param playerNickname the player nickname
+     * @param identity       the player identity
+     * @param message        the message to send
+     */
     public SendMessageAction(String playerNickname, String identity, ChatMessage message) {
         super(playerNickname, identity);
         this.message = message;
@@ -45,23 +56,19 @@ public class SendMessageAction extends PlayerAction {
      * Execute the action.
      *
      * @param gameModel the game model
-     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean execute(Game gameModel) {
+    public void execute(Game gameModel) {
         gameModel.getPlayers().stream().filter(player -> message.receiverNicknames().contains(player.getNickname())).forEach(player -> player.getChat().insertMessage(message));
-        return true;
     }
 
     /**
      * Reflect the action.
      *
-     * @param gameModel the game model
-     * @return true if the action was successful, false otherwise
+     * @param clientState the client state
      */
     @Override
-    public boolean reflect(Game gameModel) {
-        return true;
+    public void reflect(ClientState clientState) {
     }
 
     @Override

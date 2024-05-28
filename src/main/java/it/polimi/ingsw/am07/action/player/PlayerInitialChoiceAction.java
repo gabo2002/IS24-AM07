@@ -31,12 +31,30 @@ import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.side.Side;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+/**
+ * The PlayerInitialChoiceAction class represents the action of a player choosing an objective card and a starter side.
+ */
 public class PlayerInitialChoiceAction extends PlayerAction {
 
-    private boolean gameHasToStart = false;
+    /**
+     * The logger.
+     */
+    private static final AppLogger logger = new AppLogger(PlayerInitialChoiceAction.class);
+    /**
+     * The chosen objective card.
+     */
     private final ObjectiveCard selectedCard;
+
+    /**
+     * The chosen side of the starter card.
+     */
     private final Side starterSide;
+    /**
+     * True if the clients should be notified that the game can start.
+     */
+    private boolean gameCanStart = false;
 
     /**
      * Constructor.
@@ -52,21 +70,28 @@ public class PlayerInitialChoiceAction extends PlayerAction {
         this.starterSide = starterSide;
     }
 
+    /**
+     * Execute the action.
+     *
+     * @param gameModel the game model
+     */
     @Override
-    public boolean execute(Game gameModel) {
+    public void execute(Game gameModel) {
         //Getting the player
-        Player correspondingPlayer = gameModel.getPlayers().stream().filter(player -> player.getNickname().equals(playerNickname)).findFirst().orElse(null);
+        Player correspondingPlayer = getCorrespondingPlayer(gameModel);
 
         //If the player is not in the game, the action is not valid
         if (correspondingPlayer == null) {
             executedCorrectly = false;
-            System.out.println("Player not found");
-            return true;
+            logger.error("Player not found");
+            return;
         }
+
         //If the player has already chosen an objective card, the action is not valid
         if (correspondingPlayer.getPlayerObjectiveCard() != null) {
             executedCorrectly = false;
-            return true;
+            logger.error("Player has already chosen an objective card");
+            return;
         }
 
         //Setting the player's objective card and starter side
@@ -75,33 +100,35 @@ public class PlayerInitialChoiceAction extends PlayerAction {
             correspondingPlayer.setStarterCardSide(starterSide);
         } catch (IllegalPlacementException e) {
             executedCorrectly = false;
-            return true;
+            return;
         }
 
         // If all players have chosen their objective card and starter side, the game can start
         if (gameModel.getPlayers().stream().allMatch(player -> player.getPlayerObjectiveCard() != null)) {
-            gameHasToStart = true;
+            gameCanStart = true;
         }
 
         executedCorrectly = true;
-        return false;
     }
 
+    /**
+     * Reflect the action.
+     *
+     * @param state the client state
+     */
     @Override
-    public boolean reflect(ClientState state) {
+    public void reflect(ClientState state) {
         //If the action was executed correctly and the player is the one who sent the action, the player is waiting for the game to start
         boolean amITheFirstPlayer = state.getGameModel().getPlayingPlayer().getNickname().equals(state.getNickname());
 
-        if (gameHasToStart && executedCorrectly) {
+        if (gameCanStart && executedCorrectly) {
             state.setPlayerState(amITheFirstPlayer ? PlayerState.PLACING_CARD : PlayerState.SLEEPING);
-            return false;
+            return;
         }
 
         if (executedCorrectly && state.getIdentity().equals(getIdentity())) {
             state.setPlayerState(PlayerState.WAITING_FOR_GAME_START);
         }
-
-        return false;
     }
 
     @Override

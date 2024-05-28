@@ -87,26 +87,22 @@ public class PlayerJoinAction extends PlayerAction {
      * Execute the action.
      *
      * @param matchmaking the outOfLobbyModel model
-     * @return true if the action was successful, false otherwise
      */
-    public boolean execute(Matchmaking matchmaking) {
+    public void execute(Matchmaking matchmaking) {
         matchmaking.setNewLobbyCreated(false);
         matchmaking.setPlayerNickname(getPlayerNickname());
         matchmaking.setPlayerPawn(color);
         matchmaking.setLobbyId(lobbyId);
-        return false;
     }
 
     /**
      * Reflect the action on the client state.
      *
      * @param state the ClientState
-     * @return true if the action executed successfully, false otherwise
      */
-    public boolean reflect(ClientState state) {
+    public void reflect(ClientState state) {
         state.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
         state.notifyGameModelUpdate();
-        return false;
     }
 
     @Override

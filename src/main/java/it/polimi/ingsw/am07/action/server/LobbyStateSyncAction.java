@@ -32,6 +32,9 @@ import it.polimi.ingsw.am07.model.lobby.Lobby;
  */
 public class LobbyStateSyncAction extends ServerAction {
 
+    /**
+     * The reference to the lobby model.
+     */
     private final Lobby lobby;
 
     /**
@@ -44,28 +47,23 @@ public class LobbyStateSyncAction extends ServerAction {
     }
 
     /**
-     * Execute the action. Since we are synchronizing the lobby state from the server model, no change is to be
-     * propagated to the server model.
+     * Execute the action.
      *
-     * @param lobby the lobby model
-     * @return true if the action executed successfully, false otherwise
+     * @param lobbyModel the lobby model
      */
     @Override
-    public boolean execute(Lobby lobby) {
-        return true;
+    public void execute(Lobby lobbyModel) {
     }
 
     /**
      * Reflect the action on the client state.
      *
      * @param clientState the client state
-     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean reflect(ClientState clientState) {
+    public void reflect(ClientState clientState) {
         clientState.setLobbyModel(lobby);
         clientState.notifyGameModelUpdate();
-        return true;
     }
 
     /**

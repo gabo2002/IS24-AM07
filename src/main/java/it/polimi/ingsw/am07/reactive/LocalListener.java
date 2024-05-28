@@ -25,22 +25,21 @@ package it.polimi.ingsw.am07.reactive;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.ClientState;
-import it.polimi.ingsw.am07.model.game.Game;
 
 /**
  * Local listener for testing.
  */
 public class LocalListener implements Listener {
 
-    private final Game localModel;
+    private final ClientState clientState;
 
     /**
      * Constructor.
      *
-     * @param localModel the local model
+     * @param clientState the local client state
      */
-    public LocalListener(Game localModel) {
-        this.localModel = localModel;
+    public LocalListener(ClientState clientState) {
+        this.clientState = clientState;
     }
 
     /**
@@ -50,7 +49,7 @@ public class LocalListener implements Listener {
      */
     @Override
     public void notify(Action action) {
-        action.reflect(localModel);
+        action.reflect(clientState);
     }
 
     /**

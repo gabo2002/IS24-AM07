@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.action;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 /**
  * Interface for an action that just prints to STDOUT on execution and reflection.
@@ -36,36 +37,40 @@ public class DebuggingAction extends Action {
      * Execute the action.
      *
      * @param gameModel the game model
-     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean execute(Game gameModel) {
+    public void execute(Game gameModel) {
         System.out.println("GameAction executed in " + Thread.currentThread().getName());
-        return true;
     }
 
     /**
      * Execute the action.
      *
      * @param lobbyModel the lobby model
-     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean execute(Lobby lobbyModel) {
+    public void execute(Lobby lobbyModel) {
         System.out.println("LobbyAction executed in " + Thread.currentThread().getName());
-        return true;
+    }
+
+    /**
+     * Execute the action.
+     *
+     * @param matchmaking the matchmaking
+     */
+    @Override
+    public void execute(Matchmaking matchmaking) {
+        System.out.println("MatchmakingAction executed in " + Thread.currentThread().getName());
     }
 
     /**
      * Reflect the action.
      *
      * @param clientState the client state
-     * @return true if the action was reflected successfully, false otherwise
      */
     @Override
-    public boolean reflect(ClientState clientState) {
+    public void reflect(ClientState clientState) {
         System.out.println("LobbyAction reflected in " + Thread.currentThread().getName());
-        return true;
     }
 
 }

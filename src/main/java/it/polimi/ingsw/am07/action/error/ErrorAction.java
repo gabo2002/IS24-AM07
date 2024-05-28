@@ -26,23 +26,40 @@ package it.polimi.ingsw.am07.action.error;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.model.ClientState;
 
+/**
+ * Action to notify an error to the client not related to another action.
+ */
 public class ErrorAction extends Action {
 
     private final String errorMessage;
 
+    /**
+     * Constructor.
+     *
+     * @param errorMessage the error message
+     */
     public ErrorAction(String errorMessage) {
         super();
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Get the error message.
+     *
+     * @return the error message
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
-    public boolean reflect(ClientState clientState) {
+    /**
+     * Reflect the action on the client state.
+     *
+     * @param clientState the client state
+     */
+    public void reflect(ClientState clientState) {
         clientState.setClientStringErrorMessage(errorMessage);
         clientState.notifyGameModelUpdate();
-        return false;
     }
 
 

@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 /**
@@ -44,23 +45,20 @@ public class PlayerQuitAction extends PlayerAction {
      * Execute the action.
      *
      * @param lobbyModel the lobby model
-     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean execute(Lobby lobbyModel) {
+    public void execute(Lobby lobbyModel) {
         lobbyModel.removePlayer(playerNickname);
-        return true;
     }
 
     /**
      * Reflect the action on the client state.
      *
-     * @param lobbyModel the lobby model
-     * @return true if the action executed successfully, false otherwise
+     * @param clientState the client state
      */
     @Override
-    public boolean reflect(Lobby lobbyModel) {
-        return execute(lobbyModel);
+    public void reflect(ClientState clientState) {
+        execute(clientState.getLobbyModel());
     }
 
 }

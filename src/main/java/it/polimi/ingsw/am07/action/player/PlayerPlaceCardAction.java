@@ -35,7 +35,14 @@ import it.polimi.ingsw.am07.model.game.side.Side;
  */
 public class PlayerPlaceCardAction extends PlayerAction {
 
+    /**
+     * The side of the card the player chose to place.
+     */
     private final Side placedSide;
+
+    /**
+     * The position on the game field where the player chose to place the card.
+     */
     private final GameFieldPosition position;
 
     /**
@@ -56,46 +63,33 @@ public class PlayerPlaceCardAction extends PlayerAction {
      * Execute the action.
      *
      * @param gameModel the game model
-     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean execute(Game gameModel) {
+    public void execute(Game gameModel) {
         try {
             getCorrespondingPlayer(gameModel).placeAt(placedSide, position);
+            executedCorrectly = true;
         } catch (Exception e) {
             super.setErrorMessage(e.getMessage());
             executedCorrectly = false;
-            return false;
         }
-        executedCorrectly = true;
-        return false;
     }
 
     /**
      * Reflect the action.
      *
      * @param clientState the ClientState
-     * @return true if the action was successful, false otherwise
      */
     @Override
-    public boolean reflect(ClientState clientState) {
-
+    public void reflect(ClientState clientState) {
         if (!executedCorrectly) {
             clientState.setClientStringErrorMessage(getErrorMessage());
-            return true;
+            return;
         }
 
         if (clientState.getNickname().equals(playerNickname)) {
             clientState.setPlayerState(PlayerState.PICKING_CARD);
-            return false;
         }
-
-        return false;
-    }
-
-    @Override
-    public boolean reflect(Game gameModel) {
-        return execute(gameModel);
     }
 
 }

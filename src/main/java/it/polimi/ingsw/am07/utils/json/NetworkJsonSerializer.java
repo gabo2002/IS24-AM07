@@ -30,16 +30,14 @@ import it.polimi.ingsw.am07.action.DebuggingAction;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
-import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
-import it.polimi.ingsw.am07.action.player.PlayerPlaceStarterCardSideAction;
-import it.polimi.ingsw.am07.action.server.GameStateStartAction;
 import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.action.server.LobbyListAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
+import it.polimi.ingsw.am07.action.server.ServerGameStartAction;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.card.PatternObjectiveCard;
 import it.polimi.ingsw.am07.model.game.card.ResourceObjectiveCard;
@@ -95,7 +93,7 @@ public class NetworkJsonSerializer {
                 .registerSubclass(IdentityNetworkPacket.class);
 
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<Action> actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(Action.class)
-                .registerSubclass(GameStartAction.class)
+                .registerSubclass(it.polimi.ingsw.am07.action.lobby.GameStartAction.class)
                 .registerSubclass(GameStateSyncAction.class)
                 .registerSubclass(PlayerPickCardAction.class)
                 .registerSubclass(PlayerPlaceCardAction.class)
@@ -105,9 +103,8 @@ public class NetworkJsonSerializer {
                 .registerSubclass(LobbyListAction.class)
                 .registerSubclass(ErrorAction.class)
                 .registerSubclass(SendMessageAction.class)
-                .registerSubclass(PlayerPlaceStarterCardSideAction.class)
                 .registerSubclass(PlayerInitialChoiceAction.class)
-                .registerSubclass(GameStateStartAction.class)
+                .registerSubclass(ServerGameStartAction.class)
                 .registerSubclass(DebuggingAction.class);
 
         UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();

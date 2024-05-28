@@ -34,7 +34,14 @@ import it.polimi.ingsw.am07.model.game.card.GameCard;
  */
 public class PlayerPickCardAction extends PlayerAction {
 
+    /**
+     * The picked card.
+     */
     private final GameCard pickedCard;
+
+    /**
+     * The next player's nickname.
+     */
     private String nextPlayer;
 
     /**
@@ -53,10 +60,9 @@ public class PlayerPickCardAction extends PlayerAction {
      * Execute the action.
      *
      * @param gameModel the game model
-     * @return true if the action was successful, false otherwiseq
      */
     @Override
-    public boolean execute(Game gameModel) {
+    public void execute(Game gameModel) {
         try {
             getCorrespondingPlayer(gameModel).addPlayableCard(pickedCard);
             gameModel.popCard(pickedCard);
@@ -68,41 +74,27 @@ public class PlayerPickCardAction extends PlayerAction {
         } catch (Exception e) {
             executedCorrectly = false;
             super.setErrorMessage(e.getMessage());
-            return false;
         }
-
-        return false;
     }
 
     /**
-     * Reflect the action.
+     * Reflect the action on the client state.
      *
-     * @param gameModel the game model
-     * @return true if the action was successful, false otherwise
+     * @param state the client state
      */
     @Override
-    public boolean reflect(Game gameModel) {
-        return execute(gameModel);
-    }
-
-    @Override
-    public boolean reflect(ClientState state) {
-
+    public void reflect(ClientState state) {
         if (!executedCorrectly) {
             state.setClientStringErrorMessage(getErrorMessage());
-            return true;
+            return;
         }
 
         // Update the client state
         if (state.getNickname().equals(playerNickname)) {
             state.setPlayerState(PlayerState.SLEEPING);
-            return false;
         } else if (nextPlayer.equals(state.getNickname())) {
             state.setPlayerState(PlayerState.PLACING_CARD);
-            return false;
         }
-
-        return false;
     }
 
 }

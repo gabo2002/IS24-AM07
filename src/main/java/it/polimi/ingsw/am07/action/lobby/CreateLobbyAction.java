@@ -30,40 +30,60 @@ import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
+/**
+ * This action is used by a player to create a new lobby
+ */
 public class CreateLobbyAction extends PlayerAction {
 
+    /**
+     * The player's pawn color
+     */
     private final Pawn color;
+
+    /**
+     * A reference to the lobby created by the player
+     */
     private Lobby createdLobby;
 
+    /**
+     * Create a new CreateLobbyAction
+     *
+     * @param playerNickname the player's nickname
+     * @param identity       the player's identity
+     * @param color          the player's pawn color
+     */
     public CreateLobbyAction(String playerNickname, String identity, Pawn color) {
         super(playerNickname, identity);
         this.color = color;
         createdLobby = null;
     }
 
-    // TODO: change to void
-    public boolean execute(Matchmaking matchmaking) {
+    /**
+     * Execute the function server-side
+     *
+     * @param matchmaking the matchmaking
+     */
+    @Override
+    public void execute(Matchmaking matchmaking) {
         matchmaking.setNewLobbyCreated(true);
         matchmaking.setPlayerNickname(getPlayerNickname());
         matchmaking.setPlayerPawn(color);
-        return false;
     }
 
     /**
      * Execute the function client-side
      *
      * @param state the client state
-     * @return
      */
-    public boolean reflect(ClientState state) {
+    @Override
+    public void reflect(ClientState state) {
         if (createdLobby == null) {
-            return true;
+            return;
         }
 
         state.setLobbyModel(createdLobby);
         state.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);
         state.notifyGameModelUpdate();
-        return false;
     }
 
     @Override
@@ -71,6 +91,11 @@ public class CreateLobbyAction extends PlayerAction {
         return "CreateLobbyAction Packet";
     }
 
+    /**
+     * Set a reference to the lobby created by the player
+     *
+     * @param lobby the lobby created by the player
+     */
     public void setCreatedLobby(Lobby lobby) {
         createdLobby = lobby;
     }

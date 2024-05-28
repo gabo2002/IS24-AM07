@@ -28,26 +28,46 @@ import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Game;
 
-public class GameStateStartAction extends ServerAction {
+/**
+ * Action to notify clients that the game has started
+ * Spawned by the server on migration from lobby to game
+ */
+public class ServerGameStartAction extends ServerAction {
 
+    /**
+     * The reference to the game model
+     */
     private final Game game;
 
-    public GameStateStartAction(Game game) {
+    /**
+     * Constructor
+     *
+     * @param game the game model
+     */
+    public ServerGameStartAction(Game game) {
         this.game = game;
     }
 
+    /**
+     * Execute the action
+     *
+     * @param gameModel the game model
+     */
     @Override
-    public boolean execute(Game game) {
-        return false;
+    public void execute(Game gameModel) {
     }
 
+    /**
+     * Reflect the action on the client state
+     *
+     * @param state the client state
+     */
     @Override
-    public boolean reflect(ClientState state) {
+    public void reflect(ClientState state) {
         state.setGameModel(game);
         state.getGameModel().setSelfNickname(state.getNickname());
         state.setPlayerState(PlayerState.SELECTING_STARTER_CARD_SIDE);
         state.notifyGameModelUpdate();
-        return false;
     }
 
     @Override

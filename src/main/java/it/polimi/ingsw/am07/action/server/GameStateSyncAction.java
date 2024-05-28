@@ -32,6 +32,9 @@ import it.polimi.ingsw.am07.model.game.Game;
  */
 public class GameStateSyncAction extends ServerAction {
 
+    /**
+     * The reference to the game model.
+     */
     private final Game game;
 
     /**
@@ -44,34 +47,16 @@ public class GameStateSyncAction extends ServerAction {
     }
 
     /**
-     * Execute the action. Since we are synchronizing the game state from the server model, no change is to be
-     * propagated to the server model.
-     *
-     * @param game the game model
-     * @return true if the action executed successfully, false otherwise
-     */
-    @Override
-    public boolean execute(Game game) {
-        return true;
-    }
-
-    /**
      * Reflect the action on the client state.
      *
      * @param clientState the client state
      * @return true if the action executed successfully, false otherwise
      */
     @Override
-    public boolean reflect(ClientState clientState) {
+    public void reflect(ClientState clientState) {
         clientState.setGameModel(game);
         clientState.getGameModel().setSelfNickname(clientState.getNickname());
         clientState.notifyGameModelUpdate();
-        return true;
-    }
-
-    @Override
-    public boolean reflect(Game game) {
-        return false;
     }
 
     /**

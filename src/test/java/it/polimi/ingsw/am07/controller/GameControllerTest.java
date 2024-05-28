@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.controller;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.game.Player;
@@ -72,10 +73,14 @@ class GameControllerTest {
         Dispatcher controller = new GameController(game);
 
         Game localModel1 = new Game(playerList_copy, null);
-        LocalListener localListener1 = new LocalListener(localModel1);
+        ClientState clientState1 = new ClientState();
+        clientState1.setGameModel(localModel1);
+        LocalListener localListener1 = new LocalListener(clientState1);
 
         Game localModel2 = new Game(playerList_copy2, null);
-        LocalListener localListener2 = new LocalListener(localModel2);
+        ClientState clientState2 = new ClientState();
+        clientState2.setGameModel(localModel2);
+        LocalListener localListener2 = new LocalListener(clientState2);
 
         controller.registerNewListener(localListener1);
         controller.registerNewListener(localListener2);
@@ -89,8 +94,8 @@ class GameControllerTest {
 
         controller.execute(action);
 
-        assertEquals(1, localModel1.getPlayers().getFirst().getPlacedCards().size());
-        assertEquals(1, localModel2.getPlayers().getFirst().getPlacedCards().size());
+        assertEquals(1, clientState1.getGameModel().getPlayers().getFirst().getPlacedCards().size());
+        assertEquals(1, clientState2.getGameModel().getPlayers().getFirst().getPlacedCards().size());
     }
 
 }

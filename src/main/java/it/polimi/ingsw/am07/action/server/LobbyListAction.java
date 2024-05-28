@@ -26,29 +26,37 @@ package it.polimi.ingsw.am07.action.server;
 import it.polimi.ingsw.am07.action.ServerAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
-import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 import java.util.List;
 
+/**
+ * Action to notify clients of the list of available lobbies
+ */
 public class LobbyListAction extends ServerAction {
 
+    /**
+     * A reference to the list of available lobbies
+     */
     private final List<Lobby> lobbies;
 
+    /**
+     * Constructor
+     *
+     * @param lobbies the list of available lobbies
+     */
     public LobbyListAction(List<Lobby> lobbies) {
         this.lobbies = lobbies;
     }
 
+    /**
+     * Reflect the action on the client state
+     *
+     * @param clientState the client state
+     */
     @Override
-    public boolean execute(Matchmaking matchmaking) {
-        return true;
-    }
-
-    @Override
-    public boolean reflect(ClientState clientState) {
+    public void reflect(ClientState clientState) {
         clientState.setLobbies(lobbies);
         clientState.notifyGameModelUpdate();
-
-        return true;
     }
 
 }

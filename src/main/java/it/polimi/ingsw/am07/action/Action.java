@@ -50,47 +50,27 @@ public abstract class Action implements Serializable {
      * Execute the action on the game model.
      *
      * @param gameModel the game model
-     * @return true if the action was executed successfully, false otherwise
      */
-    public boolean execute(Game gameModel) {
+    public void execute(Game gameModel) {
         throw new RuntimeException("Not implemented");
     }
 
-    /**
-     * Reflect the action on the game model.
-     *
-     * @param gameModel the game model
-     * @return true if the action was reflected successfully, false otherwise
-     */
-    public boolean reflect(Game gameModel) {
-        throw new RuntimeException("Not implemented");
-    }
 
     /**
      * Execute the action on the lobby model.
      *
      * @param lobbyModel the lobby model
-     * @return true if the action was executed successfully, false otherwise
      */
-    public boolean execute(Lobby lobbyModel) {
+    public void execute(Lobby lobbyModel) {
         throw new RuntimeException("Not implemented");
     }
 
     /**
-     * Reflect the action on the lobby model.
+     * Execute the action on the matchmaking model.
      *
-     * @param lobbyModel the lobby model
-     * @return true if the action was reflected successfully, false otherwise
+     * @param matchmaking the matchmaking model
      */
-    public boolean reflect(Lobby lobbyModel) {
-        throw new RuntimeException("Not implemented");
-    }
-
-    public boolean execute(Matchmaking matchmaking) {
-        throw new RuntimeException("Not implemented");
-    }
-
-    public boolean reflect(Matchmaking matchmaking) {
+    public void execute(Matchmaking matchmaking) {
         throw new RuntimeException("Not implemented");
     }
 
@@ -98,24 +78,9 @@ public abstract class Action implements Serializable {
      * Execute the action on the client state.
      *
      * @param clientState the client state
-     * @return true if the action was executed successfully, false otherwise
      */
-    public boolean reflect(ClientState clientState) {
-        try {
-            execute(clientState.getGameModel());
-            clientState.notifyGameModelUpdate();
-            return true;
-        } catch (RuntimeException ignored) {
-            // Attempt to execute the action on the lobby model instead
-        }
-
-        try {
-            execute(clientState.getLobbyModel());
-            clientState.notifyGameModelUpdate();
-            return true;
-        } catch (RuntimeException e2) {
-            return false;
-        }
+    public void reflect(ClientState clientState) {
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -149,4 +114,5 @@ public abstract class Action implements Serializable {
     public void setErrorMessage(String errorMessage) {
         this.error = errorMessage;
     }
+
 }
