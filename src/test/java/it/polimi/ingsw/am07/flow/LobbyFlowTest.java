@@ -121,7 +121,7 @@ public class LobbyFlowTest {
 
         if (availableLobbies.isEmpty())
             return;
-        Action joinLobby = new PlayerJoinAction("client2", "client2", availableLobbies.get(0).getId());
+        Action joinLobby = new PlayerJoinAction("client2", "client2", availableLobbies.get(0).getId(), Pawn.BLUE);
         controller.execute(joinLobby);
         try {
             Thread.sleep(500);
