@@ -1,244 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  ~ Codex Naturalis - Final Assignment for the Software Engineering Course
-  ~ Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ Please note that the GNU General Public License applies only to the
-  ~ files that contain this license header. Other files within the project, such
-  ~ as assets and images, are property of the original owners and may be
-  ~ subject to different copyright terms.
-  ~
-  ~ You should have received a copy of the GNU General Public License
-  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity"
-      prefHeight="932.0" prefWidth="1033.0" style="-fx-background-color: #4F3E30;"
-      xmlns="http://javafx.com/javafx/17.0.2-ea">
-    <children>
-        <HBox alignment="CENTER" minHeight="100.0" prefHeight="90.0" prefWidth="974.0"
-              style="-fx-background-color: #252322; -fx-opacity: 0.9;">
-            <children>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="243.0" spacing="30.0">
-                    <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../chat.png"/>
-                            </image>
-                            <cursor>
-                                <Cursor fx:constant="HAND"/>
-                            </cursor>
-                        </ImageView>
-                        <Label fx:id="player_points1" layoutX="76.0" layoutY="38.0"
-                               style="-fx-font-weight: 700; -fx-background-color: #37332F; -fx-background-radius: 8;"
-                               text="16" textFill="WHITE">
-                            <font>
-                                <Font name="Segoe UI" size="20.0"/>
-                            </font>
-                            <padding>
-                                <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
-                            </padding>
-                        </Label>
-                    </children>
-                </HBox>
-                <HBox alignment="CENTER" layoutX="262.0" layoutY="-4.0" prefHeight="100.0" prefWidth="734.0"
-                      spacing="10.0">
-                    <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <ImageView fx:id="player_state" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
-                                           preserveRatio="true">
-                                    <image>
-                                        <Image url="@../profile_active.png"/>
-                                    </image>
-                                </ImageView>
-                                <Label fx:id="player_username" style="-fx-font-weight: 700;" text="Chaba02"
-                                       textFill="WHITE">
-                                    <VBox.margin>
-                                        <Insets top="10.0"/>
-                                    </VBox.margin>
-                                    <font>
-                                        <Font name="Segoe UI Bold" size="12.0"/>
-                                    </font>
-                                </Label>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" layoutX="185.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <ImageView fx:id="player_state" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
-                                           preserveRatio="true">
-                                    <image>
-                                        <Image url="@../profile_other.png"/>
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND"/>
-                                    </cursor>
-                                </ImageView>
-                                <Label fx:id="player_username" style="-fx-font-weight: 700;" text="Roby"
-                                       textFill="#00ffd8">
-                                    <VBox.margin>
-                                        <Insets top="10.0"/>
-                                    </VBox.margin>
-                                    <font>
-                                        <Font name="Segoe UI Bold" size="12.0"/>
-                                    </font>
-                                </Label>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" layoutX="235.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <ImageView fx:id="player_state" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
-                                           preserveRatio="true">
-                                    <image>
-                                        <Image url="@../profile_other.png"/>
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND"/>
-                                    </cursor>
-                                </ImageView>
-                                <Label fx:id="player_username" style="-fx-font-weight: 700;" text="Gabo"
-                                       textFill="WHITE">
-                                    <VBox.margin>
-                                        <Insets top="10.0"/>
-                                    </VBox.margin>
-                                    <font>
-                                        <Font name="Segoe UI Bold" size="12.0"/>
-                                    </font>
-                                </Label>
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" layoutX="185.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <ImageView fx:id="player_state" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
-                                           preserveRatio="true">
-                                    <image>
-                                        <Image url="@../profile_inactive.png"/>
-                                    </image>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND"/>
-                                    </cursor>
-                                </ImageView>
-                                <Label fx:id="player_username" style="-fx-font-weight: 700;" text="Biasi"
-                                       textFill="WHITE">
-                                    <VBox.margin>
-                                        <Insets top="10.0"/>
-                                    </VBox.margin>
-                                    <font>
-                                        <Font name="Segoe UI Bold" size="12.0"/>
-                                    </font>
-                                </Label>
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
-                <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                    <children>
-                        <Button fx:id="exit_btn" alignment="CENTER" layoutX="847.0" layoutY="29.0"
-                                mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0"
-                                style="-fx-background-color: #E1403D; -fx-background-radius: 12; -fx-text-fill: white;"
-                                text="Esci" textAlignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="13.0"/>
-                            </font>
-                            <HBox.margin>
-                                <Insets/>
-                            </HBox.margin>
-                            <cursor>
-                                <Cursor fx:constant="HAND"/>
-                            </cursor>
-                        </Button>
-                        <Button fx:id="objective_btn" alignment="CENTER" layoutX="847.0" layoutY="29.0"
-                                mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0"
-                                style="-fx-background-color: white; -fx-background-radius: 12; -fx-text-fill: black;"
-                                text="Obiettivi" textAlignment="CENTER">
-                            <font>
-                                <Font name="Segoe UI Bold" size="13.0"/>
-                            </font>
-                            <HBox.margin>
-                                <Insets/>
-                            </HBox.margin>
-                            <cursor>
-                                <Cursor fx:constant="HAND"/>
-                            </cursor>
-                        </Button>
-                    </children>
-                </VBox>
 
-            </children>
+<BorderPane style="-fx-background-color: #eaeaea;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
+
+    <!-- Sezione superiore per il punteggio -->
+    <top>
+        <HBox alignment="CENTER" spacing="10" style="-fx-background-color: #dcdcdc; -fx-padding: 10px;">
+            <Label text="Score:" />
+            <Label fx:id="scoreLabel" style="-fx-font-weight: bold;" text="0" />
         </HBox>
-        <GridPane fx:id="gamefield" gridLinesVisible="true" prefHeight="650.0" style="-fx-background-color: #705B4F;">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-        </GridPane>
-        <HBox alignment="CENTER" minHeight="210.0" prefHeight="190.0" prefWidth="1033.0" spacing="20.0">
-            <children>
-                <ImageView fx:id="card" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/front_43.png"/>
-                    </image>
-                    <cursor>
-                        <Cursor fx:constant="HAND"/>
-                    </cursor>
-                </ImageView>
-                <ImageView fx:id="card" fitHeight="150.0" fitWidth="200.0" layoutX="397.0" layoutY="47.0"
-                           pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/front_29.png"/>
-                    </image>
-                    <cursor>
-                        <Cursor fx:constant="HAND"/>
-                    </cursor>
-                </ImageView>
-                <ImageView fx:id="card" fitHeight="150.0" fitWidth="200.0" layoutX="497.0" layoutY="47.0"
-                           pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/back_36.png"/>
-                    </image>
-                    <cursor>
-                        <Cursor fx:constant="HAND"/>
-                    </cursor>
-                </ImageView>
-                <ImageView fx:id="card1" fitHeight="150.0" fitWidth="200.0" layoutX="177.0" layoutY="10.0"
-                           pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/front_87.png"/>
-                    </image>
-                    <cursor>
-                        <Cursor fx:constant="HAND"/>
-                    </cursor>
-                </ImageView>
-            </children>
-        </HBox>
-    </children>
-</VBox>
+    </top>
+
+    <!-- Sezione centrale per il campo di gioco scrollabile -->
+    <center>
+        <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="500.0" minWidth="600.0" style="-fx-border-color: black;">
+            <GridPane fx:id="gameBoard" hgap="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" vgap="10">
+                <!-- Qui puoi aggiungere le caselle del gioco dinamicamente -->
+            </GridPane>
+        </ScrollPane>
+    </center>
+
+    <!-- Sezione destra per i giocatori -->
+    <right>
+        <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 10px;">
+            <Label style="-fx-font-weight: bold;" text="Players List" />
+            <ListView fx:id="playersList" prefHeight="200">
+                <!-- Gli elementi della lista saranno aggiunti dinamicamente -->
+            </ListView>
+         <Button layoutX="22.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="245.0" text="Objectives Cards" />
+        </VBox>
+    </right>
+
+    <!-- Sezione inferiore per la tua mano e la chat globale -->
+    <bottom>
+        <VBox spacing="10" style="-fx-padding: 10px;">
+            <!-- Sezione per la tua mano -->
+            <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #dcdcdc; -fx-padding: 10px;">
+                <Label text="Your hand:" />
+                <HBox fx:id="handArea" spacing="5" style="-fx-background-color: #ffffff; -fx-padding: 10px; -fx-border-color: gray; -fx-border-width: 1;">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/back_0.png" />
+                     </image></ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/front_52.png" />
+                     </image></ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="226.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/front_37.png" />
+                     </image></ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="431.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/front_90.png" />
+                     </image></ImageView>
+               </children></HBox>
+            </VBox>
+
+            <!-- Sezione per la chat globale -->
+            <VBox style="-fx-background-color: #f0f0f0; -fx-padding: 10px;">
+                <Label style="-fx-font-weight: bold;" text="Global Chat" />
+                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="150">
+                    <VBox fx:id="chatBox" spacing="5" style="-fx-padding: 5px;">
+                        <!-- I messaggi della chat saranno aggiunti dinamicamente -->
+                    </VBox>
+                </ScrollPane>
+                <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10px;">
+                    <TextField fx:id="chatInput" promptText="Text here..." />
+                    <Button text="Send" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>

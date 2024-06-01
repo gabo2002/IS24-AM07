@@ -24,10 +24,7 @@
 package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
-import it.polimi.ingsw.am07.client.gui.viewController.LobbyViewController;
-import it.polimi.ingsw.am07.client.gui.viewController.NetworkViewController;
-import it.polimi.ingsw.am07.client.gui.viewController.UsernameViewController;
-import it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController;
+import it.polimi.ingsw.am07.client.gui.viewController.*;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
@@ -75,10 +72,10 @@ public class GUI extends javafx.application.Application implements NetworkInitia
         // initialize the stage
         this.stage = stage;
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/network-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/chat-view.fxml"));
         Parent root = loader.load();
-        NetworkViewController networkViewController = loader.getController();
-        networkViewController.init(state, identity, networkManagerFactory, this);
+        //NetworkViewController networkViewController = loader.getController();
+        //networkViewController.init(state, identity, networkManagerFactory, this);
 
         Scene scene = new Scene(root, 1500, 1000);
         scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
@@ -198,8 +195,8 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                     throw new RuntimeException(e);
                 }
 
-                //PlayerViewController playerViewController = loader.getController();
-                //playerViewController.init(state, controller);
+                PlayerViewController playerViewController = loader.getController();
+                playerViewController.init(state, controller);
 
                 stage.setScene(scene);
                 stage.show();

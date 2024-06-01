@@ -25,10 +25,13 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.GameStartAction;
+import it.polimi.ingsw.am07.action.lobby.PlayerQuitAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -63,14 +66,14 @@ public class LobbyViewController {
         // welcomeText.setText("Current Player State: " + clientState.getPlayerState());
         // Additional GUI updates can go here
 
-        start_btn.setDisable(true);
+        start_btn.setDisable(false);
 
             for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
                 players_list.getItems().add(player.getNickname());
             }
 
-            if (players_list.getItems().size() >=2) {
-                start_btn.setDisable(false);
+            if (players_list.getItems().size() < 2) {
+                start_btn.setDisable(true);
             }
 
             if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
@@ -80,8 +83,13 @@ public class LobbyViewController {
 
     @FXML
     protected void onPlayerBtnClick(ActionEvent event){
-        Action action = new GameStartAction(clientState.getNickname(), clientState.getIdentity());
-        controller.execute(action);
+        Action startGameAction = new GameStartAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
+        controller.execute(startGameAction);
+    }
+
+    @FXML
+    protected void onQuitBtnClick(ActionEvent event){
+        Platform.exit();
     }
 
 }
