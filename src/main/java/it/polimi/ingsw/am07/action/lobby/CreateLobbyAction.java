@@ -46,7 +46,7 @@ public class CreateLobbyAction extends PlayerAction {
     private Lobby createdLobby;
 
     /**
-     * Create a new CreateLobbyAction
+     * Create a new CreateLobbyAction for CLI
      *
      * @param playerNickname the player's nickname
      * @param identity       the player's identity
@@ -57,7 +57,6 @@ public class CreateLobbyAction extends PlayerAction {
         this.color = color;
         createdLobby = null;
     }
-
     /**
      * Execute the function server-side
      *

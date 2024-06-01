@@ -23,10 +23,13 @@
 
 package it.polimi.ingsw.am07.client.gui.viewController;
 
+import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -62,13 +65,23 @@ public class LobbyViewController {
 
         start_btn.setDisable(true);
 
-        for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
-            players_list.getItems().add(player.getNickname());
+            for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
+                players_list.getItems().add(player.getNickname());
+            }
+
+            if (players_list.getItems().size() >=2) {
+                start_btn.setDisable(false);
+            }
+
+            if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
+                start_btn.setVisible(true);
+            }
         }
 
-        if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
-            start_btn.setVisible(true);
-        }
+    @FXML
+    protected void onPlayerBtnClick(ActionEvent event){
+        Action action = new GameStartAction(clientState.getNickname(), clientState.getIdentity());
+        controller.execute(action);
     }
 
 }

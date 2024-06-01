@@ -193,7 +193,7 @@ public class ServerDispatcher extends Dispatcher {
         try {
             lobby.addNewPlayer(nickname, listener.getIdentity(), playerPawn);
             //Notify the listener
-            PlayerJoinAction action = new PlayerJoinAction(nickname, listener.getIdentity(), lobbyId);
+            PlayerJoinAction action = new PlayerJoinAction(nickname, listener.getIdentity(), lobbyId, playerPawn);
             listener.notify(action);
         } catch (IllegalArgumentException e) {
             ErrorAction errorAction = new ErrorAction(e.getMessage());

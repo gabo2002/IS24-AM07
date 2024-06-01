@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 /**
@@ -72,7 +73,9 @@ public class GameStartAction extends PlayerAction {
     public void reflect(ClientState state) {
         if (state.getIdentity().equals(getIdentity()) && !executedCorrectly) {
             state.setClientStringErrorMessage(getErrorMessage());
+            state.setPlayerState(PlayerState.SELECTING_STARTER_CARD_SIDE);
             state.notifyGameModelUpdate();
+
         }
     }
 

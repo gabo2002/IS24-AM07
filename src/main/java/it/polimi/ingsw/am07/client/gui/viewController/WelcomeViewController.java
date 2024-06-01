@@ -60,7 +60,7 @@ public class WelcomeViewController {
     @FXML
     public void initialize() {
         // Add a listener to handle selection events
-        lobby_list.setOnMouseClicked(event -> onListItemClick(event));
+        lobby_list.setOnMouseClicked(this::onListItemClick);
     }
 
     private void onListItemClick(MouseEvent event) {

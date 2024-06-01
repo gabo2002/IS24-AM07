@@ -47,7 +47,7 @@
         <VBox.margin>
             <Insets top="20.0" />
         </VBox.margin>
-        <Button fx:id="start_btn" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" text="Start" visible="false">
+        <Button fx:id="start_btn" mnemonicParsing="false" onAction="#onPlayerBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4CAF50; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" text="Start" visible="false">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>

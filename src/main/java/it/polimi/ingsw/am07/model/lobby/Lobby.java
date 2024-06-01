@@ -97,7 +97,7 @@ public class Lobby implements Serializable {
             throw new IllegalArgumentException("Nickname already taken");
         }
 
-        if (players.stream().anyMatch(p -> p.getPlayerPawn().equals(pawn))) {
+        if (pawn != null && players.stream().anyMatch(p -> p.getPlayerPawn().equals(pawn))) {
             throw new IllegalArgumentException("Pawn already taken");
         }
 
@@ -109,7 +109,6 @@ public class Lobby implements Serializable {
 
         return player;
     }
-
     /**
      * Removes a player from the lobby.
      *

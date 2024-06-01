@@ -188,6 +188,22 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 stage.setScene(scene);
                 stage.show();
                 break;
+
+            case SELECTING_STARTER_CARD_SIDE:
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/player-view.fxml"));
+
+                try {
+                    scene = new Scene(loader.load(), 1500, 1000);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                //PlayerViewController playerViewController = loader.getController();
+                //playerViewController.init(state, controller);
+
+                stage.setScene(scene);
+                stage.show();
+
             default:
                 throw new IllegalStateException("Unexpected value: " + playerState);
         }

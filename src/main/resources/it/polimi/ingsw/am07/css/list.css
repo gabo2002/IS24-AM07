@@ -33,8 +33,7 @@
 
 .list-cell{
     -fx-background-color: transparent;
-    -fx-font-size: 20px;
-    -fx-font: SegoeUI;
+    -fx-font: 20px "Segoe UI Light";
     -fx-alignment: CENTER;
     -fx-text-fill: white;
     -fx-padding: 20px 20px;

@@ -60,25 +60,6 @@ public class UsernameViewController {
         this.clientState = clientState;
         this.controller = controller;
 
-        List<Pawn> availablePawns = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
-        availablePawns.remove(Pawn.BLACK);
-
-        if (clientState.getLobbyModel() != null) {
-            for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
-                for (Pawn pawn : availablePawns) {
-                    if (!pawn.equals(player.getPlayerPawn())) {
-                        // System.out.println(pawn.toString());
-                        pawn_list.getItems().add(pawn.toString());
-                    }
-                }
-            }
-        } else {
-            for (Pawn pawn : availablePawns) {
-                // System.out.println(pawn.toString());
-                pawn_list.getItems().add(pawn.toString());
-            }
-        }
-
         // Bind the label to reflect the player state changes
         updateView(clientState);
         // clientState.onGameModelUpdate(this::updateView);
@@ -103,18 +84,17 @@ public class UsernameViewController {
 
         if (clientState.getLobbyModel() != null) {
 
-            Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId());
+            Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId(), null);
             controller.execute(action);
 
-            clientState.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
+            //clientState.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
             return;
         }
 
-        //TODO add Pawn selection
-        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), Pawn.RED);
+        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), null);
         controller.execute(action);
 
-        clientState.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);
+        //clientState.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);
 
         //loadScene(event);
 

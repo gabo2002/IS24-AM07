@@ -64,25 +64,17 @@ public class PlayerJoinAction extends PlayerAction {
     private final Pawn color;
 
     /**
-     * Constructor.
+     * The player join for CLI
+     * @param playerNickname
+     * @param identity
+     * @param lobbyId
+     * @param color
      */
     public PlayerJoinAction(String playerNickname, String identity, UUID lobbyId, Pawn color) {
         super(playerNickname, identity);
         this.lobbyId = lobbyId;
         this.color = color;
     }
-
-    /**
-     * Constructor.
-     *
-     * @param playerNickname the player nickname
-     */
-    public PlayerJoinAction(String playerNickname, String identity, UUID lobbyId) {
-        super(playerNickname, identity);
-        this.lobbyId = lobbyId;
-        this.color = null;
-    }
-
     /**
      * Execute the action.
      *
