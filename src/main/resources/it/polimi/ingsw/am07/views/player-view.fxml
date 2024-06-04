@@ -1,80 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane style="-fx-background-color: #eaeaea;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
-
-    <!-- Sezione superiore per il punteggio -->
-    <top>
-        <HBox alignment="CENTER" spacing="10" style="-fx-background-color: #dcdcdc; -fx-padding: 10px;">
-            <Label text="Score:" />
-            <Label fx:id="scoreLabel" style="-fx-font-weight: bold;" text="0" />
-        </HBox>
-    </top>
-
-    <!-- Sezione centrale per il campo di gioco scrollabile -->
-    <center>
-        <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="500.0" minWidth="600.0" style="-fx-border-color: black;">
-            <GridPane fx:id="gameBoard" hgap="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" vgap="10">
-                <!-- Qui puoi aggiungere le caselle del gioco dinamicamente -->
-            </GridPane>
-        </ScrollPane>
-    </center>
-
-    <!-- Sezione destra per i giocatori -->
+<BorderPane prefHeight="1024" prefWidth="1200" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+    <!-- Metà destra dello schermo: GridPane scrollabile -->
     <right>
-        <VBox alignment="TOP_CENTER" spacing="10" style="-fx-padding: 10px;">
-            <Label style="-fx-font-weight: bold;" text="Players List" />
-            <ListView fx:id="playersList" prefHeight="200">
-                <!-- Gli elementi della lista saranno aggiunti dinamicamente -->
-            </ListView>
-         <Button layoutX="22.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="245.0" text="Objectives Cards" />
-        </VBox>
+        <ScrollPane fitToWidth="true">
+            <content>
+                <GridPane fx:id="gridPane" hgap="10" vgap="10" />
+            </content>
+        </ScrollPane>
     </right>
 
-    <!-- Sezione inferiore per la tua mano e la chat globale -->
-    <bottom>
-        <VBox spacing="10" style="-fx-padding: 10px;">
-            <!-- Sezione per la tua mano -->
-            <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #dcdcdc; -fx-padding: 10px;">
-                <Label text="Your hand:" />
-                <HBox fx:id="handArea" spacing="5" style="-fx-background-color: #ffffff; -fx-padding: 10px; -fx-border-color: gray; -fx-border-width: 1;">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/back_0.png" />
-                     </image></ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/front_52.png" />
-                     </image></ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="226.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/front_37.png" />
-                     </image></ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="431.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/front_90.png" />
-                     </image></ImageView>
-               </children></HBox>
-            </VBox>
+    <!-- Metà sinistra dello schermo: VBox con varie sezioni -->
+    <left>
+        <VBox spacing="10">
+            <!-- Sezione lista giocatori -->
+            <TitledPane text="Players">
+                <content>
+                    <ListView fx:id="playerList" />
+                </content>
+            </TitledPane>
 
-            <!-- Sezione per la chat globale -->
-            <VBox style="-fx-background-color: #f0f0f0; -fx-padding: 10px;">
-                <Label style="-fx-font-weight: bold;" text="Global Chat" />
-                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="150">
-                    <VBox fx:id="chatBox" spacing="5" style="-fx-padding: 5px;">
-                        <!-- I messaggi della chat saranno aggiunti dinamicamente -->
+            <!-- Sezione punteggio -->
+            <TitledPane text="My Score">
+                <content>
+                    <Label fx:id="scoreLabel" />
+                </content>
+            </TitledPane>
+
+            <!-- Sezione chat -->
+            <TitledPane text="Chat">
+                <content>
+                    <VBox spacing="10">
+                        <TextArea fx:id="chatArea" editable="false" prefHeight="200" />
+                        <HBox spacing="10">
+                            <TextField fx:id="chatInput" HBox.hgrow="ALWAYS" />
+                            <Button fx:id="sendButton" text="Send" />
+                        </HBox>
                     </VBox>
-                </ScrollPane>
-                <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10px;">
-                    <TextField fx:id="chatInput" promptText="Text here..." />
-                    <Button text="Send" />
-                </HBox>
-            </VBox>
-        </VBox>
-    </bottom>
+                </content>
+            </TitledPane>
 
+            <!-- Sezione carte in mano -->
+            <TitledPane text="My Hand">
+            <content>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../assets/back_3.png" />
+                              </image>
+                           </ImageView>
+                           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../assets/back_26.png" />
+                              </image>
+                              <HBox.margin>
+                                 <Insets left="20.0" />
+                              </HBox.margin>
+                           </ImageView>
+                        </children>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </HBox>
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../assets/front_4.png" />
+                              </image>
+                           </ImageView>
+                           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../assets/front_96.png" />
+                              </image>
+                              <HBox.margin>
+                                 <Insets left="20.0" />
+                              </HBox.margin>
+                           </ImageView>
+                        </children>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </HBox>
+                  </children>
+               </VBox>
+            </content>
+            </TitledPane>
+        </VBox>
+    </left>
 </BorderPane>

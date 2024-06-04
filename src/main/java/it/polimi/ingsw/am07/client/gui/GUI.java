@@ -54,6 +54,9 @@ public class GUI extends javafx.application.Application implements NetworkInitia
     private ClientNetworkManager.Factory networkManagerFactory;
     private Controller controller;
 
+    private static final int WIDTH = 1200;
+    private static final int HEIGHT = 1024;
+
     public GUI() {
     }
 
@@ -72,12 +75,12 @@ public class GUI extends javafx.application.Application implements NetworkInitia
         // initialize the stage
         this.stage = stage;
 
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/chat-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/network-view.fxml"));
         Parent root = loader.load();
-        //NetworkViewController networkViewController = loader.getController();
-        //networkViewController.init(state, identity, networkManagerFactory, this);
+        NetworkViewController networkViewController = loader.getController();
+        networkViewController.init(state, identity, networkManagerFactory, this);
 
-        Scene scene = new Scene(root, 1500, 1000);
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
         scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/welcome.css")).toExternalForm());
 
         stage.setScene(scene);
@@ -127,7 +130,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/welcome-view.fxml"));
 
                 try {
-                    scene = new Scene(loader.load(), 1500, 1000);
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -142,7 +145,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
             case INSERTING_USERNAME:
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/username-view.fxml"));
                 try {
-                    scene = new Scene(loader.load(), 1500, 1000);
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -157,7 +160,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
             case WAITING_FOR_PLAYERS:
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
                 try {
-                    scene = new Scene(loader.load(), 1500, 1000);
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -173,7 +176,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/lobby-view.fxml"));
 
                 try {
-                    scene = new Scene(loader.load(), 1500, 1000);
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -190,7 +193,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/player-view.fxml"));
 
                 try {
-                    scene = new Scene(loader.load(), 1500, 1000);
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
