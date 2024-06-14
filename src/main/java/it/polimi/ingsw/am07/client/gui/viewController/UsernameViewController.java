@@ -106,7 +106,11 @@ public class UsernameViewController {
             return;
         }
 
-        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), null);
+        List<Pawn> availablePawns = Arrays.stream(Pawn.values())
+                .filter(t -> !t.equals(Pawn.BLACK))
+                .toList();
+
+        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), availablePawns.getFirst());
         controller.execute(action);
 
         //clientState.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);

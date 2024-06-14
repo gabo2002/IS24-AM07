@@ -84,6 +84,7 @@ public class LobbyViewController {
     @FXML
     protected void onPlayerBtnClick(ActionEvent event){
         Action startGameAction = new GameStartAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
+        clientState.setNickname(clientState.getLobbyModel().getFirstPlayer().getNickname());
         controller.execute(startGameAction);
     }
 
