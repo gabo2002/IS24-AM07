@@ -203,7 +203,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
 
                 stage.setScene(scene);
                 stage.show();
-
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + playerState);
         }

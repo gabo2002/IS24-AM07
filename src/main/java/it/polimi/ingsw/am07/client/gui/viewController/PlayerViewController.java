@@ -23,10 +23,34 @@
 
 package it.polimi.ingsw.am07.client.gui.viewController;
 
+import it.polimi.ingsw.am07.action.chat.SendMessageAction;
+import it.polimi.ingsw.am07.chat.ChatMessage;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.reactive.Controller;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerViewController {
+
+    @FXML
+    private ListView<String> playerList;
+
+    @FXML
+    private Label scoreLabel;
+
+    @FXML
+    private TextField chatInput;
+
+    @FXML
+    private TextArea chatArea;
 
     private ClientState clientState;
     private Controller controller;
@@ -43,5 +67,44 @@ public class PlayerViewController {
     public void updateView(ClientState clientState) {
         this.clientState = clientState;
         System.out.println("Player view, Client state updated: " + clientState);
+
+        List<String> players = clientState.getGameModel().getPlayers().stream().map(Player::getNickname).toList();
+        playerList.getItems().clear();
+        playerList.getItems().addAll(players);
+
+        if (clientState.getGameModel().getSelf() != null) {
+            scoreLabel.setText("Score: " + clientState.getGameModel().getSelf().getPlayerScore());
+        }
+
+        //Retrieve the last 20 messages
+        List<ChatMessage> messages = clientState.getGameModel().getSelf().getChat().getMessages();
+        List<String> messageRepresentation = new ArrayList<>(messages.size());
+        for (ChatMessage message : messages) {
+            DateFormat dateFormat = DateFormat.getTimeInstance();
+            messageRepresentation.add("[" + dateFormat.format(message.timestamp()) + "] " + message.senderNickname() + ": " + message.message());
+        }
+        chatArea.clear();
+        chatArea.setText(String.join("\n", messageRepresentation));
     }
+
+    @FXML
+    protected void sendChatMessage() {
+        String message = chatInput.getText();
+        List<String> recipients = playerList.getSelectionModel().getSelectedItems().stream().map(
+                nickname -> nickname.toString()
+        ).toList();
+
+        if (recipients.isEmpty()) {
+            recipients = clientState.getGameModel().getPlayers().stream().map(
+                    Player::getNickname
+            ).toList();
+        }
+
+        ChatMessage msg = new ChatMessage(clientState.getGameModel().getSelf().getNickname(), recipients, message);
+
+        SendMessageAction action = new SendMessageAction(clientState.getNickname(), clientState.getIdentity(), msg);
+
+        controller.execute(action);
+    }
+
 }

@@ -41,6 +41,8 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UsernameViewController {
 
@@ -84,7 +86,20 @@ public class UsernameViewController {
 
         if (clientState.getLobbyModel() != null) {
 
-            Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId(), null);
+            Set<Pawn> availablePawns = Arrays.stream(Pawn.values())
+                    .filter(t -> !t.equals(Pawn.BLACK))
+                    .collect(Collectors.toSet());
+
+            availablePawns.removeAll(
+                        clientState.getLobbyModel().getPlayers().stream()
+                            .map(LobbyPlayer::getPlayerPawn)
+                            .collect(Collectors.toSet())
+                    );
+
+            List<Pawn> pawns = new ArrayList<>(availablePawns);
+
+            clientState.setNickname(nicknameField.getText());
+            Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId(), pawns.getFirst());
             controller.execute(action);
 
             //clientState.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);

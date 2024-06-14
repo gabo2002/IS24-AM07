@@ -64,6 +64,7 @@ public class ClientState {
 
     public void setGameModel(Game gameModel) {
         this.gameModel = new Game(gameModel);
+        this.gameModel.setSelfNickname(nickname);
     }
 
     public Lobby getLobbyModel() {
@@ -131,6 +132,7 @@ public class ClientState {
                 ", lobbyModel=" + lobbyModel +
                 ", availableLobbies=" + availableLobbies +
                 ", playerState=" + playerState +
+                ", nickname=" + nickname +
                 ", onGameModelUpdate=" + onGameModelUpdate +
                 '}';
     }
