@@ -15,6 +15,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <BorderPane prefHeight="1024" prefWidth="1200" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
     <!-- Metà destra dello schermo: GridPane scrollabile -->
     <right>
@@ -70,8 +72,8 @@
 
             <TitledPane text="My Hand">
                 <content>
-                    <VBox fx:id="cardContainer" prefHeight="200.0" prefWidth="100.0">
-                    </VBox>
+                    <HBox spacing="10" fx:id="playerHand" prefHeight="200.0" prefWidth="100.0">
+                    </HBox>
                 </content>
             </TitledPane>
         </VBox>

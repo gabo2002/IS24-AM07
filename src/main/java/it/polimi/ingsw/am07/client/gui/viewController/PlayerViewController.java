@@ -68,6 +68,9 @@ public class PlayerViewController {
     @FXML
     private HBox goldDeckContainer;
 
+    @FXML
+    private HBox playerHand;
+
     private ClientState clientState;
     private Controller controller;
 
@@ -108,6 +111,18 @@ public class PlayerViewController {
 
         updateDeckView(resourceDeckContainer, resourceCards);
         updateDeckView(goldDeckContainer, goldCards);
+
+        List<GameCard> hand = clientState.getGameModel().getSelf().getPlayableCards();
+
+        updateHandView(playerHand, hand);
+    }
+
+    private void updateHandView(HBox handContainer, List<GameCard> cards) {
+        handContainer.getChildren().clear();
+        for (GameCard card : cards) {
+            ImageView imageView = createImageView(card.id(), "front");
+            handContainer.getChildren().add(imageView);
+        }
     }
 
     private void updateDeckView(HBox deckContainer, List<GameCard> cards) {
@@ -171,8 +186,6 @@ public class PlayerViewController {
         return imageView;
     }
 
-
-
     @FXML
     protected void sendChatMessage() {
         String message = chatInput.getText();
@@ -192,7 +205,5 @@ public class PlayerViewController {
 
         controller.execute(action);
     }
-
-
 
 }
