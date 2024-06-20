@@ -109,6 +109,7 @@ public class Lobby implements Serializable {
 
         return player;
     }
+
     /**
      * Removes a player from the lobby.
      *

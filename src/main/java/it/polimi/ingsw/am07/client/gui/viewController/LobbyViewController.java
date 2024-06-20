@@ -25,10 +25,8 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.GameStartAction;
-import it.polimi.ingsw.am07.action.lobby.PlayerQuitAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
-import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.application.Platform;
@@ -72,31 +70,31 @@ public class LobbyViewController {
 
         start_btn.setDisable(false);
 
-            for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
-                players_list.getItems().add(player.getNickname());
-            }
+        for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
+            players_list.getItems().add(player.getNickname());
+        }
 
-            if (players_list.getItems().size() < 2) {
-                start_btn.setDisable(true);
-            }
+        if (players_list.getItems().size() < 2) {
+            start_btn.setDisable(true);
+        }
 
-            if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
-                start_btn.setVisible(true);
-            }
+        if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
+            start_btn.setVisible(true);
+        }
 
-        lobby_name.setText("Lobby of "+ clientState.getLobbyModel().getFirstPlayer().getNickname());
+        lobby_name.setText("Lobby of " + clientState.getLobbyModel().getFirstPlayer().getNickname());
 
     }
 
     @FXML
-    protected void onPlayerBtnClick(ActionEvent event){
+    protected void onPlayerBtnClick(ActionEvent event) {
         Action startGameAction = new GameStartAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
         clientState.setNickname(clientState.getLobbyModel().getFirstPlayer().getNickname());
         controller.execute(startGameAction);
     }
 
     @FXML
-    protected void onQuitBtnClick(ActionEvent event){
+    protected void onQuitBtnClick(ActionEvent event) {
         Platform.exit();
     }
 

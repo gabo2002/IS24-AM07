@@ -35,8 +35,11 @@ public abstract sealed class ObjectiveCard implements Serializable permits Resou
 
     protected final int associatedScore;
 
-    protected ObjectiveCard(int associatedScore) {
+    protected final int id;
+
+    protected ObjectiveCard(int associatedScore, int id) {
         this.associatedScore = associatedScore;
+        this.id = id;
     }
 
     /**
@@ -50,6 +53,10 @@ public abstract sealed class ObjectiveCard implements Serializable permits Resou
 
     public int getAssociatedScore() {
         return associatedScore;
+    }
+
+    public int getId() {
+        return id;
     }
 
 }

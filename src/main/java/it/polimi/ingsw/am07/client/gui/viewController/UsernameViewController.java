@@ -27,7 +27,6 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.model.ClientState;
-import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -91,10 +90,10 @@ public class UsernameViewController {
                     .collect(Collectors.toSet());
 
             availablePawns.removeAll(
-                        clientState.getLobbyModel().getPlayers().stream()
+                    clientState.getLobbyModel().getPlayers().stream()
                             .map(LobbyPlayer::getPlayerPawn)
                             .collect(Collectors.toSet())
-                    );
+            );
 
             List<Pawn> pawns = new ArrayList<>(availablePawns);
 

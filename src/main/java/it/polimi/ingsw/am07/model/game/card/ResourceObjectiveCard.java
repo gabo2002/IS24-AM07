@@ -39,8 +39,8 @@ public final class ResourceObjectiveCard extends ObjectiveCard {
      * @param associatedScore the score associated with the card
      * @param requirements    the resources required to complete the card
      */
-    public ResourceObjectiveCard(int associatedScore, ResourceHolder requirements) {
-        super(associatedScore);
+    public ResourceObjectiveCard(int associatedScore, int id, ResourceHolder requirements) {
+        super(associatedScore, id);
         this.requirements = requirements;
     }
 

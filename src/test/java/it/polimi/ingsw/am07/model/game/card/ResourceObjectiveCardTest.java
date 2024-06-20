@@ -45,7 +45,7 @@ class ResourceObjectiveCardTest {
         requirements.incrementResource(Symbol.RED);
         requirements.incrementResource(Symbol.RED);
 
-        ObjectiveCard resourceObjectiveCard = new ResourceObjectiveCard(2, requirements);
+        ObjectiveCard resourceObjectiveCard = new ResourceObjectiveCard(2, 100, requirements);
 
         assertEquals(4, resourceObjectiveCard.calculateScore(playerResources, null));
 
@@ -69,7 +69,7 @@ class ResourceObjectiveCardTest {
             requirements.incrementResource(Symbol.RED);
             requirements.incrementResource(Symbol.RED);
 
-            ObjectiveCard card = new ResourceObjectiveCard(5, requirements);
+            ObjectiveCard card = new ResourceObjectiveCard(5, 100, requirements);
 
             GameDataJsonParser<ObjectiveCard> parser = new GameDataJsonParser<>(ObjectiveCard.class);
 

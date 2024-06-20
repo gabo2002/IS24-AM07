@@ -40,8 +40,8 @@ public final class PatternObjectiveCard extends ObjectiveCard {
      * @param associatedScore the score associated with the card
      * @param pattern         the pattern required to complete the card
      */
-    public PatternObjectiveCard(int associatedScore, GameFieldPattern pattern) {
-        super(associatedScore);
+    public PatternObjectiveCard(int associatedScore, int id, GameFieldPattern pattern) {
+        super(associatedScore, id);
         this.pattern = pattern;
     }
 

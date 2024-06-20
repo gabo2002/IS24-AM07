@@ -65,6 +65,7 @@ public class PlayerJoinAction extends PlayerAction {
 
     /**
      * The player join for CLI
+     *
      * @param playerNickname
      * @param identity
      * @param lobbyId
@@ -75,6 +76,7 @@ public class PlayerJoinAction extends PlayerAction {
         this.lobbyId = lobbyId;
         this.color = color;
     }
+
     /**
      * Execute the action.
      *

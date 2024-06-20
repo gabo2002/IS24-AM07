@@ -57,6 +57,7 @@ public class CreateLobbyAction extends PlayerAction {
         this.color = color;
         createdLobby = null;
     }
+
     /**
      * Execute the function server-side
      *

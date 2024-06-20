@@ -126,15 +126,15 @@ class PatternObjectiveCardTest {
     void calculateScoreEmptyField() {
         GameField field = new GameField();
         GameFieldPattern pattern = getLeftDiagonalPattern(Symbol.RED);
-        PatternObjectiveCard card = new PatternObjectiveCard(5, pattern);
+        PatternObjectiveCard card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
         pattern = getRightDiagonalPattern(Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
 
         for (int i = 0; i < 5; i++) {
             pattern = getLPattern(i, Symbol.RED, Symbol.BLUE);
-            card = new PatternObjectiveCard(5, pattern);
+            card = new PatternObjectiveCard(5, 5, pattern);
             assertEquals(0, card.calculateScore(new ResourceHolder(), field));
         }
     }
@@ -143,10 +143,10 @@ class PatternObjectiveCardTest {
     void calculateSingleCardPattern() {
         Matrix<Symbol> patternMatrix = new Matrix<>(1, 1, Symbol.EMPTY);
         patternMatrix.set(0, 0, Symbol.RED);
-        ObjectiveCard card = new PatternObjectiveCard(1, new GameFieldPattern(patternMatrix));
+        ObjectiveCard card = new PatternObjectiveCard(1, 5, new GameFieldPattern(patternMatrix));
         Matrix<Symbol> patternMatrix2 = new Matrix<>(1, 1, Symbol.EMPTY);
         patternMatrix2.set(0, 0, Symbol.BLUE);
-        ObjectiveCard card2 = new PatternObjectiveCard(1, new GameFieldPattern(patternMatrix2));
+        ObjectiveCard card2 = new PatternObjectiveCard(1, 5, new GameFieldPattern(patternMatrix2));
 
         //generate random field
         for (int i = 0; i < RANDOM_TEST_ITERATIONS; i++) {
@@ -181,7 +181,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, 0, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, -1, 0));
         GameFieldPattern pattern = getLPattern(3, Symbol.RED, Symbol.BLUE);
-        PatternObjectiveCard card = new PatternObjectiveCard(5, pattern);
+        PatternObjectiveCard card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         //A very complex pattern
@@ -200,13 +200,13 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-2, 2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
         pattern = getLPattern(3, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(15, card.calculateScore(new ResourceHolder(), field));
         pattern = getLeftDiagonalPattern(Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
         pattern = getRightDiagonalPattern(Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
     }
 
@@ -215,7 +215,7 @@ class PatternObjectiveCardTest {
         // Test 1: diagonal pattern, empty field
         GameField field = new GameField();
         GameFieldPattern pattern = getLeftDiagonalPattern(Symbol.RED);
-        PatternObjectiveCard card = new PatternObjectiveCard(5, pattern);
+        PatternObjectiveCard card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
 
         // Test 2: diagonal pattern, field with the same pattern
@@ -288,7 +288,7 @@ class PatternObjectiveCardTest {
         // Test 11: L pattern, empty field
         field = new GameField();
         pattern = getLPattern(0, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
 
         // Test 12a: L pattern, field with the same pattern
@@ -298,7 +298,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
         pattern = getLPattern(0, Symbol.BLUE, Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 12b: L pattern, field with the same pattern
@@ -308,7 +308,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(2, -2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, -3, 0));
         pattern = getLPattern(1, Symbol.BLUE, Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 12c: L pattern, field with the same pattern
@@ -318,7 +318,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(-2, 2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(-1, 3, 0));
         pattern = getLPattern(2, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 12d: L pattern, field with the same pattern
@@ -328,7 +328,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(2, 2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
         pattern = getLPattern(3, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 13a: L pattern, field with a different pattern
@@ -337,7 +337,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 3, 0));
         pattern = getLPattern(0, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
 
         // Test 13b: L pattern, field with a different pattern
@@ -347,7 +347,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(1, 3, 0));
         pattern = getLPattern(0, Symbol.BLUE, Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
 
         // Test 13c: L pattern, field with a different pattern
@@ -364,7 +364,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, 4, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, 6, 0));
         pattern = getLPattern(0, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
 
         // Test 14a: L pattern, field with pattern overlap
@@ -376,7 +376,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 4, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(1, 5, 0));
         pattern = getLPattern(0, Symbol.GREEN, Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 14b: L pattern, field with pattern overlap
@@ -388,7 +388,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(0, 4, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.PURPLE), new GameFieldPosition(-1, 5, 0));
         pattern = getLPattern(1, Symbol.PURPLE, Symbol.GREEN);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 14c: L pattern, field with pattern overlap
@@ -400,7 +400,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(0, -2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, -5, 0));
         pattern = getLPattern(2, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 14d: L pattern, field with pattern overlap
@@ -412,7 +412,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(0, 4, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.PURPLE), new GameFieldPosition(1, 5, 0));
         pattern = getLPattern(3, Symbol.BLUE, Symbol.PURPLE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(5, card.calculateScore(new ResourceHolder(), field));
 
         // Test 15a: L pattern, field with pattern overlap but two matches
@@ -426,7 +426,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 6, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(1, 7, 0));
         pattern = getLPattern(0, Symbol.GREEN, Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 15b: L pattern, field with pattern overlap
@@ -440,7 +440,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(0, 6, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.PURPLE), new GameFieldPosition(-1, 7, 0));
         pattern = getLPattern(1, Symbol.PURPLE, Symbol.GREEN);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 15c: L pattern, field with pattern overlap
@@ -454,7 +454,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(-1, 5, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(0, 6, 0));
         pattern = getLPattern(2, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 15d: L pattern, field with pattern overlap
@@ -468,7 +468,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(2, 6, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.PURPLE), new GameFieldPosition(1, 7, 0));
         pattern = getLPattern(3, Symbol.BLUE, Symbol.PURPLE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 16a: L pattern, field with pattern overlap but two matches
@@ -484,7 +484,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 8, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(1, 9, 0));
         pattern = getLPattern(0, Symbol.GREEN, Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 16b: L pattern, field with pattern overlap
@@ -500,7 +500,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(0, 8, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.PURPLE), new GameFieldPosition(1, 9, 0));
         pattern = getLPattern(1, Symbol.PURPLE, Symbol.GREEN);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 16c: L pattern, field with pattern overlap
@@ -516,7 +516,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(1, 5, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(0, 8, 0));
         pattern = getLPattern(2, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 16d: L pattern, field with pattern overlap
@@ -532,7 +532,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(0, 6, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.PURPLE), new GameFieldPosition(1, 9, 0));
         pattern = getLPattern(3, Symbol.BLUE, Symbol.PURPLE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
 
         // Test 17: L pattern, field with pattern overlap but three matches
@@ -550,7 +550,7 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(0, 10, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.GREEN), new GameFieldPosition(1, 11, 0));
         pattern = getLPattern(0, Symbol.GREEN, Symbol.RED);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(15, card.calculateScore(new ResourceHolder(), field));
 
         // Test 18: L pattern, field with no overlap and two matches
@@ -563,14 +563,14 @@ class PatternObjectiveCardTest {
         field.placeOnFieldAt(getGenericSide(Symbol.BLUE), new GameFieldPosition(2, -2, 0));
         field.placeOnFieldAt(getGenericSide(Symbol.RED), new GameFieldPosition(3, -3, 0));
         pattern = getLPattern(2, Symbol.RED, Symbol.BLUE);
-        card = new PatternObjectiveCard(5, pattern);
+        card = new PatternObjectiveCard(5, 5, pattern);
         assertEquals(10, card.calculateScore(new ResourceHolder(), field));
     }
 
     @Test
     void ensureSerializability() {
         assertDoesNotThrow(() -> {
-            ObjectiveCard card = new PatternObjectiveCard(5, getLeftDiagonalPattern(Symbol.RED));
+            ObjectiveCard card = new PatternObjectiveCard(5, 5, getLeftDiagonalPattern(Symbol.RED));
 
             GameDataJsonParser<ObjectiveCard> parser = new GameDataJsonParser<>(ObjectiveCard.class);
 

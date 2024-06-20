@@ -33,12 +33,9 @@ import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
-import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
-import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
-import it.polimi.ingsw.am07.model.game.side.SideFrontRes;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -46,7 +43,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -55,8 +55,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -69,55 +67,40 @@ public class PlayerViewController {
 
     private static final int RECT_WIDTH = 150;
     private static final int RECT_HEIGHT = 100;
-    private static final Double DELTA_X = RECT_WIDTH-(17.0/75.0*RECT_WIDTH);
-    private static final Double DELTA_Y = RECT_HEIGHT-(2.0/5.0*RECT_HEIGHT);
+    private static final Double DELTA_X = RECT_WIDTH - (17.0 / 75.0 * RECT_WIDTH);
+    private static final Double DELTA_Y = RECT_HEIGHT - (2.0 / 5.0 * RECT_HEIGHT);
     private static final int deafaultLayoutX = 100;
     private static final int deafaultLayoutY = 300;
-    private boolean areRectanglesVisible = false;
     private final List<Rectangle> createdRectangles = new ArrayList<>();
-
-    @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
-    private ImageView card1;
-
-    @FXML
-    private ImageView card2;
-
-    @FXML
-    private ImageView card3;
-
-    @FXML
-    private ImageView card4;
-
-    @FXML
-    private ListView<String> playerList;
-
-    @FXML
-    private Label scoreLabel;
-
-    @FXML
-    private TextField chatInput;
-
-    @FXML
-    private TextArea chatArea;
-
-    @FXML
-    private HBox resourceDeckContainer;
-
-    @FXML
-    private HBox goldDeckContainer;
-
-    @FXML
-    private HBox playerHand;
-
-    @FXML
-    private Pane rightPane;
-
     @FXML
     Rectangle defaultRectangle;
-
+    private boolean areRectanglesVisible = false;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private ImageView card1;
+    @FXML
+    private ImageView card2;
+    @FXML
+    private ImageView card3;
+    @FXML
+    private ImageView card4;
+    @FXML
+    private ListView<String> playerList;
+    @FXML
+    private Label scoreLabel;
+    @FXML
+    private TextField chatInput;
+    @FXML
+    private TextArea chatArea;
+    @FXML
+    private HBox resourceDeckContainer;
+    @FXML
+    private HBox goldDeckContainer;
+    @FXML
+    private HBox playerHand;
+    @FXML
+    private Pane rightPane;
     private ClientState clientState;
     private Controller controller;
 
@@ -169,6 +152,7 @@ public class PlayerViewController {
         enableDragAndDrop(defaultRectangle, 0, 0);
         //defaultRectangle.setOnMouseClicked(this::handleCardClick);
     }
+
     private void showStartCardPopup() {
         GameCard startCard = clientState.getGameModel().getSelf().getStarterCard();
 
@@ -197,6 +181,7 @@ public class PlayerViewController {
         popupStage.showAndWait();
 
     }
+
     @FXML
     private void onDragDetected(ImageView imageView) {
         Dragboard db = imageView.startDragAndDrop(TransferMode.MOVE);
@@ -232,7 +217,7 @@ public class PlayerViewController {
 
     private Image imgFrom(int id, String side) {
         ClassLoader cl = this.getClass().getClassLoader();
-        String item = "it/polimi/ingsw/am07/assets/"+side+"_" + id + ".png";
+        String item = "it/polimi/ingsw/am07/assets/" + side + "_" + id + ".png";
         Image img = null;
         try (InputStream is = cl.getResourceAsStream(item)) {
             if (is != null) {
@@ -305,7 +290,7 @@ public class PlayerViewController {
     }
 
     private void handleCardClick(MouseEvent event) {
-        if(!(event.getSource() instanceof ImageView)) {
+        if (!(event.getSource() instanceof ImageView)) {
             System.out.println((event.getSource()));
             return;
         }
@@ -314,10 +299,10 @@ public class PlayerViewController {
         double x = source.getLayoutX();
         double y = source.getLayoutY();
 
-        GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X)/(DELTA_X)), (int) ((y + DELTA_Y)/(DELTA_Y)));
-        GameFieldPosition topRight = new GameFieldPosition((int) ((x+ DELTA_X)/(DELTA_X)), (int) ((y  + DELTA_Y)/(DELTA_Y)));
-        GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x- DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
-        GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
+        GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
+        GameFieldPosition topRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
+        GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
+        GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
 
         Side side = new SideBack(0, null, null, Symbol.GREEN);
 
@@ -348,7 +333,7 @@ public class PlayerViewController {
         createdRectangles.add(newRect);
 
         // Abilita il drag-and-drop sul nuovo rettangolo
-        enableDragAndDrop(newRect, (int) (x/DELTA_X), (int) (y/DELTA_Y));
+        enableDragAndDrop(newRect, (int) (x / DELTA_X), (int) (y / DELTA_Y));
 
         // Aggiungi il nuovo rettangolo al Pane destro
         rightPane.getChildren().add(newRect);
@@ -402,14 +387,15 @@ public class PlayerViewController {
         });
 
     }
-    private void render (Map<GameFieldPosition, Side> placedCards) {
+
+    private void render(Map<GameFieldPosition, Side> placedCards) {
         for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
             GameFieldPosition position = entry.getKey();
             Side side = entry.getValue();
             Image image;
             if (side instanceof SideBack) {
                 image = imgFrom(side.id(), "back");
-            }else {
+            } else {
                 image = imgFrom(side.id(), "front");
             }
             ImageView imageView = new ImageView(image);
@@ -420,7 +406,7 @@ public class PlayerViewController {
             imageView.setOnMouseClicked(this::handleCardClick);
             rightPane.getChildren().add(imageView);
 
-            for(Rectangle rect : createdRectangles) {
+            for (Rectangle rect : createdRectangles) {
                 rect.setVisible(false);
             }
         }

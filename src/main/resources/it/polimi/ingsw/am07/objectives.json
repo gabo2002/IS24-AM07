@@ -1,5 +1,6 @@
 [
     {
+        "id": 86,
         "class": "PatternObjectiveCard",
         "associatedScore": 2,
         "pattern": {
@@ -28,6 +29,7 @@
         }
     },
     {
+        "id": 87,
         "class": "PatternObjectiveCard",
         "associatedScore": 2,
         "pattern": {
@@ -56,6 +58,7 @@
         }
     },
     {
+        "id": 88,
         "class": "PatternObjectiveCard",
         "associatedScore": 2,
         "pattern": {
@@ -84,6 +87,7 @@
         }
     },
     {
+        "id": 89,
         "class": "PatternObjectiveCard",
         "associatedScore": 2,
         "pattern": {
@@ -112,6 +116,7 @@
         }
     },
     {
+        "id": 90,
         "class": "PatternObjectiveCard",
         "associatedScore": 3,
         "pattern": {
@@ -139,6 +144,7 @@
         }
     },
     {
+        "id": 91,
         "class": "PatternObjectiveCard",
         "associatedScore": 3,
         "pattern": {
@@ -166,6 +172,7 @@
         }
     },
     {
+        "id": 92,
         "class": "PatternObjectiveCard",
         "associatedScore": 3,
         "pattern": {
@@ -193,6 +200,7 @@
         }
     },
     {
+        "id": 93,
         "class": "PatternObjectiveCard",
         "associatedScore": 3,
         "pattern": {
@@ -220,6 +228,7 @@
         }
     },
     {
+        "id": 94,
         "class": "ResourceObjectiveCard",
         "associatedScore": 2,
         "requirements": {
@@ -229,6 +238,7 @@
         }
     },
     {
+        "id": 95,
         "class": "ResourceObjectiveCard",
         "associatedScore": 2,
         "requirements": {
@@ -238,6 +248,7 @@
         }
     },
     {
+        "id": 96,
         "class": "ResourceObjectiveCard",
         "associatedScore": 2,
         "requirements": {
@@ -247,6 +258,7 @@
         }
     },
     {
+        "id": 97,
         "class": "ResourceObjectiveCard",
         "associatedScore": 2,
         "requirements": {
@@ -256,6 +268,7 @@
         }
     },
     {
+        "id": 98,
         "class": "ResourceObjectiveCard",
         "associatedScore": 3,
         "requirements": {
@@ -267,6 +280,7 @@
         }
     },
     {
+        "id": 99,
         "class": "ResourceObjectiveCard",
         "associatedScore": 2,
         "requirements": {
@@ -276,6 +290,7 @@
         }
     },
     {
+        "id": 100,
         "class": "ResourceObjectiveCard",
         "associatedScore": 2,
         "requirements": {
@@ -285,6 +300,7 @@
         }
     },
     {
+        "id": 101,
         "class": "ResourceObjectiveCard",
         "associatedScore": 2,
         "requirements": {

@@ -46,6 +46,8 @@ import java.util.UUID;
 
 public class GUI extends javafx.application.Application implements NetworkInitializer {
 
+    private static final int WIDTH = 1200;
+    private static final int HEIGHT = 1024;
     private final Object lock = new Object();
     private ClientState state;
     private Stage stage;
@@ -53,9 +55,6 @@ public class GUI extends javafx.application.Application implements NetworkInitia
     private ClientNetworkManager clientNetworkManager;
     private ClientNetworkManager.Factory networkManagerFactory;
     private Controller controller;
-
-    private static final int WIDTH = 1200;
-    private static final int HEIGHT = 1024;
 
     public GUI() {
     }
