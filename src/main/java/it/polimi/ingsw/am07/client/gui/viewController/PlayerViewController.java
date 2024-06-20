@@ -123,9 +123,11 @@ public class PlayerViewController {
         this.clientState = clientState;
         System.out.println("Player view, Client state updated: " + clientState);
 
-        List<String> players = clientState.getGameModel().getPlayers().stream().map(Player::getNickname).toList();
+        List<Player> players = clientState.getGameModel().getPlayers().stream().toList();
         playerList.getItems().clear();
-        playerList.getItems().addAll(players);
+        for (Player player : players) {
+            playerList.getItems().add(player.getNickname() + ": " + player.getPlayerScore());
+        }
 
         //for(Symbol symbol : clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet()) {
        //     itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));

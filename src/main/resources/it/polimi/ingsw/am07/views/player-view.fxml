@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 
 <SplitPane dividerPositions="0.33" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
     <!-- Metà destra dello schermo: GridPane scrollabile -->
@@ -21,7 +19,7 @@
             </TitledPane>
 
             <!-- Sezione punteggio -->
-            <TitledPane prefHeight="213.0" prefWidth="300.0" text="My Score">
+            <TitledPane prefHeight="72.0" prefWidth="300.0" text="Resources">
                 <content>
 
                     <Label fx:id="scoreLabel" />
@@ -65,7 +63,7 @@
         </VBox>
 
         <!-- Parte destra -->
-        <ScrollPane fx:id="scrollPane" vvalue="0.5" hvalue="0.5">
+        <ScrollPane fx:id="scrollPane" hvalue="0.5" vvalue="0.5">
             <AnchorPane maxHeight="3000" maxWidth="3000" minHeight="2000" minWidth="2000" prefHeight="1019.0" prefWidth="620.0">
                 <Pane fx:id="rightPane" layoutX="950" layoutY="925">
                     <Rectangle fx:id="defaultRectangle" fill="lightgray" height="100" stroke="black" width="150" />
