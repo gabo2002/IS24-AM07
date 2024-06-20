@@ -88,6 +88,8 @@ public class PlayerViewController {
     @FXML
     private ListView<String> playerList;
     @FXML
+    private ListView<String> itemsList;
+    @FXML
     private Label scoreLabel;
     @FXML
     private TextField chatInput;
@@ -123,6 +125,11 @@ public class PlayerViewController {
         List<String> players = clientState.getGameModel().getPlayers().stream().map(Player::getNickname).toList();
         playerList.getItems().clear();
         playerList.getItems().addAll(players);
+
+        for(Symbol symbol : clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet()) {
+            itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));
+        }
+
 
         if (clientState.getGameModel().getSelf() != null) {
             scoreLabel.setText("Score: " + clientState.getGameModel().getSelf().getPlayerScore());
