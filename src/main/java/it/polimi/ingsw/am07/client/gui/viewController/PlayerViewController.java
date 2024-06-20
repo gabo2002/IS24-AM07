@@ -67,6 +67,30 @@ import java.util.Map;
 
 public class PlayerViewController {
 
+    private static final int RECT_WIDTH = 150;
+    private static final int RECT_HEIGHT = 100;
+    private static final Double DELTA_X = RECT_WIDTH-(17.0/75.0*RECT_WIDTH);
+    private static final Double DELTA_Y = RECT_HEIGHT-(2.0/5.0*RECT_HEIGHT);
+    private static final int deafaultLayoutX = 100;
+    private static final int deafaultLayoutY = 300;
+    private boolean areRectanglesVisible = false;
+    private final List<Rectangle> createdRectangles = new ArrayList<>();
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private ImageView card1;
+
+    @FXML
+    private ImageView card2;
+
+    @FXML
+    private ImageView card3;
+
+    @FXML
+    private ImageView card4;
+
     @FXML
     private ListView<String> playerList;
 
@@ -100,10 +124,12 @@ public class PlayerViewController {
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
         this.controller = controller;
-
+        Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
         showStartCardPopup();
+
         // Bind the label to reflect the player state changes
         updateView(clientState);
+        render(getPlacedCards);
         // clientState.onGameModelUpdate(this::updateView);
     }
 
@@ -143,6 +169,43 @@ public class PlayerViewController {
         enableDragAndDrop(defaultRectangle, 0, 0);
         //defaultRectangle.setOnMouseClicked(this::handleCardClick);
     }
+    private void showStartCardPopup() {
+        GameCard startCard = clientState.getGameModel().getSelf().getStarterCard();
+
+        //ObjectiveCard[] objectiveCards = clientState.getGameModel().getSelf().getAvailableObjectives();
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.setTitle("Choose Your Start Card");
+
+        VBox popupContent = new VBox(10);
+        popupContent.setPadding(new Insets(10));
+
+        ImageView cardImageView = createImageView(startCard, "front");
+
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setOnAction(e -> {
+            String chosenSide = (String) cardImageView.getProperties().get("currentSide");
+            Side cardSide = "front".equals(chosenSide) ? startCard.front() : startCard.back();
+            Action action = new PlayerInitialChoiceAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), null, cardSide);
+            controller.execute(action);
+            popupStage.close();
+        });
+
+        popupContent.getChildren().addAll(cardImageView, confirmButton);
+        Scene popupScene = new Scene(popupContent, 300, 400);
+        popupStage.setScene(popupScene);
+        popupStage.showAndWait();
+
+    }
+    @FXML
+    private void onDragDetected(ImageView imageView) {
+        Dragboard db = imageView.startDragAndDrop(TransferMode.MOVE);
+
+        ClipboardContent content = new ClipboardContent();
+        content.putImage(imageView.getImage());
+        db.setContent(content);
+    }
+
 
     private void updateHandView(HBox handContainer, List<GameCard> cards) {
         handContainer.getChildren().clear();
@@ -247,20 +310,6 @@ public class PlayerViewController {
             return;
         }
 
-        if (areRectanglesVisible) {
-            // Nascondi i rettangoli creati
-            for (Rectangle rect : createdRectangles) {
-                rect.setVisible(false);
-            }
-        } else {
-            // Mostra i rettangoli creati
-            for (Rectangle rect : createdRectangles) {
-                rect.setVisible(true);
-            }
-        }
-
-        // Alterna lo stato
-        areRectanglesVisible = !areRectanglesVisible;
         ImageView source = (ImageView) event.getSource();
         double x = source.getLayoutX();
         double y = source.getLayoutY();
@@ -308,6 +357,7 @@ public class PlayerViewController {
     private void enableDragAndDrop(Rectangle rect, int x, int y) {
         List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
         List<Side> sides = new ArrayList<>();
+        Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
 
         for (GameCard card : cards) {
             sides.add(card.front());
@@ -345,13 +395,11 @@ public class PlayerViewController {
 
                 Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
                 controller.execute(action);
+                render(getPlacedCards);
             }
             event.setDropCompleted(success);
             event.consume();
         });
-
-        Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
-        render(getPlacedCards);
 
     }
     private void render (Map<GameFieldPosition, Side> placedCards) {
@@ -371,7 +419,10 @@ public class PlayerViewController {
             imageView.setLayoutY(position.y() * DELTA_Y);
             imageView.setOnMouseClicked(this::handleCardClick);
             rightPane.getChildren().add(imageView);
+
+            for(Rectangle rect : createdRectangles) {
+                rect.setVisible(false);
+            }
         }
     }
 }
-
