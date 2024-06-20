@@ -65,9 +65,9 @@
         </VBox>
 
         <!-- Parte destra -->
-        <ScrollPane fx:id="scrollPane">
+        <ScrollPane fx:id="scrollPane" vvalue="0.5" hvalue="0.5">
             <AnchorPane maxHeight="3000" maxWidth="3000" minHeight="2000" minWidth="2000" prefHeight="1019.0" prefWidth="620.0">
-                <Pane fx:id="rightPane" layoutX="850.0" layoutY="850.0">
+                <Pane fx:id="rightPane" layoutX="950" layoutY="925">
                     <Rectangle fx:id="defaultRectangle" fill="lightgray" height="100" stroke="black" width="150" />
                 </Pane>
             </AnchorPane>

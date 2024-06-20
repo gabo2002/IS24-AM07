@@ -75,17 +75,6 @@ public class PlayerViewController {
     @FXML
     private ScrollPane scrollPane;
 
-    @FXML
-    private ImageView card1;
-
-    @FXML
-    private ImageView card2;
-
-    @FXML
-    private ImageView card3;
-
-    @FXML
-    private ImageView card4;
 
     @FXML
     private ListView<String> playerList;
@@ -116,6 +105,7 @@ public class PlayerViewController {
     @FXML
     Rectangle defaultRectangle;
 
+
     private ClientState clientState;
     private Controller controller;
 
@@ -127,7 +117,6 @@ public class PlayerViewController {
         // Bind the label to reflect the player state changes
         updateView(clientState);
         render(getPlacedCards);
-        // clientState.onGameModelUpdate(this::updateView);
     }
 
     public void updateView(ClientState clientState) {
