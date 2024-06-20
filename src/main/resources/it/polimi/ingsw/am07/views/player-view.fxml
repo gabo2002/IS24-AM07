@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.layout.AnchorPane?>
-<BorderPane prefHeight="1024" prefWidth="1200" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
+<SplitPane dividerPositions="0.33" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
     <!-- Metà destra dello schermo: GridPane scrollabile -->
-    <right>
-        <AnchorPane>
-            <children>
-                <Pane fx:id="rightPane" layoutX="100.0" layoutY="300.0" prefHeight="400.0" prefWidth="400.0">
-                    <Rectangle fx:id="defaultRectangle" width="150" height="100" fill="lightgray" stroke="black" />
-                </Pane>
-            </children>
-        </AnchorPane>
-    </right>
 
-    <!-- Metà sinistra dello schermo: VBox con varie sezioni -->
-    <left>
-        <VBox spacing="10">
+    <items>
+
+        <!-- Parte sinistra -->
+        <VBox maxWidth="300" spacing="10">
             <!-- Sezione lista giocatori -->
             <TitledPane text="Players">
                 <content>
@@ -56,31 +32,42 @@
                         <TextArea fx:id="chatArea" editable="false" prefHeight="100" />
                         <HBox spacing="10">
                             <TextField fx:id="chatInput" HBox.hgrow="ALWAYS" />
-                            <Button fx:id="sendButton" text="Send" onAction="#sendChatMessage" />
+                            <Button fx:id="sendButton" onAction="#sendChatMessage" text="Send" />
                         </HBox>
                     </VBox>
                 </content>
             </TitledPane>
 
 
-                <TitledPane text="Resource Deck">
-                    <content>
-                        <HBox spacing="10" fx:id="resourceDeckContainer" />
-                    </content>
-                </TitledPane>
-                <TitledPane text="Gold Deck">
-                    <content>
-                        <HBox spacing="10" fx:id="goldDeckContainer" />
-                    </content>
-                </TitledPane>
+            <TitledPane text="Resource Deck">
+                <content>
+                    <HBox fx:id="resourceDeckContainer" spacing="10" />
+                </content>
+            </TitledPane>
+            <TitledPane text="Gold Deck">
+                <content>
+                    <HBox fx:id="goldDeckContainer" spacing="10" />
+                </content>
+            </TitledPane>
 
 
             <TitledPane text="My Hand">
                 <content>
-                    <HBox spacing="10" fx:id="playerHand" prefHeight="200.0" prefWidth="100.0">
+                    <HBox fx:id="playerHand" prefHeight="200.0" prefWidth="100.0" spacing="10">
                     </HBox>
                 </content>
             </TitledPane>
         </VBox>
-    </left>
-</BorderPane>
+
+        <!-- Parte destra -->
+        <ScrollPane fx:id="scrollPane">
+            <AnchorPane minWidth="2000" minHeight="2000" maxHeight="3000" maxWidth="3000" prefHeight="1019.0" prefWidth="620.0">
+                <Pane fx:id="rightPane" layoutX="850.0" layoutY="850.0">
+                    <Rectangle fx:id="defaultRectangle" fill="lightgray" height="100" stroke="black" width="150" />
+                </Pane>
+            </AnchorPane>
+        </ScrollPane>
+
+
+    </items>
+</SplitPane>
