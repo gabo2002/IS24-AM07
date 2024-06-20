@@ -35,6 +35,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 public class LobbyViewController {
@@ -42,6 +43,9 @@ public class LobbyViewController {
 
     @FXML
     private Button start_btn;
+
+    @FXML
+    private Label lobby_name;
 
     private ClientState clientState;
     private Controller controller;
@@ -79,7 +83,10 @@ public class LobbyViewController {
             if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
                 start_btn.setVisible(true);
             }
-        }
+
+        lobby_name.setText("Lobby of "+ clientState.getLobbyModel().getFirstPlayer().getNickname());
+
+    }
 
     @FXML
     protected void onPlayerBtnClick(ActionEvent event){
