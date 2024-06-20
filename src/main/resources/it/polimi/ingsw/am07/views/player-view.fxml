@@ -17,14 +17,19 @@
 
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.AnchorPane?>
 <BorderPane prefHeight="1024" prefWidth="1200" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
     <!-- Metà destra dello schermo: GridPane scrollabile -->
     <right>
-        <ScrollPane fitToWidth="true" fitToHeight="true">
-            <content>
-                <GridPane fx:id="gridPane" hgap="10" vgap="10" />
-            </content>
-        </ScrollPane>
+        <AnchorPane>
+            <children>
+                <Pane fx:id="rightPane" layoutX="100.0" layoutY="300.0" prefHeight="400.0" prefWidth="400.0">
+                    <Rectangle fx:id="defaultRectangle" width="150" height="100" fill="lightgray" stroke="black" />
+                </Pane>
+            </children>
+        </AnchorPane>
     </right>
 
     <!-- Metà sinistra dello schermo: VBox con varie sezioni -->

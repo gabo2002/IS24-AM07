@@ -23,22 +23,37 @@
 
 package it.polimi.ingsw.am07.client.gui.viewController;
 
+import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
+import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
+import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.Player;
+import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.game.gamefield.GameField;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
+import it.polimi.ingsw.am07.model.game.side.Side;
+import it.polimi.ingsw.am07.model.game.side.SideBack;
+import it.polimi.ingsw.am07.model.game.side.SideFrontRes;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -47,6 +62,8 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 
 public class PlayerViewController {
 
@@ -71,6 +88,12 @@ public class PlayerViewController {
     @FXML
     private HBox playerHand;
 
+    @FXML
+    private Pane rightPane;
+
+    @FXML
+    Rectangle defaultRectangle;
+
     private ClientState clientState;
     private Controller controller;
 
@@ -78,6 +101,7 @@ public class PlayerViewController {
         this.clientState = clientState;
         this.controller = controller;
 
+        showStartCardPopup();
         // Bind the label to reflect the player state changes
         updateView(clientState);
         // clientState.onGameModelUpdate(this::updateView);
@@ -115,12 +139,15 @@ public class PlayerViewController {
         List<GameCard> hand = clientState.getGameModel().getSelf().getPlayableCards();
 
         updateHandView(playerHand, hand);
+
+        enableDragAndDrop(defaultRectangle, 0, 0);
+        //defaultRectangle.setOnMouseClicked(this::handleCardClick);
     }
 
     private void updateHandView(HBox handContainer, List<GameCard> cards) {
         handContainer.getChildren().clear();
         for (GameCard card : cards) {
-            ImageView imageView = createImageView(card.id(), "front");
+            ImageView imageView = createImageView(card, "front");
             handContainer.getChildren().add(imageView);
         }
     }
@@ -156,34 +183,42 @@ public class PlayerViewController {
         return img;
     }
 
+
     private ImageView createImageView(Image image) {
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(150.0);
-        imageView.setFitWidth(200.0);
+        imageView.setFitHeight(100.0);
+        imageView.setFitWidth(150.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
 
         return imageView;
     }
-    private ImageView createImageView(int id, String initialSide) {
-        Image initialImage = imgFrom(id, initialSide);
+
+    private ImageView createImageView(GameCard card, String initialSide) {
+        Image initialImage = imgFrom(card.id(), initialSide);
         ImageView imageView = new ImageView(initialImage);
-        imageView.setFitHeight(150.0);
-        imageView.setFitWidth(200.0);
+        imageView.setFitHeight(100.0);
+        imageView.setFitWidth(150.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
 
+        imageView.getProperties().put("card", card);
         imageView.getProperties().put("currentSide", initialSide);
 
-        imageView.setOnMouseClicked(event -> {
-            String currentSide = (String) imageView.getProperties().get("currentSide");
-            String newSide = currentSide.equals("front") ? "back" : "front";
-            Image newImage = imgFrom(id, newSide);
-            imageView.setImage(newImage);
-            imageView.getProperties().put("currentSide", newSide);
-        });
+        imageView.setOnMouseClicked(event -> flipCard(imageView, card.id()));
+
+        imageView.setOnDragDetected(event -> onDragDetected(imageView));
 
         return imageView;
+    }
+
+
+    private void flipCard(ImageView imageView, int id) {
+        String currentSide = (String) imageView.getProperties().get("currentSide");
+        String newSide = currentSide.equals("front") ? "back" : "front";
+        Image newImage = imgFrom(id, newSide);
+        imageView.setImage(newImage);
+        imageView.getProperties().put("currentSide", newSide);
     }
 
     @FXML
@@ -206,4 +241,137 @@ public class PlayerViewController {
         controller.execute(action);
     }
 
+    private void handleCardClick(MouseEvent event) {
+        if(!(event.getSource() instanceof ImageView)) {
+            System.out.println((event.getSource()));
+            return;
+        }
+
+        if (areRectanglesVisible) {
+            // Nascondi i rettangoli creati
+            for (Rectangle rect : createdRectangles) {
+                rect.setVisible(false);
+            }
+        } else {
+            // Mostra i rettangoli creati
+            for (Rectangle rect : createdRectangles) {
+                rect.setVisible(true);
+            }
+        }
+
+        // Alterna lo stato
+        areRectanglesVisible = !areRectanglesVisible;
+        ImageView source = (ImageView) event.getSource();
+        double x = source.getLayoutX();
+        double y = source.getLayoutY();
+
+        GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X)/(DELTA_X)), (int) ((y + DELTA_Y)/(DELTA_Y)));
+        GameFieldPosition topRight = new GameFieldPosition((int) ((x+ DELTA_X)/(DELTA_X)), (int) ((y  + DELTA_Y)/(DELTA_Y)));
+        GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x- DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
+        GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
+
+        Side side = new SideBack(0, null, null, Symbol.GREEN);
+
+
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, topLeft)) {
+            createNewRectangle(x - DELTA_X, y + DELTA_Y);
+        }
+
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, topRight)) {
+            createNewRectangle(x + DELTA_X, y + DELTA_Y);
+        }
+
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomLeft)) {
+            createNewRectangle(x - DELTA_X, y - DELTA_Y);
+        }
+
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomRight)) {
+            createNewRectangle(x + DELTA_X, y - DELTA_Y);
+        }
+    }
+
+    private void createNewRectangle(double x, double y) {
+        Rectangle newRect = new Rectangle(RECT_WIDTH, RECT_HEIGHT, Color.LIGHTGRAY);
+        newRect.setStroke(Color.BLACK);
+        newRect.setLayoutX(x);
+        newRect.setLayoutY(y);
+
+        createdRectangles.add(newRect);
+
+        // Abilita il drag-and-drop sul nuovo rettangolo
+        enableDragAndDrop(newRect, (int) (x/DELTA_X), (int) (y/DELTA_Y));
+
+        // Aggiungi il nuovo rettangolo al Pane destro
+        rightPane.getChildren().add(newRect);
+    }
+
+    private void enableDragAndDrop(Rectangle rect, int x, int y) {
+        List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
+        List<Side> sides = new ArrayList<>();
+
+        for (GameCard card : cards) {
+            sides.add(card.front());
+            sides.add(card.back());
+        }
+        rect.setOnDragOver(event -> {
+            if (event.getGestureSource() != rightPane && event.getDragboard().hasImage()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        rect.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasImage()) {
+                ImageView sourceImageView = (ImageView) event.getGestureSource();
+                GameCard card = (GameCard) sourceImageView.getProperties().get("card");
+                String side = (String) sourceImageView.getProperties().get("currentSide");
+                ImageView imageView = new ImageView(db.getImage());
+                imageView.setFitHeight(RECT_HEIGHT);
+                imageView.setFitWidth(RECT_WIDTH);
+                imageView.setLayoutX(rect.getLayoutX());
+                imageView.setLayoutY(rect.getLayoutY());
+                imageView.setOnMouseClicked(this::handleCardClick);
+                rightPane.getChildren().add(imageView);
+                success = true;
+
+                Side sidePlacedCard;
+                if (side == "front") {
+                    sidePlacedCard = card.front();
+                } else {
+                    sidePlacedCard = card.back();
+                }
+
+                Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
+                controller.execute(action);
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
+        Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
+        render(getPlacedCards);
+
+    }
+    private void render (Map<GameFieldPosition, Side> placedCards) {
+        for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
+            GameFieldPosition position = entry.getKey();
+            Side side = entry.getValue();
+            Image image;
+            if (side instanceof SideBack) {
+                image = imgFrom(side.id(), "back");
+            }else {
+                image = imgFrom(side.id(), "front");
+            }
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(RECT_HEIGHT);
+            imageView.setFitWidth(RECT_WIDTH);
+            imageView.setLayoutX(position.x() * DELTA_X);
+            imageView.setLayoutY(position.y() * DELTA_Y);
+            imageView.setOnMouseClicked(this::handleCardClick);
+            rightPane.getChildren().add(imageView);
+        }
+    }
 }
+
