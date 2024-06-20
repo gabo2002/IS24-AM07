@@ -189,6 +189,24 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 break;
 
             case SELECTING_STARTER_CARD_SIDE:
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/starter_card-view.fxml"));
+
+                try {
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                SelectStarterController selectStarterController = loader.getController();
+                selectStarterController.init(state, controller);
+
+                stage.setScene(scene);
+                stage.show();
+                break;
+
+            case WAITING_FOR_GAME_START:
+                break;
+            default:
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/player-view.fxml"));
 
                 try {
@@ -203,8 +221,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 stage.setScene(scene);
                 stage.show();
                 break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + playerState);
+
         }
     }
 
