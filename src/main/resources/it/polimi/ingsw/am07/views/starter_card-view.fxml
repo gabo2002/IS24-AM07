@@ -29,7 +29,7 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="756.0" style="-fx-background-color: #433A3F;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="756.0" style="-fx-background-color: #433A3F;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.SelectStarterController">
    <children>
       <Label text="Select starter side" textFill="WHITE">
          <font>
@@ -38,7 +38,7 @@
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin></Label>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="starterImg" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#flipCard" pickOnBounds="true" preserveRatio="true">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -58,8 +58,8 @@
          <children>
             <VBox alignment="CENTER" prefHeight="250.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #7DD181; -fx-background-radius: 30;" visible="false">
+                  <ImageView fx:id="objective1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onObjectiveClick" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="rect1" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #7DD181; -fx-background-radius: 30;" visible="false">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></Button>
@@ -67,8 +67,8 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="313.0" layoutY="10.0" prefHeight="250.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #7DD181; -fx-background-radius: 30;" visible="false">
+                  <ImageView fx:id="objective2" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onObjectiveClick" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="rect2" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #7DD181; -fx-background-radius: 30;" visible="false">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -80,7 +80,7 @@
             </VBox>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FBFCFF; -fx-background-radius: 10;" text="Confirm">
+      <Button mnemonicParsing="false" onAction="#onConfirmBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FBFCFF; -fx-background-radius: 10;" text="Confirm">
          <font>
             <Font name="Segoe UI Bold" size="14.0" />
          </font>
