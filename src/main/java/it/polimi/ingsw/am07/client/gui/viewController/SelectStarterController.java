@@ -3,6 +3,7 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -37,6 +39,9 @@ public class SelectStarterController {
 
     @FXML
     private Button rect2;
+
+    @FXML
+    private Label waiting_text;
 
     private ObjectiveCard selectedObjective = null;
 
@@ -122,6 +127,8 @@ public class SelectStarterController {
 
         Action action = new PlayerInitialChoiceAction(clientState.getNickname(), clientState.getIdentity(), selectedObjective, side);
         controller.execute(action);
+
+        waiting_text.setVisible(true);
     }
 
     private void clearObjectiveCardBorders() {

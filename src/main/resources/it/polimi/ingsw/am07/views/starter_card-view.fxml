@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -80,6 +81,14 @@
             </VBox>
          </children>
       </HBox>
+      <Label fx:id="waiting_text" text="Waiting for other players" textFill="WHITE" visible="false">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Segoe UI Bold Italic" size="12.0" />
+         </font>
+      </Label>
       <Button mnemonicParsing="false" onAction="#onConfirmBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FBFCFF; -fx-background-radius: 10;" text="Confirm">
          <font>
             <Font name="Segoe UI Bold" size="14.0" />
@@ -87,6 +96,9 @@
          <VBox.margin>
             <Insets top="30.0" />
          </VBox.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
    </children>
 </VBox>
