@@ -382,6 +382,8 @@ public class PlayerViewController {
             imageView.setLayoutX(position.x() * DELTA_X);
             imageView.setLayoutY(position.y() * DELTA_Y);
             imageView.setOnMouseClicked(this::handleCardClick);
+            imageView.setViewOrder(-position.z());
+            System.out.println("Rendering card at position: " + position.x() + " " + position.y() + position.z());
             rightPane.getChildren().add(imageView);
 
             for(Rectangle rect : createdRectangles) {
