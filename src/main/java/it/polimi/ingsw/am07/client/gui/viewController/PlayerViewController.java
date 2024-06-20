@@ -123,7 +123,6 @@ public class PlayerViewController {
         this.clientState = clientState;
         this.controller = controller;
         Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
-        showStartCardPopup();
 
         // Bind the label to reflect the player state changes
         updateView(clientState);
@@ -139,9 +138,9 @@ public class PlayerViewController {
         playerList.getItems().clear();
         playerList.getItems().addAll(players);
 
-        for(Symbol symbol : clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet()) {
-            itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));
-        }
+        //for(Symbol symbol : clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet()) {
+       //     itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));
+     //   }
 
 
         if (clientState.getGameModel().getSelf() != null) {
@@ -171,41 +170,6 @@ public class PlayerViewController {
 
         enableDragAndDrop(defaultRectangle, 0, 0);
         //defaultRectangle.setOnMouseClicked(this::handleCardClick);
-    }
-    private void showStartCardPopup() {
-        AtomicBoolean isStartCardPopupVisible = new AtomicBoolean(false);
-
-        if (isStartCardPopupVisible.get()) {
-            return; // Se il popup è già visibile, non fare nulla
-        }
-
-        GameCard startCard = clientState.getGameModel().getSelf().getStarterCard();
-        Stage popupStage = new Stage();
-        popupStage.initModality(Modality.APPLICATION_MODAL);
-        popupStage.setTitle("Choose Your Start Card");
-
-        VBox popupContent = new VBox(10);
-        popupContent.setPadding(new Insets(10));
-
-        ImageView cardImageView = createImageView(startCard, "front");
-
-        Button confirmButton = new Button("Confirm");
-        confirmButton.setOnAction(e -> {
-            String chosenSide = (String) cardImageView.getProperties().get("currentSide");
-            Side cardSide = "front".equals(chosenSide) ? startCard.front() : startCard.back();
-            Action action = new PlayerInitialChoiceAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), null, cardSide);
-            controller.execute(action);
-            popupStage.close();
-            isStartCardPopupVisible.set(false); // Aggiorna il flag
-        });
-
-        popupStage.setOnCloseRequest(e -> isStartCardPopupVisible.set(false)); // Aggiorna il flag quando il popup viene chiuso
-
-        popupContent.getChildren().addAll(cardImageView, confirmButton);
-        Scene popupScene = new Scene(popupContent, 300, 400);
-        popupStage.setScene(popupScene);
-        popupStage.show();
-        isStartCardPopupVisible.set(true); // Aggiorna il flag
     }
 
     @FXML
@@ -362,21 +326,6 @@ public class PlayerViewController {
 
         rightPane.getChildren().add(newRect);
 
-        updateAnchorPaneSize(x, y);
-    }
-
-    private void updateAnchorPaneSize(double x, double y) {
-        double rectRight = x + RECT_WIDTH;
-        double rectBottom = y + RECT_HEIGHT;
-
-        if (rectRight > rightPane.getWidth()) {
-            //rightPane.setPrefWidth(rectRight);
-            rightPane.setTranslateX(rightPane.getTranslateX() + 2*RECT_WIDTH);
-        }
-
-        if (rectBottom > rightPane.getHeight()) {
-            rightPane.setPrefHeight(rectBottom);
-        }
     }
 
 
@@ -403,20 +352,6 @@ public class PlayerViewController {
                 ImageView sourceImageView = (ImageView) event.getGestureSource();
                 GameCard card = (GameCard) sourceImageView.getProperties().get("card");
                 String side = (String) sourceImageView.getProperties().get("currentSide");
-                Side sidePlacedCard;
-                if (side == "front") {
-                    sidePlacedCard = card.front();
-                } else {
-                    sidePlacedCard = card.back();
-                }
-                try{
-                    Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
-                    controller.execute(action);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return;
-                }
-
                 ImageView imageView = new ImageView(db.getImage());
                 imageView.setFitHeight(RECT_HEIGHT);
                 imageView.setFitWidth(RECT_WIDTH);
@@ -426,6 +361,15 @@ public class PlayerViewController {
                 rightPane.getChildren().add(imageView);
                 success = true;
 
+                Side sidePlacedCard;
+                if (side == "front") {
+                    sidePlacedCard = card.front();
+                } else {
+                    sidePlacedCard = card.back();
+                }
+
+                Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
+                controller.execute(action);
                 render(getPlacedCards);
             }
             event.setDropCompleted(success);
