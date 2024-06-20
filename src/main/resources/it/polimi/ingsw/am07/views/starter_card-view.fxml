@@ -86,7 +86,7 @@
             <Insets top="10.0" />
          </VBox.margin>
          <font>
-            <Font name="Segoe UI Bold Italic" size="12.0" />
+            <Font name="Segoe UI Bold Italic" size="14.0" />
          </font>
       </Label>
       <Button mnemonicParsing="false" onAction="#onConfirmBtnClick" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FBFCFF; -fx-background-radius: 10;" text="Confirm">
