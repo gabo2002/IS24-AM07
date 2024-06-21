@@ -182,11 +182,10 @@ public class Player implements Serializable {
             throw new IllegalPlacementException("The provided position is not valid");
         }
 
+        final int coveredCorners = playerGameField.countCoveredCorners(pos);
         final ResourceHolder diff = playerGameField.placeOnFieldAt(card, pos);
 
         playerResources.add(diff);
-
-        final int coveredCorners = playerGameField.countCoveredCorners(pos);
 
         // the associated score of a gold card includes the resources added by the card itself
         playerScore += card.calculateAssociatedScore(playerResources, coveredCorners);
