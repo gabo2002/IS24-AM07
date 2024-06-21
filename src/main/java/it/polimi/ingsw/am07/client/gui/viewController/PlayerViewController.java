@@ -183,9 +183,13 @@ public class PlayerViewController {
 
     @FXML
     private void onConfirmButtonClicked(ActionEvent event) {
-        //Action action = new PlayerPickCardAction(clientState.getNickname(), clientState.getIdentity(), selectedCard);
-        //controller.execute(action);
-        //updateInfoMessage("Sei in: " + clientState.getPlayerState());
+        if(clientState.getPlayerState() != PlayerState.PICKING_CARD) {
+            updateInfoMessage("Non puoi pescare");
+            return;
+        }
+        Action action = new PlayerPickCardAction(clientState.getNickname(), clientState.getIdentity(), selectedCard);
+        controller.execute(action);
+        updateInfoMessage("Sei in: " + clientState.getPlayerState());
     }
 
     @FXML
@@ -210,12 +214,12 @@ public class PlayerViewController {
         deckContainer.getChildren().clear();
         Image coverImage = imgFrom(cards.getFirst().id(), "back");
         if (!cards.isEmpty()) {
-            ImageView coverImageView = createImageView(coverImage);
+            ImageView coverImageView = createImageView(coverImage, cards.getFirst());
             deckContainer.getChildren().add(coverImageView);
 
             for (int i = 1; i < Math.min(3, cards.size()); i++) {
                 Image cardImage = imgFrom(cards.get(i).id(), "front");
-                ImageView imageView = createImageView(cardImage);
+                ImageView imageView = createImageView(cardImage, cards.get(i));
                 deckContainer.getChildren().add(imageView);
             }
         }
@@ -238,12 +242,13 @@ public class PlayerViewController {
     }
 
 
-    private ImageView createImageView(Image image) {
+    private ImageView createImageView(Image image, GameCard card) {
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(100.0);
         imageView.setFitWidth(150.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
+        imageView.getProperties().put("card", card);
 
         imageView.setOnMouseClicked(event -> {
             confirmDeck.setVisible(true);
@@ -369,7 +374,7 @@ public class PlayerViewController {
 
         rect.setOnDragDropped(event -> {
 
-            if(clientState.getPlayerState() == PlayerState.SLEEPING) {
+            if(clientState.getPlayerState() != PlayerState.PLACING_CARD) {
                 updateInfoMessage("Non è il tuo turno");
                 return;
             }
