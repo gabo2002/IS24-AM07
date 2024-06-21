@@ -145,6 +145,7 @@ public class PlayerViewController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/player-box.fxml"));
                 Parent player_box = fxmlLoader.load();
 
+                player_box.setUserData(player);
 
                 PlayerBoxController playerBoxController = fxmlLoader.getController();
                 playerBoxController.setPlayer_name_box(player.getNickname());
