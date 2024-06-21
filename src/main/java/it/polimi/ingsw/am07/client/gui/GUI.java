@@ -91,13 +91,13 @@ public class GUI extends javafx.application.Application implements NetworkInitia
     }
 
     @Override
-    public void initializeClientState(NetworkType networkType) {
+    public void initializeClientState(NetworkType networkType, String IpAddress) {
         clientNetworkManager = networkManagerFactory
                 .withPort(networkType == NetworkType.RMI ? AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort() : AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort())
                 .withNetworkType(networkType)
                 .withIdentity(state.getIdentity())
                 .withState(state)
-                .withHostname("localhost")
+                .withHostname(IpAddress)
                 .build();
 
         controller = clientNetworkManager.getController();

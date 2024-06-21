@@ -29,6 +29,7 @@ import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 public class NetworkViewController {
 
@@ -38,14 +39,27 @@ public class NetworkViewController {
     private NetworkInitializer networkInitializer;
 
     @FXML
+    private TextField IpField;
+
+    @FXML
     protected void onRMIBtnClicked(ActionEvent event) {
-        networkInitializer.initializeClientState(NetworkType.RMI);
+        if(IpField.getText().isEmpty()) {
+            networkInitializer.initializeClientState(NetworkType.RMI, "localhost");
+            return;
+        }
+        networkInitializer.initializeClientState(NetworkType.RMI, IpField.getText());
+
     }
 
     @FXML
     protected void onTCPBtnClicked(ActionEvent event) {
-        networkInitializer.initializeClientState(NetworkType.TCP);
+        if(IpField.getText().isEmpty()) {
+            networkInitializer.initializeClientState(NetworkType.TCP, "localhost");
+            return;
+        }
+        networkInitializer.initializeClientState(NetworkType.TCP, IpField.getText());
     }
+
 
     public void init(ClientState state, String identity, ClientNetworkManager.Factory clientNetworkManagerFactory, NetworkInitializer networkInitializer) {
         this.clientState = state;

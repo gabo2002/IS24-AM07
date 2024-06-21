@@ -26,5 +26,5 @@ package it.polimi.ingsw.am07.client.gui;
 import it.polimi.ingsw.am07.network.NetworkType;
 
 public interface NetworkInitializer {
-    void initializeClientState(NetworkType networkType);
+    void initializeClientState(NetworkType networkType, String IpAddress);
 }
