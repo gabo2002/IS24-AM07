@@ -41,7 +41,9 @@ import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -86,7 +88,7 @@ public class PlayerViewController {
     public Button confirmDeck;
 
     @FXML
-    private ListView<String> playerList;
+    private ListView<Parent> playerList;
 
     @FXML
     private ListView<String> itemsList;
@@ -138,7 +140,19 @@ public class PlayerViewController {
         List<Player> players = clientState.getGameModel().getPlayers().stream().toList();
         playerList.getItems().clear();
         for (Player player : players) {
-            playerList.getItems().add(player.getNickname() + ": " + player.getPlayerScore());
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/player-box.fxml"));
+                Parent player_box = fxmlLoader.load();
+
+                PlayerBoxController playerBoxController = fxmlLoader.getController();
+                playerBoxController.setPlayer_name_box(player.getNickname());
+                playerBoxController.setScore_label("Score: " + player.getPlayerScore());
+
+                playerList.getItems().add(player_box);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         try {

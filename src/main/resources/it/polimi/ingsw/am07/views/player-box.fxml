@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Codex Naturalis - Final Assignment for the Software Engineering Course
+  ~ Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ Please note that the GNU General Public License applies only to the
+  ~ files that contain this license header. Other files within the project, such
+  ~ as assets and images, are property of the original owners and may be
+  ~ subject to different copyright terms.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox prefHeight="55.0" prefWidth="400.0" style="-fx-background-color: #454754; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerBoxController">
+    <VBox>
+        <Label fx:id="player_name_box" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Player Name" textFill="WHITE">
+            <VBox.margin>
+                <Insets left="10.0" />
+            </VBox.margin>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <Label fx:id="score_label" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="400.0" text="Score: 0" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+            <VBox.margin>
+                <Insets left="10.0" />
+            </VBox.margin>
+        </Label>
+    </VBox>
+</HBox>
