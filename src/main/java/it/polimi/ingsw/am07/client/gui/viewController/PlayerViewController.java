@@ -26,9 +26,11 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
+import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.Symbol;
@@ -37,6 +39,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.reactive.Controller;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -49,6 +52,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -58,6 +62,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -69,12 +74,16 @@ public class PlayerViewController {
     private static final Double DELTA_Y = RECT_HEIGHT-(2.0/5.0*RECT_HEIGHT);
     private static final int deafaultLayoutX = 950;
     private static final int deafaultLayoutY = 925;
+
     private boolean areRectanglesVisible = false;
     private final List<Rectangle> createdRectangles = new ArrayList<>();
 
     @FXML
     private ScrollPane scrollPane;
 
+
+    @FXML
+    public Button confirmDeck;
 
     @FXML
     private ListView<String> playerList;
@@ -102,6 +111,11 @@ public class PlayerViewController {
 
     @FXML
     Rectangle defaultRectangle;
+
+    @FXML
+    private Text infoMessage;
+
+    private GameCard selectedCard;
 
 
     private ClientState clientState;
@@ -158,6 +172,20 @@ public class PlayerViewController {
 
         enableDragAndDrop(defaultRectangle, 0, 0);
         //defaultRectangle.setOnMouseClicked(this::handleCardClick);
+
+        updateInfoMessage("Sei in: " + clientState.getPlayerState());
+    }
+
+    // Metodo per aggiornare il testo del messaggio di errore
+    private void updateInfoMessage(String message) {
+        infoMessage.setText(message);
+    }
+
+    @FXML
+    private void onConfirmButtonClicked(ActionEvent event) {
+        //Action action = new PlayerPickCardAction(clientState.getNickname(), clientState.getIdentity(), selectedCard);
+        //controller.execute(action);
+        //updateInfoMessage("Sei in: " + clientState.getPlayerState());
     }
 
     @FXML
@@ -216,6 +244,12 @@ public class PlayerViewController {
         imageView.setFitWidth(150.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
+
+        imageView.setOnMouseClicked(event -> {
+            confirmDeck.setVisible(true);
+            ImageView sourceImageView = (ImageView) event.getSource();
+            selectedCard = (GameCard) sourceImageView.getProperties().get("card");
+        });
 
         return imageView;
     }
@@ -334,6 +368,12 @@ public class PlayerViewController {
         });
 
         rect.setOnDragDropped(event -> {
+
+            if(clientState.getPlayerState() == PlayerState.SLEEPING) {
+                updateInfoMessage("Non è il tuo turno");
+                return;
+            }
+
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasImage()) {

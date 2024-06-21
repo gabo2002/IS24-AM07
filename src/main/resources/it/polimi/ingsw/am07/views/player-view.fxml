@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
+<?import javafx.scene.text.Text?>
 <SplitPane dividerPositions="0.33" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
     <!-- Metà destra dello schermo: GridPane scrollabile -->
 
@@ -49,7 +50,7 @@
                     <HBox fx:id="goldDeckContainer" spacing="10" />
                 </content>
             </TitledPane>
-
+            <Button fx:id="confirmDeck" text="Pick" visible="false" onAction="#onConfirmButtonClicked"/>
 
             <TitledPane text="My Hand">
                 <content>
@@ -59,15 +60,22 @@
             </TitledPane>
         </VBox>
 
-        <!-- Parte destra -->
-        <ScrollPane fx:id="scrollPane" hvalue="0.5" vvalue="0.5">
-            <AnchorPane maxHeight="3000" maxWidth="3000" minHeight="2000" minWidth="2000" prefHeight="1019.0" prefWidth="620.0">
-                <Pane fx:id="rightPane" layoutX="950" layoutY="925">
-                    <Rectangle fx:id="defaultRectangle" fill="lightgray" height="100" stroke="black" width="150" />
-                </Pane>
-            </AnchorPane>
-        </ScrollPane>
+        <VBox>
+            <!-- Sezione fissa per messaggi -->
+            <HBox alignment="CENTER" style="-fx-background-color: lightcoral; -fx-padding: 10;">
+                <Text fx:id="infoMessage" />
+            </HBox>
+            <!-- Parte destra -->
+            <ScrollPane fx:id="scrollPane" hvalue="0.5" prefHeight="1402.0" prefWidth="622.0" vvalue="0.5">
+                <AnchorPane maxHeight="3000" maxWidth="3000" minHeight="2000" minWidth="2000" prefHeight="1019.0" prefWidth="620.0">
+                    <Pane fx:id="rightPane" layoutX="950" layoutY="925">
+                        <Rectangle fx:id="defaultRectangle" fill="lightgray" height="100" stroke="black" width="150" />
+                    </Pane>
+                </AnchorPane>
+            </ScrollPane>
+        </VBox>
 
 
     </items>
 </SplitPane>
+
