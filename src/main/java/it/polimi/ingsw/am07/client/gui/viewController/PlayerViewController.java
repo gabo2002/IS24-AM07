@@ -126,11 +126,10 @@ public class PlayerViewController {
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
         this.controller = controller;
-        Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
 
         // Bind the label to reflect the player state changes
         updateView(clientState);
-        render(getPlacedCards);
+        render(clientState.getGameModel().getSelf());
     }
 
     public void updateView(ClientState clientState) {
@@ -201,6 +200,19 @@ public class PlayerViewController {
 
 
         updateInfoMessage("Sei in: " + clientState.getPlayerState());
+    }
+
+    @FXML
+    private void onPlayerClicked(MouseEvent event){
+        Parent selectedPlayer = playerList.getSelectionModel().getSelectedItem();
+        Player player = (Player) selectedPlayer.getUserData();
+        clearGameField();
+        render(player);
+        if(player.equals(clientState.getGameModel().getSelf())) {
+            updateInfoMessage("Sei in "+ clientState.getPlayerState());
+            return;
+        }
+        updateInfoMessage("Stai guardando "+ player.getNickname());
     }
 
 
@@ -376,7 +388,9 @@ public class PlayerViewController {
         newRect.setLayoutY(y);
 
         createdRectangles.add(newRect);
-
+        if (clientState.getPlayerState() != PlayerState.PLACING_CARD) {
+            newRect.setVisible(false);
+        }
         enableDragAndDrop(newRect, (int) (x / DELTA_X), (int) (y / DELTA_Y));
 
         rightPane.getChildren().add(newRect);
@@ -401,9 +415,12 @@ public class PlayerViewController {
         });
 
         rect.setOnDragDropped(event -> {
-
+            if(clientState.getPlayerState() == PlayerState.PICKING_CARD) {
+                updateInfoMessage("Pick a card");
+                return;
+            }
             if(clientState.getPlayerState() != PlayerState.PLACING_CARD) {
-                updateInfoMessage("Non è il tuo turno");
+                updateInfoMessage("It's not your turn");
                 return;
             }
 
@@ -413,13 +430,6 @@ public class PlayerViewController {
                 ImageView sourceImageView = (ImageView) event.getGestureSource();
                 GameCard card = (GameCard) sourceImageView.getProperties().get("card");
                 String side = (String) sourceImageView.getProperties().get("currentSide");
-                ImageView imageView = new ImageView(db.getImage());
-                imageView.setFitHeight(RECT_HEIGHT);
-                imageView.setFitWidth(RECT_WIDTH);
-                imageView.setLayoutX(rect.getLayoutX());
-                imageView.setLayoutY(rect.getLayoutY());
-                imageView.setOnMouseClicked(this::handleCardClick);
-                rightPane.getChildren().add(imageView);
                 success = true;
 
                 Side sidePlacedCard;
@@ -431,7 +441,7 @@ public class PlayerViewController {
 
                 Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
                 controller.execute(action);
-                render(getPlacedCards);
+                render(clientState.getGameModel().getSelf());
 
             }
             event.setDropCompleted(success);
@@ -439,7 +449,13 @@ public class PlayerViewController {
         });
 
     }
-    private void render (Map<GameFieldPosition, Side> placedCards) {
+
+    private void clearGameField(){
+        rightPane.getChildren().clear();
+    }
+
+    private void render (Player player) {
+        Map<GameFieldPosition, Side> placedCards = player.getPlacedCards();
         for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
             GameFieldPosition position = entry.getKey();
             Side side = entry.getValue();
@@ -454,7 +470,9 @@ public class PlayerViewController {
             imageView.setFitWidth(RECT_WIDTH);
             imageView.setLayoutX(position.x() * DELTA_X);
             imageView.setLayoutY(position.y() * DELTA_Y);
-            imageView.setOnMouseClicked(this::handleCardClick);
+            if(player.equals(clientState.getGameModel().getSelf())) {
+                imageView.setOnMouseClicked(this::handleCardClick);
+            }
             imageView.setViewOrder(-position.z());
             System.out.println("Rendering card at position: " + position.x() + " " + position.y() + position.z());
             rightPane.getChildren().add(imageView);

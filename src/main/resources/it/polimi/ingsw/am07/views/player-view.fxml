@@ -15,7 +15,7 @@
             <!-- Sezione lista giocatori -->
             <TitledPane text="Players">
                 <content>
-                    <ListView fx:id="playerList" />
+                    <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked"/>
                 </content>
             </TitledPane>
 
