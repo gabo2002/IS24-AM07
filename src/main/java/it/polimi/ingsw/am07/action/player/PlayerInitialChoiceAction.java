@@ -24,12 +24,14 @@
 package it.polimi.ingsw.am07.action.player;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.exceptions.IllegalGamePositionException;
 import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
@@ -97,10 +99,9 @@ public class PlayerInitialChoiceAction extends PlayerAction {
         //Setting the player's objective card and starter side
         correspondingPlayer.setPlayerObjectiveCard(selectedCard);
         try {
-            correspondingPlayer.setStarterCardSide(starterSide);
-        } catch (IllegalPlacementException e) {
-            executedCorrectly = false;
-            return;
+            correspondingPlayer.placeAt(starterSide, new GameFieldPosition(0, 0));
+        } catch (IllegalGamePositionException | IllegalPlacementException e) {
+            throw new RuntimeException(e);
         }
 
         // If all players have chosen their objective card and starter side, the game can start

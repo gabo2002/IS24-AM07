@@ -67,8 +67,8 @@ public class PlayerViewController {
     private static final int RECT_HEIGHT = 100;
     private static final Double DELTA_X = RECT_WIDTH-(17.0/75.0*RECT_WIDTH);
     private static final Double DELTA_Y = RECT_HEIGHT-(2.0/5.0*RECT_HEIGHT);
-    private static final int deafaultLayoutX = 100;
-    private static final int deafaultLayoutY = 300;
+    private static final int deafaultLayoutX = 950;
+    private static final int deafaultLayoutY = 925;
     private boolean areRectanglesVisible = false;
     private final List<Rectangle> createdRectangles = new ArrayList<>();
 
@@ -81,8 +81,6 @@ public class PlayerViewController {
 
     @FXML
     private ListView<String> itemsList;
-    @FXML
-    private Label scoreLabel;
 
     @FXML
     private TextField chatInput;
@@ -129,13 +127,12 @@ public class PlayerViewController {
             playerList.getItems().add(player.getNickname() + ": " + player.getPlayerScore());
         }
 
-        //for(Symbol symbol : clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet()) {
-       //     itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));
-     //   }
-
-
-        if (clientState.getGameModel().getSelf() != null) {
-            scoreLabel.setText("Score: " + clientState.getGameModel().getSelf().getPlayerScore());
+        try {
+            clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet().forEach(symbol -> {
+                itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));
+            });
+        }catch (IllegalArgumentException e) {
+            System.out.println("No resources in the player's inventory");
         }
 
         // Retrieve the last 20 messages
@@ -362,6 +359,7 @@ public class PlayerViewController {
                 Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
                 controller.execute(action);
                 render(getPlacedCards);
+
             }
             event.setDropCompleted(success);
             event.consume();

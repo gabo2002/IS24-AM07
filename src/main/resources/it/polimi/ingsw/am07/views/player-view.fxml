@@ -19,12 +19,9 @@
             </TitledPane>
 
             <!-- Sezione punteggio -->
-            <TitledPane prefHeight="72.0" prefWidth="300.0" text="Resources">
+            <TitledPane text="Resources">
                 <content>
-
-                    <Label fx:id="scoreLabel" />
                     <ListView fx:id="itemsList" />
-
                 </content>
             </TitledPane>
 

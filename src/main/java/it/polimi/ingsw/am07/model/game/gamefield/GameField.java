@@ -206,22 +206,4 @@ public class GameField implements Serializable {
     public Map<GameFieldPosition, Side> getPlacedCards() {
         return placedCards;
     }
-
-    /**
-     * Set the starter card on the game field.
-     * The starter card is placed at x=0, y=0.
-     *
-     * @throws IllegalPlacementException if the starter card has already been placed on the game field
-     */
-    public void setStarerCard(Side side) throws IllegalPlacementException {
-
-        for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
-            if (entry.getKey().x() == 0 && entry.getKey().y() == 0) {
-                throw new IllegalPlacementException("The starter card has already been placed on the game field");
-            }
-        }
-        placeOnFieldAt(side, new GameFieldPosition(0, 0));
-    }
-
-
 }

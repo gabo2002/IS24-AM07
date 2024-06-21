@@ -48,7 +48,8 @@ public class SelectStarterController {
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
         this.controller = controller;
-
+        this.selectedObjective = clientState.getGameModel().getSelf().getAvailableObjectives()[0];
+        this.rect1.setVisible(true);
         updateview(clientState);
     }
 

@@ -97,25 +97,25 @@ class GameTest {
         assertEquals(GameState.STARTING, game.getGameState());
         assertEquals(0, game.getCurrentPlayerIndex());
 
-        assertDoesNotThrow(() ->  player1.setStarterCardSide(starter));
+        assertDoesNotThrow(() ->  player1.placeAt(starter, new GameFieldPosition(0, 0)));
         assertEquals(0, player1.getPlayerScore());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player2.setStarterCardSide(starter));
+        assertDoesNotThrow(() -> player2.placeAt(starter, new GameFieldPosition(0, 0)));
 
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(1, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player3.setStarterCardSide(starter));
+        assertDoesNotThrow(() -> player3.placeAt(starter, new GameFieldPosition(0, 0)));
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(2, game.getCurrentPlayerIndex());
 
         game.incrementTurn();
 
-        assertDoesNotThrow(() -> player4.setStarterCardSide(starter));
+        assertDoesNotThrow(() -> player4.placeAt(starter, new GameFieldPosition(0, 0)));
         assertEquals(GameState.PLAYING, game.getGameState());
         assertEquals(3, game.getCurrentPlayerIndex());
 

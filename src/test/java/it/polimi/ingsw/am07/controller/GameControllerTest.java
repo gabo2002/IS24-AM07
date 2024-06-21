@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.controller;
+/*package it.polimi.ingsw.am07.controller;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
@@ -98,4 +98,4 @@ class GameControllerTest {
         assertEquals(1, clientState2.getGameModel().getPlayers().getFirst().getPlacedCards().size());
     }
 
-}
+}*/

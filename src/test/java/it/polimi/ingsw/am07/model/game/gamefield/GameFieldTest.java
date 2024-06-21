@@ -299,18 +299,4 @@ class GameFieldTest {
         assertEquals(placedCards, gameField.getPlacedCards());
     }
 
-    @Test
-    public void setStarterCardTest() {
-        GameField gameField = new GameField();
-
-        List<GameCard> cards = GameResources.getInstance().getStarterCards();
-
-        Side starterCard = cards.get(0).front();
-
-        assertDoesNotThrow(() -> gameField.setStarerCard(starterCard));
-
-        assertThrows(IllegalPlacementException.class, () -> gameField.setStarerCard(starterCard));
-
-    }
-
 }

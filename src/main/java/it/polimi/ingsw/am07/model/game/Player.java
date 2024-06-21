@@ -192,10 +192,12 @@ public class Player implements Serializable {
         playerScore += card.calculateAssociatedScore(playerResources, coveredCorners);
 
         // I have to remove the card from the hand
-        try {
-            removeCardFromHand(card);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalPlacementException("The card is not in the hand");
+        if (card.color() != Symbol.STARTER) {
+            try {
+                removeCardFromHand(card);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalPlacementException("The card is not in the hand");
+            }
         }
     }
 
@@ -272,9 +274,5 @@ public class Player implements Serializable {
 
     public GameField getPlayerGameField() {
         return playerGameField;
-    }
-
-    public void setStarterCardSide(Side side) throws IllegalPlacementException {
-        playerGameField.setStarerCard(side);
     }
 }
