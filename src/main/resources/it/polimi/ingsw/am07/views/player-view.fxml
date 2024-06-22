@@ -1,80 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.text.Text?>
-<SplitPane dividerPositions="0.33" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
-    <!-- Metà destra dello schermo: GridPane scrollabile -->
+<SplitPane dividerPositions="0.35" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
 
     <items>
 
         <!-- Parte sinistra -->
-        <VBox maxWidth="300" spacing="10">
-            <!-- Sezione lista giocatori -->
-            <TitledPane text="Players">
-                <content>
-                    <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked"/>
-                </content>
-            </TitledPane>
 
-            <!-- Sezione punteggio -->
-            <TitledPane text="Resources">
-                <content>
-                    <ListView fx:id="itemsList" />
-                </content>
-            </TitledPane>
+        <ScrollPane maxWidth="640.0" prefWidth="640.0" style="-fx-background-color: #433A3F;">
 
-            <!-- Sezione chat -->
-            <TitledPane text="Chat">
-                <content>
+            <!-- Box verticale -->
+            <VBox maxHeight="1402.0" maxWidth="640.0" prefHeight="1402.0" prefWidth="640.0" style="-fx-background-color: #433A3F;">
+
+                <!-- Sezione players -->
+                <HBox maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="42.0" prefWidth="640.0" text="Players" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                </HBox>
+                <!-- Lista players -->
+                <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked" style="-fx-background-color: #433A3F;" />
+
+                <!-- Sezione chat -->
+                <HBox maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="42.0" prefWidth="640.0" text="Chat" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+                </HBox>
+                <VBox spacing="10">
+                    <TextArea fx:id="chatArea" editable="false" maxWidth="640.0" prefHeight="122.0" prefWidth="640.0" />
                     <VBox spacing="10">
-                        <TextArea fx:id="chatArea" editable="false" prefHeight="100" />
-                        <HBox spacing="10">
-                            <TextField fx:id="chatInput" HBox.hgrow="ALWAYS" />
-                            <Button fx:id="sendButton" onAction="#sendChatMessage" text="Send" />
-                        </HBox>
+                        <TextField fx:id="chatInput" prefWidth="640.0" promptText="Write here" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></TextField>
+                        <Button fx:id="sendButton" maxWidth="640.0" onAction="#sendChatMessage" prefHeight="23.0" prefWidth="640.0" text="Send">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></Button>
                     </VBox>
-                </content>
-            </TitledPane>
+                </VBox>
 
+                <!-- Sezione players -->
+                <HBox maxWidth="640.0" prefHeight="42.0" prefWidth="378.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="35.0" prefWidth="640.0" text="Resources" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+                </HBox>
 
-            <TitledPane text="Resource Deck">
-                <content>
-                    <HBox fx:id="resourceDeckContainer" spacing="10" />
-                </content>
-            </TitledPane>
-            <TitledPane text="Gold Deck">
-                <content>
-                    <HBox fx:id="goldDeckContainer" spacing="10" />
-                </content>
-            </TitledPane>
-            <Button fx:id="confirmDeck" text="Pick" visible="false" onAction="#onConfirmButtonClicked"/>
+                <!-- Lista risorse -->
+                <ListView fx:id="itemsList" style="-fx-background-color: #433A3F;" />
 
-            <TitledPane text="My Hand">
-                <content>
-                    <HBox fx:id="playerHand" prefHeight="200.0" prefWidth="100.0" spacing="10">
-                    </HBox>
-                </content>
-            </TitledPane>
-        </VBox>
+                <!-- Sezione Resource Deck -->
+                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="22.0" prefWidth="640.0" text="Resource Deck" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+                </HBox>
+                <HBox fx:id="resourceDeckContainer" spacing="20.0">
+               <padding>
+                  <Insets left="30.0" />
+               </padding></HBox>
 
-        <VBox>
+                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="640.0" text="Gold Deck" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="goldDeckContainer" spacing="20.0">
+               <padding>
+                  <Insets left="30.0" />
+               </padding></HBox>
+
+                <Button fx:id="confirmDeck" maxWidth="640.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></Button>
+
+                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="23.0" prefWidth="640.0" text="My Hand" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="playerHand" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <padding>
+                  <Insets left="30.0" />
+               </padding></HBox>
+            </VBox>
+
+        </ScrollPane>
+
+        <VBox alignment="CENTER">
             <!-- Sezione fissa per messaggi -->
             <HBox alignment="CENTER" style="-fx-background-color: lightcoral; -fx-padding: 10;">
                 <Text fx:id="infoMessage" />
             </HBox>
             <!-- Parte destra -->
-            <ScrollPane fx:id="scrollPane" hvalue="0.5" prefHeight="1402.0" prefWidth="622.0" vvalue="0.5" style="-fx-background-color: #95785F">
+            <ScrollPane fx:id="scrollPane" hvalue="0.5" prefHeight="1402.0" prefWidth="622.0" style="-fx-background-color: #95785F" vvalue="0.5">
                 <AnchorPane maxHeight="3000" maxWidth="3000" minHeight="2000" minWidth="2000" prefHeight="1019.0" prefWidth="620.0" style="-fx-background-color: #a78d76">
                     <Pane fx:id="rightPane" layoutX="950" layoutY="925">
                     </Pane>
                 </AnchorPane>
             </ScrollPane>
+
         </VBox>
 
 
     </items>
 </SplitPane>
-
