@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
-import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
@@ -42,21 +41,16 @@ import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,8 +58,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Stream;
 
 
 public class PlayerViewController {
@@ -74,15 +67,10 @@ public class PlayerViewController {
     private static final int RECT_HEIGHT = 100;
     private static final Double DELTA_X = RECT_WIDTH-(17.0/75.0*RECT_WIDTH);
     private static final Double DELTA_Y = RECT_HEIGHT-(2.0/5.0*RECT_HEIGHT);
-    private static final int deafaultLayoutX = 950;
-    private static final int deafaultLayoutY = 925;
-
-    private boolean areRectanglesVisible = false;
     private final List<Rectangle> createdRectangles = new ArrayList<>();
 
     @FXML
     private ScrollPane scrollPane;
-
 
     @FXML
     public Button confirmDeck;
@@ -112,27 +100,31 @@ public class PlayerViewController {
     private Pane rightPane;
 
     @FXML
-    Rectangle defaultRectangle;
-
-    @FXML
     private Text infoMessage;
 
     private GameCard selectedCard;
 
-
     private ClientState clientState;
     private Controller controller;
 
+    /**
+     * Initialize the view with the client state and the controller
+     * @param clientState
+     * @param controller
+     */
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
         this.controller = controller;
-        Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
 
-        // Bind the label to reflect the player state changes
         updateView(clientState);
-        render(getPlacedCards);
+
+        render(clientState.getGameModel().getSelf());
     }
 
+    /**
+     * Update the view with the new client state
+     * @param clientState
+     */
     public void updateView(ClientState clientState) {
         this.clientState = clientState;
         System.out.println("Player view, Client state updated: " + clientState);
@@ -144,12 +136,13 @@ public class PlayerViewController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/player-box.fxml"));
                 Parent player_box = fxmlLoader.load();
 
+                player_box.setUserData(player);
+
                 PlayerBoxController playerBoxController = fxmlLoader.getController();
                 playerBoxController.setPlayer_name_box(player.getNickname());
                 playerBoxController.setScore_label("Score: " + player.getPlayerScore());
 
                 playerList.getItems().add(player_box);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -184,17 +177,30 @@ public class PlayerViewController {
 
         updateHandView(playerHand, hand);
 
-        enableDragAndDrop(defaultRectangle, 0, 0);
-        //defaultRectangle.setOnMouseClicked(this::handleCardClick);
-
         updateInfoMessage("Sei in: " + clientState.getPlayerState());
     }
 
-    // Metodo per aggiornare il testo del messaggio di errore
-    private void updateInfoMessage(String message) {
-        infoMessage.setText(message);
+    /**
+     * Handle the click on a player in the list
+     * @param event
+     */
+    @FXML
+    private void onPlayerClicked(MouseEvent event){
+        Parent selectedPlayer = playerList.getSelectionModel().getSelectedItem();
+        Player player = (Player) selectedPlayer.getUserData();
+        clearGameField();
+        render(player);
+        if(player.equals(clientState.getGameModel().getSelf())) {
+            updateInfoMessage("Sei in "+ clientState.getPlayerState());
+            return;
+        }
+        updateInfoMessage("Stai guardando "+ player.getNickname());
     }
 
+    /**
+     * Handle the click on the confirm button
+     * @param event
+     */
     @FXML
     private void onConfirmButtonClicked(ActionEvent event) {
         if(clientState.getPlayerState() != PlayerState.PICKING_CARD) {
@@ -206,6 +212,10 @@ public class PlayerViewController {
         updateInfoMessage("Sei in: " + clientState.getPlayerState());
     }
 
+    /**
+     * Handle the drag detected event
+     * @param imageView
+     */
     @FXML
     private void onDragDetected(ImageView imageView) {
         Dragboard db = imageView.startDragAndDrop(TransferMode.MOVE);
@@ -215,7 +225,11 @@ public class PlayerViewController {
         db.setContent(content);
     }
 
-
+    /**
+     * Update the hand view with the new cards
+     * @param handContainer
+     * @param cards
+     */
     private void updateHandView(HBox handContainer, List<GameCard> cards) {
         handContainer.getChildren().clear();
         for (GameCard card : cards) {
@@ -224,45 +238,39 @@ public class PlayerViewController {
         }
     }
 
+    /**
+     * Update the deck view with the new cards
+     * @param deckContainer
+     * @param cards
+     */
     private void updateDeckView(HBox deckContainer, List<GameCard> cards) {
         deckContainer.getChildren().clear();
-        Image coverImage = imgFrom(cards.getFirst().id(), "back");
         if (!cards.isEmpty()) {
-            ImageView coverImageView = createImageView(coverImage, cards.getFirst());
+            ImageView coverImageView = createDeckImageView(cards.getFirst(), "back");
             deckContainer.getChildren().add(coverImageView);
 
             for (int i = 1; i < Math.min(3, cards.size()); i++) {
-                Image cardImage = imgFrom(cards.get(i).id(), "front");
-                ImageView imageView = createImageView(cardImage, cards.get(i));
+                ImageView imageView = createDeckImageView(cards.get(i), "front");
                 deckContainer.getChildren().add(imageView);
             }
         }
     }
 
-    private Image imgFrom(int id, String side) {
-        ClassLoader cl = this.getClass().getClassLoader();
-        String item = "it/polimi/ingsw/am07/assets/"+side+"_" + id + ".png";
-        Image img = null;
-        try (InputStream is = cl.getResourceAsStream(item)) {
-            if (is != null) {
-                img = new Image(is);
-            } else {
-                System.err.println("Unable to load image: " + item);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return img;
-    }
-
-
-    private ImageView createImageView(Image image, GameCard card) {
+    /**
+     * Create an image view for the deck
+     * @param card
+     * @param initialSide
+     * @return
+     */
+    private ImageView createDeckImageView(GameCard card, String initialSide) {
+        Image image = imgFrom(card.id(), initialSide);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(100.0);
         imageView.setFitWidth(150.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
         imageView.getProperties().put("card", card);
+        imageView.setViewOrder(1);
 
         imageView.setOnMouseClicked(event -> {
             confirmDeck.setVisible(true);
@@ -273,6 +281,12 @@ public class PlayerViewController {
         return imageView;
     }
 
+    /**
+     * Create an image view for the card
+     * @param card
+     * @param initialSide
+     * @return
+     */
     private ImageView createImageView(GameCard card, String initialSide) {
         Image initialImage = imgFrom(card.id(), initialSide);
         ImageView imageView = new ImageView(initialImage);
@@ -291,7 +305,33 @@ public class PlayerViewController {
         return imageView;
     }
 
+    /**
+     * Load the image from the assets
+     * @param id
+     * @param side
+     * @return
+     */
+    private Image imgFrom(int id, String side) {
+        ClassLoader cl = this.getClass().getClassLoader();
+        String item = "it/polimi/ingsw/am07/assets/"+side+"_" + id + ".png";
+        Image img = null;
+        try (InputStream is = cl.getResourceAsStream(item)) {
+            if (is != null) {
+                img = new Image(is);
+            } else {
+                System.err.println("Unable to load image: " + item);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img;
+    }
 
+    /**
+     * Flip the card
+     * @param imageView
+     * @param id
+     */
     private void flipCard(ImageView imageView, int id) {
         String currentSide = (String) imageView.getProperties().get("currentSide");
         String newSide = currentSide.equals("front") ? "back" : "front";
@@ -300,6 +340,181 @@ public class PlayerViewController {
         imageView.getProperties().put("currentSide", newSide);
     }
 
+    /**
+     * Handle the click on the card
+     * @param event
+     */
+    private void handleCardClick(MouseEvent event) {
+        ImageView source = (ImageView) event.getSource();
+
+        if(source.getProperties().get("RectVisibility").equals(true)) {
+            source.getProperties().put("RectVisibility", false);
+
+            Stream<Rectangle> nearRectangles = createdRectangles.stream()
+                    .filter(rect -> rect.getLayoutX() == source.getLayoutX() + DELTA_X && rect.getLayoutY() == source.getLayoutY() - DELTA_Y || rect.getLayoutX() == source.getLayoutX() - DELTA_X && rect.getLayoutY() == source.getLayoutY() - DELTA_Y || rect.getLayoutX() == source.getLayoutX() + DELTA_X && rect.getLayoutY() == source.getLayoutY() + DELTA_Y || rect.getLayoutX() == source.getLayoutX() - DELTA_X && rect.getLayoutY() == source.getLayoutY() + DELTA_Y);
+
+            nearRectangles.forEach(rect -> rect.setVisible(false));
+
+        }else {
+            source.getProperties().put("RectVisibility", true);
+            double x = source.getLayoutX();
+            double y = source.getLayoutY();
+
+            GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X)/(DELTA_X)), (int) ((y + DELTA_Y)/(DELTA_Y)));
+            GameFieldPosition topRight = new GameFieldPosition((int) ((x+ DELTA_X)/(DELTA_X)), (int) ((y  + DELTA_Y)/(DELTA_Y)));
+            GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x- DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
+            GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
+
+            Side side = new SideBack(0, null, null, Symbol.GREEN);
+
+            if (clientState.getGameModel().getSelf().canBePlacedAt(side, topLeft)) {
+                createNewRectangle(x - DELTA_X, y + DELTA_Y);
+            }
+
+            if (clientState.getGameModel().getSelf().canBePlacedAt(side, topRight)) {
+                createNewRectangle(x + DELTA_X, y + DELTA_Y);
+            }
+
+            if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomLeft)) {
+                createNewRectangle(x - DELTA_X, y - DELTA_Y);
+            }
+
+            if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomRight)) {
+                createNewRectangle(x + DELTA_X, y - DELTA_Y);
+            }
+        }
+    }
+
+    /**
+     * Create a new rectangle
+     * @param x
+     * @param y
+     */
+    private void createNewRectangle(double x, double y) {
+        Rectangle newRect = new Rectangle(RECT_WIDTH, RECT_HEIGHT, Color.LIGHTGRAY);
+        newRect.setStroke(Color.BLACK);
+        newRect.setLayoutX(x);
+        newRect.setLayoutY(y);
+        newRect.setViewOrder(1);
+
+        createdRectangles.add(newRect);
+        if (clientState.getPlayerState() != PlayerState.PLACING_CARD) {
+            newRect.setVisible(false);
+        }
+        enableDragAndDrop(newRect, (int) (x / DELTA_X), (int) (y / DELTA_Y));
+
+        rightPane.getChildren().add(newRect);
+
+    }
+
+    /**
+     * Enable the drag and drop
+     * @param rect
+     * @param x
+     * @param y
+     */
+    private void enableDragAndDrop(Rectangle rect, int x, int y) {
+        List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
+        List<Side> sides = new ArrayList<>();
+
+        for (GameCard card : cards) {
+            sides.add(card.front());
+            sides.add(card.back());
+        }
+        rect.setOnDragOver(event -> {
+            if (event.getGestureSource() != rightPane && event.getDragboard().hasImage()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        rect.setOnDragDropped(event -> {
+            if(clientState.getPlayerState() == PlayerState.PICKING_CARD) {
+                updateInfoMessage("Pick a card");
+                return;
+            }
+            if(clientState.getPlayerState() != PlayerState.PLACING_CARD) {
+                updateInfoMessage("It's not your turn");
+                return;
+            }
+
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasImage()) {
+                ImageView sourceImageView = (ImageView) event.getGestureSource();
+                GameCard card = (GameCard) sourceImageView.getProperties().get("card");
+                String side = (String) sourceImageView.getProperties().get("currentSide");
+                success = true;
+
+                Side sidePlacedCard;
+                if (side == "front") {
+                    sidePlacedCard = card.front();
+                } else {
+                    sidePlacedCard = card.back();
+                }
+
+                Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
+                controller.execute(action);
+                render(clientState.getGameModel().getSelf());
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
+    }
+
+    /**
+     * Render the player game filed
+     * @param player
+     */
+    private void render (Player player) {
+        Map<GameFieldPosition, Side> placedCards = player.getPlacedCards();
+        for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
+            GameFieldPosition position = entry.getKey();
+            Side side = entry.getValue();
+            Image image;
+            if (side instanceof SideBack) {
+                image = imgFrom(side.id(), "back");
+            }else {
+                image = imgFrom(side.id(), "front");
+            }
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(RECT_HEIGHT);
+            imageView.setFitWidth(RECT_WIDTH);
+            imageView.setLayoutX(position.x() * DELTA_X);
+            imageView.setLayoutY(position.y() * DELTA_Y);
+            imageView.getProperties().put("RectVisibility", false);
+            if(player.equals(clientState.getGameModel().getSelf())) {
+                imageView.setOnMouseClicked(this::handleCardClick);
+            }
+            imageView.setViewOrder(-position.z());
+            System.out.println("Rendering card at position: " + position.x() + " " + position.y() + position.z());
+            rightPane.getChildren().add(imageView);
+
+            for(Rectangle rect : createdRectangles) {
+                rect.setVisible(false);
+            }
+        }
+    }
+
+    /**
+     * Clear the game field
+     */
+    private void clearGameField(){
+        rightPane.getChildren().clear();
+    }
+
+    /**
+     * Update the info message
+     * @param message
+     */
+    private void updateInfoMessage(String message) {
+        infoMessage.setText(message);
+    }
+
+    /**
+     * Send the chat message
+     */
     @FXML
     protected void sendChatMessage() {
         String message = chatInput.getText();
@@ -320,134 +535,5 @@ public class PlayerViewController {
         controller.execute(action);
     }
 
-    private void handleCardClick(MouseEvent event) {
-        if(!(event.getSource() instanceof ImageView)) {
-            System.out.println((event.getSource()));
-            return;
-        }
 
-        ImageView source = (ImageView) event.getSource();
-        double x = source.getLayoutX();
-        double y = source.getLayoutY();
-
-        GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X)/(DELTA_X)), (int) ((y + DELTA_Y)/(DELTA_Y)));
-        GameFieldPosition topRight = new GameFieldPosition((int) ((x+ DELTA_X)/(DELTA_X)), (int) ((y  + DELTA_Y)/(DELTA_Y)));
-        GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x- DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
-        GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
-
-        Side side = new SideBack(0, null, null, Symbol.GREEN);
-
-
-        if (clientState.getGameModel().getSelf().canBePlacedAt(side, topLeft)) {
-            createNewRectangle(x - DELTA_X, y + DELTA_Y);
-        }
-
-        if (clientState.getGameModel().getSelf().canBePlacedAt(side, topRight)) {
-            createNewRectangle(x + DELTA_X, y + DELTA_Y);
-        }
-
-        if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomLeft)) {
-            createNewRectangle(x - DELTA_X, y - DELTA_Y);
-        }
-
-        if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomRight)) {
-            createNewRectangle(x + DELTA_X, y - DELTA_Y);
-        }
-    }
-
-    private void createNewRectangle(double x, double y) {
-        Rectangle newRect = new Rectangle(RECT_WIDTH, RECT_HEIGHT, Color.LIGHTGRAY);
-        newRect.setStroke(Color.BLACK);
-        newRect.setLayoutX(x);
-        newRect.setLayoutY(y);
-
-        createdRectangles.add(newRect);
-
-        enableDragAndDrop(newRect, (int) (x / DELTA_X), (int) (y / DELTA_Y));
-
-        rightPane.getChildren().add(newRect);
-
-    }
-
-
-    private void enableDragAndDrop(Rectangle rect, int x, int y) {
-        List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
-        List<Side> sides = new ArrayList<>();
-        Map<GameFieldPosition, Side> getPlacedCards = clientState.getGameModel().getSelf().getPlacedCards();
-
-        for (GameCard card : cards) {
-            sides.add(card.front());
-            sides.add(card.back());
-        }
-        rect.setOnDragOver(event -> {
-            if (event.getGestureSource() != rightPane && event.getDragboard().hasImage()) {
-                event.acceptTransferModes(TransferMode.MOVE);
-            }
-            event.consume();
-        });
-
-        rect.setOnDragDropped(event -> {
-
-            if(clientState.getPlayerState() != PlayerState.PLACING_CARD) {
-                updateInfoMessage("Non è il tuo turno");
-                return;
-            }
-
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            if (db.hasImage()) {
-                ImageView sourceImageView = (ImageView) event.getGestureSource();
-                GameCard card = (GameCard) sourceImageView.getProperties().get("card");
-                String side = (String) sourceImageView.getProperties().get("currentSide");
-                ImageView imageView = new ImageView(db.getImage());
-                imageView.setFitHeight(RECT_HEIGHT);
-                imageView.setFitWidth(RECT_WIDTH);
-                imageView.setLayoutX(rect.getLayoutX());
-                imageView.setLayoutY(rect.getLayoutY());
-                imageView.setOnMouseClicked(this::handleCardClick);
-                rightPane.getChildren().add(imageView);
-                success = true;
-
-                Side sidePlacedCard;
-                if (side == "front") {
-                    sidePlacedCard = card.front();
-                } else {
-                    sidePlacedCard = card.back();
-                }
-
-                Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
-                controller.execute(action);
-                render(getPlacedCards);
-
-            }
-            event.setDropCompleted(success);
-            event.consume();
-        });
-
-    }
-    private void render (Map<GameFieldPosition, Side> placedCards) {
-        for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
-            GameFieldPosition position = entry.getKey();
-            Side side = entry.getValue();
-            Image image;
-            if (side instanceof SideBack) {
-                image = imgFrom(side.id(), "back");
-            }else {
-                image = imgFrom(side.id(), "front");
-            }
-            ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(RECT_HEIGHT);
-            imageView.setFitWidth(RECT_WIDTH);
-            imageView.setLayoutX(position.x() * DELTA_X);
-            imageView.setLayoutY(position.y() * DELTA_Y);
-            imageView.setOnMouseClicked(this::handleCardClick);
-            imageView.setViewOrder(-position.z());
-            System.out.println("Rendering card at position: " + position.x() + " " + position.y() + position.z());
-            rightPane.getChildren().add(imageView);
-
-            for(Rectangle rect : createdRectangles) {
-                rect.setVisible(false);
-            }
-        }
-    }
 }

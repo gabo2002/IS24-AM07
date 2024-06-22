@@ -21,23 +21,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 package it.polimi.ingsw.am07.client.gui.viewController;
+
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+
 public class PlayerBoxController {
+
 
     @FXML
     private Label player_name_box;
 
+
     @FXML
     private Label score_label;
+
 
     @FXML
     protected void setPlayer_name_box(String name) {
         player_name_box.setText(name);
     }
+
 
     @FXML
     protected void setScore_label(String text) {
