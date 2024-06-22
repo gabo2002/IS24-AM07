@@ -43,6 +43,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -271,6 +272,7 @@ public class PlayerViewController {
         imageView.setPreserveRatio(true);
         imageView.getProperties().put("card", card);
         imageView.setViewOrder(1);
+        createShadow(imageView);
 
         imageView.setOnMouseClicked(event -> {
             confirmDeck.setVisible(true);
@@ -294,6 +296,7 @@ public class PlayerViewController {
         imageView.setFitWidth(150.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
+        createShadow(imageView);
 
         imageView.getProperties().put("card", card);
         imageView.getProperties().put("currentSide", initialSide);
@@ -484,6 +487,7 @@ public class PlayerViewController {
             imageView.setLayoutX(position.x() * DELTA_X);
             imageView.setLayoutY(position.y() * DELTA_Y);
             imageView.getProperties().put("RectVisibility", false);
+            createShadow(imageView);
             if(player.equals(clientState.getGameModel().getSelf())) {
                 imageView.setOnMouseClicked(this::handleCardClick);
             }
@@ -495,6 +499,17 @@ public class PlayerViewController {
                 rect.setVisible(false);
             }
         }
+    }
+
+    /**
+     * Create a shadow for the image view
+     * @param imageView
+     */
+    private void createShadow(ImageView imageView) {
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(8);
+        dropShadow.setColor(Color.BLACK);
+        imageView.setEffect(dropShadow);
     }
 
     /**
