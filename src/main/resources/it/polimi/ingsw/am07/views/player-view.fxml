@@ -25,7 +25,7 @@
                     </Label>
                 </HBox>
                 <!-- Lista players -->
-                <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked" style="-fx-background-color: #433A3F;" />
+                <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked" style="-fx-background-color: transparent;" />
 
                 <!-- Sezione chat -->
                 <HBox maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
@@ -65,7 +65,7 @@
                 </HBox>
 
                 <!-- Lista risorse -->
-                <ListView fx:id="itemsList" style="-fx-background-color: #433A3F;" />
+                <ListView fx:id="itemsList" maxHeight="150.0" style="-fx-background-color: transparent;" />
 
                 <!-- Sezione Resource Deck -->
                 <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
