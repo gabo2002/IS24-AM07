@@ -46,8 +46,8 @@ import java.util.UUID;
 
 public class GUI extends javafx.application.Application implements NetworkInitializer {
 
-    private static final int WIDTH = 1200;
-    private static final int HEIGHT = 1024;
+    private static final int WIDTH = 1920;
+    private static final int HEIGHT = 1080;
     private final Object lock = new Object();
     private ClientState state;
     private Stage stage;

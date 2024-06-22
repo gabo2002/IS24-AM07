@@ -29,7 +29,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="800.0" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController">
+<VBox alignment="CENTER" style="-fx-background-color: #30323D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.WelcomeViewController">
     <Label layoutX="353.0" layoutY="225.0" text="Codex Naturalis" textFill="WHITE">
         <font>
             <Font name="Segoe UI Bold" size="30.0" />

@@ -69,7 +69,6 @@
             <ScrollPane fx:id="scrollPane" hvalue="0.5" prefHeight="1402.0" prefWidth="622.0" vvalue="0.5">
                 <AnchorPane maxHeight="3000" maxWidth="3000" minHeight="2000" minWidth="2000" prefHeight="1019.0" prefWidth="620.0">
                     <Pane fx:id="rightPane" layoutX="950" layoutY="925">
-                        <Rectangle fx:id="defaultRectangle" fill="lightgray" height="100" stroke="black" width="150" />
                     </Pane>
                 </AnchorPane>
             </ScrollPane>
