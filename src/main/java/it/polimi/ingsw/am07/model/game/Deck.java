@@ -47,11 +47,10 @@ public record Deck(
         GameCard[] visibleGoldCards
 ) implements Serializable {
 
+    /**
+     * The number of visible cards in the deck.
+     */
     public static final int VISIBLE_CARDS_COUNT = 2;
-
-    public Deck() {
-        this(new ArrayList<>(), new ArrayList<>(), new GameCard[VISIBLE_CARDS_COUNT], new GameCard[VISIBLE_CARDS_COUNT]);
-    }
 
     /**
      * This method is used to peek at the top resource card in the deck.
@@ -194,15 +193,40 @@ public record Deck(
         return false;
     }
 
+    /**
+     * This class is used to create a new deck of cards for the game.
+     * It provides methods to add resource and gold cards to the deck, set the visible cards, and build the deck.
+     */
     public static class Factory {
 
+        /**
+         * The list of resource cards to add to the deck.
+         */
         private final List<GameCard> resourceCards;
+
+        /**
+         * The list of gold cards to add to the deck.
+         */
         private final List<GameCard> goldCards;
+
+        /**
+         * The visible resource cards.
+         */
         private final GameCard[] visibleResCards;
+
+        /**
+         * The visible gold cards.
+         */
         private final GameCard[] visibleGoldCards;
 
+        /**
+         * A flag to check if the deck must be initialized (i.e., if the cards must be shuffled and the visible cards set).
+         */
         private boolean mustBeInitialized = true;
 
+        /**
+         * Constructs a new Factory instance.
+         */
         public Factory() {
             this.resourceCards = new ArrayList<>();
             this.goldCards = new ArrayList<>();

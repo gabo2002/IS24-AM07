@@ -33,10 +33,27 @@ import java.util.Optional;
  */
 public final class SideFrontGold extends SideFront {
 
+    /**
+     * The symbol that multiplies the score.
+     */
     private final Symbol multiplier;
 
+    /**
+     * The resource requirements needed to place this side on the field.
+     */
     private final ResourceHolder requirements;
 
+    /**
+     * Constructs a new SideFrontGold object with the specified parameters.
+     *
+     * @param id                  The unique identifier for the side.
+     * @param fieldRepresentation The representation of the side's field.
+     * @param resources           The resources associated with the side.
+     * @param associatedScore     The score associated with the side.
+     * @param multiplier          The symbol that multiplies the score.
+     * @param requirements        The resource requirements needed to place this side on the field.
+     * @param color               The color of the side.
+     */
     public SideFrontGold(int id,
                          SideFieldRepresentation fieldRepresentation,
                          ResourceHolder resources,

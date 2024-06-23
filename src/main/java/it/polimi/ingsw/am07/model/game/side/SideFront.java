@@ -26,6 +26,9 @@ package it.polimi.ingsw.am07.model.game.side;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 
+/**
+ * Represents a generic front side of a card.
+ */
 public sealed abstract class SideFront extends Side permits SideFrontGold, SideFrontStarter, SideFrontRes {
 
     /**

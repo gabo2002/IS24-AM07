@@ -23,6 +23,9 @@
 
 package it.polimi.ingsw.am07.model.lobby;
 
+/**
+ * Enum representing the state of the lobby.
+ */
 public enum LobbyState {
     WAITING_FOR_PLAYERS,
     FULL,

@@ -23,8 +23,10 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+/**
+ * Enum representing the pawn colors of the game.
+ */
 public enum Pawn {
-
     BLACK,
     RED,
     GREEN,

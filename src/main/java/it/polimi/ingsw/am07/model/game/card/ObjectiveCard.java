@@ -33,10 +33,22 @@ import java.io.Serializable;
  */
 public abstract sealed class ObjectiveCard implements Serializable permits ResourceObjectiveCard, PatternObjectiveCard {
 
+    /**
+     * The score associated with the card.
+     */
     protected final int associatedScore;
 
+    /**
+     * The id of the card.
+     */
     protected final int id;
 
+    /**
+     * Creates a new objective card with the given associated score and id.
+     *
+     * @param associatedScore the score associated with the card
+     * @param id the id of the card
+     */
     protected ObjectiveCard(int associatedScore, int id) {
         this.associatedScore = associatedScore;
         this.id = id;
@@ -51,10 +63,20 @@ public abstract sealed class ObjectiveCard implements Serializable permits Resou
      */
     public abstract int calculateScore(ResourceHolder playerResources, GameField playerGameField);
 
+    /**
+     * Returns the score associated with the card.
+     *
+     * @return the score associated with the card
+     */
     public int getAssociatedScore() {
         return associatedScore;
     }
 
+    /**
+     * Returns the id of the card.
+     *
+     * @return the id of the card
+     */
     public int getId() {
         return id;
     }

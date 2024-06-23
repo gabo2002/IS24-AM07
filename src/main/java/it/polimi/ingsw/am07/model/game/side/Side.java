@@ -29,12 +29,34 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 import java.io.Serializable;
 import java.util.Optional;
 
+/**
+ * This class represents a generic side of a card, of which there are two types: SideFront and SideBack.
+ */
 public sealed abstract class Side implements Serializable permits SideFront, SideBack {
 
+    /**
+     * The score associated with the side.
+     */
     protected final int associatedScore;
+
+    /**
+     * The unique identifier for the side.
+     */
     private final int id;
+
+    /**
+     * The color of the card (and side).
+     */
     private final Symbol color;
+
+    /**
+     * The representation of the side's field on the GameField.
+     */
     private final SideFieldRepresentation fieldRepresentation;
+
+    /**
+     * The resources associated with the side.
+     */
     private final ResourceHolder resources;
 
     /**

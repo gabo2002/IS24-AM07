@@ -26,6 +26,9 @@ package it.polimi.ingsw.am07.model.game.side;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 
+/**
+ * Represents the front side of a starter card. Has no associated score.
+ */
 public final class SideFrontStarter extends SideFront {
 
     /**

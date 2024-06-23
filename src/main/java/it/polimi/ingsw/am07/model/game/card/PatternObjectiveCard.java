@@ -32,6 +32,9 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPattern;
  */
 public final class PatternObjectiveCard extends ObjectiveCard {
 
+    /**
+     * The pattern required to satisfy the objective.
+     */
     private final GameFieldPattern pattern;
 
     /**
@@ -59,6 +62,11 @@ public final class PatternObjectiveCard extends ObjectiveCard {
         return matchingPatterns * associatedScore;
     }
 
+    /**
+     * Returns the pattern required to satisfy the objective.
+     *
+     * @return The pattern required to satisfy the objective.
+     */
     public GameFieldPattern getPattern() {
         return pattern;
     }

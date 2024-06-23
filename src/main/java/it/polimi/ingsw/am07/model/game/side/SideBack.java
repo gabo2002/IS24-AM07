@@ -26,6 +26,9 @@ package it.polimi.ingsw.am07.model.game.side;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 
+/**
+ * Represents the back side of a card. Adds no additional functionality to the Side class.
+ */
 public final class SideBack extends Side {
 
     /**

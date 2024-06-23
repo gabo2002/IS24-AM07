@@ -26,6 +26,9 @@ package it.polimi.ingsw.am07.model.game.side;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 
+/**
+ * Represents the front side of a resource card. Has a static associated score.
+ */
 public final class SideFrontRes extends SideFront {
 
     /**

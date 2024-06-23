@@ -23,8 +23,10 @@
 
 package it.polimi.ingsw.am07.model;
 
+/**
+ * Enum representing the state of the player.
+ */
 public enum PlayerState {
-
     SELECTING_STARTER_CARD_SIDE,
     PLACING_CARD,
     PICKING_CARD,

@@ -28,6 +28,11 @@ import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
 import java.io.Serializable;
 
+/**
+ * Represents the field representation of a side of a card, which is a 2x2 matrix of symbols.
+ *
+ * @param corners the corners of the field
+ */
 public record SideFieldRepresentation(
         Matrix<Symbol> corners
 ) implements Serializable {

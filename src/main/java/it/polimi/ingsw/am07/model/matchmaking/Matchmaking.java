@@ -30,53 +30,123 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This class represents the matchmaking, which is responsible for creating and managing lobbies.
+ */
 public class Matchmaking {
 
+    /**
+     * The list of lobbies.
+     */
     private final Collection<Lobby> lobbies;
+
+    /**
+     * A boolean indicating whether a new lobby has just been created.
+     * Any access to this field should be synchronized.
+     */
     private boolean isNewLobbyCreated = false;
+
+    /**
+     * The unique identifier of the newly-created lobby.
+     */
     private UUID lobbyId;
 
+    /**
+     * The nickname of the admin player of the newly-created lobby.
+     */
     private String playerNickname;
 
+    /**
+     * The pawn of the admin player of the newly-created lobby.
+     */
     private Pawn playerPawn;
-    private String firstPlayerNickname;
 
+    /**
+     * Constructs a new Matchmaking object with a reference to the list of lobbies.
+     *
+     * @param lobbies The list of lobbies.
+     */
     public Matchmaking(Collection<Lobby> lobbies) {
         this.lobbies = lobbies;
     }
 
+    /**
+     * Retrieves whether a new lobby has just been created.
+     *
+     * @return true if a new lobby has just been created, false otherwise.
+     */
     public boolean isNewLobbyCreated() {
         return isNewLobbyCreated;
     }
 
+    /**
+     * Sets whether a new lobby has just been created.
+     *
+     * @param newLobbyCreated true if a new lobby has just been created, false otherwise.
+     */
     public void setNewLobbyCreated(boolean newLobbyCreated) {
         isNewLobbyCreated = newLobbyCreated;
     }
 
+    /**
+     * Retrieves the nickname of the admin player of the newly-created lobby.
+     *
+     * @return The nickname of the admin player of the newly-created lobby.
+     */
     public String getPlayerNickname() {
         return playerNickname;
     }
 
+    /**
+     * Sets the nickname of the admin player of the newly-created lobby.
+     *
+     * @param playerNickname The nickname of the admin player of the newly-created lobby.
+     */
     public void setPlayerNickname(String playerNickname) {
         this.playerNickname = playerNickname;
     }
 
+    /**
+     * Retrieves the pawn of the admin player of the newly-created lobby.
+     *
+     * @return The pawn of the admin player of the newly-created lobby.
+     */
     public Pawn getPlayerPawn() {
         return playerPawn;
     }
 
+    /**
+     * Sets the pawn of the admin player of the newly-created lobby.
+     *
+     * @param playerPawn The pawn of the admin player of the newly-created lobby.
+     */
     public void setPlayerPawn(Pawn playerPawn) {
         this.playerPawn = playerPawn;
     }
 
+    /**
+     * Retrieves the unique identifier of the newly-created lobby.
+     *
+     * @return The unique identifier of the newly-created lobby.
+     */
     public UUID getLobbyId() {
         return lobbyId;
     }
 
+    /**
+     * Sets the unique identifier of the newly-created lobby.
+     *
+     * @param lobbyId The unique identifier of the newly-created lobby.
+     */
     public void setLobbyId(UUID lobbyId) {
         this.lobbyId = lobbyId;
     }
 
+    /**
+     * Retrieves the list of lobbies.
+     *
+     * @return The list of lobbies.
+     */
     public List<Lobby> getLobbies() {
         return List.copyOf(lobbies);
     }

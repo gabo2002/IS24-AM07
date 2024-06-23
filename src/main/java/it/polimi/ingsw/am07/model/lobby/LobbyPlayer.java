@@ -33,8 +33,19 @@ import java.util.Objects;
  */
 public class LobbyPlayer implements Serializable {
 
+    /**
+     * The nickname of the player.
+     */
     private final String nickname;
+
+    /**
+     * The identity of the player.
+     */
     private final String identifier;
+
+    /**
+     * The pawn of the player.
+     */
     private Pawn playerPawn;
 
     /**

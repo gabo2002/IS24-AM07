@@ -31,6 +31,9 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameField;
  */
 public final class ResourceObjectiveCard extends ObjectiveCard {
 
+    /**
+     * The resources required to satisfy the objective.
+     */
     private final ResourceHolder requirements;
 
     /**
@@ -65,6 +68,11 @@ public final class ResourceObjectiveCard extends ObjectiveCard {
         return divisionResult * associatedScore;
     }
 
+    /**
+     * Returns the resources required to satisfy the objective.
+     *
+     * @return The resources required to satisfy the objective.
+     */
     public ResourceHolder getRequirements() {
         return requirements;
     }

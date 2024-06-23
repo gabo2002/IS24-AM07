@@ -40,8 +40,16 @@ public enum Symbol {
     CORNER(false),
     STARTER(false);
 
+    /**
+     * Whether the symbol is a resource or not.
+     */
     private final boolean isResource;
 
+    /**
+     * Constructs a new Symbol object with the specified parameter.
+     *
+     * @param isResource Whether the symbol is a resource or not.
+     */
     Symbol(boolean isResource) {
         this.isResource = isResource;
     }

@@ -45,17 +45,59 @@ import java.util.Map;
  */
 public class Player implements Serializable {
 
+    /**
+     * The nickname of the player.
+     */
     private final String nickname;
 
+    /**
+     * The resource holder associated with the player.
+     */
     private final ResourceHolder playerResources;
+
+    /**
+     * The pawn associated with the player.
+     */
     private final Pawn playerPawn;
+
+    /**
+     * The game field associated with the player.
+     */
     private final GameField playerGameField;
-    private final List<GameCard> playableCards;    //handCards?
+
+    /**
+     * The cards the player is holding.
+     */
+    private final List<GameCard> playableCards;
+
+    /**
+     * The starter card of the player.
+     */
     private final GameCard starterCard;
+
+    /**
+     * The available objective cards for the player.
+     */
     private final ObjectiveCard[] availableObjectives;
+
+    /**
+     * The chat associated with the player.
+     */
     private final PlayerChat chat;
+
+    /**
+     * The score of the player obtained from the cards placed on the game field.
+     */
     private int playerScore;
+
+    /**
+     * The score of the player obtained from the objective cards.
+     */
     private int playerObjectiveScore;
+
+    /**
+     * The personal objective card of the player.
+     */
     private ObjectiveCard playerObjectiveCard;
 
     /**
@@ -227,13 +269,13 @@ public class Player implements Serializable {
      * @author Gabriele Corti
      */
     private void removeCardFromHand(Side side) throws IllegalArgumentException {
-
         for (GameCard c : playableCards) {
             if (c.front().equals(side) || c.back().equals(side)) {
                 playableCards.remove(c);
                 return;
             }
         }
+
         throw new IllegalArgumentException("The card is not in the hand");
     }
 
@@ -265,11 +307,22 @@ public class Player implements Serializable {
         this.playerObjectiveScore += objective.calculateScore(new ResourceHolder(playerResources), playerGameField);
     }
 
+    /**
+     * Retrieves the objective score of the player.
+     *
+     * @return The objective score of the player.
+     */
     public int getPlayerObjectiveScore() {
         return playerObjectiveScore;
     }
 
+    /**
+     * Retrieves the game field associated with the player.
+     *
+     * @return The game field associated with the player.
+     */
     public GameField getPlayerGameField() {
         return playerGameField;
     }
+
 }

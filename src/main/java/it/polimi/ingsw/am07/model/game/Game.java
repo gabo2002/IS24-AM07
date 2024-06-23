@@ -35,19 +35,49 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents a single game of Codex Naturalis.
+ */
 public class Game implements Serializable {
 
+    /**
+     * The maximum number of players allowed in a game.
+     */
     public static int MAX_PLAYERS = 4;
 
+    /**
+     * The unique identifier of the game.
+     */
     private final UUID id;
 
+    /**
+     * The list of players in the game.
+     */
     private final List<Player> players;
 
+    /**
+     * The deck of cards in the game.
+     */
     private final Deck deck;
+
+    /**
+     * The common objectives in the game.
+     */
     private final ObjectiveCard[] commonObjectives; //only 2 cards
+
+    /**
+     * The nickname of the player associated with the current client. Available only in the client's game object.
+     */
     private String selfNickname;
+
+    /**
+     * The index of the current active player in the game.
+     */
     private int currentPlayerIndex;    //Reminder: randomly generated first
 
+    /**
+     * The current state of the game.
+     */
     private GameState gameState;
 
     /**
@@ -344,6 +374,9 @@ public class Game implements Serializable {
      */
     public static class Factory {
 
+        /**
+         * The lobby object for the game. Used to inherit the player list.
+         */
         private Lobby lobby;
 
         /**

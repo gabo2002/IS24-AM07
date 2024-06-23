@@ -45,10 +45,19 @@ import java.util.Map;
  */
 public class GameField implements Serializable {
 
+    /**
+     * The matrix representing the game field.
+     */
     private final Matrix<Symbol> fieldMatrix;
 
+    /**
+     * A map containing the cards that have been placed on the game field, along with their positions.
+     */
     private final Map<GameFieldPosition, Side> placedCards;
 
+    /**
+     * The current z-index of the game field. This is used to keep track of the order in which cards are placed on the field.
+     */
     private int currentZ;
 
     /**

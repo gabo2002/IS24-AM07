@@ -36,10 +36,19 @@ import java.util.UUID;
  */
 public class Lobby implements Serializable {
 
+    /**
+     * The unique identifier of the lobby.
+     */
     private final UUID id;
 
+    /**
+     * The list of players in the lobby.
+     */
     private final List<LobbyPlayer> players;
 
+    /**
+     * The state of the lobby.
+     */
     private LobbyState state;
 
     /**
