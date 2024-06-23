@@ -101,6 +101,6 @@ public class PlayerJoinAction extends PlayerAction {
 
     @Override
     public String toString() {
-        return "PlayJoinAction";
+        return "PlayerJoinAction";
     }
 }

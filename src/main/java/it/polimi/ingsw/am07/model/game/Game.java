@@ -32,10 +32,7 @@ import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.utils.assets.GameResources;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Game implements Serializable {
@@ -262,6 +259,21 @@ public class Game implements Serializable {
     }
 
     /**
+     * This method returns the player with the specified nickname.
+     *
+     * @param nickname the nickname of the player to be found
+     * @return the player with the specified nickname, or null if not found
+     */
+    public Player getPlayerByNickname(String nickname) {
+        for (Player player : players) {
+            if (player.getNickname().equals(nickname)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    /**
      * This method returns the list of winning players.
      *
      * @return the list of winning players (usually 1, but ties are possible)
@@ -269,7 +281,6 @@ public class Game implements Serializable {
      */
     public List<Player> getWinners() throws IllegalGameStateException {
         if (gameState == GameState.ENDING) {
-
             // calculate contributing score of objective cards
             for (Player player : players) {
                 player.evaluateObjectiveScore(player.getPlayerObjectiveCard());
@@ -286,10 +297,8 @@ public class Game implements Serializable {
                     .filter(player -> player.getPlayerScore() + player.getPlayerObjectiveScore() == maxScore)
                     .collect(Collectors.toList());
 
-
             // case more than 1 winner
             if (winners.size() > 1) {
-
                 int maxObjectiveScore = winners.stream()
                         .mapToInt(Player::getPlayerObjectiveScore)
                         .max()
@@ -298,21 +307,14 @@ public class Game implements Serializable {
                 return winners.stream()
                         .filter(player -> player.getPlayerObjectiveScore() == maxObjectiveScore)
                         .collect(Collectors.toList());
-
+            } else {
+                return winners;
             }
-
-            return winners;
-
-
         }
 
         throw new IllegalGameStateException("Game has not ended yet");
     }
-    /**
-     * This method returns the player associated with the current client.
-     *
-     * @return the player associated with the current client
-     */
+
     /**
      * This method returns the player associated with the current client.
      *
@@ -354,8 +356,8 @@ public class Game implements Serializable {
         /**
          * This method sets the lobby for the game.
          *
-         * @param lobby
-         * @return
+         * @param lobby the lobby object
+         * @return the factory object
          */
         public Factory fromLobby(Lobby lobby) {
             this.lobby = lobby;

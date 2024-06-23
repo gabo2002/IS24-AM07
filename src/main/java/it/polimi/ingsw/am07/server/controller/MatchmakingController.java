@@ -29,8 +29,8 @@ import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
+import it.polimi.ingsw.am07.utils.lambda.QuadFunction;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
-import it.polimi.ingsw.am07.utils.lambda.QuadConsumer;
 import it.polimi.ingsw.am07.utils.lambda.TriConsumer;
 
 import java.util.UUID;
@@ -40,10 +40,10 @@ public class MatchmakingController extends Dispatcher {
     private final AppLogger LOGGER = new AppLogger(MatchmakingController.class);
     private final Matchmaking matchmaking;
     private final TriConsumer<Listener, String, Pawn> migrateToLobby;
-    private final QuadConsumer<Listener, String, UUID, Pawn> migrateToExistingLobby;
+    private final QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby;
 
 
-    public MatchmakingController(Matchmaking matchmaking, TriConsumer<Listener, String, Pawn> migrateToLobby, QuadConsumer<Listener, String, UUID, Pawn> migrateToExistingLobby) {
+    public MatchmakingController(Matchmaking matchmaking, TriConsumer<Listener, String, Pawn> migrateToLobby, QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby) {
         this.matchmaking = matchmaking;
         this.migrateToLobby = migrateToLobby;
         this.migrateToExistingLobby = migrateToExistingLobby;
@@ -84,10 +84,12 @@ public class MatchmakingController extends Dispatcher {
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
 
             //I have to migrate the player to an existing lobby
-            migrateToExistingLobby.accept(listener, matchmaking.getPlayerNickname(), matchmaking.getLobbyId(), matchmaking.getPlayerPawn());
+            Boolean result = migrateToExistingLobby.apply(listener, matchmaking.getPlayerNickname(), matchmaking.getLobbyId(), matchmaking.getPlayerPawn());
 
-            //Remove the listener from the out of lobby controller
-            listeners.remove(listener);
+            if (result) {
+                // Success, remove the listener from the out of lobby controller
+                listeners.remove(listener);
+            }
         }
     }
 }

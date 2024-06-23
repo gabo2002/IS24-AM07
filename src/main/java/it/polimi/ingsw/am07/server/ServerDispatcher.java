@@ -174,20 +174,20 @@ public class ServerDispatcher extends Dispatcher {
      * @param lobbyId    the id of the lobby to migrate to
      * @param playerPawn the pawn of the player
      */
-    private synchronized void migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId, Pawn playerPawn) {
+    private synchronized Boolean migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId, Pawn playerPawn) {
         LOGGER.debug("Migrating to existing lobby");
 
         Lobby lobby = lobbies.get(lobbyId);
         if (lobby == null) {
             ErrorAction errorAction = new ErrorAction("Error: Lobby not found");
             listener.notify(errorAction);
-            return;
+            return false;
         }
 
         if (lobby.getPlayers().size() >= 4) {
             ErrorAction errorAction = new ErrorAction("Error: Lobby is full");
             listener.notify(errorAction);
-            return;
+            return false;
         }
 
         try {
@@ -198,12 +198,14 @@ public class ServerDispatcher extends Dispatcher {
         } catch (IllegalArgumentException e) {
             ErrorAction errorAction = new ErrorAction(e.getMessage());
             listener.notify(errorAction);
-            return;
+            return false;
         }
 
         //Migrate the listener from OutOfLobbyController to LobbyController
         listenerDispatchers.put(listener.getIdentity(), lobbyControllers.get(lobby));
         lobbyControllers.get(lobby).registerNewListener(listener);
+
+        return true;
     }
 
     /**
@@ -233,8 +235,8 @@ public class ServerDispatcher extends Dispatcher {
 
         // Add the new player to the lobby
         lobby.addNewPlayer(firstPlayerNickname, listener.getIdentity(), playerPawn);
-
         listenerDispatchers.put(listener.getIdentity(), lobbyController);
+
         // Add the listener to the lobby
         lobbyController.registerNewListener(listener);
     }
