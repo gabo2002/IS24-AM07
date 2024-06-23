@@ -137,15 +137,6 @@ public class Player implements Serializable {
     }
 
     /**
-     * Retrieves the pawn associated with the player.
-     *
-     * @return The pawn associated with the player.
-     */
-    public Pawn getPlayerPawn() {
-        return playerPawn;
-    }
-
-    /**
      * Retrieves the objective card of the player.
      *
      * @return The objective card of the player.

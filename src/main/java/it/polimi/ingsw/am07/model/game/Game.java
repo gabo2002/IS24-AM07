@@ -182,15 +182,14 @@ public class Game implements Serializable {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
 
-        if (gameState == GameState.ENDING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
+        if (gameState == GameState.ENDING && (currentPlayerIndex == 0)) {
             gameState = GameState.ENDED;
         }
 
-        if (gameState == GameState.PLAYING && (currentPlayerIndex == 0 || getPlayingPlayer().getPlayerPawn().equals(Pawn.BLACK))) {
+        if (gameState == GameState.PLAYING && (currentPlayerIndex == 0)) {
             for (Player player : players) {
                 if (player.getPlayerScore() >= 20) {
                     gameState = GameState.ENDING;
-                    return;
                 }
             }
         }
@@ -310,7 +309,7 @@ public class Game implements Serializable {
      * @throws IllegalGameStateException if the game has not ended yet
      */
     public List<Player> getWinners() throws IllegalGameStateException {
-        if (gameState == GameState.ENDING) {
+        if (gameState == GameState.ENDED) {
             // calculate contributing score of objective cards
             for (Player player : players) {
                 player.evaluateObjectiveScore(player.getPlayerObjectiveCard());

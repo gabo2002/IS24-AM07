@@ -23,7 +23,11 @@
 
 package it.polimi.ingsw.am07.model.game;
 
+import it.polimi.ingsw.am07.exceptions.IllegalGamePositionException;
+import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.game.card.ResourceObjectiveCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.*;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
@@ -32,6 +36,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
+
     @Test
     public void canBePlacedAtTest() {
         Matrix<Symbol> corners = new Matrix<>(2, 2, Symbol.STARTER);
@@ -136,8 +141,46 @@ public class PlayerTest {
         assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(3, 1, 1)));
 
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2, 0, 2)));
+        assertThrows(IllegalPlacementException.class, () -> player.placeAt(front_gold, new GameFieldPosition(3, 3, 2)));
         player.addPlayableCard(new GameCard(front_gold, new SideBack(1, null, null, null)));
-        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));
-
+        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));;
+        assertThrows(IllegalPlacementException.class, () -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));
     }
+
+    @Test
+    void placeAtTest() {
+        GameFieldPosition position = new GameFieldPosition(0, 1, 0);
+
+        assertThrows(IllegalGamePositionException.class, () -> {
+            Player player = new Player("test", Pawn.GREEN, null, null);
+            player.placeAt(null, position);
+        });
+    }
+
+    @Test
+    void propertyTest() {
+        Player player = new Player("test", Pawn.GREEN, null, null);
+
+        assertNull(player.getStarterCard());
+        assertNotNull(player.getPlayerResources());
+        assertEquals(player.getPlayerResources(), new ResourceHolder());
+
+        assertNotNull(player.getPlayerGameField());
+        assertEquals(0, player.getPlayableCards().size());
+        player.addPlayableCard(new GameCard(new SideFrontStarter(0, null, null), new SideBack(0, null, null, null)));
+        assertEquals(1, player.getPlayableCards().size());
+
+        assertNotNull(player.getPlacedCards());
+        assertEquals(0, player.getPlacedCards().size());
+
+        assertNull(player.getAvailableObjectives());
+
+        ObjectiveCard objectiveCard = new ResourceObjectiveCard(0, 0, new ResourceHolder());
+        ObjectiveCard[] objectives = {objectiveCard};
+        player = new Player("test", Pawn.GREEN, null, objectives);
+
+        assertNotNull(player.getAvailableObjectives());
+        assertEquals(1, player.getAvailableObjectives().length);
+    }
+
 }
