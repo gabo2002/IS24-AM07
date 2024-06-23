@@ -193,7 +193,7 @@ class GameTest {
 
         game.pickRandomResCard();
 
-        assertEquals(size - 1, game.getAvailableResCardsSize());
+        assertEquals(size, game.getAvailableResCardsSize());
     }
 
     @Test
@@ -203,7 +203,7 @@ class GameTest {
 
         game.pickRandomGoldCard();
 
-        assertEquals(size - 1, game.getAvailableGoldCardsSize());
+        assertEquals(size, game.getAvailableGoldCardsSize());
     }
 
     @Test

@@ -144,11 +144,11 @@ public record Deck(
             return;
         }
 
-        if (popVisibleCard(card, pickRandomResCard(), visibleResCards)) {
+        if (popVisibleCard(card, popRandomResCard(), visibleResCards)) {
             return;
         }
 
-        if (popVisibleCard(card, pickRandomGoldCard(), visibleGoldCards)) {
+        if (popVisibleCard(card, popRandomGoldCard(), visibleGoldCards)) {
             return;
         }
 

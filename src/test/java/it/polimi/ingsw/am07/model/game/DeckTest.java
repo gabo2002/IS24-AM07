@@ -57,20 +57,20 @@ class DeckTest {
     }
 
     @Test
-    void pickRandomResCard() {
+    void popRandomResCard() {
         Deck deck = constructDeck();
         int size = deck.availableResCards().size();
-        GameCard card = deck.pickRandomResCard();
+        GameCard card = deck.popRandomResCard();
 
         assertEquals(size - 1, deck.availableResCards().size());
         assertFalse(deck.availableResCards().contains(card));
     }
 
     @Test
-    void pickRandomGoldCard() {
+    void popRandomGoldCard() {
         Deck deck = constructDeck();
         int size = deck.availableGoldCards().size();
-        GameCard card = deck.pickRandomGoldCard();
+        GameCard card = deck.popRandomGoldCard();
 
         assertEquals(size - 1, deck.availableGoldCards().size());
         assertFalse(deck.availableGoldCards().contains(card));
@@ -82,7 +82,7 @@ class DeckTest {
         Deck deck_2 = constructDeck();
 
         // Pick a random resource card
-        GameCard resCard = deck_1.pickRandomResCard();
+        GameCard resCard = deck_1.popRandomResCard();
         assertDoesNotThrow(() -> deck_2.popCard(resCard));
         assertEquals(deck_1.availableResCards().size(), deck_2.availableResCards().size());
         assertFalse(deck_2.availableResCards().contains(resCard));
@@ -95,7 +95,7 @@ class DeckTest {
         assertThrows(CardNotFoundException.class, () -> deck_2.popCard(resCard));
 
         // Pick a random gold card
-        GameCard goldCard = deck_1.pickRandomGoldCard();
+        GameCard goldCard = deck_1.popRandomGoldCard();
         assertDoesNotThrow(() -> deck_2.popCard(goldCard));
         assertEquals(deck_1.availableGoldCards().size(), deck_2.availableGoldCards().size());
         assertFalse(deck_2.availableGoldCards().contains(goldCard));
@@ -121,7 +121,7 @@ class DeckTest {
         // The deck in the previous state should have the new visible card as the first hidden card
         assertEquals(deck_1.visibleResCards()[0], deck_2.availableResCards().getFirst());
         assertEquals(deck_1.visibleResCards()[1], deck_2.visibleResCards()[1]);
-        deck_2.pickRandomResCard();
+        deck_2.popRandomResCard();
         for (GameCard card : deck_2.availableResCards()) {
             assertTrue(deck_1.availableResCards().contains(card));
         }
@@ -129,9 +129,9 @@ class DeckTest {
         // If there are no more hidden cards, popping a visible card should not replace it
         GameCard visibleGoldCard = deck_1.visibleGoldCards()[0];
         for (int i = deck_1.availableGoldCards().size(); i > 0; i--) {
-            deck_1.pickRandomGoldCard();
+            deck_1.popRandomGoldCard();
         }
-        assertNull(deck_1.pickRandomGoldCard());
+        assertNull(deck_1.popRandomGoldCard());
         assertDoesNotThrow(() -> deck_1.popCard(visibleGoldCard));
         assertNull(deck_1.visibleGoldCards()[0]);
     }
