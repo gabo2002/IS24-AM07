@@ -9,6 +9,7 @@ open module it.polimi.ingsw.am07 {
     requires java.rmi;
     requires java.logging;
     requires java.desktop;
+    requires moshi.records.reflect;
 
     exports it.polimi.ingsw.am07;
     exports it.polimi.ingsw.am07.client.gui.viewController;

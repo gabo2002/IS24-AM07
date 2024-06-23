@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.utils.json;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import dev.zacsweers.moshix.records.RecordsJsonAdapterFactory;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.card.PatternObjectiveCard;
 import it.polimi.ingsw.am07.model.game.card.ResourceObjectiveCard;
@@ -83,6 +84,7 @@ public final class GameDataJsonParser<T> {
                 .add(uuidJsonAdapter)
                 .add(dateJSONAdapter)
                 .add(gameFieldPositionCardMapAdapter)
+                .add(new RecordsJsonAdapterFactory())
                 .build();
     }
 
