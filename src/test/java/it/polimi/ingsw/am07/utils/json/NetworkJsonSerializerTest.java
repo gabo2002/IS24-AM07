@@ -24,8 +24,8 @@
 package it.polimi.ingsw.am07.utils.json;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
+import it.polimi.ingsw.am07.action.server.ServerGameStartAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
@@ -77,7 +77,7 @@ class NetworkJsonSerializerTest {
         Game game = new Game.Factory().fromLobby(lobby).build();
 
         assertDoesNotThrow(() -> {
-            Action action = new GameStateSyncAction(game);
+            Action action = new ServerGameStartAction(game);
             NetworkPacket packet = new ActionNetworkPacket(action);
             String serialized = networkJsonSerializer.toJson(packet);
             assertNotNull(serialized);

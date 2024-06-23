@@ -34,7 +34,6 @@ import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
-import it.polimi.ingsw.am07.action.server.GameStateSyncAction;
 import it.polimi.ingsw.am07.action.server.LobbyListAction;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
 import it.polimi.ingsw.am07.action.server.ServerGameStartAction;
@@ -94,7 +93,6 @@ public class NetworkJsonSerializer {
 
         ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<Action> actionElegantAutoLabelingCustomPolymorphicJsonAdapterFactory = new ElegantAutoLabelingCustomPolymorphicJsonAdapterFactory<>(Action.class)
                 .registerSubclass(it.polimi.ingsw.am07.action.lobby.GameStartAction.class)
-                .registerSubclass(GameStateSyncAction.class)
                 .registerSubclass(PlayerPickCardAction.class)
                 .registerSubclass(PlayerPlaceCardAction.class)
                 .registerSubclass(LobbyStateSyncAction.class)
