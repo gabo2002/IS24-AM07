@@ -69,6 +69,8 @@ public class SendMessageAction extends PlayerAction {
      */
     @Override
     public void reflect(ClientState clientState) {
+        execute(clientState.getGameModel());
+        clientState.notifyGameModelUpdate();
     }
 
     @Override
