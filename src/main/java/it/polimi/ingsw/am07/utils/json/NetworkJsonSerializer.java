@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.utils.json;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import dev.zacsweers.moshix.records.RecordsJsonAdapterFactory;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.DebuggingAction;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
@@ -121,6 +122,7 @@ public class NetworkJsonSerializer {
                 .add(objectiveCardElegantAutoLabelingCustomPolymorphicJsonAdapterFactory)
                 .add(uuidJsonAdapter)
                 .add(gameFieldPositionCardMapAdapter)
+                .add(new RecordsJsonAdapterFactory())
                 .build();
     }
 
