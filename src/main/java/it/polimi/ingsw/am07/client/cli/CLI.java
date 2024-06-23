@@ -28,13 +28,13 @@ import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.IdentityManager;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
 import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -70,7 +70,7 @@ public class CLI {
         reader = new ThreadInputReader();
 
         //generate Identity
-        String identity = UUID.randomUUID().toString();
+        String identity = IdentityManager.getConstantIdentity();
         ClientState clientState = new ClientState(this::threadRender, identity);
 
         // Choose network type

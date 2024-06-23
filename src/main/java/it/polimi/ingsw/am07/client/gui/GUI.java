@@ -30,6 +30,7 @@ import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.IdentityManager;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -66,7 +67,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
     @Override
     public void start(Stage stage) throws IOException {
         // generate identifier
-        String identity = UUID.randomUUID().toString();
+        String identity = IdentityManager.getConstantIdentity();
 
         networkManagerFactory = new ClientNetworkManager.Factory();
 
