@@ -78,7 +78,7 @@ public record Deck(
     }
 
     /**
-     * Picks a random resource card from the deck and removes it.
+     * Picks a random resource card from the deck.
      *
      * @return the picked card
      */
@@ -87,15 +87,41 @@ public record Deck(
             return null;
         }
 
-        return availableResCards.removeFirst();
+        return availableResCards.getFirst();
     }
 
     /**
-     * Picks a random gold card from the deck and removes it.
+     * Picks a random gold card from the deck.
      *
      * @return the picked card
      */
     public GameCard pickRandomGoldCard() {
+        if (availableGoldCards.isEmpty()) {
+            return null;
+        }
+
+        return availableGoldCards.getFirst();
+    }
+
+    /**
+     * Pops a random resource card from the deck.
+     *
+     * @return the popped card
+     */
+    public GameCard popRandomResCard() {
+        if (availableResCards.isEmpty()) {
+            return null;
+        }
+
+        return availableResCards.removeFirst();
+    }
+
+    /**
+     * Pops a random gold card from the deck.
+     *
+     * @return the popped card
+     */
+    public GameCard popRandomGoldCard() {
         if (availableGoldCards.isEmpty()) {
             return null;
         }

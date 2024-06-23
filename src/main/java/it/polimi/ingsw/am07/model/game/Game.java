@@ -397,9 +397,9 @@ public class Game implements Serializable {
 
             // Each player receives 2 resource cards and 1 gold card
             for (Player player : players) {
-                player.addPlayableCard(game.pickRandomResCard());
-                player.addPlayableCard(game.pickRandomResCard());
-                player.addPlayableCard(game.pickRandomGoldCard());
+                player.addPlayableCard(game.deck.popRandomResCard());
+                player.addPlayableCard(game.deck.popRandomResCard());
+                player.addPlayableCard(game.deck.popRandomGoldCard());
             }
 
             // Add the players to the chat system
