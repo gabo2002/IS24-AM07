@@ -118,9 +118,7 @@ public class Player implements Serializable {
      * @param playerObjectiveCard The objective card to be set for the player.
      */
     public void setPlayerObjectiveCard(ObjectiveCard playerObjectiveCard) {
-        if (this.playerObjectiveCard == null) {
-            this.playerObjectiveCard = playerObjectiveCard;
-        }
+        this.playerObjectiveCard = playerObjectiveCard;
     }
 
     /**

@@ -44,6 +44,7 @@ public class PlayerInitialChoiceAction extends PlayerAction {
      * The logger.
      */
     private static final AppLogger logger = new AppLogger(PlayerInitialChoiceAction.class);
+
     /**
      * The chosen objective card.
      */
@@ -53,6 +54,7 @@ public class PlayerInitialChoiceAction extends PlayerAction {
      * The chosen side of the starter card.
      */
     private final Side starterSide;
+
     /**
      * True if the clients should be notified that the game can start.
      */
