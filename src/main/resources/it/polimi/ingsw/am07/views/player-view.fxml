@@ -67,6 +67,22 @@
                 <!-- Lista risorse -->
                 <ListView fx:id="itemsList" maxHeight="150.0" style="-fx-background-color: transparent;" />
 
+                <!-- Sezione Obejctive Cards -->
+                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="22.0" prefWidth="640.0" text="Common Objectives" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="objectiveCardsContainer" spacing="20.0">
+                    <padding>
+                        <Insets left="30.0" />
+                    </padding></HBox>
+
                 <!-- Sezione Resource Deck -->
                 <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="640.0" text="Resource Deck" textFill="WHITE">

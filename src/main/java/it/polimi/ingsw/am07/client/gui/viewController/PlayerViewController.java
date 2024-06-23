@@ -34,6 +34,7 @@ import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
@@ -57,6 +58,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -69,6 +71,9 @@ public class PlayerViewController {
     private static final Double DELTA_X = RECT_WIDTH-(17.0/75.0*RECT_WIDTH);
     private static final Double DELTA_Y = RECT_HEIGHT-(2.0/5.0*RECT_HEIGHT);
     private final List<Rectangle> createdRectangles = new ArrayList<>();
+
+    @FXML
+    public HBox objectiveCardsContainer;
 
     @FXML
     private ScrollPane scrollPane;
@@ -173,6 +178,7 @@ public class PlayerViewController {
 
         updateDeckView(resourceDeckContainer, resourceCards);
         updateDeckView(goldDeckContainer, goldCards);
+        updateObjectivesView(objectiveCardsContainer, Arrays.stream(clientState.getGameModel().getCommonObjectives()).toList());
 
         List<GameCard> hand = clientState.getGameModel().getSelf().getPlayableCards();
 
@@ -257,12 +263,22 @@ public class PlayerViewController {
         }
     }
 
+    private void updateObjectivesView(HBox objectiveCardsContainer, List<ObjectiveCard> cards) {
+        objectiveCardsContainer.getChildren().clear();
+        for (ObjectiveCard card : cards) {
+            ImageView imageView = createImageView(card, "front");
+            objectiveCardsContainer.getChildren().add(imageView);
+        }
+    }
+
     /**
      * Create an image view for the deck
      * @param card
      * @param initialSide
      * @return
      */
+
+
     private ImageView createDeckImageView(GameCard card, String initialSide) {
         Image image = imgFrom(card.id(), initialSide);
         ImageView imageView = new ImageView(image);
@@ -289,6 +305,24 @@ public class PlayerViewController {
      * @param initialSide
      * @return
      */
+
+    private ImageView createImageView(ObjectiveCard card, String initialSide) {
+        Image initialImage = imgFrom(card.getId(), initialSide);
+        ImageView imageView = new ImageView(initialImage);
+        imageView.setFitHeight(100.0);
+        imageView.setFitWidth(150.0);
+        imageView.setPickOnBounds(true);
+        imageView.setPreserveRatio(true);
+        createShadow(imageView);
+
+        imageView.getProperties().put("card", card);
+        imageView.getProperties().put("currentSide", initialSide);
+
+        return imageView;
+    }
+
+
+
     private ImageView createImageView(GameCard card, String initialSide) {
         Image initialImage = imgFrom(card.id(), initialSide);
         ImageView imageView = new ImageView(initialImage);
