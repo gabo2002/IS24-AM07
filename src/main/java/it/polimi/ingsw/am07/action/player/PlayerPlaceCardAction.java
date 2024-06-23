@@ -90,6 +90,14 @@ public class PlayerPlaceCardAction extends PlayerAction {
         if (clientState.getNickname().equals(playerNickname)) {
             clientState.setPlayerState(PlayerState.PICKING_CARD);
         }
+
+        try {
+            clientState.getGameModel().getPlayerByNickname(playerNickname).placeAt(placedSide, position);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        clientState.notifyGameModelUpdate();
     }
 
 }

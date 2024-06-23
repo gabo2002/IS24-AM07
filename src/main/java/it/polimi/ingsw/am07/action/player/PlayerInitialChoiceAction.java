@@ -101,6 +101,7 @@ public class PlayerInitialChoiceAction extends PlayerAction {
         try {
             correspondingPlayer.placeAt(starterSide, new GameFieldPosition(0, 0));
         } catch (IllegalGamePositionException | IllegalPlacementException e) {
+            executedCorrectly = false;
             throw new RuntimeException(e);
         }
 
@@ -119,6 +120,20 @@ public class PlayerInitialChoiceAction extends PlayerAction {
      */
     @Override
     public void reflect(ClientState state) {
+        if (executedCorrectly) {
+            Player player = state.getGameModel().getPlayerByNickname(playerNickname);
+
+            // Reflect the placing of the starter card
+            try {
+                player.placeAt(starterSide, new GameFieldPosition(0, 0));
+            } catch (IllegalGamePositionException | IllegalPlacementException e) {
+                throw new RuntimeException(e);
+            }
+
+            // Reflect the choice of the objective card
+            player.setPlayerObjectiveCard(selectedCard);
+        }
+
         //If the action was executed correctly and the player is the one who sent the action, the player is waiting for the game to start
         boolean amITheFirstPlayer = state.getGameModel().getPlayingPlayer().getNickname().equals(state.getNickname());
 
@@ -130,6 +145,8 @@ public class PlayerInitialChoiceAction extends PlayerAction {
         if (executedCorrectly && state.getIdentity().equals(getIdentity())) {
             state.setPlayerState(PlayerState.WAITING_FOR_GAME_START);
         }
+
+        state.notifyGameModelUpdate();
     }
 
     @Override

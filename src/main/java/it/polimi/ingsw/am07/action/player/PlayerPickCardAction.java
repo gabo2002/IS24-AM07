@@ -95,6 +95,16 @@ public class PlayerPickCardAction extends PlayerAction {
         } else if (nextPlayer.equals(state.getNickname())) {
             state.setPlayerState(PlayerState.PLACING_CARD);
         }
+
+        try {
+            state.getGameModel().getPlayerByNickname(playerNickname).addPlayableCard(pickedCard);
+            state.getGameModel().popCard(pickedCard);
+            state.getGameModel().incrementTurn();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        state.notifyGameModelUpdate();
     }
 
 }
