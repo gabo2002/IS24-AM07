@@ -27,9 +27,11 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
+import it.polimi.ingsw.am07.action.server.ResumeGameAction;
 import it.polimi.ingsw.am07.action.server.ServerGameStartAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.Pawn;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
@@ -68,9 +70,19 @@ public class ServerDispatcher extends Dispatcher {
         this.games = games;
         this.lobbies = new HashMap<>();
 
-        gameControllers = new HashMap<>(games.size());
-        lobbyControllers = new HashMap<>();
         listenerDispatchers = new HashMap<>();
+        gameControllers = new HashMap<>(games.size());
+
+        // Create a game controller for each game
+        games.forEach((id, game) -> {
+            GameController gameController = new GameController(game);
+            gameControllers.put(game, gameController);
+
+            // Update the listener dispatchers
+            game.getPlayers().forEach(player -> listenerDispatchers.put(player.getIdentity(), gameController));
+        });
+
+        lobbyControllers = new HashMap<>();
 
         Matchmaking matchmaking = new Matchmaking(lobbies.values());
 
@@ -107,9 +119,16 @@ public class ServerDispatcher extends Dispatcher {
 
         // Reconnect the player to the game
         for (Map.Entry<Game, GameController> entry : gameControllers.entrySet()) {
-            if (entry.getKey().getPlayers().stream().anyMatch(player -> player.getNickname().equals(listener.getIdentity()))) {
+            System.out.println(entry.getKey().getPlayers().stream().map(Player::getIdentity).toList());
+            if (entry.getKey().getPlayers().stream().anyMatch(player -> player.getIdentity().equals(listener.getIdentity()))) {
                 listenerDispatchers.put(listener.getIdentity(), entry.getValue());
                 entry.getValue().registerNewListener(listener);
+
+                // Number of listeners equals number of players in the game
+                final boolean allClientsReady = entry.getValue().getListenersCount() == entry.getKey().getPlayers().size();
+
+                // Send the game state to the listener
+                entry.getValue().execute(new ResumeGameAction(entry.getKey(), allClientsReady));
                 return;
             }
         }

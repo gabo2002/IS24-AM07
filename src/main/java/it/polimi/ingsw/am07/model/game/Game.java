@@ -422,7 +422,7 @@ public class Game implements Serializable {
                 availableObjectives[0] = objectiveCards.removeFirst();
                 availableObjectives[1] = objectiveCards.removeFirst();
 
-                Player player = new Player(lobbyPlayer.getNickname(), lobbyPlayer.getPlayerPawn(), starterCards.removeFirst(), availableObjectives);
+                Player player = new Player(lobbyPlayer.getNickname(), lobbyPlayer.getIdentity(), lobbyPlayer.getPlayerPawn(), starterCards.removeFirst(), availableObjectives);
 
                 players.add(player);
             }

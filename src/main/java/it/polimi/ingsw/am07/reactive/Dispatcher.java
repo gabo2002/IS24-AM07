@@ -70,4 +70,11 @@ public abstract class Dispatcher implements Controller {
         listeners.addAll(dispatcher.listeners);
     }
 
+    /**
+     * Get the number of listeners.
+     */
+    public int getListenersCount() {
+        return listeners.size();
+    }
+
 }

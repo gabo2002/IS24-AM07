@@ -45,10 +45,17 @@ import java.util.Map;
  */
 public class Player implements Serializable {
 
+    public static final int MAX_HAND_SIZE = 3;
+
     /**
      * The nickname of the player.
      */
     private final String nickname;
+
+    /**
+     * The identity of the player.
+     */
+    private final String identity;
 
     /**
      * The resource holder associated with the player.
@@ -102,12 +109,19 @@ public class Player implements Serializable {
 
     /**
      * Constructs a new Player with the specified parameters.
+     *
+     * @param nickname            The nickname of the player.
+     * @param identity            The identity of the player.
+     * @param playerPawn          The pawn associated with the player.
+     * @param starterCard         The starter card of the player.
+     * @param availableObjectives The available objective cards for the player.
      */
-    public Player(String nickname, Pawn playerPawn, GameCard starterCard, ObjectiveCard[] availableObjectives) {
+    public Player(String nickname, String identity, Pawn playerPawn, GameCard starterCard, ObjectiveCard[] availableObjectives) {
         this.nickname = nickname;
         this.playerPawn = playerPawn;
         this.availableObjectives = availableObjectives;
         this.starterCard = starterCard;
+        this.identity = identity;
 
         this.playerResources = new ResourceHolder();
         this.playerGameField = new GameField();
@@ -125,6 +139,15 @@ public class Player implements Serializable {
      */
     public String getNickname() {
         return nickname;
+    }
+
+    /**
+     * Retrieves the identity of the player.
+     *
+     * @return The identity of the player.
+     */
+    public String getIdentity() {
+        return identity;
     }
 
     /**

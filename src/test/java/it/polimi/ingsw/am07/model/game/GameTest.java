@@ -48,7 +48,7 @@ class GameTest {
 
     @Test
     void validateSerializability() {
-        Player player = new Player("player1", Pawn.BLACK, null, null);
+        Player player = new Player("player1", "test", Pawn.BLACK, null, null);
 
         List<Player> players = new ArrayList<>();
         players.add(player);
@@ -91,10 +91,10 @@ class GameTest {
     @Test
     void incrementTurnTest() {
         // setting up the players
-        Player player1 = new Player("player1", Pawn.BLACK, null, null);
-        Player player2 = new Player("player2", Pawn.RED, null, null);
-        Player player3 = new Player("player3", Pawn.GREEN, null, null);
-        Player player4 = new Player("player4", Pawn.BLUE, null, null);
+        Player player1 = new Player("player1", "test", Pawn.BLACK, null, null);
+        Player player2 = new Player("player2", "test", Pawn.RED, null, null);
+        Player player3 = new Player("player3", "test", Pawn.GREEN, null, null);
+        Player player4 = new Player("player4", "test", Pawn.BLUE, null, null);
 
 
         // adding the players
@@ -264,8 +264,8 @@ class GameTest {
         assertNull(game.getPlayerByNickname("nickname"));
         assertNull(game.getSelf());
 
-        Player player = new Player("nickname", Pawn.BLACK, null, null);
-        Player otherPlayer = new Player("otherNickname", Pawn.RED, null, null);
+        Player player = new Player("nickname", "test", Pawn.BLACK, null, null);
+        Player otherPlayer = new Player("otherNickname", "test", Pawn.RED, null, null);
         ObjectiveCard objectiveCard = new ResourceObjectiveCard(1, 1, new ResourceHolder());
         ObjectiveCard[] commonObjectives = {objectiveCard, null};
         game = new Game(List.of(otherPlayer, player), commonObjectives);
@@ -282,8 +282,8 @@ class GameTest {
     void winnersTest() {
         List<ObjectiveCard> objectives = GameResources.getInstance().getObjectiveCards();
 
-        Player player1 = new Player("player1", Pawn.BLACK, null, null);
-        Player player2 = new Player("player2", Pawn.RED, null, null);
+        Player player1 = new Player("player1", "test", Pawn.BLACK, null, null);
+        Player player2 = new Player("player2", "test", Pawn.RED, null, null);
 
         ObjectiveCard[] commonObjectives = {objectives.get(0), objectives.get(1)};
         Game game = new Game(List.of(player1, player2), commonObjectives);
@@ -343,8 +343,8 @@ class GameTest {
         }
 
         // Now we will test the case where the game is ended and the players have the same score
-        Player newPlayer1 = new Player("player1", Pawn.BLACK, null, null);
-        Player newPlayer2 = new Player("player2", Pawn.RED, null, null);
+        Player newPlayer1 = new Player("player1", "test", Pawn.BLACK, null, null);
+        Player newPlayer2 = new Player("player2", "test", Pawn.RED, null, null);
         game = new Game(List.of(newPlayer1, newPlayer2), commonObjectives);
 
         newPlayer1.setPlayerObjectiveCard(objectives.get(2));
@@ -388,8 +388,8 @@ class GameTest {
         }
 
         // Now we will test the case where the game is ended and the players have the same score, but one of them has a higher objective card score
-        Player newPlayer3 = new Player("player3", Pawn.BLACK, null, null);
-        Player newPlayer4 = new Player("player4", Pawn.RED, null, null);
+        Player newPlayer3 = new Player("player3", "test", Pawn.BLACK, null, null);
+        Player newPlayer4 = new Player("player4", "test", Pawn.RED, null, null);
 
         ObjectiveCard lObj1 = objectives.stream().filter(o -> o.getId() == 90).findFirst().get();
         ObjectiveCard lObj2 = objectives.stream().filter(o -> o.getId() == 91).findFirst().get();

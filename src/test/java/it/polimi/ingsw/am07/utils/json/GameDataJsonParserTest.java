@@ -212,7 +212,7 @@ class GameDataJsonParserTest {
     @Test
     void validateGameSerializability() {
         assertDoesNotThrow(() -> {
-            Player player = new Player("test_0", Pawn.BLACK, null, null);
+            Player player = new Player("test_0", "test", Pawn.BLACK, null, null);
 
             List<Player> players = new ArrayList<>();
             players.add(player);

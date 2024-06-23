@@ -51,7 +51,7 @@ public class PlayerTest {
         GameCard starterCard = new GameCard(front_starter, new SideBack(0, null, null, null));
 
 
-        Player player = new Player("test", Pawn.GREEN, starterCard, null);
+        Player player = new Player("test", "test", Pawn.GREEN, starterCard, null);
 
         // cant place without the starter card placed first
         assertFalse(player.canBePlacedAt(front_gold, new GameFieldPosition(0, 0, 0)));
@@ -152,18 +152,21 @@ public class PlayerTest {
         GameFieldPosition position = new GameFieldPosition(0, 1, 0);
 
         assertThrows(IllegalGamePositionException.class, () -> {
-            Player player = new Player("test", Pawn.GREEN, null, null);
+            Player player = new Player("test", "test", Pawn.GREEN, null, null);
             player.placeAt(null, position);
         });
     }
 
     @Test
     void propertyTest() {
-        Player player = new Player("test", Pawn.GREEN, null, null);
+        Player player = new Player("test", "test", Pawn.GREEN, null, null);
 
         assertNull(player.getStarterCard());
         assertNotNull(player.getPlayerResources());
         assertEquals(player.getPlayerResources(), new ResourceHolder());
+
+        assertNotNull(player.getIdentity());
+        assertEquals("test", player.getIdentity());
 
         assertNotNull(player.getPlayerGameField());
         assertEquals(0, player.getPlayableCards().size());
@@ -177,7 +180,7 @@ public class PlayerTest {
 
         ObjectiveCard objectiveCard = new ResourceObjectiveCard(0, 0, new ResourceHolder());
         ObjectiveCard[] objectives = {objectiveCard};
-        player = new Player("test", Pawn.GREEN, null, objectives);
+        player = new Player("test", "test", Pawn.GREEN, null, objectives);
 
         assertNotNull(player.getAvailableObjectives());
         assertEquals(1, player.getAvailableObjectives().length);

@@ -45,7 +45,6 @@ public class GameRegistry {
         games = loadSavedGames();
     }
 
-
     /**
      * Returns the singleton instance of the class.
      *
