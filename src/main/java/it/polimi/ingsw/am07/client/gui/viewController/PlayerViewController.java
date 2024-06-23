@@ -276,6 +276,9 @@ public class PlayerViewController {
             ImageView imageView = createImageView(card, "front");
             objectiveCardsContainer.getChildren().add(imageView);
         }
+        ObjectiveCard myObjective = clientState.getGameModel().getSelf().getPlayerObjectiveCard();
+        ImageView imageView = createImageView(myObjective, "front");
+        objectiveCardsContainer.getChildren().add(imageView);
     }
 
     /**
@@ -296,12 +299,19 @@ public class PlayerViewController {
         imageView.setPreserveRatio(true);
         imageView.getProperties().put("card", card);
         imageView.setViewOrder(1);
-        createShadow(imageView);
+        createShadow(imageView, Color.BLACK);
 
         imageView.setOnMouseClicked(event -> {
             confirmDeck.setVisible(true);
             ImageView sourceImageView = (ImageView) event.getSource();
             selectedCard = (GameCard) sourceImageView.getProperties().get("card");
+            for(ImageView iv :resourceDeckContainer.getChildren().stream().map(node -> (ImageView) node).toList()){
+                createShadow(iv, Color.BLACK);
+            }
+            for(ImageView iv :goldDeckContainer.getChildren().stream().map(node -> (ImageView) node).toList()){
+                createShadow(iv, Color.BLACK);
+            }
+            createShadow(sourceImageView, Color.GREEN);
         });
 
         return imageView;
@@ -319,10 +329,10 @@ public class PlayerViewController {
         Image initialImage = imgFrom(card.getId(), initialSide);
         ImageView imageView = new ImageView(initialImage);
         imageView.setFitHeight(100.0);
-        imageView.setFitWidth(150.0);
+        imageView.setFitWidth(150);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        createShadow(imageView);
+        createShadow(imageView, Color.BLACK);
 
         imageView.getProperties().put("card", card);
         imageView.getProperties().put("currentSide", initialSide);
@@ -338,7 +348,7 @@ public class PlayerViewController {
         imageView.setFitWidth(150.0);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        createShadow(imageView);
+        createShadow(imageView, Color.BLACK);
 
         imageView.getProperties().put("card", card);
         imageView.getProperties().put("currentSide", initialSide);
@@ -535,7 +545,7 @@ public class PlayerViewController {
             imageView.setLayoutX(position.x() * DELTA_X);
             imageView.setLayoutY(position.y() * DELTA_Y);
             imageView.getProperties().put("RectVisibility", false);
-            createShadow(imageView);
+            createShadow(imageView, Color.BLACK);
             if (player.equals(clientState.getGameModel().getSelf())) {
                 imageView.setOnMouseClicked(this::handleCardClick);
             }
@@ -554,10 +564,10 @@ public class PlayerViewController {
      *
      * @param imageView
      */
-    private void createShadow(ImageView imageView) {
+    private void createShadow(ImageView imageView, Color color) {
         DropShadow dropShadow = new DropShadow();
         dropShadow.setRadius(8);
-        dropShadow.setColor(Color.BLACK);
+        dropShadow.setColor(color);
         imageView.setEffect(dropShadow);
     }
 

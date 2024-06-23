@@ -11,9 +11,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,6 +64,8 @@ public class SelectStarterController {
         objective1.setImage(img);
         img = imgFrom(objectiveCards[1].getId(), "front");
         objective2.setImage(img);
+        createShadow(objective1);
+        createShadow(objective2);
     }
 
     @FXML
@@ -81,6 +85,7 @@ public class SelectStarterController {
         Image img = imgFrom(starterCard.id(), "front");
         starterImg.getProperties().put("currentSide", "front");
         starterImg.setImage(img);
+        createShadow(starterImg);
     }
 
     private Image imgFrom(int id, String side) {
@@ -132,5 +137,12 @@ public class SelectStarterController {
     private void clearObjectiveCardBorders() {
         rect1.setVisible(false);
         rect2.setVisible(false);
+    }
+
+    private void createShadow(ImageView imageView) {
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setRadius(8);
+        dropShadow.setColor(Color.BLACK);
+        imageView.setEffect(dropShadow);
     }
 }

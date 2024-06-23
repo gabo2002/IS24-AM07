@@ -33,7 +33,7 @@
 
 <HBox prefHeight="55.0" prefWidth="400.0" style="-fx-background-color: #454754; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerBoxController">
     <VBox>
-        <Label fx:id="player_name_box" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" text="Player Name" textFill="WHITE">
+        <Label fx:id="player_name_box" alignment="CENTER" prefHeight="30.0" prefWidth="490.0" text="Player Name" textFill="WHITE">
             <VBox.margin>
                 <Insets left="10.0" />
             </VBox.margin>
@@ -41,7 +41,7 @@
                 <Font name="System Bold" size="12.0" />
             </font>
         </Label>
-        <Label fx:id="score_label" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="400.0" text="Score: 0" textFill="WHITE">
+        <Label fx:id="score_label" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="490.0" text="Score: 0" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>

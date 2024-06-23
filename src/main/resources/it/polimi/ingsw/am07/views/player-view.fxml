@@ -5,134 +5,135 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.35" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
+<SplitPane style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
 
     <items>
 
         <!-- Parte sinistra -->
 
-        <ScrollPane maxWidth="640.0" prefWidth="640.0" style="-fx-background-color: #433A3F;">
+        <ScrollPane maxWidth="505.0" prefWidth="505.0" minWidth="505" style="-fx-background-color: #433A3F;" fitToWidth="true" hbarPolicy="NEVER">
 
             <!-- Box verticale -->
-            <VBox maxHeight="1402.0" maxWidth="640.0" prefHeight="1402.0" prefWidth="640.0" style="-fx-background-color: #433A3F;">
+            <VBox maxHeight="1402.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+                <!-- Sezione Obejctive Cards -->
+                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Objectives" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="objectiveCardsContainer" spacing="10.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="23.0" prefWidth="490.0" text="My Hand" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="15.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="playerHand" spacing="10.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding></HBox>
+
+                <!-- Sezione Resource Deck -->
+                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Resource Deck" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="15.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="resourceDeckContainer" spacing="10.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding></HBox>
+
+                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="490.0" text="Gold Deck" textFill="WHITE">
+                        <font>
+                            <Font name="Arial Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="15.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox fx:id="goldDeckContainer" spacing="10.0">
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding></HBox>
+
+                <Button fx:id="confirmDeck" maxWidth="505.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false">
+                    <VBox.margin>
+                        <Insets top="15.0" bottom="10" />
+                    </VBox.margin></Button>
+
 
                 <!-- Sezione players -->
-                <HBox maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" prefHeight="42.0" prefWidth="640.0" text="Players" textFill="WHITE">
+                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="42.0" prefWidth="490.0" text="Players" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
                         </font>
                     </Label>
                 </HBox>
                 <!-- Lista players -->
-                <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked" style="-fx-background-color: transparent;" />
+                <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked" maxWidth="490" prefWidth="490" style="-fx-background-color: transparent;" styleClass="noExtraSpace"/>
 
                 <!-- Sezione chat -->
-                <HBox maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" prefHeight="42.0" prefWidth="640.0" text="Chat" textFill="WHITE">
+                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="42.0" prefWidth="490.0" text="Chat" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
                         </font>
                     </Label>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
                 </HBox>
                 <VBox spacing="10">
-                    <TextArea fx:id="chatArea" editable="false" maxWidth="640.0" prefHeight="122.0" prefWidth="640.0" />
+                    <TextArea fx:id="chatArea" editable="false" maxWidth="505.0" prefHeight="122.0" prefWidth="505.0" />
                     <VBox spacing="10">
-                        <TextField fx:id="chatInput" prefWidth="640.0" promptText="Write here" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></TextField>
-                        <Button fx:id="sendButton" maxWidth="640.0" onAction="#sendChatMessage" prefHeight="23.0" prefWidth="640.0" text="Send">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Button>
+                        <TextField fx:id="chatInput" prefWidth="505.0" promptText="Write here" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="12.0" />
+                            </font></TextField>
+                        <Button fx:id="sendButton" maxWidth="505.0" onAction="#sendChatMessage" prefHeight="23.0" prefWidth="505.0" text="Send">
+                            <font>
+                                <Font name="Arial" size="12.0" />
+                            </font></Button>
                     </VBox>
                 </VBox>
 
                 <!-- Sezione players -->
-                <HBox maxWidth="640.0" prefHeight="42.0" prefWidth="378.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" prefHeight="35.0" prefWidth="640.0" text="Resources" textFill="WHITE">
+                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="378.0" style="-fx-background-color: #584B57;">
+                    <Label alignment="CENTER" prefHeight="35.0" prefWidth="505.0" text="Resources" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
                         </font>
                     </Label>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
                 </HBox>
 
                 <!-- Lista risorse -->
-                <ListView fx:id="itemsList" maxHeight="150.0" style="-fx-background-color: transparent;" />
+                <ListView fx:id="itemsList" maxHeight="150.0" style="-fx-background-color: transparent;" styleClass="noExtraSpace"/>
 
-                <!-- Sezione Obejctive Cards -->
-                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" prefHeight="22.0" prefWidth="640.0" text="Common Objectives" textFill="WHITE">
-                        <font>
-                            <Font name="Arial Bold" size="16.0" />
-                        </font>
-                    </Label>
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                    </VBox.margin>
-                </HBox>
-                <HBox fx:id="objectiveCardsContainer" spacing="20.0">
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding></HBox>
-
-                <!-- Sezione Resource Deck -->
-                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" prefHeight="22.0" prefWidth="640.0" text="Resource Deck" textFill="WHITE">
-                        <font>
-                            <Font name="Arial Bold" size="16.0" />
-                        </font>
-                    </Label>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin>
-                </HBox>
-                <HBox fx:id="resourceDeckContainer" spacing="20.0">
-               <padding>
-                  <Insets left="30.0" />
-               </padding></HBox>
-
-                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="640.0" text="Gold Deck" textFill="WHITE">
-                        <font>
-                            <Font name="Arial Bold" size="16.0" />
-                        </font>
-                    </Label>
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                    </VBox.margin>
-                </HBox>
-                <HBox fx:id="goldDeckContainer" spacing="20.0">
-               <padding>
-                  <Insets left="30.0" />
-               </padding></HBox>
-
-                <Button fx:id="confirmDeck" maxWidth="640.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin></Button>
-
-                <HBox alignment="CENTER" maxWidth="640.0" prefHeight="42.0" prefWidth="640.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" prefHeight="23.0" prefWidth="640.0" text="My Hand" textFill="WHITE">
-                        <font>
-                            <Font name="Arial Bold" size="16.0" />
-                        </font>
-                    </Label>
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                    </VBox.margin>
-                </HBox>
-                <HBox fx:id="playerHand" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-               <padding>
-                  <Insets left="30.0" />
-               </padding></HBox>
             </VBox>
 
         </ScrollPane>
