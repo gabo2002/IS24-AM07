@@ -75,7 +75,6 @@ public class GameStartAction extends PlayerAction {
             state.setClientStringErrorMessage(getErrorMessage());
             state.setPlayerState(PlayerState.SELECTING_STARTER_CARD_SIDE);
             state.notifyGameModelUpdate();
-
         }
     }
 

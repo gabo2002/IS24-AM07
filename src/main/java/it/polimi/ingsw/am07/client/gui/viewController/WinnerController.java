@@ -25,7 +25,6 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Player;
-import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,14 +75,13 @@ public class WinnerController {
         }
 
         try {
-            if(clientState.getGameModel().getWinners().contains(clientState.getGameModel().getSelf())) {
+            if (clientState.getGameModel().getWinners().contains(clientState.getGameModel().getSelf())) {
                 result_winner.setText("You won!");
             }
         } catch (Exception e) {
             System.out.println("Could not find winners");
         }
     }
-
 
 
 }

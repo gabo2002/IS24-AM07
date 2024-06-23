@@ -34,7 +34,6 @@ import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,7 +50,6 @@ public class CLI {
     private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(Instruction.START_GAME, Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
     private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.SELECT_CARD, Instruction.SHOW_HAND, Instruction.SHOW_FIELD, Instruction.QUIT);
     private final ExecutorService renderExecutor;
-    private Scanner scanner;
     private ThreadInputReader reader;
     private Controller controller;
     private Map<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
@@ -70,7 +68,6 @@ public class CLI {
     public void entrypoint() {
 
         reader = new ThreadInputReader();
-        // scanner = new Scanner(System.in);
 
         //generate Identity
         String identity = UUID.randomUUID().toString();
@@ -162,6 +159,7 @@ public class CLI {
                 System.out.println("Invalid state");
                 System.out.println("Current state: " + currentState);
         }
+
         clientState.notifyGameModelUpdate();
     }
 

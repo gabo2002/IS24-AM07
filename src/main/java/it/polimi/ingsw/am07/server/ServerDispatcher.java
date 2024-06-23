@@ -40,7 +40,6 @@ import it.polimi.ingsw.am07.server.controller.MatchmakingController;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -76,13 +75,6 @@ public class ServerDispatcher extends Dispatcher {
         Matchmaking matchmaking = new Matchmaking(lobbies.values());
 
         matchmakingController = new MatchmakingController(matchmaking, this::migrateToLobby, this::migrateToExistingLobby);
-    }
-
-    /**
-     * Get the list of open lobbies. This method is used to provide the list of lobbies to the clients.
-     */
-    public List<Lobby> getLobbies() {
-        return this.lobbies.values().stream().toList();
     }
 
     /**
@@ -174,20 +166,28 @@ public class ServerDispatcher extends Dispatcher {
         gameController.execute(new ServerGameStartAction(game));
     }
 
-    private synchronized Void migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId, Pawn playerPawn) {
+    /**
+     * Migrate a listener attached to the general matchmaking to an existing lobby.
+     *
+     * @param listener   the listener to migrate
+     * @param nickname   the nickname of the player
+     * @param lobbyId    the id of the lobby to migrate to
+     * @param playerPawn the pawn of the player
+     */
+    private synchronized void migrateToExistingLobby(Listener listener, String nickname, UUID lobbyId, Pawn playerPawn) {
         LOGGER.debug("Migrating to existing lobby");
 
         Lobby lobby = lobbies.get(lobbyId);
         if (lobby == null) {
             ErrorAction errorAction = new ErrorAction("Error: Lobby not found");
             listener.notify(errorAction);
-            return null;
+            return;
         }
 
         if (lobby.getPlayers().size() >= 4) {
             ErrorAction errorAction = new ErrorAction("Error: Lobby is full");
             listener.notify(errorAction);
-            return null;
+            return;
         }
 
         try {
@@ -198,16 +198,22 @@ public class ServerDispatcher extends Dispatcher {
         } catch (IllegalArgumentException e) {
             ErrorAction errorAction = new ErrorAction(e.getMessage());
             listener.notify(errorAction);
-            return null;
+            return;
         }
 
         //Migrate the listener from OutOfLobbyController to LobbyController
         listenerDispatchers.put(listener.getIdentity(), lobbyControllers.get(lobby));
         lobbyControllers.get(lobby).registerNewListener(listener);
-        return null;
     }
 
-    private synchronized Void migrateToLobby(Listener listener, String firstPlayerNickname, Pawn playerPawn) {
+    /**
+     * Migrate a listener attached to the general matchmaking to a new lobby.
+     *
+     * @param listener            the listener to migrate
+     * @param firstPlayerNickname the nickname of the first player
+     * @param playerPawn          the pawn of the player
+     */
+    private synchronized void migrateToLobby(Listener listener, String firstPlayerNickname, Pawn playerPawn) {
         LOGGER.debug("Migrating to lobby");
 
         // Create a new lobby
@@ -231,7 +237,6 @@ public class ServerDispatcher extends Dispatcher {
         listenerDispatchers.put(listener.getIdentity(), lobbyController);
         // Add the listener to the lobby
         lobbyController.registerNewListener(listener);
-        return null;
     }
 
 }

@@ -43,7 +43,7 @@ public class NetworkViewController {
 
     @FXML
     protected void onRMIBtnClicked(ActionEvent event) {
-        if(IpField.getText().isEmpty()) {
+        if (IpField.getText().isEmpty()) {
             networkInitializer.initializeClientState(NetworkType.RMI, "localhost");
             return;
         }
@@ -53,7 +53,7 @@ public class NetworkViewController {
 
     @FXML
     protected void onTCPBtnClicked(ActionEvent event) {
-        if(IpField.getText().isEmpty()) {
+        if (IpField.getText().isEmpty()) {
             networkInitializer.initializeClientState(NetworkType.TCP, "localhost");
             return;
         }

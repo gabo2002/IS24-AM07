@@ -23,7 +23,6 @@
 
 package it.polimi.ingsw.am07.model.game.gamefield;
 
-import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.ResourceHolder;
 import it.polimi.ingsw.am07.model.game.Symbol;
 import it.polimi.ingsw.am07.model.game.side.Side;

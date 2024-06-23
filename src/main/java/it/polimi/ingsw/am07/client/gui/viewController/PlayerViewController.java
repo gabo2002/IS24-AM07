@@ -47,7 +47,10 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -68,19 +71,16 @@ public class PlayerViewController {
 
     private static final int RECT_WIDTH = 150;
     private static final int RECT_HEIGHT = 100;
-    private static final Double DELTA_X = RECT_WIDTH-(17.0/75.0*RECT_WIDTH);
-    private static final Double DELTA_Y = RECT_HEIGHT-(2.0/5.0*RECT_HEIGHT);
+    private static final Double DELTA_X = RECT_WIDTH - (17.0 / 75.0 * RECT_WIDTH);
+    private static final Double DELTA_Y = RECT_HEIGHT - (2.0 / 5.0 * RECT_HEIGHT);
     private final List<Rectangle> createdRectangles = new ArrayList<>();
 
     @FXML
     public HBox objectiveCardsContainer;
-
-    @FXML
-    private ScrollPane scrollPane;
-
     @FXML
     public Button confirmDeck;
-
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private ListView<Parent> playerList;
 
@@ -115,6 +115,7 @@ public class PlayerViewController {
 
     /**
      * Initialize the view with the client state and the controller
+     *
      * @param clientState
      * @param controller
      */
@@ -129,6 +130,7 @@ public class PlayerViewController {
 
     /**
      * Update the view with the new client state
+     *
      * @param clientState
      */
     public void updateView(ClientState clientState) {
@@ -158,7 +160,7 @@ public class PlayerViewController {
             clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet().forEach(symbol -> {
                 itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));
             });
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("No resources in the player's inventory");
         }
 
@@ -189,28 +191,30 @@ public class PlayerViewController {
 
     /**
      * Handle the click on a player in the list
+     *
      * @param event
      */
     @FXML
-    private void onPlayerClicked(MouseEvent event){
+    private void onPlayerClicked(MouseEvent event) {
         Parent selectedPlayer = playerList.getSelectionModel().getSelectedItem();
         Player player = (Player) selectedPlayer.getUserData();
         clearGameField();
         render(player);
-        if(player.equals(clientState.getGameModel().getSelf())) {
-            updateInfoMessage("Sei in "+ clientState.getPlayerState());
+        if (player.equals(clientState.getGameModel().getSelf())) {
+            updateInfoMessage("Sei in " + clientState.getPlayerState());
             return;
         }
-        updateInfoMessage("Stai guardando "+ player.getNickname());
+        updateInfoMessage("Stai guardando " + player.getNickname());
     }
 
     /**
      * Handle the click on the confirm button
+     *
      * @param event
      */
     @FXML
     private void onConfirmButtonClicked(ActionEvent event) {
-        if(clientState.getPlayerState() != PlayerState.PICKING_CARD) {
+        if (clientState.getPlayerState() != PlayerState.PICKING_CARD) {
             updateInfoMessage("Non puoi pescare");
             return;
         }
@@ -221,6 +225,7 @@ public class PlayerViewController {
 
     /**
      * Handle the drag detected event
+     *
      * @param imageView
      */
     @FXML
@@ -234,6 +239,7 @@ public class PlayerViewController {
 
     /**
      * Update the hand view with the new cards
+     *
      * @param handContainer
      * @param cards
      */
@@ -247,6 +253,7 @@ public class PlayerViewController {
 
     /**
      * Update the deck view with the new cards
+     *
      * @param deckContainer
      * @param cards
      */
@@ -273,6 +280,7 @@ public class PlayerViewController {
 
     /**
      * Create an image view for the deck
+     *
      * @param card
      * @param initialSide
      * @return
@@ -301,6 +309,7 @@ public class PlayerViewController {
 
     /**
      * Create an image view for the card
+     *
      * @param card
      * @param initialSide
      * @return
@@ -320,7 +329,6 @@ public class PlayerViewController {
 
         return imageView;
     }
-
 
 
     private ImageView createImageView(GameCard card, String initialSide) {
@@ -344,13 +352,14 @@ public class PlayerViewController {
 
     /**
      * Load the image from the assets
+     *
      * @param id
      * @param side
      * @return
      */
     private Image imgFrom(int id, String side) {
         ClassLoader cl = this.getClass().getClassLoader();
-        String item = "it/polimi/ingsw/am07/assets/"+side+"_" + id + ".png";
+        String item = "it/polimi/ingsw/am07/assets/" + side + "_" + id + ".png";
         Image img = null;
         try (InputStream is = cl.getResourceAsStream(item)) {
             if (is != null) {
@@ -366,6 +375,7 @@ public class PlayerViewController {
 
     /**
      * Flip the card
+     *
      * @param imageView
      * @param id
      */
@@ -379,12 +389,13 @@ public class PlayerViewController {
 
     /**
      * Handle the click on the card
+     *
      * @param event
      */
     private void handleCardClick(MouseEvent event) {
         ImageView source = (ImageView) event.getSource();
 
-        if(source.getProperties().get("RectVisibility").equals(true)) {
+        if (source.getProperties().get("RectVisibility").equals(true)) {
             source.getProperties().put("RectVisibility", false);
 
             Stream<Rectangle> nearRectangles = createdRectangles.stream()
@@ -392,15 +403,15 @@ public class PlayerViewController {
 
             nearRectangles.forEach(rect -> rect.setVisible(false));
 
-        }else {
+        } else {
             source.getProperties().put("RectVisibility", true);
             double x = source.getLayoutX();
             double y = source.getLayoutY();
 
-            GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X)/(DELTA_X)), (int) ((y + DELTA_Y)/(DELTA_Y)));
-            GameFieldPosition topRight = new GameFieldPosition((int) ((x+ DELTA_X)/(DELTA_X)), (int) ((y  + DELTA_Y)/(DELTA_Y)));
-            GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x- DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
-            GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X)/(DELTA_X)), (int) ((y - DELTA_Y)/(DELTA_Y)));
+            GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
+            GameFieldPosition topRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
+            GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
+            GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
 
             Side side = new SideBack(0, null, null, Symbol.GREEN);
 
@@ -424,6 +435,7 @@ public class PlayerViewController {
 
     /**
      * Create a new rectangle
+     *
      * @param x
      * @param y
      */
@@ -446,6 +458,7 @@ public class PlayerViewController {
 
     /**
      * Enable the drag and drop
+     *
      * @param rect
      * @param x
      * @param y
@@ -466,11 +479,11 @@ public class PlayerViewController {
         });
 
         rect.setOnDragDropped(event -> {
-            if(clientState.getPlayerState() == PlayerState.PICKING_CARD) {
+            if (clientState.getPlayerState() == PlayerState.PICKING_CARD) {
                 updateInfoMessage("Pick a card");
                 return;
             }
-            if(clientState.getPlayerState() != PlayerState.PLACING_CARD) {
+            if (clientState.getPlayerState() != PlayerState.PLACING_CARD) {
                 updateInfoMessage("It's not your turn");
                 return;
             }
@@ -502,9 +515,10 @@ public class PlayerViewController {
 
     /**
      * Render the player game filed
+     *
      * @param player
      */
-    private void render (Player player) {
+    private void render(Player player) {
         Map<GameFieldPosition, Side> placedCards = player.getPlacedCards();
         for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
             GameFieldPosition position = entry.getKey();
@@ -512,7 +526,7 @@ public class PlayerViewController {
             Image image;
             if (side instanceof SideBack) {
                 image = imgFrom(side.id(), "back");
-            }else {
+            } else {
                 image = imgFrom(side.id(), "front");
             }
             ImageView imageView = new ImageView(image);
@@ -522,14 +536,14 @@ public class PlayerViewController {
             imageView.setLayoutY(position.y() * DELTA_Y);
             imageView.getProperties().put("RectVisibility", false);
             createShadow(imageView);
-            if(player.equals(clientState.getGameModel().getSelf())) {
+            if (player.equals(clientState.getGameModel().getSelf())) {
                 imageView.setOnMouseClicked(this::handleCardClick);
             }
             imageView.setViewOrder(-position.z());
             System.out.println("Rendering card at position: " + position.x() + " " + position.y() + position.z());
             rightPane.getChildren().add(imageView);
 
-            for(Rectangle rect : createdRectangles) {
+            for (Rectangle rect : createdRectangles) {
                 rect.setVisible(false);
             }
         }
@@ -537,6 +551,7 @@ public class PlayerViewController {
 
     /**
      * Create a shadow for the image view
+     *
      * @param imageView
      */
     private void createShadow(ImageView imageView) {
@@ -549,12 +564,13 @@ public class PlayerViewController {
     /**
      * Clear the game field
      */
-    private void clearGameField(){
+    private void clearGameField() {
         rightPane.getChildren().clear();
     }
 
     /**
      * Update the info message
+     *
      * @param message
      */
     private void updateInfoMessage(String message) {

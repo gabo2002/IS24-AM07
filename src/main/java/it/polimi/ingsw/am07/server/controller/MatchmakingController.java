@@ -30,8 +30,8 @@ import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
-import it.polimi.ingsw.am07.utils.multipleFunction.QuadFunction;
-import it.polimi.ingsw.am07.utils.multipleFunction.TriFunction;
+import it.polimi.ingsw.am07.utils.lambda.QuadConsumer;
+import it.polimi.ingsw.am07.utils.lambda.TriConsumer;
 
 import java.util.UUID;
 
@@ -39,14 +39,14 @@ public class MatchmakingController extends Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(MatchmakingController.class);
     private final Matchmaking matchmaking;
-    private final TriFunction<Listener, String, Pawn, Void> migrateToLobby;
-    private final QuadFunction<Listener, String, UUID, Pawn, Void> migratoToExistingLobby;
+    private final TriConsumer<Listener, String, Pawn> migrateToLobby;
+    private final QuadConsumer<Listener, String, UUID, Pawn> migrateToExistingLobby;
 
 
-    public MatchmakingController(Matchmaking matchmaking, TriFunction<Listener, String, Pawn, Void> migrateToLobby, QuadFunction<Listener, String, UUID, Pawn, Void> migrateToExistingLobby) {
+    public MatchmakingController(Matchmaking matchmaking, TriConsumer<Listener, String, Pawn> migrateToLobby, QuadConsumer<Listener, String, UUID, Pawn> migrateToExistingLobby) {
         this.matchmaking = matchmaking;
         this.migrateToLobby = migrateToLobby;
-        this.migratoToExistingLobby = migrateToExistingLobby;
+        this.migrateToExistingLobby = migrateToExistingLobby;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MatchmakingController extends Dispatcher {
         if (matchmaking.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
-            migrateToLobby.apply(listener, matchmaking.getPlayerNickname(), matchmaking.getPlayerPawn());
+            migrateToLobby.accept(listener, matchmaking.getPlayerNickname(), matchmaking.getPlayerPawn());
             listeners.remove(listener);
 
             Action stateSyncAction = new LobbyListAction(matchmaking.getLobbies());
@@ -82,8 +82,10 @@ public class MatchmakingController extends Dispatcher {
         } else if (matchmaking.getLobbyId() != null) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
+
             //I have to migrate the player to an existing lobby
-            migratoToExistingLobby.apply(listener, matchmaking.getPlayerNickname(), matchmaking.getLobbyId(), matchmaking.getPlayerPawn());
+            migrateToExistingLobby.accept(listener, matchmaking.getPlayerNickname(), matchmaking.getLobbyId(), matchmaking.getPlayerPawn());
+
             //Remove the listener from the out of lobby controller
             listeners.remove(listener);
         }

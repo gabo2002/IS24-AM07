@@ -3,7 +3,6 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.model.ClientState;
-import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.model.game.side.Side;
@@ -15,8 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -120,9 +117,9 @@ public class SelectStarterController {
     private void onConfirmBtnClick(ActionEvent event) {
         Side side;
 
-        if(starterImg.getProperties().get("currentSide").equals("back")) {
+        if (starterImg.getProperties().get("currentSide").equals("back")) {
             side = clientState.getGameModel().getSelf().getStarterCard().back();
-        }else {
+        } else {
             side = clientState.getGameModel().getSelf().getStarterCard().front();
         }
 

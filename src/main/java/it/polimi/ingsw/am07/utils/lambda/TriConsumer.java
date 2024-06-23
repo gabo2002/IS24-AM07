@@ -21,19 +21,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.utils.multipleFunction;
-
-import java.util.Objects;
-import java.util.function.Function;
+package it.polimi.ingsw.am07.utils.lambda;
 
 @FunctionalInterface
-public interface QuadFunction<A, B, C, D, R> {
+public interface TriConsumer<T, U, V> {
 
-    R apply(A a, B b, C c, D d);
+    void accept(T t, U u, V v);
 
-    default <V> QuadFunction<A, B, C, D, V> andThen(
-            Function<? super R, ? extends V> after) {
-        Objects.requireNonNull(after);
-        return (A a, B b, C c, D d) -> after.apply(apply(a, b, c, d));
+    default TriConsumer<T, U, V> andThen(TriConsumer<? super T, ? super U, ? super V> after) {
+        if (after == null) {
+            throw new NullPointerException();
+        }
+        return (t, u, v) -> {
+            accept(t, u, v);
+            after.accept(t, u, v);
+        };
     }
+
 }
+
