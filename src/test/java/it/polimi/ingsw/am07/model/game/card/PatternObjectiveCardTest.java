@@ -127,6 +127,7 @@ class PatternObjectiveCardTest {
         GameField field = new GameField();
         GameFieldPattern pattern = getLeftDiagonalPattern(Symbol.RED);
         PatternObjectiveCard card = new PatternObjectiveCard(5, 5, pattern);
+        assertEquals(5, card.getId());
         assertEquals(0, card.calculateScore(new ResourceHolder(), field));
         pattern = getRightDiagonalPattern(Symbol.RED);
         card = new PatternObjectiveCard(5, 5, pattern);

@@ -76,4 +76,19 @@ class GameFieldPositionTest {
         assertEquals(json, "GameFieldPosition{x=2343, y=4324, z=3434}");
     }
 
+    @Test
+    void equalsTest() {
+        GameFieldPosition position1 = new GameFieldPosition(0, 0, 0);
+        GameFieldPosition position2 = new GameFieldPosition(0, 0, 3);
+        GameFieldPosition position3 = new GameFieldPosition(0, 1, 0);
+        GameFieldPosition position4 = new GameFieldPosition(1, 0, 0);
+
+        assertEquals(position1, position1);
+        assertEquals(position1, position2);
+        assertNotEquals(position1, new Object());
+        assertNotEquals(position1, null);
+        assertNotEquals(position1, position3);
+        assertNotEquals(position1, position4);
+    }
+
 }

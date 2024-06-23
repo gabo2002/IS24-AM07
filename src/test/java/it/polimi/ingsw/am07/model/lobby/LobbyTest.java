@@ -33,6 +33,9 @@ class LobbyTest {
     @Test
     void getPlayers() {
         assertNotNull(new Lobby().getPlayers());
+
+        assertDoesNotThrow(new Lobby()::getFirstPlayer);
+        assertNull(new Lobby().getFirstPlayer());
     }
 
     @Test
@@ -64,6 +67,8 @@ class LobbyTest {
         assertEquals(2, lobby.getPlayerCount());
 
         assertThrows(IllegalArgumentException.class, () -> lobby.addNewPlayer("player1", "player1", Pawn.YELLOW));
+
+        assertThrows(IllegalArgumentException.class, () -> lobby.addNewPlayer("player3", "player3", Pawn.YELLOW));
 
         assertEquals(2, lobby.getPlayerCount());
 
@@ -113,6 +118,26 @@ class LobbyTest {
 
         assertDoesNotThrow(() -> lobby.removePlayer("player1"));
         assertEquals(0, lobby.getPlayerCount());
+    }
+
+    @Test
+    void startGame() {
+        Lobby lobby = new Lobby();
+
+        assertThrows(IllegalStateException.class, lobby::startGame);
+
+        lobby.addNewPlayer("player1", "player1", Pawn.YELLOW);
+        lobby.addNewPlayer("player2", "player2", Pawn.BLUE);
+        lobby.addNewPlayer("player3", "player3", Pawn.RED);
+
+        assertFalse(lobby.isFull());
+
+        assertDoesNotThrow(lobby::startGame);
+
+        lobby.addNewPlayer("player4", "player4", null);
+
+        assertThrows(IllegalStateException.class, lobby::startGame);
+        assertTrue(lobby.isFull());
     }
 
 }

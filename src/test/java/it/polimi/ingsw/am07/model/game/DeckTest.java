@@ -57,6 +57,18 @@ class DeckTest {
     }
 
     @Test
+    void propertyTest() {
+        Deck deck = new Deck.Factory().goldCards(List.of()).build();
+
+        assertNull(deck.peekTopResCard());
+        assertNull(deck.peekTopGoldCard());
+        assertNull(deck.popRandomResCard());
+        assertNull(deck.popRandomGoldCard());
+        assertNull(deck.pickRandomGoldCard());
+        assertNull(deck.pickRandomResCard());
+    }
+
+    @Test
     void popRandomResCard() {
         Deck deck = constructDeck();
         int size = deck.availableResCards().size();
@@ -173,7 +185,20 @@ class DeckTest {
         assertThrows(RuntimeException.class, () -> {
             new Deck.Factory()
                     .goldCards(base.availableGoldCards())
+                    .build();
+        });
+
+        assertThrows(RuntimeException.class, () -> {
+            new Deck.Factory()
+                    .goldCards(base.availableGoldCards())
                     .goldCards(base.availableResCards())
+                    .build();
+        });
+
+        assertThrows(RuntimeException.class, () -> {
+            new Deck.Factory()
+                    .resourceCards(base.availableResCards())
+                    .resourceCards(base.availableGoldCards())
                     .build();
         });
 
@@ -181,6 +206,13 @@ class DeckTest {
             new Deck.Factory()
                     .resourceCards(base.availableResCards())
                     .goldCards(base.availableGoldCards())
+                    .visibleResCards(base.visibleResCards())
+                    .visibleGoldCards(base.visibleGoldCards())
+                    .build();
+        });
+
+        assertDoesNotThrow(() -> {
+            new Deck.Factory()
                     .visibleResCards(base.visibleResCards())
                     .visibleGoldCards(base.visibleGoldCards())
                     .build();

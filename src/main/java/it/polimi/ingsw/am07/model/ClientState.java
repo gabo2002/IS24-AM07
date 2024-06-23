@@ -42,7 +42,7 @@ public class ClientState {
     /**
      * The identity of the client.
      */
-    private String identity;
+    private final String identity;
 
     /**
      * The nickname of the client.
@@ -182,15 +182,6 @@ public class ClientState {
     }
 
     /**
-     * Sets the identity of the client.
-     *
-     * @param identity The identity of the client.
-     */
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
-
-    /**
      * Retrieves the nickname of the client.
      *
      * @return The nickname of the client.
@@ -228,17 +219,17 @@ public class ClientState {
         this.clientStringErrorMessage = clientStringErrorMessage;
     }
 
-    @Override
-    public String toString() {
-        return "ClientState{" +
-                "identity='" + identity + '\'' +
-                ", gameModel=" + gameModel +
-                ", lobbyModel=" + lobbyModel +
-                ", availableLobbies=" + availableLobbies +
-                ", playerState=" + playerState +
-                ", nickname=" + nickname +
-                ", onGameModelUpdate=" + onGameModelUpdate +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "ClientState{" +
+//                "identity='" + identity + '\'' +
+//                ", gameModel=" + gameModel +
+//                ", lobbyModel=" + lobbyModel +
+//                ", availableLobbies=" + availableLobbies +
+//                ", playerState=" + playerState +
+//                ", nickname=" + nickname +
+//                ", onGameModelUpdate=" + onGameModelUpdate +
+//                '}';
+//    }
 
 }

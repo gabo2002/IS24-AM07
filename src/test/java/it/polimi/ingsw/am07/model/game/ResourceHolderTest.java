@@ -70,6 +70,28 @@ class ResourceHolderTest {
     }
 
     @Test
+    void equalsTest() {
+        ResourceHolder holder1 = new ResourceHolder();
+        ResourceHolder holder2 = new ResourceHolder();
+
+        assertEquals(holder1, holder2);
+        assertNotEquals(holder1, null);
+        assertNotEquals(holder1, new Object());
+
+        holder1.incrementResource(Symbol.RED);
+
+        assertNotEquals(holder1, holder2);
+
+        holder2.incrementResource(Symbol.RED);
+
+        assertEquals(holder1, holder2);
+
+        holder2.incrementResource(Symbol.RED);
+
+        assertNotEquals(holder1, holder2);
+    }
+
+    @Test
     void contains() {
         ResourceHolder emptyHolder = new ResourceHolder();
 
@@ -226,6 +248,17 @@ class ResourceHolderTest {
             holder.decrementResource(symbol);
             if (symbol.isResource()) {
                 assertEquals(-1, holder.countOf(symbol));
+            } else {
+                assertEquals(0, holder.countOf(symbol));
+            }
+        }
+
+        // Decrementing a non-resource symbol should not change the holder
+        // Decrementing a resource symbol should decrease the count of that resource
+        for (Symbol symbol : Symbol.values()) {
+            holder.decrementResource(symbol);
+            if (symbol.isResource()) {
+                assertEquals(-2, holder.countOf(symbol));
             } else {
                 assertEquals(0, holder.countOf(symbol));
             }

@@ -66,6 +66,23 @@ class LobbyPlayerTest {
         LobbyPlayer lobbyPlayer3 = new LobbyPlayer("nickname2");
 
         assertNotEquals(lobbyPlayer1, lobbyPlayer3);
+
+        assertNotEquals(lobbyPlayer1, null);
+        assertNotEquals(lobbyPlayer1, new Object());
+    }
+
+    @Test
+    void hashTest() {
+        // Two lobby players with the same nickname should have the same hash code
+        LobbyPlayer lobbyPlayer1 = new LobbyPlayer("nickname");
+        LobbyPlayer lobbyPlayer2 = new LobbyPlayer("nickname");
+
+        assertEquals(lobbyPlayer1.hashCode(), lobbyPlayer2.hashCode());
+
+        // Two lobby players with different nicknames should have different hash codes
+        LobbyPlayer lobbyPlayer3 = new LobbyPlayer("nickname2");
+
+        assertNotEquals(lobbyPlayer1.hashCode(), lobbyPlayer3.hashCode());
     }
 
 }

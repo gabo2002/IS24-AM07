@@ -127,9 +127,8 @@ public class Lobby implements Serializable {
     public void removePlayer(String nickname) {
         players.removeIf(player -> player.getNickname().equals(nickname));
 
-        if (players.size() < 4) {
-            state = LobbyState.WAITING_FOR_PLAYERS;
-        }
+        // If the lobby is full and a player leaves, the lobby is no longer full
+        state = LobbyState.WAITING_FOR_PLAYERS;
     }
 
     /**
@@ -190,20 +189,20 @@ public class Lobby implements Serializable {
         return state == LobbyState.FULL;
     }
 
-    @Override
-    public String toString() {
-        String returnValue = "Lobby ID: " + id + "\n";
-        returnValue += "\tPlayers: \n";
-
-        for (LobbyPlayer player : players) {
-            //If the player has not set their pawn yet, the pawn is not displayed
-            if (player.getPlayerPawn() != null) {
-                returnValue += "\t" + player.getNickname() + " - " + player.getPlayerPawn().toString() + "\n";
-            } else {
-                returnValue += "\t" + player.getNickname() + "\n";
-            }
-        }
-
-        return returnValue;
-    }
+//    @Override
+//    public String toString() {
+//        String returnValue = "Lobby ID: " + id + "\n";
+//        returnValue += "\tPlayers: \n";
+//
+//        for (LobbyPlayer player : players) {
+//            //If the player has not set their pawn yet, the pawn is not displayed
+//            if (player.getPlayerPawn() != null) {
+//                returnValue += "\t" + player.getNickname() + " - " + player.getPlayerPawn().toString() + "\n";
+//            } else {
+//                returnValue += "\t" + player.getNickname() + "\n";
+//            }
+//        }
+//
+//        return returnValue;
+//    }
 }

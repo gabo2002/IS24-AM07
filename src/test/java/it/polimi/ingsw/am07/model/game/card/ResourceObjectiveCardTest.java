@@ -47,6 +47,7 @@ class ResourceObjectiveCardTest {
 
         ObjectiveCard resourceObjectiveCard = new ResourceObjectiveCard(2, 100, requirements);
 
+        assertEquals(100, resourceObjectiveCard.getId());
         assertEquals(4, resourceObjectiveCard.calculateScore(playerResources, null));
 
         requirements.incrementResource(Symbol.RED);

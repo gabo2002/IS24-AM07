@@ -75,6 +75,8 @@ class GameCardTest {
         assertEquals(gameCard_1, gameCard_1);
         assertNotEquals(gameCard_1, gameCard_2);
         assertEquals(gameCard_1, gameCard_3);
+
+        assertNotEquals(gameCard_1, null);
     }
 
     @Test
