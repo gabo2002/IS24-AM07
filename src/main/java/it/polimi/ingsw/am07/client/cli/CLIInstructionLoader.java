@@ -244,7 +244,6 @@ public class CLIInstructionLoader {
 
         instructionsMap.put(Instruction.JOIN_LOBBY, (ClientState clientState, Controller dispatcher) ->
         {
-
             if (clientState.getAvailableLobbies().isEmpty()) {
                 System.out.println("No lobbies available, cannot execute the instruction.");
                 return;
@@ -270,6 +269,7 @@ public class CLIInstructionLoader {
             }
 
             clientState.setNickname(nickname);
+
             //Choosing the color
             List<Pawn> playerColors = new ArrayList<>(Arrays.stream(Pawn.values()).toList());
             playerColors.remove(Pawn.BLACK);

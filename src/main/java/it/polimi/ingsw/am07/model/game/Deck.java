@@ -299,10 +299,10 @@ public record Deck(
             }
 
             return new Deck(
-                    resourceCards,
-                    goldCards,
-                    visibleResCards,
-                    visibleGoldCards
+                resourceCards,
+                goldCards,
+                visibleResCards,
+                visibleGoldCards
             );
         }
 
