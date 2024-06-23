@@ -175,11 +175,13 @@ public class PlayerViewController {
         chatArea.setText(String.join("\n", messageRepresentation));
 
         Deck deck = clientState.getGameModel().getDeck();
-        List<GameCard> resourceCards = deck.availableResCards();
-        List<GameCard> goldCards = deck.availableGoldCards();
+        GameCard resourceCard = deck.pickRandomResCard();
+        GameCard[] resourceCards = deck.visibleResCards();
+        GameCard goldCard = deck.pickRandomGoldCard();
+        GameCard[] goldCards = deck.visibleGoldCards();
 
-        updateDeckView(resourceDeckContainer, resourceCards);
-        updateDeckView(goldDeckContainer, goldCards);
+        updateDeckView(resourceDeckContainer, resourceCard, resourceCards);
+        updateDeckView(goldDeckContainer, goldCard, goldCards);
         updateObjectivesView(objectiveCardsContainer, Arrays.stream(clientState.getGameModel().getCommonObjectives()).toList());
 
         List<GameCard> hand = clientState.getGameModel().getSelf().getPlayableCards();
@@ -254,19 +256,24 @@ public class PlayerViewController {
     /**
      * Update the deck view with the new cards
      *
-     * @param deckContainer
-     * @param cards
+     * @param deckContainer the container of the deck
+     * @param backCard      the back card of the hidden deck
+     * @param visibleCards  the visible cards of the deck
      */
-    private void updateDeckView(HBox deckContainer, List<GameCard> cards) {
+    private void updateDeckView(HBox deckContainer, GameCard backCard, GameCard[] visibleCards) {
         deckContainer.getChildren().clear();
-        if (!cards.isEmpty()) {
-            ImageView coverImageView = createDeckImageView(cards.getFirst(), "back");
+        if (backCard != null) {
+            ImageView coverImageView = createDeckImageView(backCard, "back");
             deckContainer.getChildren().add(coverImageView);
+        }
 
-            for (int i = 1; i < Math.min(3, cards.size()); i++) {
-                ImageView imageView = createDeckImageView(cards.get(i), "front");
-                deckContainer.getChildren().add(imageView);
+        for (GameCard card : visibleCards) {
+            if (card == null) {
+                continue;
             }
+
+            ImageView imageView = createDeckImageView(card, "front");
+            deckContainer.getChildren().add(imageView);
         }
     }
 
