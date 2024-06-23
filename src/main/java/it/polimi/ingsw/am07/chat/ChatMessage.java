@@ -41,7 +41,16 @@ public record ChatMessage(
         String message,
         Date timestamp
 ) implements Serializable {
+
+    /**
+     * Creates a new chat message with the current timestamp.
+     *
+     * @param senderNickname    the sender nickname
+     * @param receiverNicknames the receiver nicknames
+     * @param message           the message
+     */
     public ChatMessage(String senderNickname, List<String> receiverNicknames, String message) {
         this(senderNickname, receiverNicknames, message, new Date());
     }
+
 }

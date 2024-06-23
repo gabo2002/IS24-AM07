@@ -27,54 +27,102 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the chat state for a player.
+ */
 public final class PlayerChat implements Serializable {
 
+    /**
+     * The messages in the chat.
+     */
     private final List<ChatMessage> messages;
 
+    /**
+     * The players connected to the chat.
+     */
     private final List<String> players;
 
+    /**
+     * The nickname of the player.
+     */
     private final String nickname;
 
+    /**
+     * Creates a new player chat.
+     *
+     * @param players  the players connected to the chat
+     * @param nickname the nickname of the player
+     */
     public PlayerChat(List<String> players, String nickname) {
         this.players = players;
         this.nickname = nickname;
         messages = new ArrayList<>();
     }
 
+    /**
+     * Sends a broadcast message to all players.
+     *
+     * @param message the message
+     * @return the chat message
+     */
     public ChatMessage sendBroadcastMessage(String message) {
         return new ChatMessage(nickname, players, message);
     }
 
+    /**
+     * Sends a private message to a specific player.
+     *
+     * @param receiver the receiver
+     * @param message  the message
+     * @return the chat message
+     */
     public ChatMessage sendPrivateMessage(String receiver, String message) {
         return new ChatMessage(nickname, List.of(receiver), message);
     }
 
+    /**
+     * Gets the messages in the chat.
+     *
+     * @return the messages
+     */
     public List<ChatMessage> getMessages() {
         return messages;
     }
 
+    /**
+     * Gets the last n messages in the chat.
+     *
+     * @param n the number of messages
+     * @return the messages
+     */
     public List<ChatMessage> getLastMessages(int n) {
         return messages.subList(Math.max(messages.size() - n, 0), messages.size());
     }
 
+    /**
+     * Gets the players connected to the chat.
+     *
+     * @return the players
+     */
     public List<String> getPlayers() {
         return players;
     }
 
+    /**
+     * Adds a player to the chat.
+     *
+     * @param player the player to add
+     */
     public void addPlayer(String player) {
         players.add(player);
     }
 
-    public void removePlayer(String player) {
-        players.remove(player);
-    }
-
-    public void clearMessages() {
-        messages.clear();
-    }
-
+    /**
+     * Adds a message to the chat.
+     *
+     * @param message the message to add
+     */
     public void insertMessage(ChatMessage message) {
-
         if (messages.isEmpty()) {
             messages.add(message);
             return;
@@ -88,4 +136,5 @@ public final class PlayerChat implements Serializable {
             }
         }
     }
+
 }
