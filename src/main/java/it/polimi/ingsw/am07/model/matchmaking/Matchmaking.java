@@ -47,6 +47,12 @@ public class Matchmaking {
     private boolean isNewLobbyCreated = false;
 
     /**
+     * A boolean indicating whether the player has asked for reconnection.
+     * Any access to this field should be synchronized.
+     */
+    private boolean askedForReconnection = false;
+
+    /**
      * The unique identifier of the newly-created lobby.
      */
     private UUID lobbyId;
@@ -86,6 +92,24 @@ public class Matchmaking {
      */
     public void setNewLobbyCreated(boolean newLobbyCreated) {
         isNewLobbyCreated = newLobbyCreated;
+    }
+
+    /**
+     * Retrieves whether the player has asked for reconnection.
+     *
+     * @return true if the player has asked for reconnection, false otherwise.
+     */
+    public boolean hasAskedForReconnection() {
+        return askedForReconnection;
+    }
+
+    /**
+     * Sets whether the player has asked for reconnection.
+     *
+     * @param askedForReconnection true if the player has asked for reconnection, false otherwise.
+     */
+    public void setAskedForReconnection(boolean askedForReconnection) {
+        this.askedForReconnection = askedForReconnection;
     }
 
     /**

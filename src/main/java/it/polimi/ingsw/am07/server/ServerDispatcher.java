@@ -30,8 +30,8 @@ import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.server.ResumeGameAction;
 import it.polimi.ingsw.am07.action.server.ServerGameStartAction;
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.GameState;
 import it.polimi.ingsw.am07.model.game.Pawn;
-import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
@@ -77,16 +77,13 @@ public class ServerDispatcher extends Dispatcher {
         games.forEach((id, game) -> {
             GameController gameController = new GameController(game);
             gameControllers.put(game, gameController);
-
-            // Update the listener dispatchers
-            game.getPlayers().forEach(player -> listenerDispatchers.put(player.getIdentity(), gameController));
         });
 
         lobbyControllers = new HashMap<>();
 
         Matchmaking matchmaking = new Matchmaking(lobbies.values());
 
-        matchmakingController = new MatchmakingController(matchmaking, this::migrateToLobby, this::migrateToExistingLobby);
+        matchmakingController = new MatchmakingController(matchmaking, this::migrateToLobby, this::migrateToExistingLobby, this::reconnectToGame);
     }
 
     /**
@@ -116,24 +113,6 @@ public class ServerDispatcher extends Dispatcher {
     @Override
     public synchronized void registerNewListener(Listener listener) {
         LOGGER.debug("Registering new listener " + listener.getIdentity());
-
-        // Reconnect the player to the game
-        for (Map.Entry<Game, GameController> entry : gameControllers.entrySet()) {
-            System.out.println(entry.getKey().getPlayers().stream().map(Player::getIdentity).toList());
-            if (entry.getKey().getPlayers().stream().anyMatch(player -> player.getIdentity().equals(listener.getIdentity()))) {
-                listenerDispatchers.put(listener.getIdentity(), entry.getValue());
-                entry.getValue().registerNewListener(listener);
-
-                // Number of listeners equals number of players in the game
-                final boolean allClientsReady = entry.getValue().getListenersCount() == entry.getKey().getPlayers().size();
-
-                // Send the game state to the listener
-                entry.getValue().execute(new ResumeGameAction(entry.getKey(), allClientsReady));
-                return;
-            }
-        }
-
-        LOGGER.debug("Listener " + listener.getIdentity() + " not found in any game");
 
         listenerDispatchers.put(listener.getIdentity(), matchmakingController);
         matchmakingController.registerNewListener(listener);
@@ -227,6 +206,28 @@ public class ServerDispatcher extends Dispatcher {
         return true;
     }
 
+    private synchronized Boolean reconnectToGame(Listener listener) {
+        LOGGER.debug("Reconnecting to game");
+
+        for (Map.Entry<Game, GameController> entry : gameControllers.entrySet()) {
+            if (entry.getKey().getPlayers().stream().anyMatch(player -> player.getIdentity().equals(listener.getIdentity()))) {
+                listenerDispatchers.put(listener.getIdentity(), entry.getValue());
+                entry.getValue().registerNewListener(listener);
+
+                // Number of listeners equals number of players in the game
+                final boolean allClientsReady = entry.getValue().getListenersCount() == entry.getKey().getPlayers().size();
+
+                // Send the game state to the listener
+                entry.getValue().execute(new ResumeGameAction(entry.getKey(), allClientsReady));
+                return true;
+            }
+        }
+
+        LOGGER.debug("Reconnection failed");
+
+        return false;
+    }
+
     /**
      * Migrate a listener attached to the general matchmaking to a new lobby.
      *
@@ -258,6 +259,19 @@ public class ServerDispatcher extends Dispatcher {
 
         // Add the listener to the lobby
         lobbyController.registerNewListener(listener);
+    }
+
+    /**
+     * Cleanup the dispatcher, removing ended games and the corresponding controllers.
+     */
+    public void cleanup() {
+        games.entrySet().removeIf(entry -> {
+            if (entry.getValue().getGameState() == GameState.ENDED) {
+                gameControllers.remove(entry.getValue());
+                return true;
+            }
+            return false;
+        });
     }
 
 }

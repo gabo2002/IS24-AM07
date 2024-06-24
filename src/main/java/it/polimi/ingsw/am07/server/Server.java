@@ -44,6 +44,8 @@ public class Server {
     private final ServerNetworkManager tcpNetworkManager;
     private final ServerNetworkManager rmiNetworkManager;
 
+    private final ServerDispatcher dispatcher;
+
     /**
      * Constructor.
      *
@@ -52,7 +54,8 @@ public class Server {
      */
     public Server(int tcpPort, int rmiPort) {
         GameRegistry gameRegistry = GameRegistry.getInstance();
-        ServerDispatcher dispatcher = new ServerDispatcher(gameRegistry.getGames());
+
+        dispatcher = new ServerDispatcher(gameRegistry.getGames());
 
         tcpNetworkManager = new ServerTCPNetworkManager(tcpPort, dispatcher);
         rmiNetworkManager = new ServerRMINetworkManager(rmiPort, dispatcher);
@@ -83,8 +86,13 @@ public class Server {
      */
     private void setupAutoSave() {
         Runnable autoSave = () -> {
-            if (!GameRegistry.getInstance().saveState()) {
-                LOGGER.error("Failed to save the game state.");
+            // We must synchronize the access to the game registry to avoid concurrent modifications.
+            synchronized (dispatcher) {
+                dispatcher.cleanup();
+
+                if (!GameRegistry.getInstance().saveState()) {
+                    LOGGER.error("Failed to save the game state.");
+                }
             }
         };
 

@@ -109,4 +109,9 @@ public class WelcomeViewController {
         // loadScene(event);
     }
 
+    @FXML
+    protected void onReconnectBtnClick(ActionEvent event) {
+        clientState.setPlayerState(PlayerState.INSERTING_USERNAME_FOR_RECONNECT);
+    }
+
 }

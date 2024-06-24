@@ -26,7 +26,9 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
+import it.polimi.ingsw.am07.action.lobby.ReconnectAction;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -80,6 +82,14 @@ public class UsernameViewController {
 
         if (nicknameField.getText().isEmpty()) {
             welcomeText.setText("Inserisci uno username");
+            return;
+        }
+
+        if (clientState.getPlayerState() == PlayerState.INSERTING_USERNAME_FOR_RECONNECT) {
+            String nickname = nicknameField.getText();
+            clientState.setNickname(nickname);
+            Action action = new ReconnectAction(nickname, clientState.getIdentity());
+            controller.execute(action);
             return;
         }
 

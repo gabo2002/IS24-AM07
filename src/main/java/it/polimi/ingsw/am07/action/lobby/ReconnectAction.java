@@ -21,20 +21,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.action.lobby;
+
+import it.polimi.ingsw.am07.action.PlayerAction;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 /**
- * Enum representing the state of the player.
+ * Action to reconnect to a game after the server has crashed.
  */
-public enum PlayerState {
-    SELECTING_STARTER_CARD_SIDE,
-    PLACING_CARD,
-    PICKING_CARD,
-    SLEEPING,
-    INSERTING_USERNAME,
-    INSERTING_USERNAME_FOR_RECONNECT,
-    SELECTING_LOBBY,
-    WAITING_FOR_PLAYERS,
-    WAITING_FOR_GAME_START,
-    ADMIN_WAITING_FOR_PLAYERS,
+public class ReconnectAction extends PlayerAction {
+
+    /**
+     * Constructor
+     *
+     * @param playerNickname the player nickname
+     * @param identity the player identity
+     */
+    public ReconnectAction(String playerNickname, String identity) {
+        super(playerNickname, identity);
+    }
+
+    /**
+     * Execute the action
+     *
+     * @param matchmaking the matchmaking model
+     */
+    @Override
+    public void execute(Matchmaking matchmaking) {
+        matchmaking.setAskedForReconnection(true);
+    }
+
+    /**
+     * Reflect the action on the client state
+     *
+     * @param clientState the client state
+     */
+    @Override
+    public void reflect(ClientState clientState) {
+
+    }
+
 }

@@ -30,23 +30,32 @@ import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.lambda.QuadFunction;
-import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import it.polimi.ingsw.am07.utils.lambda.TriConsumer;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 public class MatchmakingController extends Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(MatchmakingController.class);
     private final Matchmaking matchmaking;
+
     private final TriConsumer<Listener, String, Pawn> migrateToLobby;
     private final QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby;
+    private final Function<Listener, Boolean> reconnect;
 
 
-    public MatchmakingController(Matchmaking matchmaking, TriConsumer<Listener, String, Pawn> migrateToLobby, QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby) {
+    public MatchmakingController(
+            Matchmaking matchmaking,
+            TriConsumer<Listener, String, Pawn> migrateToLobby,
+            QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby,
+            Function<Listener, Boolean> reconnect
+    ) {
         this.matchmaking = matchmaking;
         this.migrateToLobby = migrateToLobby;
         this.migrateToExistingLobby = migrateToExistingLobby;
+        this.reconnect = reconnect;
     }
 
     @Override
@@ -71,7 +80,17 @@ public class MatchmakingController extends Dispatcher {
 
         action.execute(matchmaking);
 
-        if (matchmaking.isNewLobbyCreated()) {
+        if (matchmaking.hasAskedForReconnection()) {
+            Listener listener = listeners.stream()
+                    .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
+
+            Boolean result = reconnect.apply(listener);
+
+            if (result) {
+                // Success, remove the listener from the out of lobby controller
+                listeners.remove(listener);
+            }
+        } else if (matchmaking.isNewLobbyCreated()) {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             migrateToLobby.accept(listener, matchmaking.getPlayerNickname(), matchmaking.getPlayerPawn());
@@ -91,5 +110,9 @@ public class MatchmakingController extends Dispatcher {
                 listeners.remove(listener);
             }
         }
+
+        matchmaking.setAskedForReconnection(false);
+        matchmaking.setNewLobbyCreated(false);
+        matchmaking.setLobbyId(null);
     }
 }

@@ -143,6 +143,7 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 stage.show();
                 break;
             case INSERTING_USERNAME:
+            case INSERTING_USERNAME_FOR_RECONNECT:
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/username-view.fxml"));
                 try {
                     scene = new Scene(loader.load(), WIDTH, HEIGHT);
