@@ -220,6 +220,8 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 PlayerViewController playerViewController = loader.getController();
                 playerViewController.init(state, controller);
 
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/noExtraSpace.css")).toExternalForm());
+
                 stage.setScene(scene);
                 stage.show();
                 break;
