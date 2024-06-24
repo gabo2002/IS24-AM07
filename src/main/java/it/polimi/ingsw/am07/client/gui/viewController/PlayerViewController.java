@@ -106,21 +106,21 @@ public class PlayerViewController {
     private Text infoMessage;
 
     @FXML
-    private Label foglia;
+    private Label green;
 
     @FXML
-    private Label fungo;
+    private Label red;
 
     @FXML
-    private Label lupo;
+    private Label blue;
     @FXML
-    private Label boccia;
+    private Label feather;
     @FXML
     private Label scroll;
     @FXML
-    private Label piuma;
+    private Label flask;
     @FXML
-    private Label farfalla;
+    private Label purple;
 
     private GameCard selectedCard;
 
@@ -170,12 +170,13 @@ public class PlayerViewController {
             }
         }
 
-        foglia.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.GREEN)));
-        fungo.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.RED)));
-        lupo.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.BLUE)));
-        piuma.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.FEATHER)));
-        boccia.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.FLASK)));
-        farfalla.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.PURPLE)));
+        green.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.GREEN)));
+        red.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.RED)));
+        blue.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.BLUE)));
+        feather.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.FEATHER)));
+        flask.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.FLASK)));
+        purple.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.PURPLE)));
+        scroll.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.SCROLL)));
 
 
         // Retrieve the last 20 messages

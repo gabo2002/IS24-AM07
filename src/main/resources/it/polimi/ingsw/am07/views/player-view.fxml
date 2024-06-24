@@ -157,7 +157,7 @@
                                     <Image url="@../foglia.png" />
                                 </image>
                             </ImageView>
-                            <Label fx:id="foglia" text="0" textFill="WHITE" alignment="CENTER"></Label >
+                            <Label fx:id="green" text="0" textFill="WHITE" alignment="CENTER"></Label >
 
                       <HBox.margin>
                          <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
@@ -170,7 +170,7 @@
                                 <Image url="@../fungo.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="fungo" text="0" textFill="WHITE" alignment="CENTER"></Label >
+                        <Label fx:id="red" text="0" textFill="WHITE" alignment="CENTER"></Label >
 
                         <HBox.margin>
                             <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -182,7 +182,7 @@
                                 <Image url="@../lupo.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="lupo" text="0" textFill="WHITE" alignment="CENTER"></Label >
+                        <Label fx:id="blue" text="0" textFill="WHITE" alignment="CENTER"></Label >
 
                         <HBox.margin>
                             <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -194,7 +194,7 @@
                                 <Image url="@../farfalla.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="farfalla" text="0" textFill="WHITE" alignment="CENTER"></Label >
+                        <Label fx:id="purple" text="0" textFill="WHITE" alignment="CENTER"></Label >
 
                         <HBox.margin>
                             <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -206,7 +206,7 @@
                                 <Image url="@../boccia.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="boccia" text="0" textFill="WHITE" alignment="CENTER"></Label >
+                        <Label fx:id="flask" text="0" textFill="WHITE" alignment="CENTER"></Label >
 
                         <HBox.margin>
                             <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -218,7 +218,7 @@
                                 <Image url="@../piuma.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="piuma" text="0" textFill="WHITE" alignment="CENTER"></Label >
+                        <Label fx:id="feather" text="0" textFill="WHITE" alignment="CENTER"></Label >
 
                         <HBox.margin>
                             <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
