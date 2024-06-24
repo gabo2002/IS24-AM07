@@ -20,10 +20,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-.noExtraSpace .list-cell:empty{
-    -fx-background-color: transparent;
+#players_list{
+    -fx-background-color: #433A3F;
     -fx-background-radius: 0;
-    -fx-padding: 0;
-    -fx-spacing: 0;
     -fx-border-width: 0;
+}
+
+#chatInput {
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-font: Arial;
+    -fx-text-fill: black;
+}
+
+.list-cell{
+    -fx-background-color: transparent;
+    -fx-padding: 8;
 }

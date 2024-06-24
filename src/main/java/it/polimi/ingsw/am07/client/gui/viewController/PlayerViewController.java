@@ -213,14 +213,16 @@ public class PlayerViewController {
     @FXML
     private void onPlayerClicked(MouseEvent event) {
         Parent selectedPlayer = playerList.getSelectionModel().getSelectedItem();
-        Player player = (Player) selectedPlayer.getUserData();
-        clearGameField();
-        render(player);
-        if (player.equals(clientState.getGameModel().getSelf())) {
-            updateInfoMessage("Sei in " + clientState.getPlayerState());
-            return;
+        if(selectedPlayer != null) {
+            Player player = (Player) selectedPlayer.getUserData();
+            clearGameField();
+            render(player);
+            if (player.equals(clientState.getGameModel().getSelf())) {
+                updateInfoMessage("Sei in " + clientState.getPlayerState());
+                return;
+            }
+            updateInfoMessage("Stai guardando " + player.getNickname());
         }
-        updateInfoMessage("Stai guardando " + player.getNickname());
     }
 
     /**
