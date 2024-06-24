@@ -37,6 +37,7 @@ import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.lobby.CLILobbyRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.objectiveCardSelection.CLIObjectiveCardSelectionRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.starterCard.CLIStarterCardRepresentation;
@@ -250,16 +251,17 @@ public class CLIInstructionLoader {
                 return;
             }
 
+            List<Lobby> lobbies = clientState.getAvailableLobbies();
+            List<String> availableLobbies = clientState.getAvailableLobbies().stream().map(lobby -> new CLILobbyRepresentation(lobby).render()).toList();
+
             System.out.println("Choose the lobby you want to join:");
-            SelectableMenu<Lobby> menu = new SelectableMenu<>(clientState.getAvailableLobbies(), scanner);
+            SelectableMenu<String> menu = new SelectableMenu<>(availableLobbies, scanner);
             try {
                 menu.show();
             } catch (InterruptedException e) {
                 return;
             }
-            Lobby lobby = menu.getSelectedOption();
-
-
+            Lobby lobby = lobbies.get(menu.getSelectedOptionIndex());
             //Selecting nickname
             System.out.println("Insert your nickname:");
             String nickname;
