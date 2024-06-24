@@ -219,15 +219,18 @@ public class CLI {
     }
 
     private void renderState(ClientState clientState, List<Instruction> availableInstructions) {
-        //clear the screen
-        System.out.print("\033[H\033[2J");
         SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, reader);
         try {
             menu.show();
         } catch (InterruptedException e) {
+            //clear the screen
+            System.out.print("\033[H\033[2J");
             return; //I have killed the render thread
         }
         int selectedOption = menu.getSelectedOptionIndex();
+
+        //clear the screen
+        System.out.print("\033[H\033[2J");
 
         Instruction instruction = availableInstructions.get(selectedOption);
         instructionHandler.get(instruction).accept(clientState, controller);
