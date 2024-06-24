@@ -161,10 +161,6 @@ public class CLI {
                 .withState(clientState)
                 .build();
 
-        //Initialize instructions: every instruction has a lambda that will be executed when the instruction is called
-        CLIInstructionLoader loader = new CLIInstructionLoader(reader);
-        instructionHandler = loader.getInstruction();
-
         controller = networkManager.getController();
     }
 
@@ -233,7 +229,7 @@ public class CLI {
         System.out.print("\033[H\033[2J");
 
         Instruction instruction = availableInstructions.get(selectedOption);
-        instructionHandler.get(instruction).accept(clientState, controller);
+        instruction.execute(clientState, controller, reader);
     }
 
     private void threadRender(ClientState clientState) {
