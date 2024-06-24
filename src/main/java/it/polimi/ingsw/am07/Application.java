@@ -25,7 +25,6 @@ public class Application {
         }
 
         if (isIDE) {
-            System.setProperty("org.jline.terminal.dumb", "true");
             IdentityManager.clearIdentity();
         }
 

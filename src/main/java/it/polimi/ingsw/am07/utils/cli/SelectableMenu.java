@@ -23,11 +23,6 @@
 
 package it.polimi.ingsw.am07.utils.cli;
 
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-import org.jline.utils.NonBlockingReader;
-
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -41,8 +36,6 @@ public class SelectableMenu<T> {
     private final List<T> options;
     private final ThreadInputReader scanner;
     private int selectedOption;
-    private Terminal terminal;
-    private NonBlockingReader reader;
 
     /**
      * Create a new SelectableMenu with the given options.
@@ -55,24 +48,6 @@ public class SelectableMenu<T> {
         this.options = options;
         this.scanner = scanner;
         selectedOption = 0;
-    }
-
-    /**
-     * Initialize the terminal and the reader.
-     * This method is called when the show method is called.
-     *
-     * @author Gabriele Corti
-     */
-    private void init() {
-        try {
-            terminal = TerminalBuilder.builder().system(true).build();
-            terminal.enterRawMode();
-            reader = terminal.reader();
-        } catch (IOException e) {
-            terminal = null;
-            reader = null;
-            System.err.println("Impossible to create the terminal.");
-        }
     }
 
     /**
@@ -103,23 +78,14 @@ public class SelectableMenu<T> {
         return options.get(selectedOption);
     }
 
-    public void show() throws InterruptedException {
-        if (System.getProperty("org.jline.terminal.dumb") != null) {   //if the terminal is not interactive
-            showNonInteractiveMenu();
-        } else {
-            showInteractiveMenu();
-        }
-    }
-
     /**
      * Show the menu on the terminal. The user can select an option by pressing the corresponding number.
      * This method will block until the user selects an option. The selected option can be retrieved using the getSelectedOption method.
-     * This method is non-interactive, so the user can't navigate through the options using the arrow keys.
-     * IMPORTANT: This method will be executed only if the terminal is not interactive, like in an IDE.
+     * This method is non-interactive, so the user can't navigate through the options using the arrow keys
      *
      * @author Gabriele Corti
      */
-    private void showNonInteractiveMenu() throws InterruptedException {
+    public void show() throws InterruptedException {
 
         if (options.isEmpty()) {
             return;
@@ -131,77 +97,5 @@ public class SelectableMenu<T> {
         }
 
         selectedOption = scanner.getInt(0, options.size() - 1);
-    }
-
-    /**
-     * Show the menu on the terminal. The user can navigate through the options using the arrow keys and select an option pressing enter.
-     * This method will block until the user selects an option. The selected option can be retrieved using the getSelectedOption method.
-     *
-     * @author Gabriele Corti
-     */
-    private void showInteractiveMenu() {
-        int key = 0;
-        init();
-
-        if (options.isEmpty() || reader == null) {
-            return;
-        }
-
-        while (true) {
-            printMenu();
-
-            try {
-                key = reader.read();
-            } catch (IOException e) {
-                System.out.println("Error reading the key");
-                break;
-            }
-
-            //arrow down
-            if (key == 66) {
-                selectedOption = (selectedOption + 1) % options.size();
-            }
-            //arrow up
-            if (key == 65) {
-                selectedOption = (selectedOption - 1 + options.size()) % options.size();
-            }
-            //enter
-            if (key == 10 || key == 13) {
-                break;
-            }
-            clearScreen();
-        }
-
-        //close the terminal
-        try {
-            reader.close();
-            terminal.close();
-        } catch (IOException e) {
-            System.err.println("Impossible to close the terminal.");
-        }
-    }
-
-    /**
-     * Print the menu on the terminal. According to the selected option, the arrow will be printed before the option.
-     *
-     * @author Gabriele Corti
-     */
-    private void printMenu() {
-        for (int i = 0; i < options.size(); i++) {
-            if (i == selectedOption)
-                System.out.println("-> " + options.get(i));
-            else
-                System.out.println("   " + options.get(i));
-        }
-    }
-
-    /**
-     * Clear the screen.
-     *
-     * @author Gabriele Corti
-     */
-    private void clearScreen() {
-        terminal.puts(org.jline.utils.InfoCmp.Capability.clear_screen);
-        terminal.flush();
     }
 }
