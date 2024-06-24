@@ -205,6 +205,21 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 stage.setScene(scene);
                 stage.show();
                 break;
+            case GAME_ENDED:
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/winner-view.fxml"));
+
+                try {
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                WinnerViewController winnerViewController = loader.getController();
+                winnerViewController.init(state, controller);
+
+                stage.setScene(scene);
+                stage.show();
+                break;
 
             case WAITING_FOR_GAME_START:
                 break;

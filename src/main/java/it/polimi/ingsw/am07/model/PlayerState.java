@@ -37,4 +37,5 @@ public enum PlayerState {
     WAITING_FOR_PLAYERS,
     WAITING_FOR_GAME_START,
     ADMIN_WAITING_FOR_PLAYERS,
+    GAME_ENDED,
 }

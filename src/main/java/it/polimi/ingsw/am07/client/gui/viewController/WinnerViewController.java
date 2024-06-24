@@ -35,11 +35,11 @@ import javafx.scene.control.ListView;
 import java.io.IOException;
 import java.util.List;
 
-public class WinnerController {
+public class WinnerViewController {
 
 
     @FXML
-    private Label result_winner;
+    private Label result_message;
 
     @FXML
     private ListView<Parent> ranking_list;
@@ -56,7 +56,6 @@ public class WinnerController {
     }
 
     private void updateView(ClientState clientState) {
-
         List<Player> players = clientState.getGameModel().getPlayers().stream().toList();
         ranking_list.getItems().clear();
         for (Player player : players) {
@@ -76,7 +75,7 @@ public class WinnerController {
 
         try {
             if (clientState.getGameModel().getWinners().contains(clientState.getGameModel().getSelf())) {
-                result_winner.setText("You won!");
+                result_message.setText("You won!");
             }
         } catch (Exception e) {
             System.out.println("Could not find winners");
