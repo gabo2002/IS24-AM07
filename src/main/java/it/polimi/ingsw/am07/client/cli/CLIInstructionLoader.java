@@ -33,6 +33,7 @@ import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.chat.ChatMessage;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
@@ -417,6 +418,28 @@ public class CLIInstructionLoader {
             // Sending the action to notify the server the selected cards
             Action action = new PlayerInitialChoiceAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), objectiveCards[selectedCardIndex], side);
             dispatcher.execute(action);
+        });
+
+        instructionsMap.put(Instruction.SHOW_OBJECTIVE_CARD, (ClientState clientState, Controller dispatcher) ->
+        {
+            ObjectiveCard[] objectiveCards = clientState.getGameModel().getSelf().getAvailableObjectives();
+            //display the cards
+            System.out.println("Objective Cards: ");
+            CLIObjectiveCardSelectionRepresentation objectiveCardRepresentation = new CLIObjectiveCardSelectionRepresentation(objectiveCards);
+            System.out.println(objectiveCardRepresentation.render());
+        });
+
+        instructionsMap.put(Instruction.SHOW_PLAYERS_SCORE, (ClientState clientState, Controller dispatcher) ->
+        {
+            List<Player> players = clientState.getGameModel().getPlayers();
+            System.out.println("Players score:");
+
+            //Sorting the players by score
+            players.sort(Comparator.comparingInt(Player::getPlayerScore).reversed());
+
+            for (Player player : players) {
+                System.out.println(CLIPawnColor.pawnToColor(player.getPlayerPawn()) + player.getNickname() + " - " + player.getPlayerScore() + CLIColor.RESET.getCode());
+            }
         });
     }
 

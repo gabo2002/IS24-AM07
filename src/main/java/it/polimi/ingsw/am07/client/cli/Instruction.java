@@ -35,6 +35,8 @@ public enum Instruction {
     PICK_CARD("pick_card"),
     SHOW_FIELD("show_field"),
     SHOW_DECK("show_deck"),
+    SHOW_OBJECTIVE_CARD("show_objective_card"),
+    SHOW_PLAYERS_SCORE("show_players_score"),
     SHOW_HAND("show_hand"),
     SEND_MESSAGE("send_message"),
     SHOW_CHAT("show_chat"),
@@ -42,7 +44,6 @@ public enum Instruction {
     SHOW_LOBBY_PLAYER("show_lobby_player"),
     QUIT("quit");
 
-    // linkare con le azioni
     Instruction(String instruction_line) {
     }
 }

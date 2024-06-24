@@ -42,13 +42,68 @@ import java.util.function.BiConsumer;
 
 public class CLI {
 
-    private static final List<Instruction> availableInstructionsPickingCard = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.PICK_CARD, Instruction.SHOW_DECK, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND);
-    private static final List<Instruction> availableInstructionsPlacingCard = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.PLACE_CARD, Instruction.SHOW_FIELD, Instruction.QUIT, Instruction.SHOW_HAND, Instruction.SHOW_DECK);
-    private static final List<Instruction> availableInstructionsSleeping = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.QUIT, Instruction.SHOW_DECK, Instruction.SHOW_HAND, Instruction.SHOW_FIELD);
-    private static final List<Instruction> availableInstructionsLobby = List.of(Instruction.JOIN_LOBBY, Instruction.CREATE_LOBBY, Instruction.QUIT);
-    private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
-    private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(Instruction.START_GAME, Instruction.QUIT, Instruction.SHOW_LOBBY_PLAYER);
-    private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(Instruction.SEND_MESSAGE, Instruction.SHOW_CHAT, Instruction.SELECT_CARD, Instruction.SHOW_HAND, Instruction.SHOW_FIELD, Instruction.QUIT);
+    private static final List<Instruction> availableInstructionsPickingCard = List.of(
+            Instruction.SEND_MESSAGE,
+            Instruction.SHOW_CHAT,
+            Instruction.SHOW_PLAYERS_SCORE,
+            Instruction.SHOW_OBJECTIVE_CARD,
+            Instruction.PICK_CARD,
+            Instruction.SHOW_DECK,
+            Instruction.SHOW_FIELD,
+            Instruction.SHOW_HAND,
+            Instruction.QUIT
+    );
+
+    private static final List<Instruction> availableInstructionsPlacingCard = List.of(
+            Instruction.SEND_MESSAGE,
+            Instruction.SHOW_CHAT,
+            Instruction.SHOW_PLAYERS_SCORE,
+            Instruction.SHOW_OBJECTIVE_CARD,
+            Instruction.PLACE_CARD,
+            Instruction.SHOW_FIELD,
+            Instruction.SHOW_HAND,
+            Instruction.SHOW_DECK,
+            Instruction.QUIT
+    );
+
+    private static final List<Instruction> availableInstructionsSleeping = List.of(
+            Instruction.SEND_MESSAGE,
+            Instruction.SHOW_CHAT,
+            Instruction.SHOW_PLAYERS_SCORE,
+            Instruction.SHOW_OBJECTIVE_CARD,
+            Instruction.SHOW_DECK,
+            Instruction.SHOW_HAND,
+            Instruction.SHOW_FIELD,
+            Instruction.QUIT
+    );
+
+    private static final List<Instruction> availableInstructionsLobby = List.of(
+            Instruction.JOIN_LOBBY,
+            Instruction.CREATE_LOBBY,
+            Instruction.QUIT
+    );
+
+    private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(
+            Instruction.SHOW_LOBBY_PLAYER,
+            Instruction.QUIT
+    );
+
+    private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(
+            Instruction.START_GAME,
+            Instruction.SHOW_LOBBY_PLAYER,
+            Instruction.QUIT
+    );
+
+    private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(
+            Instruction.SEND_MESSAGE,
+            Instruction.SHOW_CHAT,
+            Instruction.SHOW_PLAYERS_SCORE,
+            Instruction.SELECT_CARD,
+            Instruction.SHOW_HAND,
+            Instruction.SHOW_FIELD,
+            Instruction.QUIT
+    );
+
     private final ExecutorService renderExecutor;
     private ThreadInputReader reader;
     private Controller controller;

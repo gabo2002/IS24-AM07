@@ -339,4 +339,12 @@ public class Player implements Serializable {
         return playerGameField;
     }
 
+    /**
+     * Retrieves the pawn associated with the player.
+     * @return The pawn associated with the player.
+     */
+    public Pawn getPlayerPawn() {
+        return playerPawn;
+    }
+
 }
