@@ -85,9 +85,6 @@ public class PlayerViewController {
     private ListView<Parent> playerList;
 
     @FXML
-    private ListView<String> itemsList;
-
-    @FXML
     private TextField chatInput;
 
     @FXML
@@ -107,6 +104,23 @@ public class PlayerViewController {
 
     @FXML
     private Text infoMessage;
+
+    @FXML
+    private Label foglia;
+
+    @FXML
+    private Label fungo;
+
+    @FXML
+    private Label lupo;
+    @FXML
+    private Label boccia;
+    @FXML
+    private Label scroll;
+    @FXML
+    private Label piuma;
+    @FXML
+    private Label farfalla;
 
     private GameCard selectedCard;
 
@@ -156,13 +170,13 @@ public class PlayerViewController {
             }
         }
 
-        try {
-            clientState.getGameModel().getSelf().getPlayerResources().getResources().keySet().forEach(symbol -> {
-                itemsList.getItems().add(symbol.toString() + ": " + clientState.getGameModel().getSelf().getPlayerResources().countOf(symbol));
-            });
-        } catch (IllegalArgumentException e) {
-            System.out.println("No resources in the player's inventory");
-        }
+        foglia.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.GREEN)));
+        fungo.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.RED)));
+        lupo.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.BLUE)));
+        piuma.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.FEATHER)));
+        boccia.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.FLASK)));
+        farfalla.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.PURPLE)));
+
 
         // Retrieve the last 20 messages
         List<ChatMessage> messages = clientState.getGameModel().getSelf().getChat().getMessages();
@@ -412,41 +426,32 @@ public class PlayerViewController {
     private void handleCardClick(MouseEvent event) {
         ImageView source = (ImageView) event.getSource();
 
-        if (source.getProperties().get("RectVisibility").equals(true)) {
-            source.getProperties().put("RectVisibility", false);
+        createdRectangles.forEach(rect -> rect.setVisible(false));
 
-            Stream<Rectangle> nearRectangles = createdRectangles.stream()
-                    .filter(rect -> rect.getLayoutX() == source.getLayoutX() + DELTA_X && rect.getLayoutY() == source.getLayoutY() - DELTA_Y || rect.getLayoutX() == source.getLayoutX() - DELTA_X && rect.getLayoutY() == source.getLayoutY() - DELTA_Y || rect.getLayoutX() == source.getLayoutX() + DELTA_X && rect.getLayoutY() == source.getLayoutY() + DELTA_Y || rect.getLayoutX() == source.getLayoutX() - DELTA_X && rect.getLayoutY() == source.getLayoutY() + DELTA_Y);
+        double x = source.getLayoutX();
+        double y = source.getLayoutY();
 
-            nearRectangles.forEach(rect -> rect.setVisible(false));
+        GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
+        GameFieldPosition topRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
+        GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
+        GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
 
-        } else {
-            source.getProperties().put("RectVisibility", true);
-            double x = source.getLayoutX();
-            double y = source.getLayoutY();
+        Side side = new SideBack(0, null, null, Symbol.GREEN);
 
-            GameFieldPosition topLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
-            GameFieldPosition topRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y + DELTA_Y) / (DELTA_Y)));
-            GameFieldPosition bottomLeft = new GameFieldPosition((int) ((x - DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
-            GameFieldPosition bottomRight = new GameFieldPosition((int) ((x + DELTA_X) / (DELTA_X)), (int) ((y - DELTA_Y) / (DELTA_Y)));
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, topLeft)) {
+            createNewRectangle(x - DELTA_X, y + DELTA_Y);
+        }
 
-            Side side = new SideBack(0, null, null, Symbol.GREEN);
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, topRight)) {
+            createNewRectangle(x + DELTA_X, y + DELTA_Y);
+        }
 
-            if (clientState.getGameModel().getSelf().canBePlacedAt(side, topLeft)) {
-                createNewRectangle(x - DELTA_X, y + DELTA_Y);
-            }
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomLeft)) {
+            createNewRectangle(x - DELTA_X, y - DELTA_Y);
+        }
 
-            if (clientState.getGameModel().getSelf().canBePlacedAt(side, topRight)) {
-                createNewRectangle(x + DELTA_X, y + DELTA_Y);
-            }
-
-            if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomLeft)) {
-                createNewRectangle(x - DELTA_X, y - DELTA_Y);
-            }
-
-            if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomRight)) {
-                createNewRectangle(x + DELTA_X, y - DELTA_Y);
-            }
+        if (clientState.getGameModel().getSelf().canBePlacedAt(side, bottomRight)) {
+            createNewRectangle(x + DELTA_X, y - DELTA_Y);
         }
     }
 

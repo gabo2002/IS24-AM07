@@ -2,21 +2,18 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
-
+<SplitPane dividerPositions="0.5" maxHeight="1700.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
     <items>
-
         <!-- Parte sinistra -->
-
-        <ScrollPane maxWidth="505.0" prefWidth="505.0" minWidth="505" style="-fx-background-color: #433A3F;" fitToWidth="true" hbarPolicy="NEVER">
-
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="1700.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
             <!-- Box verticale -->
-            <VBox maxHeight="1402.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+            <VBox maxHeight="1439.0" maxWidth="505.0" minWidth="505" prefHeight="1439.0" prefWidth="505.0" style="-fx-background-color: #433A3F;">
                 <!-- Sezione Obejctive Cards -->
-                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Objectives" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -28,7 +25,7 @@
                 </HBox>
                 <HBox fx:id="objectiveCardsContainer" spacing="10.0">
                     <padding>
-                        <Insets left="10.0" />
+                        <Insets left="15.0" />
                     </padding>
                 </HBox>
                 <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
@@ -43,8 +40,9 @@
                 </HBox>
                 <HBox fx:id="playerHand" spacing="10.0">
                     <padding>
-                        <Insets left="10.0" />
-                    </padding></HBox>
+                        <Insets left="15.0" />
+                    </padding>
+                </HBox>
 
                 <!-- Sezione Resource Deck -->
                 <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
@@ -59,8 +57,9 @@
                 </HBox>
                 <HBox fx:id="resourceDeckContainer" spacing="10.0">
                     <padding>
-                        <Insets left="10.0" />
-                    </padding></HBox>
+                        <Insets left="15.0" />
+                    </padding>
+                </HBox>
 
                 <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="490.0" text="Gold Deck" textFill="WHITE">
@@ -74,14 +73,15 @@
                 </HBox>
                 <HBox fx:id="goldDeckContainer" spacing="10.0">
                     <padding>
-                        <Insets left="10.0" />
-                    </padding></HBox>
+                        <Insets left="15.0" />
+                    </padding>
+                </HBox>
 
                 <Button fx:id="confirmDeck" maxWidth="505.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false">
                     <VBox.margin>
-                        <Insets top="15.0" bottom="10" />
-                    </VBox.margin></Button>
-
+                        <Insets bottom="10" top="15.0" />
+                    </VBox.margin>
+                </Button>
 
                 <!-- Sezione players -->
                 <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
@@ -92,10 +92,10 @@
                     </Label>
                 </HBox>
                 <!-- Lista players -->
-                <ListView fx:id="playerList" onMouseClicked="#onPlayerClicked" maxWidth="490" prefWidth="490" style="-fx-background-color: transparent;" styleClass="noExtraSpace"/>
+                <ListView id="playerlist" fx:id="playerList" maxWidth="490" onMouseClicked="#onPlayerClicked" prefWidth="490" stylesheets="@../css/noEmptySpace.css" VBox.vgrow="NEVER" />
 
                 <!-- Sezione chat -->
-                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
                     <Label alignment="CENTER" prefHeight="42.0" prefWidth="490.0" text="Chat" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -106,16 +106,22 @@
                     </VBox.margin>
                 </HBox>
                 <VBox spacing="10">
-                    <TextArea fx:id="chatArea" editable="false" maxWidth="505.0" prefHeight="122.0" prefWidth="505.0" />
-                    <VBox spacing="10">
-                        <TextField fx:id="chatInput" prefWidth="505.0" promptText="Write here" HBox.hgrow="ALWAYS">
+                    <TextArea fx:id="chatArea" editable="false" VBox.vgrow="NEVER">
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                    </TextArea>
+                    <VBox spacing="10" VBox.vgrow="NEVER">
+                        <TextField fx:id="chatInput" prefWidth="505.0" promptText="Write here" HBox.hgrow="NEVER">
                             <font>
                                 <Font name="Arial" size="12.0" />
-                            </font></TextField>
+                            </font>
+                        </TextField>
                         <Button fx:id="sendButton" maxWidth="505.0" onAction="#sendChatMessage" prefHeight="23.0" prefWidth="505.0" text="Send">
                             <font>
                                 <Font name="Arial" size="12.0" />
-                            </font></Button>
+                            </font>
+                        </Button>
                     </VBox>
                 </VBox>
 
@@ -131,14 +137,97 @@
                     </VBox.margin>
                 </HBox>
 
-                <!-- Lista risorse -->
-                <ListView fx:id="itemsList" maxHeight="150.0" style="-fx-background-color: transparent;" styleClass="noExtraSpace"/>
+                <HBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../foglia.png" />
+                                </image>
+                            </ImageView>
+                            <Label fx:id="foglia" text="0" textFill="WHITE" alignment="CENTER"></Label >
 
+                      <HBox.margin>
+                         <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                      </HBox.margin>
+                    </VBox>
+
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../fungo.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="fungo" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../lupo.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="lupo" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../farfalla.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="farfalla" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../boccia.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="boccia" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../piuma.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="piuma" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../scroll.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="scroll" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                </HBox>
             </VBox>
-
         </ScrollPane>
 
-        <VBox alignment="CENTER">
+        <VBox alignment="CENTER" maxHeight="1700.0">
             <!-- Sezione fissa per messaggi -->
             <HBox alignment="CENTER" style="-fx-background-color: lightcoral; -fx-padding: 10;">
                 <Text fx:id="infoMessage" />
@@ -146,13 +235,9 @@
             <!-- Parte destra -->
             <ScrollPane fx:id="scrollPane" hvalue="0.5" prefHeight="1402.0" prefWidth="622.0" style="-fx-background-color: #95785F" vvalue="0.5">
                 <AnchorPane maxHeight="3000" maxWidth="3000" minHeight="2000" minWidth="2000" prefHeight="1019.0" prefWidth="620.0" style="-fx-background-color: #a78d76">
-                    <Pane fx:id="rightPane" layoutX="950" layoutY="925">
-                    </Pane>
+                    <Pane fx:id="rightPane" layoutX="950" layoutY="925" />
                 </AnchorPane>
             </ScrollPane>
-
         </VBox>
-
-
     </items>
 </SplitPane>
