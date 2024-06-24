@@ -66,4 +66,17 @@ public class IdentityManager {
         return identity;
     }
 
+    /**
+     * Clear the identity of the client by deleting the file "identity.txt".
+     */
+    public static void clearIdentity() {
+        Path identityPath = Paths.get("identity.txt");
+
+        try {
+            Files.deleteIfExists(identityPath);
+        } catch (Exception e) {
+            logger.error(e);
+        }
+    }
+
 }

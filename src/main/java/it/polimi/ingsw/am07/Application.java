@@ -3,6 +3,7 @@ package it.polimi.ingsw.am07;
 import it.polimi.ingsw.am07.client.cli.CLI;
 import it.polimi.ingsw.am07.client.gui.GUI;
 import it.polimi.ingsw.am07.server.Server;
+import it.polimi.ingsw.am07.utils.IdentityManager;
 
 public class Application {
 
@@ -25,6 +26,7 @@ public class Application {
 
         if (isIDE) {
             System.setProperty("org.jline.terminal.dumb", "true");
+            IdentityManager.clearIdentity();
         }
 
         switch (option) {
