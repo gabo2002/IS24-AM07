@@ -48,10 +48,10 @@
     </Label>
     <ListView fx:id="lobby_list" orientation="HORIZONTAL" prefHeight="236.0" prefWidth="800.0" style="-fx-background-color: transparent;">
         <VBox.margin>
-            <Insets bottom="20.0" top="20.0" />
+            <Insets bottom="20.0" top="20.0" left="20.0"/>
         </VBox.margin>
     </ListView>
-    <Button fx:id="create_lobby_btn" mnemonicParsing="false" onAction="#onLobbyBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="Crea lobby" textFill="WHITE">
+    <Button fx:id="create_lobby_btn" mnemonicParsing="false" onAction="#onLobbyBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="Create lobby" textFill="WHITE">
         <font>
             <Font name="Segoe UI Bold" size="12.0" />
         </font>
@@ -62,7 +62,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </Button>
-    <Button fx:id="reconnect" mnemonicParsing="false" onAction="#onReconnectBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="Riconnetti" textFill="WHITE">
+    <Button fx:id="reconnect" mnemonicParsing="false" onAction="#onReconnectBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #027BFE; -fx-background-radius: 15;" text="Reconnect" textFill="WHITE">
         <font>
             <Font name="Segoe UI Bold" size="12.0" />
         </font>

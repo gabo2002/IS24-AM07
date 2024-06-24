@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <SplitPane dividerPositions="0.5" maxHeight="1700.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
     <items>
         <!-- Parte sinistra -->
@@ -77,10 +78,16 @@
                     </padding>
                 </HBox>
 
-                <Button fx:id="confirmDeck" maxWidth="505.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false">
+                <Button fx:id="confirmDeck" maxWidth="505.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false" style="-fx-background-color: #8f788c; -fx-background-radius: 8;">
                     <VBox.margin>
                         <Insets bottom="10" top="15.0" />
                     </VBox.margin>
+                    <font>
+                        <Font name="Arial Bold" size="16.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </Button>
 
                 <!-- Sezione players -->
@@ -92,7 +99,7 @@
                     </Label>
                 </HBox>
                 <!-- Lista players -->
-                <ListView id="playerlist" fx:id="playerList" maxWidth="490" onMouseClicked="#onPlayerClicked" prefWidth="490" stylesheets="@../css/noEmptySpace.css" VBox.vgrow="NEVER" />
+                <ListView id="playerlist" fx:id="playerList" maxWidth="490" onMouseClicked="#onPlayerClicked" prefWidth="490" stylesheets="@../css/noExtraSpace.css" VBox.vgrow="NEVER" />
 
                 <!-- Sezione chat -->
                 <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">

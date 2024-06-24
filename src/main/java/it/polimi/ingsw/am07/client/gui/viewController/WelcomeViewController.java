@@ -67,12 +67,14 @@ public class WelcomeViewController {
         Parent selectedItem = lobby_list.getSelectionModel().getSelectedItem();
 
         // Retrieve the Lobby object from user data
-        Lobby lobby = (Lobby) selectedItem.getUserData();
+        if(selectedItem != null) {
+            Lobby lobby = (Lobby) selectedItem.getUserData();
 
-        clientState.setLobbyModel(lobby);
-        clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
+            clientState.setLobbyModel(lobby);
+            clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
+        }
 
-        System.out.println("Clicked Lobby: " + lobby);
+        // System.out.println("Clicked Lobby: " + lobby);
 
         // Now you have access to the Lobby object and can perform further actions
     }
