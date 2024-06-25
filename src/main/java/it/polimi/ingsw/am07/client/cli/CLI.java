@@ -25,8 +25,12 @@ package it.polimi.ingsw.am07.client.cli;
 
 import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
 import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
+import it.polimi.ingsw.am07.exceptions.IllegalGameStateException;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -202,6 +206,19 @@ public class CLI {
             case WAITING_FOR_GAME_START:
                 System.out.println("Waiting for game to start");
                 renderState(clientState, List.of(Instruction.QUIT));
+                break;
+            case GAME_ENDED:
+                System.out.println("Game ended");
+                try {
+                    List<Player> winners = clientState.getGameModel().getWinners();
+                    System.out.println("Winners:");
+                    for (Player winner : winners) {
+                        System.out.println(CLIPawnColor.pawnToColor(winner.getPlayerPawn()) + winner.getNickname() + CLIColor.RESET.getCode());
+                    }
+                } catch (IllegalGameStateException e) {
+                    throw new RuntimeException(e);
+                }
+                System.exit(0);
                 break;
             default:
                 System.out.println("Invalid state");
