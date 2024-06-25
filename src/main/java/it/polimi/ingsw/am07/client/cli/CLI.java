@@ -104,7 +104,6 @@ public class CLI {
             Instruction.SHOW_CHAT,
             Instruction.SHOW_PLAYERS_SCORE,
             Instruction.SELECT_CARD,
-            Instruction.SHOW_RESOURCES,
             Instruction.SHOW_HAND,
             Instruction.SHOW_FIELD,
             Instruction.QUIT
