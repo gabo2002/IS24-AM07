@@ -350,16 +350,6 @@ public enum Instruction {
     }),
     SEND_MESSAGE("send_message", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
-        List<String> prompt = List.of("Send message to everyone", "Send message to a specific player");
-        SelectableMenu<String> menu = new SelectableMenu<>(prompt, scanner);
-        ChatMessage message = null;
-        try {
-            menu.show();
-        } catch (InterruptedException e) {
-            return;
-        }
-        int choice = menu.getSelectedOptionIndex();
-
         System.out.println("Insert the message you want to send:");
         String stringMessage;
         try {
@@ -368,20 +358,7 @@ public enum Instruction {
             return;
         }
 
-        if (choice == 0) {
-            message = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(stringMessage);
-        } else {
-            List<Player> players = clientState.getGameModel().getPlayers();
-            List<String> playerNicknames = players.stream().map(Player::getNickname).toList();
-            SelectableMenu<String> playerMenu = new SelectableMenu<>(playerNicknames, scanner);
-            try {
-                playerMenu.show();
-            } catch (InterruptedException e) {
-                return;
-            }
-            String playerNickname = playerMenu.getSelectedStringOption();
-            message = clientState.getGameModel().getSelf().getChat().sendPrivateMessage(playerNickname, stringMessage);
-        }
+        ChatMessage message = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(stringMessage);
 
         Action action = new SendMessageAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), message);
         dispatcher.execute(action);
