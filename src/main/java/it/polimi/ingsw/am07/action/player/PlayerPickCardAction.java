@@ -90,6 +90,14 @@ public class PlayerPickCardAction extends PlayerAction {
             return;
         }
 
+        try {
+            state.getGameModel().getPlayerByNickname(playerNickname).addPlayableCard(pickedCard);
+            state.getGameModel().popCard(pickedCard);
+            state.getGameModel().incrementTurn();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
         // Update the client state
         if (state.getGameModel().getGameState() == GameState.ENDED) {
             state.setPlayerState(PlayerState.GAME_ENDED);
@@ -97,14 +105,6 @@ public class PlayerPickCardAction extends PlayerAction {
             state.setPlayerState(PlayerState.SLEEPING);
         } else if (nextPlayer.equals(state.getNickname())) {
             state.setPlayerState(PlayerState.PLACING_CARD);
-        }
-
-        try {
-            state.getGameModel().getPlayerByNickname(playerNickname).addPlayableCard(pickedCard);
-            state.getGameModel().popCard(pickedCard);
-            state.getGameModel().incrementTurn();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
 
         state.notifyGameModelUpdate();
