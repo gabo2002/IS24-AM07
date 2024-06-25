@@ -189,13 +189,12 @@ public enum Instruction {
         int selectedCardIndex, row = 0, column = 0;
         boolean validPosition = false;
 
+        for (GameCard card : cards) {
+            sides.add(card.front());
+            sides.add(card.back());
+        }
+
         while (!validPosition) {
-
-            for (GameCard card : cards) {
-                sides.add(card.front());
-                sides.add(card.back());
-            }
-
             SelectableMenu<Side> menu = new SelectableMenu<>(sides.stream().toList(), scanner);
             try {
                 menu.show();
