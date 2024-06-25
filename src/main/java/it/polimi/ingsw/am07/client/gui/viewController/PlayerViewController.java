@@ -39,6 +39,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.reactive.Controller;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,6 +54,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -64,7 +66,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 
 public class PlayerViewController {
@@ -79,8 +80,7 @@ public class PlayerViewController {
     public HBox objectiveCardsContainer;
     @FXML
     public Button confirmDeck;
-    @FXML
-    private ScrollPane scrollPane;
+
     @FXML
     private ListView<Parent> playerList;
 
@@ -121,6 +121,12 @@ public class PlayerViewController {
     private Label flask;
     @FXML
     private Label purple;
+
+    @FXML
+    private ScrollPane scrollLeft;
+
+    @FXML
+    private VBox contentBox;
 
     private GameCard selectedCard;
 
@@ -178,7 +184,6 @@ public class PlayerViewController {
         purple.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.PURPLE)));
         scroll.setText(String.valueOf(clientState.getGameModel().getSelf().getPlayerResources().countOf(Symbol.SCROLL)));
 
-
         // Retrieve the last 20 messages
         List<ChatMessage> messages = clientState.getGameModel().getSelf().getChat().getMessages();
         List<String> messageRepresentation = new ArrayList<>(messages.size());
@@ -204,6 +209,13 @@ public class PlayerViewController {
         updateHandView(playerHand, hand);
 
         updateInfoMessage("Sei in: " + clientState.getPlayerState());
+
+        Platform.runLater(() -> {
+            contentBox.layout();
+            scrollLeft.setVvalue(0.0);
+
+            Platform.runLater(() -> scrollLeft.setVvalue(0.0));
+        });
     }
 
     /**
