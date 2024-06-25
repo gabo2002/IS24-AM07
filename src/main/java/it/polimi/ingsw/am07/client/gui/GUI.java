@@ -216,6 +216,8 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 WinnerViewController winnerViewController = loader.getController();
                 winnerViewController.init(state, controller);
 
+                scene.getStylesheets().add(Objects.requireNonNull(Application.class.getResource("/it/polimi/ingsw/am07/css/winners.css")).toExternalForm());
+
                 stage.setScene(scene);
                 stage.show();
                 break;
