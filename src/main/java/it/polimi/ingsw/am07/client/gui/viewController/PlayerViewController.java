@@ -238,11 +238,18 @@ public class PlayerViewController {
             Player player = (Player) selectedPlayer.getUserData();
             clearGameField();
             render(player);
-            if (player.equals(clientState.getGameModel().getSelf())) {
+            if (player.equals(clientState.getGameModel().getSelf()) && clientState.getPlayerState() == PlayerState.PLACING_CARD) {
                 updateInfoMessage("It's your turn");
                 errorContainer.setBackground(Background.fill(Color.rgb(249, 222, 201)));
                 return;
             }
+
+            if (player.equals(clientState.getGameModel().getSelf())) {
+                updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
+                errorContainer.setBackground(Background.fill(Color.rgb(249, 222, 201)));
+                return;
+            }
+
             updateInfoMessage("You are watching " + player.getNickname());
             errorContainer.setBackground(Background.fill(Color.rgb(249, 222, 201)));
         }
