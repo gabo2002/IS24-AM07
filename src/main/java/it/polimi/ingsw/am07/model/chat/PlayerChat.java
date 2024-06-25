@@ -54,7 +54,7 @@ public final class PlayerChat implements Serializable {
      * @param nickname the nickname of the player
      */
     public PlayerChat(List<String> players, String nickname) {
-        this.players = players;
+        this.players = new ArrayList<>(players);
         this.nickname = nickname;
         messages = new ArrayList<>();
     }
@@ -77,6 +77,10 @@ public final class PlayerChat implements Serializable {
      * @return the chat message
      */
     public ChatMessage sendPrivateMessage(String receiver, String message) {
+        if (!players.contains(receiver)) {
+            throw new IllegalArgumentException("Player not found");
+        }
+
         return new ChatMessage(nickname, List.of(receiver), message);
     }
 
@@ -114,6 +118,10 @@ public final class PlayerChat implements Serializable {
      * @param player the player to add
      */
     public void addPlayer(String player) {
+        if (players.contains(player)) {
+            return;
+        }
+
         players.add(player);
     }
 
@@ -135,6 +143,8 @@ public final class PlayerChat implements Serializable {
                 return;
             }
         }
+
+        messages.addFirst(message);
     }
 
 }
