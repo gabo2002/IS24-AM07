@@ -52,6 +52,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -80,6 +81,8 @@ public class PlayerViewController {
     public HBox objectiveCardsContainer;
     @FXML
     public Button confirmDeck;
+    @FXML
+    public HBox errorContainer;
 
     @FXML
     private ListView<Parent> playerList;
@@ -208,7 +211,12 @@ public class PlayerViewController {
 
         updateHandView(playerHand, hand);
 
-        updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
+        updateInfoMessage("It's your turn");
+
+        if(clientState.getGameModel().getPlayingPlayer() != clientState.getGameModel().getSelf()) {
+            updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
+        }
+
 
         Platform.runLater(() -> {
             contentBox.layout();
@@ -231,10 +239,12 @@ public class PlayerViewController {
             clearGameField();
             render(player);
             if (player.equals(clientState.getGameModel().getSelf())) {
-                updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
+                updateInfoMessage("It's your turn");
+                errorContainer.setBackground(Background.fill(Color.rgb(249, 222, 201)));
                 return;
             }
             updateInfoMessage("You are watching " + player.getNickname());
+            errorContainer.setBackground(Background.fill(Color.rgb(249, 222, 201)));
         }
     }
 
@@ -247,11 +257,13 @@ public class PlayerViewController {
     private void onConfirmButtonClicked(ActionEvent event) {
         if (clientState.getPlayerState() != PlayerState.PICKING_CARD && clientState.getPlayerState() != PlayerState.PLACING_CARD) {
             updateInfoMessage("It's not your turn");
+            errorContainer.setBackground(Background.fill(Color.rgb(240, 128, 128)));
             return;
         }
 
         if (clientState.getPlayerState() != PlayerState.PICKING_CARD) {
             updateInfoMessage("You have to place a card first");
+            errorContainer.setBackground(Background.fill(Color.rgb(240, 128, 128)));
             return;
         }
 
@@ -524,10 +536,12 @@ public class PlayerViewController {
         rect.setOnDragDropped(event -> {
             if (clientState.getPlayerState() == PlayerState.PICKING_CARD) {
                 updateInfoMessage("Pick a card");
+                errorContainer.setBackground(Background.fill(Color.rgb(240, 128, 128)));
                 return;
             }
             if (clientState.getPlayerState() != PlayerState.PLACING_CARD) {
                 updateInfoMessage("It's not your turn");
+                errorContainer.setBackground(Background.fill(Color.rgb(240, 128, 128)));
                 return;
             }
 

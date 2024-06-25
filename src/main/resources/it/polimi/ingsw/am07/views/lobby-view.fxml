@@ -60,7 +60,7 @@
         <VBox.margin>
             <Insets />
         </VBox.margin>
-        <Button fx:id="exit_btn" alignment="CENTER" mnemonicParsing="false" onAction="#onQuitBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #E1403D; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" text="Esci">
+        <Button fx:id="exit_btn" alignment="CENTER" mnemonicParsing="false" onAction="#onQuitBtnClick" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #E1403D; -fx-background-radius: 12; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: 700;" text="Exit">
             <VBox.margin>
                 <Insets />
             </VBox.margin>
