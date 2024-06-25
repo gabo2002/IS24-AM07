@@ -104,10 +104,11 @@ public class PlayerPickCardAction extends PlayerAction {
             state.setPlayerState(PlayerState.GAME_ENDED);
 
             // evaluate the objective score for each player
-            Player player = state.getGameModel().getSelf();
-            player.evaluateObjectiveScore(player.getPlayerObjectiveCard());
-            player.evaluateObjectiveScore(state.getGameModel().getCommonObjectives()[0]);
-            player.evaluateObjectiveScore(state.getGameModel().getCommonObjectives()[1]);
+            for (Player player : state.getGameModel().getPlayers()) {
+                player.evaluateObjectiveScore(player.getPlayerObjectiveCard());
+                player.evaluateObjectiveScore(state.getGameModel().getCommonObjectives()[0]);
+                player.evaluateObjectiveScore(state.getGameModel().getCommonObjectives()[1]);
+            }
         } else if (state.getNickname().equals(playerNickname)) {
             state.setPlayerState(PlayerState.SLEEPING);
         } else if (nextPlayer.equals(state.getNickname())) {
