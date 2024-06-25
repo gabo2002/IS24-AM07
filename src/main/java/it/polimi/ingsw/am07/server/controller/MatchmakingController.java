@@ -59,7 +59,7 @@ public class MatchmakingController extends Dispatcher {
     }
 
     @Override
-    public void registerNewListener(Listener listener) {
+    public synchronized void registerNewListener(Listener listener) {
         LOGGER.debug("Registering new listener " + listener + " in " + Thread.currentThread().getName());
 
         listeners.add(listener);
@@ -68,7 +68,7 @@ public class MatchmakingController extends Dispatcher {
     }
 
     @Override
-    public void removeListener(Listener listener) {
+    public synchronized void removeListener(Listener listener) {
         LOGGER.debug("Removing listener " + listener + " in " + Thread.currentThread().getName());
 
         listeners.remove(listener);

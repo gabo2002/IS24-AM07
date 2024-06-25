@@ -111,14 +111,16 @@ public class ServerDispatcher extends Dispatcher {
      * @param listener the listener to register
      */
     @Override
-    public synchronized void registerNewListener(Listener listener) {
+    public void registerNewListener(Listener listener) {
         LOGGER.debug("Registering new listener " + listener.getIdentity());
 
         if (listener.getIdentity() == null) {
             LOGGER.error("Listener identity is null. Dropping connection.");
         }
 
-        listenerDispatchers.put(listener.getIdentity(), matchmakingController);
+        synchronized (this) {
+            listenerDispatchers.put(listener.getIdentity(), matchmakingController);
+        }
 
         new Thread(() -> matchmakingController.registerNewListener(listener)).start();
     }
