@@ -31,6 +31,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Represents the game deck.
@@ -143,11 +144,11 @@ public record Deck(
             return;
         }
 
-        if (popVisibleCard(card, popRandomResCard(), visibleResCards)) {
+        if (popVisibleCard(card, this::popRandomResCard, visibleResCards)) {
             return;
         }
 
-        if (popVisibleCard(card, popRandomGoldCard(), visibleGoldCards)) {
+        if (popVisibleCard(card, this::popRandomGoldCard, visibleGoldCards)) {
             return;
         }
 
@@ -181,10 +182,10 @@ public record Deck(
      * @param target     the array from which to pop the card
      * @return true if the card was found and popped, false otherwise
      */
-    private boolean popVisibleCard(GameCard card, GameCard substitute, GameCard[] target) {
+    private boolean popVisibleCard(GameCard card, Supplier<GameCard> substitute, GameCard[] target) {
         for (int i = 0; i < target.length; i++) {
             if (target[i].equals(card)) {
-                target[i] = substitute;
+                target[i] = substitute.get();
 
                 return true;
             }
