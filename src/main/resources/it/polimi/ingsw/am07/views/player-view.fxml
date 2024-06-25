@@ -8,11 +8,97 @@
 
 <?import javafx.scene.Cursor?>
 <SplitPane dividerPositions="0.5" maxHeight="1700.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
-    <items>
         <!-- Parte sinistra -->
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="1700.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+        <ScrollPane fx:id="scrollLeft" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1700.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
             <!-- Box verticale -->
-            <VBox maxHeight="1439.0" maxWidth="505.0" minWidth="505" prefHeight="1439.0" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+            <VBox fx:id="contentBox" maxHeight="1439.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+                <HBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../foglia.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="green" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../fungo.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="red" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../lupo.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="blue" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../farfalla.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="purple" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../boccia.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="flask" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../piuma.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="feather" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../scroll.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="scroll" text="0" textFill="WHITE" alignment="CENTER"></Label >
+
+                        <HBox.margin>
+                            <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                        </HBox.margin>
+                    </VBox>
+                </HBox>
                 <!-- Sezione Obejctive Cards -->
                 <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Objectives" textFill="WHITE">
@@ -21,7 +107,7 @@
                         </font>
                     </Label>
                     <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="5.0" top="5.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox fx:id="objectiveCardsContainer" spacing="10.0">
@@ -36,7 +122,7 @@
                         </font>
                     </Label>
                     <VBox.margin>
-                        <Insets bottom="10.0" top="15.0" />
+                        <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox fx:id="playerHand" spacing="10.0">
@@ -53,7 +139,7 @@
                         </font>
                     </Label>
                     <VBox.margin>
-                        <Insets bottom="10.0" top="15.0" />
+                        <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox fx:id="resourceDeckContainer" spacing="10.0">
@@ -69,7 +155,7 @@
                         </font>
                     </Label>
                     <VBox.margin>
-                        <Insets bottom="10.0" top="15.0" />
+                        <Insets bottom="10.0" top="10.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox fx:id="goldDeckContainer" spacing="10.0">
@@ -137,106 +223,6 @@
                         </VBox.margin>
                     </VBox>
                 </VBox>
-
-                <!-- Sezione players -->
-                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="378.0" style="-fx-background-color: #584B57;">
-                    <Label alignment="CENTER" prefHeight="35.0" prefWidth="505.0" text="Resources" textFill="WHITE">
-                        <font>
-                            <Font name="Arial Bold" size="16.0" />
-                        </font>
-                    </Label>
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                    </VBox.margin>
-                </HBox>
-
-                <HBox>
-                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
-                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                <image>
-                                    <Image url="@../foglia.png" />
-                                </image>
-                            </ImageView>
-                            <Label fx:id="green" text="0" textFill="WHITE" alignment="CENTER"></Label >
-
-                      <HBox.margin>
-                         <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
-                      </HBox.margin>
-                    </VBox>
-
-                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../fungo.png" />
-                            </image>
-                        </ImageView>
-                        <Label fx:id="red" text="0" textFill="WHITE" alignment="CENTER"></Label >
-
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                        </HBox.margin>
-                    </VBox>
-                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../lupo.png" />
-                            </image>
-                        </ImageView>
-                        <Label fx:id="blue" text="0" textFill="WHITE" alignment="CENTER"></Label >
-
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                        </HBox.margin>
-                    </VBox>
-                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../farfalla.png" />
-                            </image>
-                        </ImageView>
-                        <Label fx:id="purple" text="0" textFill="WHITE" alignment="CENTER"></Label >
-
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                        </HBox.margin>
-                    </VBox>
-                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../boccia.png" />
-                            </image>
-                        </ImageView>
-                        <Label fx:id="flask" text="0" textFill="WHITE" alignment="CENTER"></Label >
-
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                        </HBox.margin>
-                    </VBox>
-                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../piuma.png" />
-                            </image>
-                        </ImageView>
-                        <Label fx:id="feather" text="0" textFill="WHITE" alignment="CENTER"></Label >
-
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                        </HBox.margin>
-                    </VBox>
-                    <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../scroll.png" />
-                            </image>
-                        </ImageView>
-                        <Label fx:id="scroll" text="0" textFill="WHITE" alignment="CENTER"></Label >
-
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                        </HBox.margin>
-                    </VBox>
-                </HBox>
             </VBox>
         </ScrollPane>
 
@@ -252,5 +238,4 @@
                 </AnchorPane>
             </ScrollPane>
         </VBox>
-    </items>
 </SplitPane>
