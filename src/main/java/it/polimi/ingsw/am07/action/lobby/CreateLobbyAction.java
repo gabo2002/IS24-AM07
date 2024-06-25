@@ -86,11 +86,6 @@ public class CreateLobbyAction extends PlayerAction {
         state.notifyGameModelUpdate();
     }
 
-    @Override
-    public String toString() {
-        return "CreateLobbyAction Packet";
-    }
-
     /**
      * Set a reference to the lobby created by the player
      *

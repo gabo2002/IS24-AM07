@@ -30,8 +30,8 @@ import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.IdentityManager;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
-import it.polimi.ingsw.am07.utils.cli.SelectableMenu;
-import it.polimi.ingsw.am07.utils.cli.ThreadInputReader;
+import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
+import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 
 import java.util.List;
 import java.util.Map;

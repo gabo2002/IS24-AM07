@@ -77,9 +77,4 @@ public class GameStartAction extends PlayerAction {
         }
     }
 
-    @Override
-    public String toString() {
-        return "GameStartAction NetworkPacket";
-    }
-
 }

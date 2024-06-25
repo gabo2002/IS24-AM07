@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package it.polimi.ingsw.am07.utils.cli;
+package it.polimi.ingsw.am07.client.cli.input;
 
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;

@@ -23,7 +23,7 @@
 
 package it.polimi.ingsw.am07.model.game;
 
-import it.polimi.ingsw.am07.chat.PlayerChat;
+import it.polimi.ingsw.am07.model.chat.PlayerChat;
 import it.polimi.ingsw.am07.exceptions.IllegalGamePositionException;
 import it.polimi.ingsw.am07.exceptions.IllegalPlacementException;
 import it.polimi.ingsw.am07.model.game.card.GameCard;

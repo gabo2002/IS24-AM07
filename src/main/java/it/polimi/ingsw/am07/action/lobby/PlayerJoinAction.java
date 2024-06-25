@@ -76,8 +76,4 @@ public class PlayerJoinAction extends PlayerAction {
         state.notifyGameModelUpdate();
     }
 
-    @Override
-    public String toString() {
-        return "PlayerJoinAction";
-    }
 }

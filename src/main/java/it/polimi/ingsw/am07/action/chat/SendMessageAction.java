@@ -24,7 +24,7 @@
 package it.polimi.ingsw.am07.action.chat;
 
 import it.polimi.ingsw.am07.action.PlayerAction;
-import it.polimi.ingsw.am07.chat.ChatMessage;
+import it.polimi.ingsw.am07.model.chat.ChatMessage;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Game;
 
@@ -73,10 +73,4 @@ public class SendMessageAction extends PlayerAction {
         clientState.notifyGameModelUpdate();
     }
 
-    @Override
-    public String toString() {
-        return "SendMessageAction{" +
-                "message=" + message +
-                '}';
-    }
 }

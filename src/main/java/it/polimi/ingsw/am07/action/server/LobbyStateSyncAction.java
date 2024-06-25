@@ -44,6 +44,7 @@ public class LobbyStateSyncAction extends ServerAction {
      */
     public LobbyStateSyncAction(Lobby lobby) {
         this.lobby = lobby;
+        setIdentity(getClass().getSimpleName());
     }
 
     /**
@@ -64,16 +65,6 @@ public class LobbyStateSyncAction extends ServerAction {
     public void reflect(ClientState clientState) {
         clientState.setLobbyModel(lobby);
         clientState.notifyGameModelUpdate();
-    }
-
-    /**
-     * Get the identity of the client that sent the action.
-     *
-     * @return the identity
-     */
-    @Override
-    public String getIdentity() {
-        return getClass().getSimpleName();
     }
 
 }

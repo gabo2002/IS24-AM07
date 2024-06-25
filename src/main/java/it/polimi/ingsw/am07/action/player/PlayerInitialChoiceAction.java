@@ -151,11 +151,4 @@ public class PlayerInitialChoiceAction extends PlayerAction {
         state.notifyGameModelUpdate();
     }
 
-    @Override
-    public String toString() {
-        return "PlayerInitialChoiceAction{" +
-                "selectedCard=" + selectedCard +
-                ", starterSide=" + starterSide +
-                '}';
-    }
 }

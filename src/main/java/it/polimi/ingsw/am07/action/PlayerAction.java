@@ -69,12 +69,4 @@ public abstract class PlayerAction extends Action {
         return playerNickname;
     }
 
-    /**
-     * Set the identity of the action.
-     */
-    @Override
-    public void setIdentity(String identity) {
-        super.setIdentity(identity);
-    }
-
 }

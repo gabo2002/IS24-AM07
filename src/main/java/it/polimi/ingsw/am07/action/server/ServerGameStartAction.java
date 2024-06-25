@@ -70,10 +70,4 @@ public class ServerGameStartAction extends ServerAction {
         state.notifyGameModelUpdate();
     }
 
-    @Override
-    public String toString() {
-        return "GameStateStartAction{" +
-                "game=" + game +
-                '}';
-    }
 }

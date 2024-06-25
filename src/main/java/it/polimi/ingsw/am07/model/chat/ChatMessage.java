@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.chat;
+package it.polimi.ingsw.am07.model.chat;
 
 import java.io.Serializable;
 import java.util.Date;

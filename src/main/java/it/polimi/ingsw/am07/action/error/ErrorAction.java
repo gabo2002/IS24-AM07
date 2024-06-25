@@ -62,5 +62,4 @@ public class ErrorAction extends Action {
         clientState.notifyGameModelUpdate();
     }
 
-
 }
