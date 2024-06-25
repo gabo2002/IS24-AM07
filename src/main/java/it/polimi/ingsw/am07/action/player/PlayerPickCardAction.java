@@ -28,6 +28,7 @@ import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.GameState;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 
 /**
@@ -101,6 +102,12 @@ public class PlayerPickCardAction extends PlayerAction {
         // Update the client state
         if (state.getGameModel().getGameState() == GameState.ENDED) {
             state.setPlayerState(PlayerState.GAME_ENDED);
+
+            // evaluate the objective score for each player
+            Player player = state.getGameModel().getSelf();
+            player.evaluateObjectiveScore(player.getPlayerObjectiveCard());
+            player.evaluateObjectiveScore(state.getGameModel().getCommonObjectives()[0]);
+            player.evaluateObjectiveScore(state.getGameModel().getCommonObjectives()[1]);
         } else if (state.getNickname().equals(playerNickname)) {
             state.setPlayerState(PlayerState.SLEEPING);
         } else if (nextPlayer.equals(state.getNickname())) {

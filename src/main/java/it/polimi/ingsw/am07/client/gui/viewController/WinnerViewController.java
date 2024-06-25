@@ -65,7 +65,7 @@ public class WinnerViewController {
 
                 PlayerBoxController playerBoxController = fxmlLoader.getController();
                 playerBoxController.setPlayer_name_box(player.getNickname());
-                playerBoxController.setScore_label("Score: " + player.getPlayerScore() + player.getPlayerObjectiveScore());
+                playerBoxController.setScore_label("Score: " + (player.getPlayerScore() + player.getPlayerObjectiveScore()));
 
                 ranking_list.getItems().add(player_box);
             } catch (IOException e) {

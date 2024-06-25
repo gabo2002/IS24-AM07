@@ -173,6 +173,11 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
             // As the server, we expect the first packet to be an identity packet
             IdentityNetworkPacket identityPacket = (IdentityNetworkPacket) connection.receive();
 
+            if (identityPacket == null || identityPacket.getIdentity() == null) {
+                LOGGER.error("Connection closed unexpectedly. Could not read identity packet.");
+                return;
+            }
+
             StatefulListener listener = new ServerTCPListener(connection, identityPacket.getIdentity());
             dispatcher.registerNewListener(listener);
 
