@@ -187,21 +187,22 @@ public enum Instruction {
         List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
         List<Side> sides = new ArrayList<>();
         int selectedCardIndex, row = 0, column = 0;
-
-        for (GameCard card : cards) {
-            sides.add(card.front());
-            sides.add(card.back());
-        }
-        SelectableMenu<Side> menu = new SelectableMenu<>(sides.stream().toList(), scanner);
-        try {
-            menu.show();
-        } catch (InterruptedException e) {
-            return;
-        }
-        selectedCardIndex = menu.getSelectedOptionIndex();
         boolean validPosition = false;
 
         while (!validPosition) {
+
+            for (GameCard card : cards) {
+                sides.add(card.front());
+                sides.add(card.back());
+            }
+
+            SelectableMenu<Side> menu = new SelectableMenu<>(sides.stream().toList(), scanner);
+            try {
+                menu.show();
+            } catch (InterruptedException e) {
+                return;
+            }
+            selectedCardIndex = menu.getSelectedOptionIndex();
             //choose the position where to place the card
             System.out.println("Insert the row where you want to place the card: ");
             try {
