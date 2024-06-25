@@ -229,7 +229,11 @@
         <VBox alignment="CENTER" maxHeight="1700.0">
             <!-- Sezione fissa per messaggi -->
             <HBox alignment="CENTER" style="-fx-background-color: lightcoral; -fx-padding: 10;">
-                <Text fx:id="infoMessage" />
+                <Text fx:id="infoMessage">
+                    <font>
+                        <Font name="Arial Bold" size="16.0" />
+                    </font>
+                </Text>
             </HBox>
             <!-- Parte destra -->
             <ScrollPane fx:id="scrollPane" hvalue="0.5" prefHeight="1402.0" prefWidth="622.0" style="-fx-background-color: #95785F" vvalue="0.5">

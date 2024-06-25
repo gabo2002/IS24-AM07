@@ -208,7 +208,7 @@ public class PlayerViewController {
 
         updateHandView(playerHand, hand);
 
-        updateInfoMessage("Sei in: " + clientState.getPlayerState());
+        updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
 
         Platform.runLater(() -> {
             contentBox.layout();
@@ -231,10 +231,10 @@ public class PlayerViewController {
             clearGameField();
             render(player);
             if (player.equals(clientState.getGameModel().getSelf())) {
-                updateInfoMessage("Sei in " + clientState.getPlayerState());
+                updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
                 return;
             }
-            updateInfoMessage("Stai guardando " + player.getNickname());
+            updateInfoMessage("You are watching " + player.getNickname());
         }
     }
 
@@ -245,13 +245,19 @@ public class PlayerViewController {
      */
     @FXML
     private void onConfirmButtonClicked(ActionEvent event) {
-        if (clientState.getPlayerState() != PlayerState.PICKING_CARD) {
-            updateInfoMessage("Non puoi pescare");
+        if (clientState.getPlayerState() != PlayerState.PICKING_CARD && clientState.getPlayerState() != PlayerState.PLACING_CARD) {
+            updateInfoMessage("It's not your turn");
             return;
         }
+
+        if (clientState.getPlayerState() != PlayerState.PICKING_CARD) {
+            updateInfoMessage("You have to place a card first");
+            return;
+        }
+
         Action action = new PlayerPickCardAction(clientState.getNickname(), clientState.getIdentity(), selectedCard);
         controller.execute(action);
-        updateInfoMessage("Sei in: " + clientState.getPlayerState());
+        updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
     }
 
     /**
