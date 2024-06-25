@@ -222,11 +222,11 @@ public enum Instruction {
 
             if (!validPosition) {
                 System.out.println("Invalid position, please try again.");
+            } else {
+                Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sides.get(selectedCardIndex), new GameFieldPosition(row, column));
+                dispatcher.execute(action);
             }
         }
-
-        Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sides.get(selectedCardIndex), new GameFieldPosition(row, column));
-        dispatcher.execute(action);
     }),
     PICK_CARD("pick_card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
