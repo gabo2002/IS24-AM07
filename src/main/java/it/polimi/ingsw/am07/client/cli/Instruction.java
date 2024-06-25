@@ -34,6 +34,7 @@ import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
 import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
@@ -303,6 +304,18 @@ public enum Instruction {
         CLIGameFieldRepresentation render = new CLIGameFieldRepresentation(player.getPlayerGameField());
         System.out.println(render.render());
     }),
+
+    SHOW_RESOURCES("show_resources", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+    {
+        Player player = clientState.getGameModel().getSelf();
+        System.out.println("Your Resources:");
+
+        //Displaying the resources
+        player.getPlayerResources().getResources().forEach((symbol, amount) -> {
+            System.out.println(CLIGameSymbol.gameSymbolToChar(symbol) + " - " + amount);
+        });
+    }),
+
     SHOW_DECK("show_deck", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         CLIGameDeckRepresentation deckRepresentation = new CLIGameDeckRepresentation(clientState.getGameModel().getDeck());
