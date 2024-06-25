@@ -52,11 +52,13 @@ public class RMIRemoteListener implements StatefulListener {
      */
     @Override
     public void notify(Action action) {
-        try {
-            rmiListener.notify(action);
-        } catch (Exception e) {
-            LOGGER.error(e);
-        }
+        new Thread(() -> {
+            try {
+                rmiListener.notify(action);
+            } catch (Exception e) {
+                LOGGER.error(e);
+            }
+        }).start();
     }
 
     /**
