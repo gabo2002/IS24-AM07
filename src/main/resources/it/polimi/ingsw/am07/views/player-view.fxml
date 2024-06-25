@@ -228,10 +228,10 @@
 
         <VBox alignment="CENTER" maxHeight="1700.0">
             <!-- Sezione fissa per messaggi -->
-            <HBox alignment="CENTER" style="-fx-background-color: lightcoral; -fx-padding: 10;">
+            <HBox alignment="CENTER" style="-fx-background-color: #F9DEC9; -fx-padding: 10;" fx:id="errorContainer">
                 <Text fx:id="infoMessage">
                     <font>
-                        <Font name="Arial Bold" size="16.0" />
+                        <Font name="Arial Bold" size="15.0" />
                     </font>
                 </Text>
             </HBox>
