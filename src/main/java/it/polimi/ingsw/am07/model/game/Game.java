@@ -32,7 +32,10 @@ import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.utils.assets.GameResources;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -190,6 +193,7 @@ public class Game implements Serializable {
             for (Player player : players) {
                 if (player.getPlayerScore() >= 20) {
                     gameState = GameState.ENDING;
+                    break;
                 }
             }
         }

@@ -47,7 +47,7 @@ public abstract sealed class ObjectiveCard implements Serializable permits Resou
      * Creates a new objective card with the given associated score and id.
      *
      * @param associatedScore the score associated with the card
-     * @param id the id of the card
+     * @param id              the id of the card
      */
     protected ObjectiveCard(int associatedScore, int id) {
         this.associatedScore = associatedScore;

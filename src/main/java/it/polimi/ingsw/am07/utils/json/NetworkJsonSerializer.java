@@ -48,7 +48,6 @@ import it.polimi.ingsw.am07.network.packets.ActionNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.HeartbeatNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.IdentityNetworkPacket;
 import it.polimi.ingsw.am07.network.packets.NetworkPacket;
-import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.IOException;
 
@@ -58,7 +57,6 @@ import java.io.IOException;
 public class NetworkJsonSerializer {
 
     private static NetworkJsonSerializer instance;
-    private final AppLogger LOGGER = new AppLogger(NetworkJsonSerializer.class);
     private final Moshi moshi;
     private final JsonAdapter<NetworkPacket> adapter;
 

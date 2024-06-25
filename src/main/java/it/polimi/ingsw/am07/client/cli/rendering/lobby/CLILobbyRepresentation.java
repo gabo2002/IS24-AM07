@@ -36,15 +36,13 @@ public class CLILobbyRepresentation implements CLIElement {
     private static final char VERTICAL = '|';
     private final Lobby lobby;
 
-    private StringBuilder bufferedRender;
-
     public CLILobbyRepresentation(Lobby lobby) {
         this.lobby = lobby;
     }
 
     @Override
     public String render() {
-        bufferedRender = new StringBuilder();
+        StringBuilder bufferedRender = new StringBuilder();
 
         bufferedRender.append("\n");
         //get the longest name

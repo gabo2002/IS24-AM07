@@ -43,10 +43,10 @@ public class PlayerJoinAction extends PlayerAction {
     /**
      * The player join for CLI
      *
-     * @param playerNickname    the player's nickname
-     * @param identity          the player's identity
-     * @param lobbyId           the lobby's id
-     * @param color             the player's pawn color
+     * @param playerNickname the player's nickname
+     * @param identity       the player's identity
+     * @param lobbyId        the lobby's id
+     * @param color          the player's pawn color
      */
     public PlayerJoinAction(String playerNickname, String identity, UUID lobbyId, Pawn color) {
         super(playerNickname, identity);

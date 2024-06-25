@@ -49,7 +49,7 @@ public class CLIPlayableCardRepresentation implements CLIElement {
     /**
      * Constructs a CLIPlayableCardRepresentation.
      *
-     * @param List<GameCard> hand the hand to represent
+     * @param cards a reference to the list of cards to draw
      */
     public CLIPlayableCardRepresentation(List<GameCard> cards) {
         handRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));

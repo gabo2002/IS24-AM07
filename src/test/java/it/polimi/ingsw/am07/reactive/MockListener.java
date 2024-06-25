@@ -47,11 +47,6 @@ public class MockListener implements Listener {
         return null;
     }
 
-    @Override
-    public ClientState getClientState() {
-        return null;
-    }
-
     public List<Action> getCalled() {
         return called;
     }

@@ -43,7 +43,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
 
 public class GUI extends javafx.application.Application implements NetworkInitializer {
 

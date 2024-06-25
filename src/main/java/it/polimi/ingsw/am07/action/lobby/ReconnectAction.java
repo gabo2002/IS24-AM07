@@ -36,7 +36,7 @@ public class ReconnectAction extends PlayerAction {
      * Constructor
      *
      * @param playerNickname the player nickname
-     * @param identity the player identity
+     * @param identity       the player identity
      */
     public ReconnectAction(String playerNickname, String identity) {
         super(playerNickname, identity);

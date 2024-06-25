@@ -87,13 +87,4 @@ public class RMIListener extends ClientListener {
         return identity;
     }
 
-    /**
-     * Get the client's state.
-     *
-     * @return the client's state
-     */
-    @Override
-    public ClientState getClientState() {
-        return clientState;
-    }
 }

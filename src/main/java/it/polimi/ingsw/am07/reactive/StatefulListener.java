@@ -31,7 +31,7 @@ public interface StatefulListener extends Listener {
     /**
      * Check if the listener is still alive.
      *
-     * @return
+     * @return true if the listener is still alive, false otherwise
      */
     boolean checkPulse();
 

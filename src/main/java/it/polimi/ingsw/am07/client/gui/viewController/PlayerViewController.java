@@ -27,9 +27,9 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
-import it.polimi.ingsw.am07.model.chat.ChatMessage;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.chat.ChatMessage;
 import it.polimi.ingsw.am07.model.game.Deck;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.Symbol;
@@ -226,7 +226,7 @@ public class PlayerViewController {
     @FXML
     private void onPlayerClicked(MouseEvent event) {
         Parent selectedPlayer = playerList.getSelectionModel().getSelectedItem();
-        if(selectedPlayer != null) {
+        if (selectedPlayer != null) {
             Player player = (Player) selectedPlayer.getUserData();
             clearGameField();
             render(player);
@@ -341,10 +341,10 @@ public class PlayerViewController {
             confirmDeck.setVisible(true);
             ImageView sourceImageView = (ImageView) event.getSource();
             selectedCard = (GameCard) sourceImageView.getProperties().get("card");
-            for(ImageView iv :resourceDeckContainer.getChildren().stream().map(node -> (ImageView) node).toList()){
+            for (ImageView iv : resourceDeckContainer.getChildren().stream().map(node -> (ImageView) node).toList()) {
                 createShadow(iv, Color.BLACK);
             }
-            for(ImageView iv :goldDeckContainer.getChildren().stream().map(node -> (ImageView) node).toList()){
+            for (ImageView iv : goldDeckContainer.getChildren().stream().map(node -> (ImageView) node).toList()) {
                 createShadow(iv, Color.BLACK);
             }
             createShadow(sourceImageView, Color.GREEN);

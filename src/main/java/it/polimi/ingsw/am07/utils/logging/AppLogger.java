@@ -56,10 +56,6 @@ public class AppLogger {
         LOGGER.log(Level.INFO, message);
     }
 
-    public void warning(String message) {
-        LOGGER.log(Level.WARNING, message);
-    }
-
     public void error(String message) {
         LOGGER.log(Level.SEVERE, message);
     }

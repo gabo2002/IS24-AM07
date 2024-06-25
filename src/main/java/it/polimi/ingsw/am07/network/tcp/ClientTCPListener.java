@@ -90,14 +90,4 @@ public class ClientTCPListener extends ClientListener {
         return clientState.getIdentity();
     }
 
-    /**
-     * Get the client's state.
-     *
-     * @return the client's state
-     */
-    @Override
-    public ClientState getClientState() {
-        return clientState;
-    }
-
 }

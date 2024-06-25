@@ -24,7 +24,6 @@
 package it.polimi.ingsw.am07.network.rmi;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
@@ -102,13 +101,4 @@ public class RMIRemoteListener implements StatefulListener {
         }
     }
 
-    /**
-     * Get the client's state.
-     *
-     * @return the client's state
-     */
-    @Override
-    public ClientState getClientState() {
-        return null;
-    }
 }

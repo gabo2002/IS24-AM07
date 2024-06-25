@@ -31,15 +31,6 @@ package it.polimi.ingsw.am07.exceptions;
 public class CardNotFoundException extends Exception {
 
     /**
-     * Constructs a new CardNotFoundException with no detail message.
-     *
-     * @author Gabriele Corti
-     */
-    public CardNotFoundException() {
-        super();
-    }
-
-    /**
      * Constructs a new CardNotFoundException with the specified detail message.
      *
      * @param message the detail message (which is saved for later retrieval by the getMessage() method)

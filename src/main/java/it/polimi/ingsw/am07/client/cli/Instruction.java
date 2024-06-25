@@ -31,7 +31,8 @@ import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
-import it.polimi.ingsw.am07.model.chat.ChatMessage;
+import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
+import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
@@ -41,6 +42,7 @@ import it.polimi.ingsw.am07.client.cli.rendering.objectiveCardSelection.CLIObjec
 import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.starterCard.CLIStarterCardRepresentation;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.chat.ChatMessage;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
@@ -50,8 +52,6 @@ import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
-import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
-import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.utils.lambda.TriConsumer;
 
 import java.text.DateFormat;

@@ -67,7 +67,7 @@ public class WelcomeViewController {
         Parent selectedItem = lobby_list.getSelectionModel().getSelectedItem();
 
         // Retrieve the Lobby object from user data
-        if(selectedItem != null) {
+        if (selectedItem != null) {
             Lobby lobby = (Lobby) selectedItem.getUserData();
 
             clientState.setLobbyModel(lobby);

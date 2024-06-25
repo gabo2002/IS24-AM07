@@ -62,9 +62,4 @@ public class LocalListener implements Listener {
         return "LocalListener";
     }
 
-    @Override
-    public ClientState getClientState() {
-        return null;
-    }
-
 }

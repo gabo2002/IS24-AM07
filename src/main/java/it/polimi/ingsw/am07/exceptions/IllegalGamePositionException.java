@@ -29,13 +29,6 @@ package it.polimi.ingsw.am07.exceptions;
 public class IllegalGamePositionException extends Exception {
 
     /**
-     * Constructs a new IllegalGamePositionException with no detail message.
-     */
-    public IllegalGamePositionException() {
-        super();
-    }
-
-    /**
      * Constructs a new IllegalGamePositionException with the specified detail message.
      *
      * @param message

@@ -23,6 +23,8 @@
 
 package it.polimi.ingsw.am07.client.cli;
 
+import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
+import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
@@ -30,15 +32,11 @@ import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.IdentityManager;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
-import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
-import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.function.BiConsumer;
 
 public class CLI {
 
@@ -107,7 +105,6 @@ public class CLI {
     private final ExecutorService renderExecutor;
     private ThreadInputReader reader;
     private Controller controller;
-    private Map<Instruction, BiConsumer<ClientState, Controller>> instructionHandler;
     private Future<?> currentRenderTask;
 
     public CLI() {

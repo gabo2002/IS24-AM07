@@ -29,40 +29,12 @@ package it.polimi.ingsw.am07.exceptions;
 public class IllegalPlacementException extends Exception {
 
     /**
-     * Constructs a new IllegalPlacementException with no detail message.
-     */
-    public IllegalPlacementException() {
-        super();
-    }
-
-    /**
      * Constructs a new IllegalPlacementException with the specified detail message.
      *
      * @param message the detail message (which is saved for later retrieval by the getMessage() method)
      */
     public IllegalPlacementException(String message) {
         super(message);
-    }
-
-    /**
-     * Constructs a new IllegalPlacementException with the specified detail message and cause.
-     *
-     * @param message the detail message (which is saved for later retrieval by the getMessage() method)
-     * @param cause   the cause (which is saved for later retrieval by the getCause() method)
-     */
-    public IllegalPlacementException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    /**
-     * Constructs a new IllegalPlacementException with the specified cause and a detail message of
-     * (cause==null ? null : cause.toString()) (which typically contains the class and detail message
-     * of cause).
-     *
-     * @param cause the cause (which is saved for later retrieval by the getCause() method)
-     */
-    public IllegalPlacementException(Throwable cause) {
-        super(cause);
     }
 
 }
