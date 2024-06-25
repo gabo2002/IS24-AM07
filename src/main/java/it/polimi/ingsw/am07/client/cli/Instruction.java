@@ -34,6 +34,7 @@ import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
 import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
 import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
+import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
@@ -303,6 +304,18 @@ public enum Instruction {
         CLIGameFieldRepresentation render = new CLIGameFieldRepresentation(player.getPlayerGameField());
         System.out.println(render.render());
     }),
+
+    SHOW_RESOURCES("show_resources", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+    {
+        Player player = clientState.getGameModel().getSelf();
+        System.out.println("Your Resources:");
+
+        //Displaying the resources
+        player.getPlayerResources().getResources().forEach((symbol, amount) -> {
+            System.out.println(CLIGameSymbol.gameSymbolToChar(symbol) + " - " + amount);
+        });
+    }),
+
     SHOW_DECK("show_deck", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         CLIGameDeckRepresentation deckRepresentation = new CLIGameDeckRepresentation(clientState.getGameModel().getDeck());
@@ -337,16 +350,6 @@ public enum Instruction {
     }),
     SEND_MESSAGE("send_message", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
-        List<String> prompt = List.of("Send message to everyone", "Send message to a specific player");
-        SelectableMenu<String> menu = new SelectableMenu<>(prompt, scanner);
-        ChatMessage message = null;
-        try {
-            menu.show();
-        } catch (InterruptedException e) {
-            return;
-        }
-        int choice = menu.getSelectedOptionIndex();
-
         System.out.println("Insert the message you want to send:");
         String stringMessage;
         try {
@@ -355,20 +358,7 @@ public enum Instruction {
             return;
         }
 
-        if (choice == 0) {
-            message = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(stringMessage);
-        } else {
-            List<Player> players = clientState.getGameModel().getPlayers();
-            List<String> playerNicknames = players.stream().map(Player::getNickname).toList();
-            SelectableMenu<String> playerMenu = new SelectableMenu<>(playerNicknames, scanner);
-            try {
-                playerMenu.show();
-            } catch (InterruptedException e) {
-                return;
-            }
-            String playerNickname = playerMenu.getSelectedStringOption();
-            message = clientState.getGameModel().getSelf().getChat().sendPrivateMessage(playerNickname, stringMessage);
-        }
+        ChatMessage message = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(stringMessage);
 
         Action action = new SendMessageAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), message);
         dispatcher.execute(action);
