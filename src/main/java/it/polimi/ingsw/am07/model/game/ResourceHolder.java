@@ -201,7 +201,11 @@ public class ResourceHolder implements Serializable {
      * @return the resources of the resource holder.
      */
     public Map<Symbol, Integer> getResources() {
-        return new EnumMap<>(resources);
+        if (resources.isEmpty()) {
+            return Map.of();
+        } else {
+            return new EnumMap<>(resources);
+        }
     }
 
 }
