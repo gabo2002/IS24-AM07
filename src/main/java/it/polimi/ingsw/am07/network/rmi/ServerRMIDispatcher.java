@@ -71,10 +71,12 @@ public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispa
      * @throws RemoteException if an error occurs
      */
     @Override
-    public synchronized void registerNewListener(RMIStatefulListener listener) throws RemoteException {
+    public void registerNewListener(RMIStatefulListener listener) throws RemoteException {
         RMIRemoteListener remoteListener = new RMIRemoteListener(listener);
 
-        listeners.put(listener, remoteListener);
+        synchronized (this) {
+            listeners.put(listener, remoteListener);
+        }
 
         dispatcher.registerNewListener(remoteListener);
     }

@@ -116,6 +116,7 @@ public class ServerDispatcher extends Dispatcher {
 
         if (listener.getIdentity() == null) {
             LOGGER.error("Listener identity is null. Dropping connection.");
+            return;
         }
 
         synchronized (this) {
