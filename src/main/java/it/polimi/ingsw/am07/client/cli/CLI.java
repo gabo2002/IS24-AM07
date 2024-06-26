@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.client.cli;
 
+import it.polimi.ingsw.am07.action.lobby.ReconnectAction;
 import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
 import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
@@ -114,9 +115,13 @@ public class CLI {
     private Controller controller;
     private Future<?> currentRenderTask;
 
+    private ClientNetworkManager networkManager;
+
     public CLI() {
         renderExecutor = Executors.newSingleThreadExecutor();
         currentRenderTask = null;
+
+        networkManager = null;
     }
 
     /**
@@ -125,7 +130,6 @@ public class CLI {
      * It also initializes the instructions that the client can execute.
      */
     public void entrypoint() {
-
         reader = new ThreadInputReader();
 
         //generate Identity
@@ -157,7 +161,7 @@ public class CLI {
         NetworkType networkType = choice == 0 ? NetworkType.RMI : NetworkType.TCP;
         int port = choice == 0 ? AssetsRegistry.getInstance().getGameResourceDefinition().rmiPort() : AssetsRegistry.getInstance().getGameResourceDefinition().tcpPort();
 
-        ClientNetworkManager networkManager = new ClientNetworkManager.Factory()
+        networkManager = new ClientNetworkManager.Factory()
                 .withHostname(hostname)
                 .withPort(port)
                 .withNetworkType(networkType)
@@ -222,6 +226,22 @@ public class CLI {
                     throw new RuntimeException(e);
                 }
                 System.exit(0);
+                break;
+            case DISCONNECTED:
+                System.out.println("Disconnected from server. Attempting reconnection");
+                networkManager.reconnect(clientState);
+                controller = networkManager.getController();
+
+                if (controller == null) {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    controller.execute(new ReconnectAction(clientState.getNickname(), clientState.getIdentity()));
+                }
+
                 break;
             default:
                 System.out.println("Invalid state");

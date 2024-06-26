@@ -91,6 +91,16 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     }
 
     /**
+     * Reconnect to the server.
+     */
+    @Override
+    public void reconnect(ClientState clientState) {
+        controller = null;
+        connect();
+        inflateListener(clientState);
+    }
+
+    /**
      * Inflate the listener.
      *
      * @param clientState the local client state

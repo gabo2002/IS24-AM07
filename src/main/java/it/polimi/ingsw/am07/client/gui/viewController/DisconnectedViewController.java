@@ -21,22 +21,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.model;
+package it.polimi.ingsw.am07.client.gui.viewController;
 
-/**
- * Enum representing the state of the player.
- */
-public enum PlayerState {
-    SELECTING_STARTER_CARD_SIDE,
-    PLACING_CARD,
-    PICKING_CARD,
-    SLEEPING,
-    INSERTING_USERNAME,
-    INSERTING_USERNAME_FOR_RECONNECT,
-    SELECTING_LOBBY,
-    WAITING_FOR_PLAYERS,
-    WAITING_FOR_GAME_START,
-    ADMIN_WAITING_FOR_PLAYERS,
-    GAME_ENDED,
-    DISCONNECTED,
+import it.polimi.ingsw.am07.model.ClientState;
+
+public class DisconnectedViewController {
+
+    public void init(ClientState clientState) {
+       new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // This will attempt a reconnection
+            clientState.notifyGameModelUpdate();
+        }).start();
+    }
+
 }

@@ -44,6 +44,11 @@ public interface ClientNetworkManager {
     void disconnect();
 
     /**
+     * Reconnect to the server.
+     */
+    void reconnect(ClientState clientState);
+
+    /**
      * Inflate the local listener.
      *
      * @param clientState a reference to the local client state

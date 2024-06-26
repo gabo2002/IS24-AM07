@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
+import it.polimi.ingsw.am07.action.lobby.ReconnectAction;
 import it.polimi.ingsw.am07.client.gui.viewController.*;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
@@ -222,8 +223,29 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 stage.show();
                 break;
 
+            case DISCONNECTED:
+                loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/disconnected-view.fxml"));
+
+                try {
+                    scene = new Scene(loader.load(), WIDTH, HEIGHT);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                DisconnectedViewController disconnectedViewController = loader.getController();
+                disconnectedViewController.init(state);
+
+                stage.setScene(scene);
+                stage.show();
+
+                clientNetworkManager.reconnect(state);
+                controller = clientNetworkManager.getController();
+                controller.execute(new ReconnectAction(state.getNickname(), state.getIdentity()));
+                break;
+
             case WAITING_FOR_GAME_START:
                 break;
+
             default:
                 loader = new FXMLLoader(Application.class.getResource("/it/polimi/ingsw/am07/views/player-view.fxml"));
 

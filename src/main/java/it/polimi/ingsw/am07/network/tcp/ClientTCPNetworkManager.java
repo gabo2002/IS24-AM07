@@ -89,6 +89,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
             socket = new Socket(serverAddress, serverPort);
         } catch (Exception e) {
             LOGGER.error(e);
+            return;
         }
 
         try {
@@ -96,6 +97,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
             writer = new DataOutputStream(socket.getOutputStream());
         } catch (Exception e) {
             LOGGER.error(e);
+            return;
         }
 
         connection = new RemoteConnection(reader, writer);
@@ -132,6 +134,21 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         }
 
         socket = null;
+    }
+
+    /**
+     * Reconnect to the server.
+     */
+    @Override
+    public void reconnect(ClientState clientState) {
+        connection = null;
+        listener = null;
+
+        connect();
+
+        if (connection != null) {
+            inflateListener(clientState);
+        }
     }
 
     /**
@@ -198,6 +215,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
             disconnect();
 
             listener.notify(new HangGameAction(identity));
+            listener = null;
         }
     }
 
@@ -217,6 +235,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
                 if (!listener.checkPulse()) {
                     listener.notify(new HangGameAction(identity));
+                    listener = null;
                 }
             }
         }).start();

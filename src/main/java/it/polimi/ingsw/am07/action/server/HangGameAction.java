@@ -104,7 +104,10 @@ public class HangGameAction extends ServerAction {
 
         Game game = state.getGameModel();
 
-        if (game != null) {
+        // If I'm the player who lost connection, I must set myself in the correct playerstate
+        if (state.getIdentity().equals(getIdentity())) {
+            state.setPlayerState(PlayerState.DISCONNECTED);
+        } else if (game != null) {
             execute(game);
 
             if (!game.shouldFreezeGame()) {
