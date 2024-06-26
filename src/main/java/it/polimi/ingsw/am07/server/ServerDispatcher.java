@@ -28,6 +28,7 @@ import it.polimi.ingsw.am07.action.server.HangGameAction;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
+import it.polimi.ingsw.am07.action.server.LobbyListAction;
 import it.polimi.ingsw.am07.action.server.ResumeGameAction;
 import it.polimi.ingsw.am07.action.server.ServerGameStartAction;
 import it.polimi.ingsw.am07.model.game.Game;
@@ -42,6 +43,7 @@ import it.polimi.ingsw.am07.server.controller.LobbyController;
 import it.polimi.ingsw.am07.server.controller.MatchmakingController;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -139,7 +141,29 @@ public class ServerDispatcher extends Dispatcher {
         // Notify every other listener connected to the same controller that the listener has disconnected
         listenerDispatchers.get(listener.getIdentity()).execute(new HangGameAction(listener.getIdentity()));
 
+        Dispatcher connectedDispatcher = listenerDispatchers.get(listener.getIdentity());
+        connectedDispatcher.removeListener(listener);
+
         listenerDispatchers.remove(listener.getIdentity());
+
+        // Verify if the dispatcher is still referenced by other listeners
+        if (listenerDispatchers.containsValue(connectedDispatcher)) {
+            return;
+        }
+
+        // If the dispatcher is a lobby controller, remove it
+        if (connectedDispatcher instanceof LobbyController lobbyController) {
+            for (Map.Entry<Lobby, LobbyController> entry : lobbyControllers.entrySet()) {
+                if (entry.getValue().equals(lobbyController)) {
+                    lobbyControllers.remove(entry.getKey());
+                    lobbies.remove(entry.getKey().getId());
+                    break;
+                }
+            }
+
+            // Update the matchmaking controller
+            matchmakingController.execute(new LobbyListAction(new ArrayList<>(lobbies.values())));
+        }
     }
 
     /**

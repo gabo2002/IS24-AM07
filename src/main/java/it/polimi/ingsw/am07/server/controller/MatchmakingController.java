@@ -89,8 +89,13 @@ public class MatchmakingController extends Dispatcher {
             if (result) {
                 // Success, remove the listener from the out of lobby controller
                 listeners.remove(listener);
+            } else if (listener != null) {
+                // Reconnection failed, notify the client
+                listener.notify(new LobbyListAction(matchmaking.getLobbies()));
             }
         } else if (matchmaking.isNewLobbyCreated()) {
+            System.out.println("New lobby created");
+
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
             migrateToLobby.accept(listener, matchmaking.getPlayerNickname(), matchmaking.getPlayerPawn());
@@ -108,6 +113,13 @@ public class MatchmakingController extends Dispatcher {
             if (result) {
                 // Success, remove the listener from the out of lobby controller
                 listeners.remove(listener);
+
+                Action stateSyncAction = new LobbyListAction(matchmaking.getLobbies());
+                listeners.forEach(l -> l.notify(stateSyncAction));
+            }
+        } else {
+            for (Listener listener : listeners) {
+                listener.notify(action);
             }
         }
 

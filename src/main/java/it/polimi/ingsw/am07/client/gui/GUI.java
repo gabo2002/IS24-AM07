@@ -238,6 +238,10 @@ public class GUI extends javafx.application.Application implements NetworkInitia
                 stage.setScene(scene);
                 stage.show();
 
+                // We must clear the local lobby model
+                // Otherwise, the client will try to join a lobby that does not exist
+                state.clearLobbyModel();
+
                 clientNetworkManager.reconnect(state);
                 controller = clientNetworkManager.getController();
                 controller.execute(new ReconnectAction(state.getNickname(), state.getIdentity()));

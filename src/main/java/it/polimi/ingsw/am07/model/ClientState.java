@@ -127,6 +127,13 @@ public class ClientState {
     }
 
     /**
+     * Clears the local lobby model.
+     */
+    public void clearLobbyModel() {
+        lobbyModel = null;
+    }
+
+    /**
      * Notifies the client that the game model has been updated.
      */
     public void notifyGameModelUpdate() {

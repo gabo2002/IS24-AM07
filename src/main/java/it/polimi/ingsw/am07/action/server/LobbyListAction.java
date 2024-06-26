@@ -25,7 +25,9 @@ package it.polimi.ingsw.am07.action.server;
 
 import it.polimi.ingsw.am07.action.ServerAction;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
 import java.util.List;
 
@@ -49,6 +51,16 @@ public class LobbyListAction extends ServerAction {
     }
 
     /**
+     * Execute the action on the matchmaking
+     *
+     * @param matchmaking the matchmaking
+     */
+    @Override
+    public void execute(Matchmaking matchmaking) {
+
+    }
+
+    /**
      * Reflect the action on the client state
      *
      * @param clientState the client state
@@ -56,6 +68,7 @@ public class LobbyListAction extends ServerAction {
     @Override
     public void reflect(ClientState clientState) {
         clientState.setLobbies(lobbies);
+        clientState.setPlayerState(PlayerState.SELECTING_LOBBY);
         clientState.notifyGameModelUpdate();
     }
 
