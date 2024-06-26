@@ -63,14 +63,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
+/**
+ * Enumeration representing different instructions that can be executed in the CLI.
+ * Each instruction has a name and an associated action.
+ */
 public enum Instruction {
 
     /**
      * This instruction is used to create a new lobby. It will ask the user to insert the nickname and the color of the pawn and will send a packet to the server to create the lobby
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     CREATE_LOBBY("Create a new lobby", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -99,10 +99,7 @@ public enum Instruction {
 
     /**
      * This instruction is used to join an existing lobby. It will display the available lobbies and will send a packet to the server to join the selected lobby
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
-     */
+    */
     JOIN_LOBBY("Join an existing lobby", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         if (clientState.getAvailableLobbies().isEmpty()) {
@@ -157,10 +154,7 @@ public enum Instruction {
 
     /**
      * This instruction is used to select the starter card side and the objective cards. It will display the cards that the player can select and will send a packet to the server with the selected cards
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
-     */
+    */
     SELECT_CARD("Select starter cards", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         // 1. Select Starter Card Side
@@ -210,9 +204,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to place a card. It will display the cards that the player can place and will send a packet to the server with the selected card
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     PLACE_CARD("Place card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -269,9 +260,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to pick a card. It will display the cards that the player can pick and will send a packet to the server with the selected card
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     PICK_CARD("Pick a new card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -308,9 +296,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the game field of a player. It will display the field of the player selected by the user
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_FIELD("Show gamefield", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -339,9 +324,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the resources of the player. It will display the resources that the player has
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_RESOURCES("Show resources", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -356,9 +338,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the deck of the game. It will display the cards that are still in the deck
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_DECK("Show deck", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -368,9 +347,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the objective cards of the player.
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_OBJECTIVE_CARD("Show Objective", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -386,9 +362,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the score of the players. It will display the nickname and the score of the players ordered by score
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_PLAYERS_SCORE("Show players score", (ClientState clientState, Controller dispatcher, ThreadInputReader reader) ->
     {
@@ -405,9 +378,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the hand of the player. It will display the cards that the player can play
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_HAND("Show hand", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -419,10 +389,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to send a message to the chat. It will send a packet to the server to broadcast the message
-     * If you want to send a private message, you have to start the message with @nickname
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SEND_MESSAGE("Send message", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -442,9 +408,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the chat. It will display the last 20 messages
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_CHAT("Show chat", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -460,9 +423,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to start the game. It will send a packet to the server to start the game
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     START_GAME("Start Game", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -472,9 +432,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to show the players in the lobby. It will display the nickname and the color of the player
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     SHOW_LOBBY_PLAYER("Show lobby player", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -492,9 +449,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to reconnect to an existing game
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     RECONNECT("Reconnect to an existing game", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -514,9 +468,6 @@ public enum Instruction {
 
     /**
      * This instruction is used to quit the game and close the client
-     * @param clientState the client state
-     * @param dispatcher the controller to send the action to the server
-     * @param scanner the ThreadInputReader object to read the input from command line
      */
     QUIT("Quit", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
@@ -530,8 +481,6 @@ public enum Instruction {
 
     /**
      * Create a new instruction with the given parameters
-     * @param instruction_line the name of the instruction
-     * @param clientStateControllerScanner the action to execute
      */
     Instruction(String instruction_line, TriConsumer<ClientState, Controller, ThreadInputReader> clientStateControllerScanner) {
         this.action = clientStateControllerScanner;
