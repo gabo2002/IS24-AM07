@@ -51,7 +51,7 @@ public class LobbyPlayer implements Serializable {
     /**
      * Constructs a new LobbyPlayer object with the given nickname.
      *
-     * @param nickname
+     * @param nickname The nickname of the player.
      */
     public LobbyPlayer(String nickname) {
         this.nickname = nickname;

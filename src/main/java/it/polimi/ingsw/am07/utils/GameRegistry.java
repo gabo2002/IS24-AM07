@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.utils;
 
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.io.*;
 import java.util.HashMap;
@@ -36,9 +37,8 @@ import java.util.UUID;
 public class GameRegistry {
 
     private static final String FILENAME = "savedGames.ser";
-
     private static GameRegistry instance = null;
-
+    private final AppLogger LOGGER = new AppLogger(GameRegistry.class);
     private final Map<UUID, Game> games;
 
     private GameRegistry() {
@@ -83,7 +83,7 @@ public class GameRegistry {
 
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             return false;
         }
     }
@@ -109,6 +109,7 @@ public class GameRegistry {
             in.close();
             fileIn.close();
         } catch (IOException | ClassNotFoundException e) {
+            LOGGER.error(e);
             games = null;
         }
 

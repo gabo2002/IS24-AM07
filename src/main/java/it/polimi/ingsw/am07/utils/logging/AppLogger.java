@@ -41,9 +41,9 @@ public class AppLogger {
                 return;
             }
 
-            if(System.getProperty("cli") != null) {
+            if (System.getProperty("cli") != null) {
                 try {
-                    FileHandler fileHandler = new FileHandler("log.txt",0, 1,true);
+                    FileHandler fileHandler = new FileHandler("log.txt", 0, 1, true);
                     fileHandler.setLevel(Level.ALL);
                     fileHandler.setFormatter(new CustomFormatter());
                     LOGGER.addHandler(fileHandler);

@@ -143,7 +143,7 @@ public class PlayerTest {
         assertTrue(player.canBePlacedAt(front_gold, new GameFieldPosition(2, 0, 2)));
         assertThrows(IllegalPlacementException.class, () -> player.placeAt(front_gold, new GameFieldPosition(3, 3, 2)));
         player.addPlayableCard(new GameCard(front_gold, new SideBack(1, null, null, null)));
-        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));;
+        assertDoesNotThrow(() -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));
         assertThrows(IllegalPlacementException.class, () -> player.placeAt(front_gold, new GameFieldPosition(2, 0, 2)));
     }
 

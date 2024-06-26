@@ -26,6 +26,7 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,6 +38,7 @@ import java.util.List;
 
 public class WinnerViewController {
 
+    private final AppLogger LOGGER = new AppLogger(WinnerViewController.class);
 
     @FXML
     private Label result_message;
@@ -44,15 +46,8 @@ public class WinnerViewController {
     @FXML
     private ListView<Parent> ranking_list;
 
-    private ClientState clientState;
-    private Controller controller;
-
     public void init(ClientState clientState, Controller controller) {
-        this.clientState = clientState;
-        this.controller = controller;
-
         updateView(clientState);
-
     }
 
     private void updateView(ClientState clientState) {
@@ -69,7 +64,7 @@ public class WinnerViewController {
 
                 ranking_list.getItems().add(player_box);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         }
 
@@ -81,6 +76,5 @@ public class WinnerViewController {
             System.out.println("Could not find winners");
         }
     }
-
 
 }

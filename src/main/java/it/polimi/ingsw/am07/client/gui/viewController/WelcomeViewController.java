@@ -27,11 +27,11 @@ import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
@@ -39,18 +39,15 @@ import java.io.IOException;
 
 public class WelcomeViewController {
 
-    @FXML
-    private Button create_lobby_btn;
+    private final AppLogger LOGGER = new AppLogger(WelcomeViewController.class);
 
     private ClientState clientState;
-    private Controller controller;
 
     @FXML
     private ListView<Parent> lobby_list;
 
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
-        this.controller = controller;
 
         // Bind the label to reflect the player state changes
         updateView(clientState);
@@ -97,7 +94,7 @@ public class WelcomeViewController {
                     lobby_list.getItems().add(lobby_box);
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e);
                 }
             }
         }
@@ -108,7 +105,6 @@ public class WelcomeViewController {
     @FXML
     protected void onLobbyBtnClick(ActionEvent event) {
         clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
-        // loadScene(event);
     }
 
     @FXML

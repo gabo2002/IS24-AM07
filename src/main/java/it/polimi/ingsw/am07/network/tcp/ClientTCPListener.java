@@ -40,7 +40,7 @@ public class ClientTCPListener extends ClientListener {
     /**
      * Constructor.
      *
-     * @param clientState      the client state
+     * @param clientState the client state
      */
     public ClientTCPListener(ClientState clientState) {
         super(clientState);

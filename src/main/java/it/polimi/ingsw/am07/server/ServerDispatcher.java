@@ -24,10 +24,10 @@
 package it.polimi.ingsw.am07.server;
 
 import it.polimi.ingsw.am07.action.Action;
-import it.polimi.ingsw.am07.action.server.HangGameAction;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
+import it.polimi.ingsw.am07.action.server.HangGameAction;
 import it.polimi.ingsw.am07.action.server.LobbyListAction;
 import it.polimi.ingsw.am07.action.server.ResumeGameAction;
 import it.polimi.ingsw.am07.action.server.ServerGameStartAction;

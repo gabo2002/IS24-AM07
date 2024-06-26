@@ -33,9 +33,6 @@ import javafx.scene.control.TextField;
 
 public class NetworkViewController {
 
-    private ClientState clientState;
-    private ClientNetworkManager.Factory clientNetworkManagerFactory;
-    private String identity;
     private NetworkInitializer networkInitializer;
 
     @FXML
@@ -62,9 +59,6 @@ public class NetworkViewController {
 
 
     public void init(ClientState state, String identity, ClientNetworkManager.Factory clientNetworkManagerFactory, NetworkInitializer networkInitializer) {
-        this.clientState = state;
-        this.identity = identity;
-        this.clientNetworkManagerFactory = clientNetworkManagerFactory;
         this.networkInitializer = networkInitializer;
     }
 }

@@ -37,6 +37,7 @@ import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.IdentityManager;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -57,7 +58,6 @@ public class CLI {
             Instruction.SHOW_HAND,
             Instruction.QUIT
     );
-
     private static final List<Instruction> availableInstructionsPlacingCard = List.of(
             Instruction.SEND_MESSAGE,
             Instruction.SHOW_CHAT,
@@ -70,7 +70,6 @@ public class CLI {
             Instruction.SHOW_DECK,
             Instruction.QUIT
     );
-
     private static final List<Instruction> availableInstructionsSleeping = List.of(
             Instruction.SEND_MESSAGE,
             Instruction.SHOW_CHAT,
@@ -82,24 +81,20 @@ public class CLI {
             Instruction.SHOW_FIELD,
             Instruction.QUIT
     );
-
     private static final List<Instruction> availableInstructionsLobby = List.of(
             Instruction.JOIN_LOBBY,
             Instruction.CREATE_LOBBY,
             Instruction.QUIT
     );
-
     private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(
             Instruction.SHOW_LOBBY_PLAYER,
             Instruction.QUIT
     );
-
     private static final List<Instruction> availableInstructionAdminWaitingForPlayers = List.of(
             Instruction.START_GAME,
             Instruction.SHOW_LOBBY_PLAYER,
             Instruction.QUIT
     );
-
     private static final List<Instruction> availableInstructionsSelectingStarterCardSide = List.of(
             Instruction.SEND_MESSAGE,
             Instruction.SHOW_CHAT,
@@ -109,7 +104,7 @@ public class CLI {
             Instruction.SHOW_FIELD,
             Instruction.QUIT
     );
-
+    private final AppLogger LOGGER = new AppLogger(CLI.class);
     private final ExecutorService renderExecutor;
     private ThreadInputReader reader;
     private Controller controller;
@@ -237,7 +232,7 @@ public class CLI {
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e);
                     }
                 } else {
                     clientState.setPlayerState(PlayerState.SLEEPING);

@@ -2,6 +2,7 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
+import it.polimi.ingsw.am07.client.gui.utils.CardImageLoader;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
@@ -16,9 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class SelectStarterController {
     private ClientState clientState;
@@ -90,18 +88,7 @@ public class SelectStarterController {
 
     private Image imgFrom(int id, String side) {
         ClassLoader cl = this.getClass().getClassLoader();
-        String item = "it/polimi/ingsw/am07/assets/" + side + "_" + id + ".png";
-        Image img = null;
-        try (InputStream is = cl.getResourceAsStream(item)) {
-            if (is != null) {
-                img = new Image(is);
-            } else {
-                System.err.println("Unable to load image: " + item);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return img;
+        return CardImageLoader.imgFrom(cl, id, side);
     }
 
     @FXML

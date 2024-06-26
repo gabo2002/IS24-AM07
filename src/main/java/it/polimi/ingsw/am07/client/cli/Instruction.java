@@ -55,7 +55,6 @@ import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.lambda.TriConsumer;
-import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

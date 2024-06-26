@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
+import it.polimi.ingsw.am07.client.gui.utils.CardImageLoader;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.chat.ChatMessage;
@@ -39,6 +40,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,7 +63,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,6 +76,7 @@ public class PlayerViewController {
     private static final int RECT_HEIGHT = 100;
     private static final Double DELTA_X = RECT_WIDTH - (17.0 / 75.0 * RECT_WIDTH);
     private static final Double DELTA_Y = RECT_HEIGHT - (2.0 / 5.0 * RECT_HEIGHT);
+    private final AppLogger LOGGER = new AppLogger(PlayerViewController.class);
     private final List<Rectangle> createdRectangles = new ArrayList<>();
 
     @FXML
@@ -139,8 +141,8 @@ public class PlayerViewController {
     /**
      * Initialize the view with the client state and the controller
      *
-     * @param clientState
-     * @param controller
+     * @param clientState the client state
+     * @param controller  the controller
      */
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
@@ -154,7 +156,7 @@ public class PlayerViewController {
     /**
      * Update the view with the new client state
      *
-     * @param clientState
+     * @param clientState a reference to the client state
      */
     public void updateView(ClientState clientState) {
         this.clientState = clientState;
@@ -175,7 +177,7 @@ public class PlayerViewController {
 
                 playerList.getItems().add(player_box);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e);
             }
         }
 
@@ -213,7 +215,7 @@ public class PlayerViewController {
 
         updateInfoMessage("It's your turn");
 
-        if(clientState.getGameModel().getPlayingPlayer() != clientState.getGameModel().getSelf()) {
+        if (clientState.getGameModel().getPlayingPlayer() != clientState.getGameModel().getSelf()) {
             updateInfoMessage("It's " + clientState.getGameModel().getPlayingPlayer().getNickname() + "'s turn");
         }
 
@@ -258,7 +260,7 @@ public class PlayerViewController {
     /**
      * Handle the click on the confirm button
      *
-     * @param event
+     * @param event the event
      */
     @FXML
     private void onConfirmButtonClicked(ActionEvent event) {
@@ -282,7 +284,7 @@ public class PlayerViewController {
     /**
      * Handle the drag detected event
      *
-     * @param imageView
+     * @param imageView the image view for placing the card
      */
     @FXML
     private void onDragDetected(ImageView imageView) {
@@ -430,18 +432,7 @@ public class PlayerViewController {
      */
     private Image imgFrom(int id, String side) {
         ClassLoader cl = this.getClass().getClassLoader();
-        String item = "it/polimi/ingsw/am07/assets/" + side + "_" + id + ".png";
-        Image img = null;
-        try (InputStream is = cl.getResourceAsStream(item)) {
-            if (is != null) {
-                img = new Image(is);
-            } else {
-                System.err.println("Unable to load image: " + item);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return img;
+        return CardImageLoader.imgFrom(cl, id, side);
     }
 
     /**

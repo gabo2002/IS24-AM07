@@ -189,20 +189,4 @@ public class Lobby implements Serializable {
         return state == LobbyState.FULL;
     }
 
-//    @Override
-//    public String toString() {
-//        String returnValue = "Lobby ID: " + id + "\n";
-//        returnValue += "\tPlayers: \n";
-//
-//        for (LobbyPlayer player : players) {
-//            //If the player has not set their pawn yet, the pawn is not displayed
-//            if (player.getPlayerPawn() != null) {
-//                returnValue += "\t" + player.getNickname() + " - " + player.getPlayerPawn().toString() + "\n";
-//            } else {
-//                returnValue += "\t" + player.getNickname() + "\n";
-//            }
-//        }
-//
-//        return returnValue;
-//    }
 }

@@ -226,17 +226,4 @@ public class ClientState {
         this.clientStringErrorMessage = clientStringErrorMessage;
     }
 
-//    @Override
-//    public String toString() {
-//        return "ClientState{" +
-//                "identity='" + identity + '\'' +
-//                ", gameModel=" + gameModel +
-//                ", lobbyModel=" + lobbyModel +
-//                ", availableLobbies=" + availableLobbies +
-//                ", playerState=" + playerState +
-//                ", nickname=" + nickname +
-//                ", onGameModelUpdate=" + onGameModelUpdate +
-//                '}';
-//    }
-
 }

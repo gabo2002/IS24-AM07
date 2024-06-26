@@ -31,7 +31,7 @@ public class IllegalGamePositionException extends Exception {
     /**
      * Constructs a new IllegalGamePositionException with the specified detail message.
      *
-     * @param message
+     * @param message the detail message
      */
     public IllegalGamePositionException(String message) {
         super(message);

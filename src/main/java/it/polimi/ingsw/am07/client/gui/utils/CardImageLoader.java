@@ -21,26 +21,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.polimi.ingsw.am07.client.gui.viewController;
+package it.polimi.ingsw.am07.client.gui.utils;
 
-import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
+import javafx.scene.image.Image;
 
-public class DisconnectedViewController {
+import java.io.IOException;
+import java.io.InputStream;
 
-    private final AppLogger LOGGER = new AppLogger(DisconnectedViewController.class);
+public class CardImageLoader {
 
-    public void init(ClientState clientState) {
-        new Thread(() -> {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                LOGGER.error(e);
+    private static final AppLogger LOGGER = new AppLogger(CardImageLoader.class);
+
+    public static Image imgFrom(ClassLoader cl, int id, String side) {
+        String item = "it/polimi/ingsw/am07/assets/" + side + "_" + id + ".png";
+        Image img = null;
+        try (InputStream is = cl.getResourceAsStream(item)) {
+            if (is != null) {
+                img = new Image(is);
+            } else {
+                System.err.println("Unable to load image: " + item);
             }
-
-            // This will attempt a reconnection
-            clientState.notifyGameModelUpdate();
-        }).start();
+        } catch (IOException e) {
+            LOGGER.error(e);
+        }
+        return img;
     }
 
 }

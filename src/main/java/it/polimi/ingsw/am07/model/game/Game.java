@@ -46,7 +46,7 @@ public class Game implements Serializable {
     /**
      * The maximum number of players allowed in a game.
      */
-    public static int MAX_PLAYERS = 4;
+    public static final int MAX_PLAYERS = 4;
 
     /**
      * The unique identifier of the game.
@@ -206,6 +206,7 @@ public class Game implements Serializable {
             for (Player player : players) {
                 if (player.getPlayerScore() >= 20) {
                     gameState = GameState.ENDING;
+                    break;
                 }
             }
         }

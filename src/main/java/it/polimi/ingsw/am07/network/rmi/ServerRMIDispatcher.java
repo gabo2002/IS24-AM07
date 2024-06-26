@@ -30,9 +30,7 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,9 +38,8 @@ import java.util.Map;
  */
 public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispatcher {
 
-    private final AppLogger LOGGER = new AppLogger(ServerRMIDispatcher.class);
-
     public final Dispatcher dispatcher;
+    private final AppLogger LOGGER = new AppLogger(ServerRMIDispatcher.class);
     private final Map<RMIStatefulListener, StatefulListener> listeners;
 
     /**
