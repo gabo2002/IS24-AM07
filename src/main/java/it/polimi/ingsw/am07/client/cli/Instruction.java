@@ -36,6 +36,7 @@ import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIGameSymbol;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
+import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLISideRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.lobby.CLILobbyRepresentation;
@@ -54,6 +55,7 @@ import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.lambda.TriConsumer;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -194,8 +196,15 @@ public enum Instruction {
             sides.add(card.back());
         }
 
+        //render the cards
+        List<String> cardRenderRepresentation = new ArrayList<>();
+        for (Side card : sides) {
+            CLISideRepresentation representation = new CLISideRepresentation.Factory(card).large();
+            cardRenderRepresentation.add(representation.render());
+        }
+
         while (!validPosition) {
-            SelectableMenu<Side> menu = new SelectableMenu<>(sides.stream().toList(), scanner);
+            SelectableMenu<String> menu = new SelectableMenu<>(cardRenderRepresentation, scanner);
             try {
                 menu.show();
             } catch (InterruptedException e) {

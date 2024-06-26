@@ -23,7 +23,9 @@
 
 package it.polimi.ingsw.am07.utils.logging;
 
+import java.io.IOException;
 import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,10 +41,22 @@ public class AppLogger {
                 return;
             }
 
-            ConsoleHandler consoleHandler = new ConsoleHandler();
-            consoleHandler.setLevel(Level.ALL);
-            consoleHandler.setFormatter(new CustomFormatter());
-            LOGGER.addHandler(consoleHandler);
+            if(System.getProperty("cli") != null) {
+                try {
+                    FileHandler fileHandler = new FileHandler("log.txt",0, 1,true);
+                    fileHandler.setLevel(Level.ALL);
+                    fileHandler.setFormatter(new CustomFormatter());
+                    LOGGER.addHandler(fileHandler);
+                } catch (IOException e) {
+                    System.err.println("Error while creating log file! Logging will be disabled.");
+                }
+            } else {
+                ConsoleHandler consoleHandler = new ConsoleHandler();
+                consoleHandler.setLevel(Level.ALL);
+                consoleHandler.setFormatter(new CustomFormatter());
+                LOGGER.addHandler(consoleHandler);
+            }
+
             LOGGER.setLevel(Level.ALL);
             LOGGER.setUseParentHandlers(false);
         }
