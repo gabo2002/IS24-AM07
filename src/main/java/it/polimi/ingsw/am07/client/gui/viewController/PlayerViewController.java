@@ -67,7 +67,20 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.*;
 
-
+/**
+ * Controller class for managing the player's view in the game GUI.
+ * This class handles updating UI components, user interactions, and game state rendering.
+ *
+ * <p>The view includes displaying player lists, resource counts, chat messages,
+ * decks, objectives, hand cards, and managing drag-and-drop functionality for placing cards.</p>
+ *
+ * <p>Key functionalities include initializing the view, updating based on the client state,
+ * handling player clicks and confirm actions, managing drag-and-drop for card placement,
+ * rendering player game fields, and sending chat messages.</p>
+ *
+ * <p>UI components managed include lists, text fields, text areas, buttons, labels,
+ * panes, and containers, integrating JavaFX components with game logic seamlessly.</p>
+ */
 public class PlayerViewController {
 
     private static final int RECT_WIDTH = 150;
@@ -155,9 +168,9 @@ public class PlayerViewController {
     }
 
     /**
-     * Update the view with the new client state
+     * Updates the view with the updated client state.
      *
-     * @param clientState a reference to the client state
+     * @param clientState The updated client state.
      */
     public void updateView(ClientState clientState) {
         this.clientState = clientState;
@@ -230,9 +243,9 @@ public class PlayerViewController {
     }
 
     /**
-     * Handle the click on a player in the list
+     * Handles the click event on a player in the player list.
      *
-     * @param event
+     * @param event The MouseEvent representing the click event.
      */
     @FXML
     private void onPlayerClicked(MouseEvent event) {
@@ -259,9 +272,9 @@ public class PlayerViewController {
     }
 
     /**
-     * Handle the click on the confirm button
+     * Handles the click event on the confirm button.
      *
-     * @param event the event
+     * @param event The ActionEvent representing the click event.
      */
     @FXML
     private void onConfirmButtonClicked(ActionEvent event) {
@@ -575,9 +588,9 @@ public class PlayerViewController {
     }
 
     /**
-     * Render the player game filed
+     * Renders the game field for the specified player.
      *
-     * @param player
+     * @param player The player whose game field is to be rendered.
      */
     private void render(Player player) {
         Map<GameFieldPosition, Side> placedCards = new HashMap<>(player.getPlacedCards());
@@ -641,16 +654,16 @@ public class PlayerViewController {
     }
 
     /**
-     * Update the info message
+     * Updates the informational message displayed to the user.
      *
-     * @param message
+     * @param message The message to display.
      */
     private void updateInfoMessage(String message) {
         infoMessage.setText(message);
     }
 
     /**
-     * Send the chat message
+     * Sends a chat message entered by the user.
      */
     @FXML
     protected void sendChatMessage() {

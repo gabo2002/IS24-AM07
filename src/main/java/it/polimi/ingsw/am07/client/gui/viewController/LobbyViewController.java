@@ -36,8 +36,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
+/**
+ * The {@code LobbyViewController} class manages the lobby view in the GUI.
+ * It updates the view to reflect the current state of the lobby and handles
+ * user interactions such as starting the game or quitting the application.
+ */
 public class LobbyViewController {
-
 
     @FXML
     private Button start_btn;
@@ -45,13 +49,19 @@ public class LobbyViewController {
     @FXML
     private Label lobby_name;
 
+    @FXML
+    private ListView<String> players_list;
+
     private ClientState clientState;
     private Controller controller;
 
-    @FXML
-    private ListView players_list;
-
-
+    /**
+     * Initializes the LobbyViewController with the given {@code ClientState} and {@code Controller}.
+     * This method binds the lobby view to reflect the player state changes.
+     *
+     * @param clientState the current state of the client, containing information about the lobby and players
+     * @param controller the controller used to execute actions and handle the game logic
+     */
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
         this.controller = controller;
@@ -61,42 +71,69 @@ public class LobbyViewController {
         // clientState.onGameModelUpdate(this::updateView);
     }
 
-
+    /**
+     * Updates the GUI to reflect the new state of the client.
+     * This method is called whenever the client state changes to refresh the lobby view.
+     *
+     * @param clientState the updated state of the client
+     */
     private void updateView(ClientState clientState) {
-        // Logic to update the GUI based on the new clientState
+        // Log the state update for debugging purposes
         System.out.println("Lobby view, Client state updated: " + clientState);
-        // welcomeText.setText("Current Player State: " + clientState.getPlayerState());
-        // Additional GUI updates can go here
 
+        // Initially enable the start button
         start_btn.setDisable(false);
 
+        // Clear the current player list and add updated player names
+        players_list.getItems().clear();
         for (LobbyPlayer player : clientState.getLobbyModel().getPlayers()) {
             players_list.getItems().add(player.getNickname());
         }
 
+        // Disable the start button if there are fewer than 2 players in the lobby
         if (players_list.getItems().size() < 2) {
             start_btn.setDisable(true);
         }
 
+        // Make the start button visible if the current player is the admin waiting for players
         if (clientState.getPlayerState() == PlayerState.ADMIN_WAITING_FOR_PLAYERS) {
             start_btn.setVisible(true);
         }
 
+        // Update the lobby name label with the first player's nickname
         lobby_name.setText("Lobby of " + clientState.getLobbyModel().getFirstPlayer().getNickname());
-
     }
 
+    /**
+     * Handles the event when the start game button is clicked.
+     * This method creates a {@code GameStartAction} and executes it via the controller to start the game.
+     *
+     * @param event the action event triggered by clicking the start button
+     */
     @FXML
     protected void onPlayerBtnClick(ActionEvent event) {
+        // Create a new GameStartAction with the nickname of the first player and the client's identity
         Action startGameAction = new GameStartAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
+
+        // Set the client's nickname to the first player's nickname
         clientState.setNickname(clientState.getLobbyModel().getFirstPlayer().getNickname());
+
+        // Execute the action to start the game
         controller.execute(startGameAction);
     }
 
+    /**
+     * Handles the event when the quit button is clicked.
+     * This method exits the application gracefully.
+     *
+     * @param event the action event triggered by clicking the quit button
+     */
     @FXML
     protected void onQuitBtnClick(ActionEvent event) {
+        // Exit the JavaFX application
         Platform.exit();
+
+        // Terminate the Java virtual machine
         System.exit(0);
     }
-
 }

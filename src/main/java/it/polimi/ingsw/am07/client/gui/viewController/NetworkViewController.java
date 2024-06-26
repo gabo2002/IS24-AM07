@@ -31,6 +31,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
+/**
+ * The {@code NetworkViewController} class manages the network view in the GUI.
+ * It handles user input for network configuration and initializes the client state
+ * based on the chosen network type (RMI or TCP).
+ */
 public class NetworkViewController {
 
     private NetworkInitializer networkInitializer;
@@ -38,6 +43,24 @@ public class NetworkViewController {
     @FXML
     private TextField IpField;
 
+    /**
+     * Initializes the network view controller with the given parameters.
+     *
+     * @param state the current state of the client
+     * @param identity the identity of the client
+     * @param clientNetworkManagerFactory the factory to create network managers
+     * @param networkInitializer the initializer to set up the client state
+     */
+    public void init(ClientState state, String identity, ClientNetworkManager.Factory clientNetworkManagerFactory, NetworkInitializer networkInitializer) {
+        this.networkInitializer = networkInitializer;
+    }
+
+    /**
+     * Handles the event when the RMI button is clicked.
+     * This method initializes the client state with RMI network type.
+     *
+     * @param event the action event triggered by clicking the RMI button
+     */
     @FXML
     protected void onRMIBtnClicked(ActionEvent event) {
         if (IpField.getText().isEmpty()) {
@@ -45,9 +68,14 @@ public class NetworkViewController {
             return;
         }
         networkInitializer.initializeClientState(NetworkType.RMI, IpField.getText());
-
     }
 
+    /**
+     * Handles the event when the TCP button is clicked.
+     * This method initializes the client state with TCP network type.
+     *
+     * @param event the action event triggered by clicking the TCP button
+     */
     @FXML
     protected void onTCPBtnClicked(ActionEvent event) {
         if (IpField.getText().isEmpty()) {
@@ -56,10 +84,4 @@ public class NetworkViewController {
         }
         networkInitializer.initializeClientState(NetworkType.TCP, IpField.getText());
     }
-
-
-    public void init(ClientState state, String identity, ClientNetworkManager.Factory clientNetworkManagerFactory, NetworkInitializer networkInitializer) {
-        this.networkInitializer = networkInitializer;
-    }
 }
-

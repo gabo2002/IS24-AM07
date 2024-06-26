@@ -45,12 +45,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Controller class for handling username input and lobby actions in the GUI.
+ * Manages user interaction and updates based on client state changes.
+ */
 public class UsernameViewController {
 
     @FXML
     private Label welcomeText;
+
     @FXML
     private TextField nicknameField;
+
     @FXML
     private ListView<String> pawn_list;
 
@@ -59,33 +65,44 @@ public class UsernameViewController {
     private ClientState clientState;
     private Controller controller;
 
+    /**
+     * Initializes the controller with the current client state and controller instance.
+     * Binds the label to reflect the player state changes.
+     *
+     * @param clientState the current client state containing game information
+     * @param controller  the controller instance for executing game actions
+     */
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
         this.controller = controller;
-
-        // Bind the label to reflect the player state changes
         updateView(clientState);
-        // clientState.onGameModelUpdate(this::updateView);
     }
 
-
+    /**
+     * Updates the GUI view based on the provided client state.
+     * Placeholder method for future GUI updates.
+     *
+     * @param clientState the updated client state to display
+     */
     private void updateView(ClientState clientState) {
-        // Logic to update the GUI based on the new clientState
-        System.out.println("Username view, Client state updated: " + clientState);
-        // welcomeText.setText("Current Player State: " + clientState.getPlayerState());
-        // Additional GUI updates can go here
+        // Placeholder for future GUI updates based on client state
     }
 
+    /**
+     * Handles the action event triggered by clicking the play button.
+     * Performs different actions based on the current state and user input.
+     *
+     * @param event the action event triggered by clicking the play button
+     */
     @FXML
     protected void onPlayBtnClick(ActionEvent event) {
-        // welcomeText.setText("Welcome " + nicknameField.getText());
-
         if (nicknameField.getText().isEmpty()) {
             welcomeText.setText("Insert a username");
             return;
         }
 
         if (clientState.getPlayerState() == PlayerState.INSERTING_USERNAME_FOR_RECONNECT) {
+            // Reconnect action for a player with an existing session
             String nickname = nicknameField.getText();
             clientState.setNickname(nickname);
             Action action = new ReconnectAction(nickname, clientState.getIdentity());
@@ -94,9 +111,9 @@ public class UsernameViewController {
         }
 
         if (clientState.getLobbyModel() != null) {
-
+            // Player join action for an existing lobby
             Set<Pawn> availablePawns = Arrays.stream(Pawn.values())
-                    .filter(t -> !t.equals(Pawn.BLACK))
+                    .filter(pawn -> !pawn.equals(Pawn.BLACK))
                     .collect(Collectors.toSet());
 
             availablePawns.removeAll(
@@ -106,25 +123,18 @@ public class UsernameViewController {
             );
 
             List<Pawn> pawns = new ArrayList<>(availablePawns);
-
             clientState.setNickname(nicknameField.getText());
-            Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId(), pawns.getFirst());
+            Action action = new PlayerJoinAction(nicknameField.getText(), clientState.getIdentity(), clientState.getLobbyModel().getId(), pawns.get(0));
             controller.execute(action);
-
-            //clientState.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
             return;
         }
 
+        // Create lobby action for a new lobby
         List<Pawn> availablePawns = Arrays.stream(Pawn.values())
-                .filter(t -> !t.equals(Pawn.BLACK))
+                .filter(pawn -> !pawn.equals(Pawn.BLACK))
                 .toList();
 
-        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), availablePawns.getFirst());
+        Action action = new CreateLobbyAction(nicknameField.getText(), clientState.getIdentity(), availablePawns.get(0));
         controller.execute(action);
-
-        //clientState.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);
-
-        //loadScene(event);
-
     }
 }
