@@ -374,7 +374,10 @@ public enum Instruction {
      */
     SHOW_OBJECTIVE_CARD("Show Objective", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
-        ObjectiveCard[] objectiveCards = clientState.getGameModel().getSelf().getAvailableObjectives();
+        ObjectiveCard[] objectiveCards = clientState.getGameModel().getCommonObjectives();
+        objectiveCards = Arrays.copyOf(objectiveCards, objectiveCards.length + 1);
+        objectiveCards[objectiveCards.length - 1] = clientState.getGameModel().getSelf().getPlayerObjectiveCard();
+
         //display the cards
         System.out.println("Objective Cards: ");
         CLIObjectiveCardSelectionRepresentation objectiveCardRepresentation = new CLIObjectiveCardSelectionRepresentation(objectiveCards);

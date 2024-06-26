@@ -38,13 +38,27 @@ public class CliObjectiveCardSelectionRepresentationTest {
 
         List<ObjectiveCard> cards = GameResources.getInstance().getObjectiveCards();
 
-        for (int i = 0; i < cards.size() - 1; i++) {
-            ObjectiveCard[] cardArray = new ObjectiveCard[2];
+        for (int i = 0; i < cards.size() - 2; i++) {
+            ObjectiveCard[] cardArray = new ObjectiveCard[3];
             cardArray[0] = cards.get(i);
             cardArray[1] = cards.get(i + 1);
+            cardArray[2] = cards.get(i + 2);
             CLIObjectiveCardSelectionRepresentation representation = new CLIObjectiveCardSelectionRepresentation(cardArray);
             String terminal = representation.render();
+            System.out.println(terminal);
             Assertions.assertNotNull(terminal);
         }
     }
+
+   @Test
+   public void test2ObjectiveCards() {
+       List<ObjectiveCard> cards = GameResources.getInstance().getObjectiveCards();
+       ObjectiveCard[] cardArray = new ObjectiveCard[2];
+       cardArray[0] = cards.get(0);
+       cardArray[1] = cards.get(1);
+       CLIObjectiveCardSelectionRepresentation representation = new CLIObjectiveCardSelectionRepresentation(cardArray);
+       String terminal = representation.render();
+       System.out.println(terminal);
+       Assertions.assertNotNull(terminal);
+   }
 }
