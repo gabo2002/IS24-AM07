@@ -240,7 +240,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
                 connection.send(new HeartbeatNetworkPacket());
 
-                if (!listener.checkPulse()) {
+                if (listener != null && !listener.checkPulse()) {
                     listener.notify(new HangGameAction(identity));
                     listener = null;
                 }

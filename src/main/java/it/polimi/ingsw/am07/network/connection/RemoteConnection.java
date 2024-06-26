@@ -99,10 +99,10 @@ public class RemoteConnection implements Connection {
             return serializer.fromJson(json);
         } catch (EOFException e) {
             LOGGER.error("Connection " + this + "Closed unexpectedly");
-            return null;
+            throw new RuntimeException(e);
         } catch (Exception e) {
             LOGGER.error(e);
-            return null;
+            throw new RuntimeException(e);
         }
     }
 

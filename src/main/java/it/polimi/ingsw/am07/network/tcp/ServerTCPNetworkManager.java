@@ -122,7 +122,13 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
      * @param connection the connection to check
      */
     private boolean checkConnection(Connection connection) {
-        NetworkPacket packet = connection.receive();
+        NetworkPacket packet;
+        try {
+            packet = connection.receive();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            return false;
+        }
 
         if (packet != null) {
             switch (packet) {
