@@ -239,6 +239,7 @@ public class CLI {
                         e.printStackTrace();
                     }
                 } else {
+                    clientState.setPlayerState(PlayerState.SLEEPING);
                     controller.execute(new ReconnectAction(clientState.getNickname(), clientState.getIdentity()));
                 }
 

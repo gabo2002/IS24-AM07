@@ -141,6 +141,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
      */
     @Override
     public void reconnect(ClientState clientState) {
+        controller = null;
         connection = null;
         listener = null;
 
