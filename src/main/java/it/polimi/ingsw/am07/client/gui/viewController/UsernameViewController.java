@@ -81,7 +81,7 @@ public class UsernameViewController {
         // welcomeText.setText("Welcome " + nicknameField.getText());
 
         if (nicknameField.getText().isEmpty()) {
-            welcomeText.setText("Inserisci uno username");
+            welcomeText.setText("Insert a username");
             return;
         }
 
