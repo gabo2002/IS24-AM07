@@ -82,6 +82,7 @@ public class RemoteConnection implements Connection {
             } catch (Exception ex) {
                 LOGGER.error(ex);
             }
+            throw new RuntimeException(e);
         }
     }
 
@@ -132,6 +133,11 @@ public class RemoteConnection implements Connection {
     public String toString() {
         //return just the id
         return "RemoteConnection@" + Integer.toHexString(hashCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return identity.hashCode();
     }
 
 }

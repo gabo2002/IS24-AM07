@@ -38,10 +38,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Server network manager for TCP.
@@ -53,7 +50,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
 
     private final int listeningPort;
     private final ServerDispatcher dispatcher;
-    private final List<RemoteConnection> connectionList;
+    private final Set<RemoteConnection> connectionList;
     private final Map<Connection, StatefulListener> listeners;
     private ServerSocket serverSocket;
 
@@ -67,7 +64,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         this.dispatcher = dispatcher;
         this.listeningPort = listeningPort;
 
-        connectionList = new ArrayList<>();
+        connectionList = new HashSet<>();
         listeners = new HashMap<>();
     }
 
