@@ -9,9 +9,9 @@
 <?import javafx.scene.Cursor?>
 <SplitPane dividerPositions="0.5" maxHeight="1700.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.PlayerViewController">
         <!-- Parte sinistra -->
-        <ScrollPane fx:id="scrollLeft" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1700.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+        <ScrollPane fx:id="scrollLeft" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1700.0" maxWidth="490.0" minWidth="490" prefWidth="490.0" style="-fx-background-color: #433A3F;">
             <!-- Box verticale -->
-            <VBox fx:id="contentBox" maxHeight="1439.0" maxWidth="490.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+            <VBox fx:id="contentBox" maxHeight="1439.0" maxWidth="490.0" minWidth="490" prefWidth="490.0" style="-fx-background-color: #433A3F;">
                 <HBox>
                     <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -100,7 +100,7 @@
                     </VBox>
                 </HBox>
                 <!-- Sezione Obejctive Cards -->
-                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="490.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Objectives" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -115,7 +115,7 @@
                         <Insets left="15.0" />
                     </padding>
                 </HBox>
-                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="490.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" prefHeight="23.0" prefWidth="490.0" text="My Hand" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -132,7 +132,7 @@
                 </HBox>
 
                 <!-- Sezione Resource Deck -->
-                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="490.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Resource Deck" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -148,7 +148,7 @@
                     </padding>
                 </HBox>
 
-                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="490.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="490.0" text="Gold Deck" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
