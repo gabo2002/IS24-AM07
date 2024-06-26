@@ -28,6 +28,8 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameField;
 
 /**
  * Represents an objective card that requires a certain amount of resources to be completed.
+ * This class is used to calculate the final score of the player based on the GameResources on the game field.
+ * Every ResourceObjectiveCard has an associated score and a set of resources that must be satisfied to obtain the score
  */
 public final class ResourceObjectiveCard extends ObjectiveCard {
 

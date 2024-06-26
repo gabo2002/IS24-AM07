@@ -25,10 +25,22 @@ package it.polimi.ingsw.am07.client;
 
 import it.polimi.ingsw.am07.model.ClientState;
 
+/**
+ * The {@code UserInterface} interface represents the user interface of the client.
+ * It provides the entry point and the rendering method for the user interface.
+ * CLI and GUI classes implement this interface.
+ */
 public interface UserInterface {
 
+    /**
+     * The entry point of the user interface.
+     */
     abstract void entrypoint();
 
+    /**
+     * This method renders the user interface based on the client state.
+     * @param clientState the client state to render
+     */
     abstract void render(ClientState clientState);
 
 }

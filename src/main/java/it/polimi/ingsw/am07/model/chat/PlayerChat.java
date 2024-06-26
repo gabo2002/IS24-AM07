@@ -29,6 +29,8 @@ import java.util.List;
 
 /**
  * Represents the chat state for a player.
+ * Every player has its own chat. This class is used to manage the chat messages and the players connected to the chat.
+ * Inside the Player class, there is a PlayerChat object that represents the chat of the player.
  */
 public final class PlayerChat implements Serializable {
 
@@ -49,7 +51,7 @@ public final class PlayerChat implements Serializable {
 
     /**
      * Creates a new player chat.
-     *
+     * This constructor is used when a Game object is created and the players are added.
      * @param players  the players connected to the chat
      * @param nickname the nickname of the player
      */
@@ -61,7 +63,8 @@ public final class PlayerChat implements Serializable {
 
     /**
      * Sends a broadcast message to all players.
-     *
+     * If the message starts with '@', it's a private message.
+     * You can send a private message by typing "@nickname message".
      * @param message the message
      * @return the chat message
      */
@@ -76,7 +79,7 @@ public final class PlayerChat implements Serializable {
 
     /**
      * Sends a private message to a specific player.
-     *
+     * @deprecated Use {@link #sendBroadcastMessage(String)} (String, String)} instead.
      * @param receiver the receiver
      * @param message  the message
      * @return the chat message
@@ -90,7 +93,7 @@ public final class PlayerChat implements Serializable {
     }
 
     /**
-     * Gets the messages in the chat.
+     * Gets all the messages in the chat.
      *
      * @return the messages
      */

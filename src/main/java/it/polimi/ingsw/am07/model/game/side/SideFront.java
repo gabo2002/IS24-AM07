@@ -28,6 +28,8 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 
 /**
  * Represents a generic front side of a card.
+ * This abstract class is used to create the three types of front sides: SideFrontGold, SideFrontStarter, and SideFrontRes.
+ * This layer of abstraction is used to group the three types of front sides together.
  */
 public sealed abstract class SideFront extends Side permits SideFrontGold, SideFrontStarter, SideFrontRes {
 

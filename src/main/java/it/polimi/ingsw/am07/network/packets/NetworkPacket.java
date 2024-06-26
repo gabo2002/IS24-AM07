@@ -25,6 +25,8 @@ package it.polimi.ingsw.am07.network.packets;
 
 /**
  * Network packet.
+ * A network packet represents a message that can be sent over a network connection.
+ * It encapsulates a specific type of message, such as an action, a heartbeat or an identity.
  */
 public sealed abstract class NetworkPacket permits ActionNetworkPacket, HeartbeatNetworkPacket, IdentityNetworkPacket {
 

@@ -36,6 +36,10 @@ import javafx.scene.control.ListView;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller class for displaying the game's winner and ranking information in the GUI.
+ * Manages the UI updates based on the client state containing game results.
+ */
 public class WinnerViewController {
 
     private final AppLogger LOGGER = new AppLogger(WinnerViewController.class);
@@ -46,13 +50,27 @@ public class WinnerViewController {
     @FXML
     private ListView<Parent> ranking_list;
 
+    /**
+     * Initializes the controller with the current client state and sets up initial UI state.
+     *
+     * @param clientState the current client state containing game results
+     * @param controller  the controller instance for executing game actions
+     */
     public void init(ClientState clientState, Controller controller) {
         updateView(clientState);
     }
 
+    /**
+     * Updates the UI view based on the provided client state.
+     * Populates the ranking list with player information and displays the result message.
+     *
+     * @param clientState the updated client state containing game results
+     */
     private void updateView(ClientState clientState) {
-        List<Player> players = clientState.getGameModel().getPlayers().stream().toList();
-        ranking_list.getItems().clear();
+        List<Player> players = clientState.getGameModel().getPlayers(); // Get all players from game model
+        ranking_list.getItems().clear(); // Clear the list view before updating
+
+        // Populate the ranking list with player information
         for (Player player : players) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/it/polimi/ingsw/am07/views/player-box.fxml"));
@@ -68,6 +86,7 @@ public class WinnerViewController {
             }
         }
 
+        // Display result message based on whether the client is among the winners
         try {
             if (clientState.getGameModel().getWinners().contains(clientState.getGameModel().getSelf())) {
                 result_message.setText("You won!");

@@ -26,19 +26,39 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * The {@code LobbyBoxController} class is responsible for controlling the lobby box view in the GUI.
+ * It manages the display of the lobby name and the number of players in the lobby.
+ */
 public class LobbyBoxController {
 
+    /**
+     * The label displaying the lobby name.
+     */
     @FXML
     private Label lobby_name_box;
 
+    /**
+     * The label displaying the number of players in the lobby.
+     */
     @FXML
     private Label n_players;
 
+    /**
+     * Sets the text of the {@code lobby_name_box} label to the specified name.
+     *
+     * @param name the name to set for the lobby.
+     */
     @FXML
     protected void setLobby_name_box(String name) {
         lobby_name_box.setText(name);
     }
 
+    /**
+     * Sets the text of the {@code n_players} label to the specified text.
+     *
+     * @param text the text to set for the number of players.
+     */
     @FXML
     protected void setN_players(String text) {
         n_players.setText(text);

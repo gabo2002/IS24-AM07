@@ -70,7 +70,9 @@ public class GameField implements Serializable {
     }
 
     /**
-     * Checks whether a card can be placed on the game field at a given position.
+     * Checks whether a card can be placed on the game field at a given position
+     * It checks if the card can be placed at the specified position by verifying that the position is valid and that the card can be placed without overlapping other cards.
+     * It also checks that the card resource requirements are satisfied.
      *
      * @param card the card to be placed
      * @param pos  the position of the top left corner of the card
@@ -104,7 +106,8 @@ public class GameField implements Serializable {
 
     /**
      * get the number of patterns that match the given pattern in the game field.
-     *
+     * This method counts the number of patterns that match the given pattern in the game field.
+     * A pattern is considered to match if all the non-empty cells in the pattern are filled with the same color as the corresponding cells in the game field.
      * @param pattern the pattern to match
      * @return the number of matches of the given pattern in the game field
      * @author Gabriele Corti

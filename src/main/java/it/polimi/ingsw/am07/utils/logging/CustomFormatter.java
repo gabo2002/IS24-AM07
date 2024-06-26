@@ -26,6 +26,10 @@ package it.polimi.ingsw.am07.utils.logging;
 import java.util.logging.LogRecord;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * Custom formatter for the logger.
+ * It formats the log message with the calling class name.
+ */
 public class CustomFormatter extends SimpleFormatter {
 
     @Override

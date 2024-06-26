@@ -37,6 +37,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+/**
+ * Controller class for handling the welcome view and lobby selection in the GUI.
+ * Manages user interaction and updates based on client state changes.
+ */
 public class WelcomeViewController {
 
     private final AppLogger LOGGER = new AppLogger(WelcomeViewController.class);
@@ -46,39 +50,49 @@ public class WelcomeViewController {
     @FXML
     private ListView<Parent> lobby_list;
 
+    /**
+     * Initializes the controller with the current client state and sets up initial UI state.
+     *
+     * @param clientState the current client state containing lobby information
+     * @param controller  the controller instance for executing game actions
+     */
     public void init(ClientState clientState, Controller controller) {
         this.clientState = clientState;
-
-        // Bind the label to reflect the player state changes
         updateView(clientState);
-        // clientState.onGameModelUpdate(this::updateView);
     }
 
+    /**
+     * Initializes the ListView to handle item selection events.
+     * Called automatically after FXML loading is complete.
+     */
     @FXML
     public void initialize() {
-        // Add a listener to handle selection events
         lobby_list.setOnMouseClicked(this::onListItemClick);
     }
 
+    /**
+     * Handles the event of clicking on an item in the lobby list.
+     * Retrieves the selected lobby and updates the client state accordingly.
+     *
+     * @param event the mouse event triggered by clicking on a lobby item
+     */
     private void onListItemClick(MouseEvent event) {
         Parent selectedItem = lobby_list.getSelectionModel().getSelectedItem();
-
-        // Retrieve the Lobby object from user data
         if (selectedItem != null) {
             Lobby lobby = (Lobby) selectedItem.getUserData();
-
             clientState.setLobbyModel(lobby);
             clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
         }
-
-        // System.out.println("Clicked Lobby: " + lobby);
-
-        // Now you have access to the Lobby object and can perform further actions
     }
 
+    /**
+     * Updates the GUI view based on the provided client state.
+     * Generates UI elements dynamically for each available lobby.
+     *
+     * @param clientState the updated client state containing lobby information
+     */
     private void updateView(ClientState clientState) {
-        // Logic to update the GUI based on the new clientState
-        System.out.println("Lobby available: " + clientState.getAvailableLobbies().size());
+        LOGGER.info("Lobby available: " + clientState.getAvailableLobbies().size());
         if (!clientState.getAvailableLobbies().isEmpty()) {
             for (Lobby lobby : clientState.getAvailableLobbies()) {
                 try {
@@ -98,18 +112,28 @@ public class WelcomeViewController {
                 }
             }
         }
-        System.out.println("Welcome view, Client state updated: " + clientState);
-        // Additional GUI updates can go here
+        LOGGER.info("Welcome view, Client state updated: " + clientState);
     }
 
+    /**
+     * Handles the event of clicking on the "Join Lobby" button.
+     * Sets the player state to inserting username for lobby join.
+     *
+     * @param event the action event triggered by clicking on the "Join Lobby" button
+     */
     @FXML
     protected void onLobbyBtnClick(ActionEvent event) {
         clientState.setPlayerState(PlayerState.INSERTING_USERNAME);
     }
 
+    /**
+     * Handles the event of clicking on the "Reconnect" button.
+     * Sets the player state to inserting username for reconnecting to a session.
+     *
+     * @param event the action event triggered by clicking on the "Reconnect" button
+     */
     @FXML
     protected void onReconnectBtnClick(ActionEvent event) {
         clientState.setPlayerState(PlayerState.INSERTING_USERNAME_FOR_RECONNECT);
     }
-
 }

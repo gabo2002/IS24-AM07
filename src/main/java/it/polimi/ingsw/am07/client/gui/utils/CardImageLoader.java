@@ -29,10 +29,22 @@ import javafx.scene.image.Image;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Utility class to load card images.
+ * It loads images from the resources folder.
+ */
 public class CardImageLoader {
 
     private static final AppLogger LOGGER = new AppLogger(CardImageLoader.class);
 
+    /**
+     * Loads an image from the resources folder.
+     *
+     * @param cl   the class loader
+     * @param id   the id of the card
+     * @param side the side of the card
+     * @return the image
+     */
     public static Image imgFrom(ClassLoader cl, int id, String side) {
         String item = "it/polimi/ingsw/am07/assets/" + side + "_" + id + ".png";
         Image img = null;

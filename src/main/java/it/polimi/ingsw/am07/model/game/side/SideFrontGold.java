@@ -29,7 +29,7 @@ import it.polimi.ingsw.am07.model.game.Symbol;
 import java.util.Optional;
 
 /**
- * Represents a gold side of a card.
+ * Represents a side of a Gold card.
  */
 public final class SideFrontGold extends SideFront {
 

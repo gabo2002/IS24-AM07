@@ -26,21 +26,38 @@ package it.polimi.ingsw.am07.client.gui.viewController;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
+/**
+ * The {@code DisconnectedViewController} class manages the state of the application
+ * when the client is disconnected. It attempts to reconnect after a delay.
+ * <p>
+ * It utilizes a separate thread to wait for a predefined amount of time before
+ * notifying the {@link ClientState} to attempt reconnection.
+ */
 public class DisconnectedViewController {
 
+    /**
+     * Logger instance for this class.
+     */
     private final AppLogger LOGGER = new AppLogger(DisconnectedViewController.class);
 
+    /**
+     * Initializes the view controller by starting a thread that attempts to reconnect
+     * after a 5-second delay.
+     *
+     * @param clientState the current state of the client which will be notified for reconnection.
+     */
     public void init(ClientState clientState) {
         new Thread(() -> {
             try {
+                // Wait for 5 seconds before attempting to reconnect
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
+                // Log the error if the thread is interrupted during sleep
                 LOGGER.error(e);
             }
 
-            // This will attempt a reconnection
+            // Notify the client state to attempt a reconnection
             clientState.notifyGameModelUpdate();
         }).start();
     }
-
 }

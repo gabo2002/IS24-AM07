@@ -29,10 +29,21 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Utility class for logging.
+ * This class is used to log messages to the console or to a file.
+ * If the system property "cli" is set, the log messages will be written to a file.
+ * IMPORTANT: Only one instance of this class is allowed per class.
+ */
 public class AppLogger {
 
     private final Logger LOGGER;
 
+    /**
+     * Constructs a new AppLogger for the specified class.
+     *
+     * @param clazz the class for which the logger is created
+     */
     public AppLogger(Class<?> clazz) {
         LOGGER = Logger.getLogger(clazz.getName());
 
@@ -62,18 +73,34 @@ public class AppLogger {
         }
     }
 
+    /**
+     * Logs a debug message.
+     * @param message the message to log
+     */
     public void debug(String message) {
         LOGGER.log(Level.FINE, message);
     }
 
+    /**
+     * Logs an info message.
+     * @param message the message to log
+     */
     public void info(String message) {
         LOGGER.log(Level.INFO, message);
     }
 
+    /**
+     * Logs a warning message.
+     * @param message the message to log
+     */
     public void error(String message) {
         LOGGER.log(Level.SEVERE, message);
     }
 
+    /**
+     * Logs an error message.
+     * @param e the exception to log
+     */
     public void error(Exception e) {
         LOGGER.log(Level.SEVERE, e.getMessage(), e);
     }

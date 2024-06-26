@@ -30,6 +30,9 @@ import java.io.Serializable;
 
 /**
  * Represents an objective card that requires a certain amount of resources to be completed.
+ * This class permits the creation of two types of objective cards: ResourceObjectiveCard and PatternObjectiveCard.
+ * ResourceObjectiveCard requires a certain amount of resources to be completed, while PatternObjectiveCard requires a certain pattern to be completed.
+ * This class is used to calculate the final score of the player based on the cards on the game field.
  */
 public abstract sealed class ObjectiveCard implements Serializable permits ResourceObjectiveCard, PatternObjectiveCard {
 

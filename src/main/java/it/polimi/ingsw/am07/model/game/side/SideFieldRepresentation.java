@@ -30,7 +30,7 @@ import java.io.Serializable;
 
 /**
  * Represents the field representation of a side of a card, which is a 2x2 matrix of symbols.
- *
+ * Every side has 4 corners, which are the symbols at the corners of the field.
  * @param corners the corners of the field
  */
 public record SideFieldRepresentation(

@@ -30,7 +30,7 @@ import java.io.Serializable;
 
 /**
  * Represents a game card, which has a front side and a back side.
- *
+ * The front and back sides of the card must have the same id.
  * @param front the front side of the card
  * @param back  the back side of the card
  */

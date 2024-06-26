@@ -23,9 +23,25 @@
 
 package it.polimi.ingsw.am07.utils.lambda;
 
+/**
+ * Represents a function that accepts four arguments and produces a result.
+ * @param <T> the type of the first argument to the function
+ * @param <U> the type of the second argument to the function
+ * @param <V> the type of the third argument to the function
+ * @param <W> the type of the fourth argument to the function
+ * @param <R> the type of the result of the function
+ */
 @FunctionalInterface
 public interface QuadFunction<T, U, V, W, R> {
 
+    /**
+     * Applies this function to the given arguments.
+     * @param t the first argument
+     * @param u the second argument
+     * @param v the third argument
+     * @param w the fourth argument
+     * @return the function result
+     */
     R apply(T t, U u, V v, W w);
 
     default <X> QuadFunction<T, U, V, W, X> andThen(java.util.function.Function<? super R, ? extends X> after) {

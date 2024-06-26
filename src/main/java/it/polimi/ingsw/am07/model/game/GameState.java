@@ -25,6 +25,12 @@ package it.polimi.ingsw.am07.model.game;
 
 /**
  * Enum representing the state of the game.
+ * This enum is used in CLI and GUI to show the current state of the game. Different Instructions are shown based on the state.
+ * The game can be in one of the following states:
+ * - STARTING: the game is starting, players are being added and the game is being initialized.
+ * - PLAYING: the game is being played.
+ * - ENDING: the game is ending, the last round has started and final scores are being calculated.
+ * - ENDED: the game has ended.
  */
 public enum GameState {
     STARTING,
