@@ -72,9 +72,14 @@ public class CLIObjectiveCardSelectionRepresentation implements CLIElement {
         cardRepresentation.set(cardWidth - 1, cardHeight - 1, new CLIGameSymbol(LEFT_ANGLE, CLIColor.WHITE));
 
         //draw the cards
-        renderObjectiveCardAt(1, 1, cards[0]);
-        renderObjectiveCardAt(1 + 2 * (CLILargeSideRepresentation.WIDTH + 1), 1, cards[1]);
-
+        if (cards.length == 2) {
+            renderObjectiveCardAt(1, 1, cards[0]);
+            renderObjectiveCardAt(1 + 2 * (CLILargeSideRepresentation.WIDTH + 1), 1, cards[1]);
+        } else {
+            renderObjectiveCardAt(1, 1, cards[0]);
+            renderObjectiveCardAt(1 + (CLILargeSideRepresentation.WIDTH + 1), 1, cards[1]);
+            renderObjectiveCardAt(1 + 2 * (CLILargeSideRepresentation.WIDTH + 1), 1, cards[2]);
+        }
     }
 
     /**
