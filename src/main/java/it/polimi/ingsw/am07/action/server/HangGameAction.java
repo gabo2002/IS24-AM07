@@ -110,6 +110,11 @@ public class HangGameAction extends ServerAction {
         } else if (game != null) {
             execute(game);
 
+            if (state.getPlayerState().equals(PlayerState.GAME_ENDED)) {
+                // The game has ended, no need to update the player state
+                return;
+            }
+
             if (!game.shouldFreezeGame()) {
                 // Find out whose turn it is
                 String currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex()).getNickname();
