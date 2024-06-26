@@ -171,7 +171,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
             return;
         }
 
-        RemoteConnection connection = new RemoteConnection(reader, writer);
+        RemoteConnection connection = new RemoteConnection(socket, reader, writer);
 
         new Thread(() -> {
             boolean connectionOpen = true;

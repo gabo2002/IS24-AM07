@@ -30,6 +30,7 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
+import java.net.Socket;
 
 /**
  * Connection with a remote client.
@@ -38,6 +39,7 @@ public class RemoteConnection implements Connection {
 
     private final AppLogger LOGGER = new AppLogger(RemoteConnection.class);
 
+    private final Socket socket;
     private final DataOutputStream outputStream;
     private final DataInputStream inputStream;
 
@@ -46,10 +48,12 @@ public class RemoteConnection implements Connection {
     /**
      * Constructor.
      *
+     * @param socket       the socket to use
      * @param inputStream  the input stream to read from
      * @param outputStream the output stream to write to
      */
-    public RemoteConnection(DataInputStream inputStream, DataOutputStream outputStream) {
+    public RemoteConnection(Socket socket, DataInputStream inputStream, DataOutputStream outputStream) {
+        this.socket = socket;
         this.inputStream = inputStream;
         this.outputStream = outputStream;
 
@@ -71,6 +75,12 @@ public class RemoteConnection implements Connection {
             outputStream.writeUTF(json);
         } catch (Exception e) {
             LOGGER.error(e);
+            try {
+                // Mark the socket as closed to unblock the "receive" method
+                socket.shutdownInput();
+            } catch (Exception ex) {
+                LOGGER.error(ex);
+            }
         }
     }
 

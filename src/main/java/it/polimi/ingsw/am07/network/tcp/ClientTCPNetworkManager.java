@@ -100,7 +100,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
             return;
         }
 
-        connection = new RemoteConnection(reader, writer);
+        connection = new RemoteConnection(socket, reader, writer);
 
         controller = new ClientTCPController(connection);
 
