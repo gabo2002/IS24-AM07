@@ -269,12 +269,17 @@ public class CLI {
 
     private void threadRender(ClientState clientState) {
         // Cancel the current render task if it is still running
-        if (currentRenderTask != null) {
-            currentRenderTask.cancel(true);
-            if (!currentRenderTask.isCancelled())
-                throw new RuntimeException("Render task could not be cancelled");
-            currentRenderTask = null;
+        try {
+            if (currentRenderTask != null) {
+                currentRenderTask.cancel(true);
+                if (!currentRenderTask.isCancelled()) {
+                    LOGGER.error("Failed to cancel the current render task");
+                }
+                currentRenderTask = null;
+            }
+            currentRenderTask = renderExecutor.submit(() -> render(clientState));
+        } catch (Exception e) {
+            LOGGER.error(e);
         }
-        currentRenderTask = renderExecutor.submit(() -> render(clientState));
     }
 }

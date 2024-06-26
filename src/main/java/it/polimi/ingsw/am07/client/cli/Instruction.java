@@ -42,6 +42,7 @@ import it.polimi.ingsw.am07.client.cli.rendering.deck.CLIGameDeckRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.field.CLIGameFieldRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.lobby.CLILobbyRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.objectiveCardSelection.CLIObjectiveCardSelectionRepresentation;
+import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPickCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.playershand.CLIPlayableCardRepresentation;
 import it.polimi.ingsw.am07.client.cli.rendering.starterCard.CLIStarterCardRepresentation;
 import it.polimi.ingsw.am07.model.ClientState;
@@ -275,51 +276,30 @@ public enum Instruction {
     PICK_CARD("Pick a new card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         GameCard card = null;
-        SelectableMenu<String> menu = null;
         int choice = 0;
 
         System.out.println("CARD SELECTION: ");
-        menu = new SelectableMenu<>(List.of("Pick a Resource Card", "Pick a Gold Card"), scanner);
+        Side deckBackResCard = clientState.getGameModel().getDeck().peekTopResCard().back();
+        Side deckBackGoldCard = clientState.getGameModel().getDeck().peekTopGoldCard().back();
+
+        CLIPickCardRepresentation pickCardRepresentation = new CLIPickCardRepresentation(clientState.getGameModel().getVisibleResCards(), clientState.getGameModel().getVisibleGoldCards(), deckBackResCard, deckBackGoldCard);
+        System.out.println(pickCardRepresentation.render());
+
+        System.out.println("Which card do you want to pick?");
+
         try {
-            menu.show();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            choice = scanner.getInt(0, 5);
+        } catch(InterruptedException e) {
+            return;
         }
-        choice = menu.getSelectedOptionIndex();
 
-        if (choice == 0) {
-            System.out.println("RESOURCE CARD SELECTION: ");
-            System.out.println("Insert 0 to pick a resource deck card \nInsert 1 to pick the first visible resource card \nInsert 2 to pick the second visible resource card");
-
-            try {
-                choice = scanner.getInt(0, 2);
-            } catch (InterruptedException e) {
-                return;
-            }
-
-            card = switch (choice) {
-                case 0 -> clientState.getGameModel().pickRandomResCard();
-                case 1 -> clientState.getGameModel().getVisibleResCards()[0];
-                case 2 -> clientState.getGameModel().getVisibleResCards()[1];
-                default -> card;
-            };
-
-        } else {
-            System.out.println("GOLD CARD SELECTION: ");
-            System.out.println("Insert 0 for gold deck card \nInsert 1 for the first visible gold card \nInsert 2 for the second visible gold card");
-
-            try {
-                choice = scanner.getInt(0, 2);
-            } catch (InterruptedException e) {
-                return;
-            }
-
-            card = switch (choice) {
-                case 0 -> clientState.getGameModel().pickRandomGoldCard();
-                case 1 -> clientState.getGameModel().getVisibleGoldCards()[0];
-                case 2 -> clientState.getGameModel().getVisibleGoldCards()[1];
-                default -> card;
-            };
+        switch (choice) {
+            case 0 -> card = clientState.getGameModel().getVisibleResCards()[0];
+            case 1 -> card = clientState.getGameModel().getVisibleResCards()[1];
+            case 2 -> card = clientState.getGameModel().pickRandomResCard();
+            case 3 -> card = clientState.getGameModel().getVisibleGoldCards()[0];
+            case 4 -> card = clientState.getGameModel().getVisibleGoldCards()[1];
+            case 5 -> card = clientState.getGameModel().pickRandomGoldCard();
         }
 
         Action action = new PlayerPickCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), card);
