@@ -136,6 +136,24 @@ public abstract class CLISideRepresentation {
     }
 
     /**
+     * Return the rendered side as a string.
+     * This method is used to render the side representation in the CLI.
+     */
+    public String render() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("\n");
+
+        for (int y = getMatrix().getMinY(); y <= getMatrix().getMaxY(); y++) {
+            for (int x = getMatrix().getMinX(); x <= getMatrix().getMaxX(); x++) {
+                builder.append(representation.get(x, y).render());
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+
+    /**
      * Factory for CLISideRepresentation.
      */
     public static class Factory {
