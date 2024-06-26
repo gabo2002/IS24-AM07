@@ -125,7 +125,6 @@ public class RemoteConnection implements Connection {
     /**
      * Get the identity of the connection.
      *
-     * @return the identity
      */
     public void setIdentity(String identity) {
         this.identity = identity;
