@@ -214,4 +214,8 @@ public class GameField implements Serializable {
     public Map<GameFieldPosition, Side> getPlacedCards() {
         return placedCards;
     }
+
+    public Matrix<Symbol> getFieldMatrix() {
+        return fieldMatrix;
+    }
 }

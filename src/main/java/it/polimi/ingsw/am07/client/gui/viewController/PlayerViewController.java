@@ -40,6 +40,7 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.model.game.side.SideBack;
 import it.polimi.ingsw.am07.reactive.Controller;
+import it.polimi.ingsw.am07.utils.matrix.Matrix;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -78,6 +79,8 @@ public class PlayerViewController {
     private static final Double DELTA_Y = RECT_HEIGHT - (2.0 / 5.0 * RECT_HEIGHT);
     private final AppLogger LOGGER = new AppLogger(PlayerViewController.class);
     private final List<Rectangle> createdRectangles = new ArrayList<>();
+    private static final int defaultX = 4698;
+    private static final int defaultY = 2430;
 
     @FXML
     public HBox objectiveCardsContainer;
@@ -126,7 +129,8 @@ public class PlayerViewController {
     private Label flask;
     @FXML
     private Label purple;
-
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private ScrollPane scrollLeft;
 
@@ -575,6 +579,19 @@ public class PlayerViewController {
      */
     private void render(Player player) {
         Map<GameFieldPosition, Side> placedCards = player.getPlacedCards();
+        Matrix<Symbol> myMatrix = player.getPlayerGameField().getFieldMatrix();
+
+        int minX = myMatrix.getMinX();
+        int minY = myMatrix.getMinY();
+        int maxX = myMatrix.getMaxX();
+        int maxY = myMatrix.getMaxY();
+
+        double posX = (maxX+minX)/2.0*DELTA_X + defaultX + (RECT_WIDTH-DELTA_X);
+        double posY = (maxY+minY)/2.0*DELTA_Y + defaultY + (RECT_HEIGHT-DELTA_Y);
+
+        scrollPane.setHvalue(posX/ 9396);
+        scrollPane.setVvalue(posY/ 4860);
+
         for (Map.Entry<GameFieldPosition, Side> entry : placedCards.entrySet()) {
             GameFieldPosition position = entry.getKey();
             Side side = entry.getValue();
@@ -589,13 +606,11 @@ public class PlayerViewController {
             imageView.setFitWidth(RECT_WIDTH);
             imageView.setLayoutX(position.x() * DELTA_X);
             imageView.setLayoutY(position.y() * DELTA_Y);
-            imageView.getProperties().put("RectVisibility", false);
             createShadow(imageView, Color.BLACK);
             if (player.equals(clientState.getGameModel().getSelf())) {
                 imageView.setOnMouseClicked(this::handleCardClick);
             }
             imageView.setViewOrder(-position.z());
-            System.out.println("Rendering card at position: " + position.x() + " " + position.y() + position.z());
             rightPane.getChildren().add(imageView);
 
             for (Rectangle rect : createdRectangles) {
