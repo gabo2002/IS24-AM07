@@ -503,6 +503,7 @@ public enum Instruction {
             return;
         }
 
+        clientState.setNickname(nickname);
         //Setting the nickname
         Action action = new ReconnectAction(nickname, clientState.getIdentity());
         dispatcher.execute(action);
