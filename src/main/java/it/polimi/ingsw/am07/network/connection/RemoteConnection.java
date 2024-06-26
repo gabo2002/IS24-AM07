@@ -42,6 +42,7 @@ public class RemoteConnection implements Connection {
     private final Socket socket;
     private final DataOutputStream outputStream;
     private final DataInputStream inputStream;
+    private String identity;
 
     private final NetworkJsonSerializer serializer;
 
@@ -117,6 +118,14 @@ public class RemoteConnection implements Connection {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    public String getIdentity() {
+        return identity;
     }
 
     @Override

@@ -87,6 +87,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
         try {
             socket = new Socket(serverAddress, serverPort);
+            socket.setSoTimeout(5000);
         } catch (Exception e) {
             LOGGER.error(e);
             return;
@@ -97,6 +98,11 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
             writer = new DataOutputStream(socket.getOutputStream());
         } catch (Exception e) {
             LOGGER.error(e);
+            try {
+                socket.close();
+            } catch (Exception ex) {
+                LOGGER.error(ex);
+            }
             return;
         }
 

@@ -56,8 +56,9 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
      */
     public ClientRMINetworkManager(String serverAddress, int serverPort, String identity) {
         Properties props = System.getProperties();
-        props.setProperty("sun.rmi.transport.tcp.responseTimeout", "5000");
-        props.setProperty("sun.rmi.transport.connectionTimeout", "5000");
+        props.setProperty("sun.rmi.transport.tcp.responseTimeout", "1000");
+        props.setProperty("sun.rmi.transport.connectionTimeout", "1000");
+        props.setProperty("sun.rmi.transport.tcp.readTimeout", "1000");
 
         Registry tempRegistry = null;
 

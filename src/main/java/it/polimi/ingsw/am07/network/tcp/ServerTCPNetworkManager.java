@@ -53,7 +53,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
 
     private final int listeningPort;
     private final ServerDispatcher dispatcher;
-    private final List<Connection> connectionList;
+    private final List<RemoteConnection> connectionList;
     private final Map<Connection, StatefulListener> listeners;
     private ServerSocket serverSocket;
 
@@ -183,6 +183,17 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                 LOGGER.error("Connection closed unexpectedly. Could not read identity packet.");
                 return;
             }
+
+            synchronized (connectionList) {
+                for (RemoteConnection c : connectionList) {
+                    if (c.getIdentity().equals(identityPacket.getIdentity())) {
+                        LOGGER.error("Connection closed unexpectedly. Identity already in use.");
+                        return;
+                    }
+                }
+            }
+
+            connection.setIdentity(identityPacket.getIdentity());
 
             StatefulListener listener = new ServerTCPListener(connection, identityPacket.getIdentity());
             dispatcher.registerNewListener(listener);

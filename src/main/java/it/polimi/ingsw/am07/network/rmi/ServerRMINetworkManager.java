@@ -29,6 +29,7 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Properties;
 
 /**
  * RMI network manager for the server.
@@ -46,6 +47,11 @@ public class ServerRMINetworkManager implements ServerNetworkManager {
      * @param dispatcher the logic dispatcher
      */
     public ServerRMINetworkManager(int port, Dispatcher dispatcher) {
+        Properties props = System.getProperties();
+        props.setProperty("sun.rmi.transport.tcp.responseTimeout", "1000");
+        props.setProperty("sun.rmi.transport.connectionTimeout", "1000");
+        props.setProperty("sun.rmi.transport.tcp.readTimeout", "1000");
+
         this.dispatcher = dispatcher;
 
         Registry tempRegistry = null;
