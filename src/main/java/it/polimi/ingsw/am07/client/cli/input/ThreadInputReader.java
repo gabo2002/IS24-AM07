@@ -32,6 +32,10 @@ public class ThreadInputReader {
     private final BlockingQueue<String> inputs;
     private final Scanner scanner;
 
+    /**
+     * Constructs a new ThreadInputReader and starts the input reading thread.
+     * The thread continuously reads input from the console and adds it to the queue.
+     */
     public ThreadInputReader() {
         scanner = new Scanner(System.in);
         inputs = new LinkedBlockingQueue<>();
@@ -49,15 +53,32 @@ public class ThreadInputReader {
 
         inputThread.start();
     }
-
+    /**
+     * Stops the input reading thread.
+     * This method should be called when the ThreadInputReader is no longer needed to free up system resources.
+     */
     public void stop() {
         inputThread.interrupt();
     }
 
+    /**
+     * Retrieves and removes the next input string from the queue.
+     * This method blocks if the queue is empty until an element becomes available.
+     *
+     * @return the next input string from the queue
+     * @throws InterruptedException if the current thread is interrupted while waiting
+     */
     public String getInput() throws InterruptedException {
         return inputs.take();
     }
 
+    /**
+     * Retrieves the next input as an integer.
+     * This method repeatedly prompts the user until a valid integer is entered.
+     *
+     * @return the next input as an integer
+     * @throws InterruptedException if the current thread is interrupted while waiting
+     */
     public int getInt() throws InterruptedException {
         while (true) {
             try {
@@ -68,6 +89,15 @@ public class ThreadInputReader {
         }
     }
 
+    /**
+     * Retrieves the next input as an integer within a specified range.
+     * This method repeatedly prompts the user until a valid integer within the specified range is entered.
+     *
+     * @param min the minimum acceptable value (inclusive)
+     * @param max the maximum acceptable value (inclusive)
+     * @return the next input as an integer within the specified range
+     * @throws InterruptedException if the current thread is interrupted while waiting
+     */
     public int getInt(int min, int max) throws InterruptedException {
         while (true) {
             int input = getInt();
