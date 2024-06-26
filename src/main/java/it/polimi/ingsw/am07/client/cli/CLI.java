@@ -84,6 +84,7 @@ public class CLI {
     private static final List<Instruction> availableInstructionsLobby = List.of(
             Instruction.JOIN_LOBBY,
             Instruction.CREATE_LOBBY,
+            Instruction.RECONNECT,
             Instruction.QUIT
     );
     private static final List<Instruction> availableInstructionsWaitingForPlayers = List.of(

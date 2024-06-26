@@ -28,6 +28,7 @@ import it.polimi.ingsw.am07.action.chat.SendMessageAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.GameStartAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
+import it.polimi.ingsw.am07.action.lobby.ReconnectAction;
 import it.polimi.ingsw.am07.action.player.PlayerInitialChoiceAction;
 import it.polimi.ingsw.am07.action.player.PlayerPickCardAction;
 import it.polimi.ingsw.am07.action.player.PlayerPlaceCardAction;
@@ -63,7 +64,14 @@ import java.util.Comparator;
 import java.util.List;
 
 public enum Instruction {
-    CREATE_LOBBY("create_lobby", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to create a new lobby. It will ask the user to insert the nickname and the color of the pawn and will send a packet to the server to create the lobby
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    CREATE_LOBBY("Create a new lobby", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         String nickname = "";
         System.out.println("Insert your nickname:");
@@ -86,7 +94,15 @@ public enum Instruction {
         Action action = new CreateLobbyAction(nickname, clientState.getIdentity(), pawnSelectableMenu.getSelectedOption());
         dispatcher.execute(action);
     }),
-    JOIN_LOBBY("join_lobby", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+
+    /**
+     * This instruction is used to join an existing lobby. It will display the available lobbies and will send a packet to the server to join the selected lobby
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    JOIN_LOBBY("Join an existing lobby", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         if (clientState.getAvailableLobbies().isEmpty()) {
             System.out.println("No lobbies available, cannot execute the instruction.");
@@ -137,7 +153,14 @@ public enum Instruction {
         Action action = new PlayerJoinAction(nickname, clientState.getIdentity(), lobby.getId(), color);
         dispatcher.execute(action);
     }),
-    SELECT_CARD("select_card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to select the starter card side and the objective cards. It will display the cards that the player can select and will send a packet to the server with the selected cards
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SELECT_CARD("Select starter cards", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         // 1. Select Starter Card Side
         System.out.println(clientState.getGameModel().getSelf());
@@ -183,7 +206,14 @@ public enum Instruction {
         Action action = new PlayerInitialChoiceAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), objectiveCards[selectedCardIndex], side);
         dispatcher.execute(action);
     }),
-    PLACE_CARD("place_card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to place a card. It will display the cards that the player can place and will send a packet to the server with the selected card
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    PLACE_CARD("Place card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
         List<Side> sides = new ArrayList<>();
@@ -235,7 +265,14 @@ public enum Instruction {
             }
         }
     }),
-    PICK_CARD("pick_card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to pick a card. It will display the cards that the player can pick and will send a packet to the server with the selected card
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    PICK_CARD("Pick a new card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         GameCard card = null;
         SelectableMenu<String> menu = null;
@@ -288,7 +325,14 @@ public enum Instruction {
         Action action = new PlayerPickCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), card);
         dispatcher.execute(action);
     }),
-    SHOW_FIELD("show_field", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to show the game field of a player. It will display the field of the player selected by the user
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_FIELD("Show gamefield", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         //The user has to select a field to get
         List<Player> players = clientState.getGameModel().getPlayers();
@@ -313,7 +357,13 @@ public enum Instruction {
         System.out.println(render.render());
     }),
 
-    SHOW_RESOURCES("show_resources", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+    /**
+     * This instruction is used to show the resources of the player. It will display the resources that the player has
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_RESOURCES("Show resources", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         Player player = clientState.getGameModel().getSelf();
         System.out.println("Your Resources:");
@@ -324,12 +374,25 @@ public enum Instruction {
         });
     }),
 
-    SHOW_DECK("show_deck", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+    /**
+     * This instruction is used to show the deck of the game. It will display the cards that are still in the deck
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_DECK("Show deck", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         CLIGameDeckRepresentation deckRepresentation = new CLIGameDeckRepresentation(clientState.getGameModel().getDeck());
         System.out.println(deckRepresentation.render());
     }),
-    SHOW_OBJECTIVE_CARD("show_objective_card", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to show the objective cards of the player.
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_OBJECTIVE_CARD("Show Objective", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         ObjectiveCard[] objectiveCards = clientState.getGameModel().getSelf().getAvailableObjectives();
         //display the cards
@@ -337,7 +400,14 @@ public enum Instruction {
         CLIObjectiveCardSelectionRepresentation objectiveCardRepresentation = new CLIObjectiveCardSelectionRepresentation(objectiveCards);
         System.out.println(objectiveCardRepresentation.render());
     }),
-    SHOW_PLAYERS_SCORE("show_players_score", (ClientState clientState, Controller dispatcher, ThreadInputReader reader) ->
+
+    /**
+     * This instruction is used to show the score of the players. It will display the nickname and the score of the players ordered by score
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_PLAYERS_SCORE("Show players score", (ClientState clientState, Controller dispatcher, ThreadInputReader reader) ->
     {
         List<Player> players = clientState.getGameModel().getPlayers();
         System.out.println("Players score:");
@@ -349,14 +419,29 @@ public enum Instruction {
             System.out.println(CLIPawnColor.pawnToColor(player.getPlayerPawn()) + player.getNickname() + " - " + player.getPlayerScore() + CLIColor.RESET.getCode());
         }
     }),
-    SHOW_HAND("show_hand", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to show the hand of the player. It will display the cards that the player can play
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_HAND("Show hand", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         List<GameCard> cards = clientState.getGameModel().getSelf().getPlayableCards();
         System.out.println("Your hand:");
         CLIPlayableCardRepresentation handRepresentation = new CLIPlayableCardRepresentation(cards);
         System.out.println(handRepresentation.render());
     }),
-    SEND_MESSAGE("send_message", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to send a message to the chat. It will send a packet to the server to broadcast the message
+     * If you want to send a private message, you have to start the message with @nickname
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SEND_MESSAGE("Send message", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         System.out.println("Insert the message you want to send:");
         String stringMessage;
@@ -371,7 +456,14 @@ public enum Instruction {
         Action action = new SendMessageAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), message);
         dispatcher.execute(action);
     }),
-    SHOW_CHAT("show_chat", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to show the chat. It will display the last 20 messages
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_CHAT("Show chat", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         //Retrieve the last 20 messages
         List<ChatMessage> messages = clientState.getGameModel().getSelf().getChat().getLastMessages(20);
@@ -382,12 +474,26 @@ public enum Instruction {
             System.out.println("[" + dateFormat.format(message.timestamp()) + "] " + message.senderNickname() + ": " + message.message());
         }
     }),
-    START_GAME("start_game", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to start the game. It will send a packet to the server to start the game
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    START_GAME("Start Game", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         Action startGameAction = new GameStartAction(clientState.getLobbyModel().getFirstPlayer().getNickname(), clientState.getIdentity());
         dispatcher.execute(startGameAction);
     }),
-    SHOW_LOBBY_PLAYER("show_lobby_player", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to show the players in the lobby. It will display the nickname and the color of the player
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    SHOW_LOBBY_PLAYER("Show lobby player", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         List<LobbyPlayer> players = clientState.getLobbyModel().getPlayers();
         System.out.println("Players:");
@@ -400,7 +506,35 @@ public enum Instruction {
         }
 
     }),
-    QUIT("quit", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+
+    /**
+     * This instruction is used to reconnect to an existing game
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    RECONNECT("Reconnect to an existing game", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
+    {
+        System.out.println("Insert your nickname:");
+        String nickname;
+        try {
+            nickname = scanner.getInput();
+        } catch (InterruptedException e) {
+            return;
+        }
+
+        //Setting the nickname
+        Action action = new ReconnectAction(nickname, clientState.getIdentity());
+        dispatcher.execute(action);
+    }),
+
+    /**
+     * This instruction is used to quit the game and close the client
+     * @param clientState the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
+    QUIT("Quit", (ClientState clientState, Controller dispatcher, ThreadInputReader scanner) ->
     {
         System.out.println("Quitting...");
         System.exit(0);
@@ -408,11 +542,34 @@ public enum Instruction {
 
     private final TriConsumer<ClientState, Controller, ThreadInputReader> action;
 
+    private final String instructionName;
+
+    /**
+     * Create a new instruction with the given parameters
+     * @param instruction_line the name of the instruction
+     * @param clientStateControllerScanner the action to execute
+     */
     Instruction(String instruction_line, TriConsumer<ClientState, Controller, ThreadInputReader> clientStateControllerScanner) {
         this.action = clientStateControllerScanner;
+        this.instructionName = instruction_line;
     }
 
+    /**
+     * Execute the instruction with the given parameters
+     * @param state the client state
+     * @param dispatcher the controller to send the action to the server
+     * @param scanner the ThreadInputReader object to read the input from command line
+     */
     public void execute(ClientState state, Controller dispatcher, ThreadInputReader scanner) {
         action.accept(state, dispatcher, scanner);
+    }
+
+    /**
+     * Get the name of the instruction. This is the name that will be displayed in the menu
+     * @return the name of the instruction
+     */
+    @Override
+    public String toString() {
+        return instructionName;
     }
 }
