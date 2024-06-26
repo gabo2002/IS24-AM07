@@ -68,7 +68,6 @@ public final class PlayerChat implements Serializable {
     public ChatMessage sendBroadcastMessage(String message) {
         if (message.contains("@")) {
             // It's a private message, not a broadcast
-            System.out.println("Private message");
             return sendPrivateMessage(message.substring(1, message.indexOf(" ")), message.substring(message.indexOf(" ") + 1));
         }
 
