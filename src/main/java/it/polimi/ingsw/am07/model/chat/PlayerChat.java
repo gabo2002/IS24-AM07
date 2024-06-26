@@ -66,6 +66,12 @@ public final class PlayerChat implements Serializable {
      * @return the chat message
      */
     public ChatMessage sendBroadcastMessage(String message) {
+        if (message.contains("@")) {
+            // It's a private message, not a broadcast
+            System.out.println("Private message");
+            return sendPrivateMessage(message.substring(1, message.indexOf(" ")), message.substring(message.indexOf(" ") + 1));
+        }
+
         return new ChatMessage(nickname, players, message);
     }
 
@@ -81,7 +87,7 @@ public final class PlayerChat implements Serializable {
             throw new IllegalArgumentException("Player not found");
         }
 
-        return new ChatMessage(nickname, List.of(receiver), message);
+        return new ChatMessage(nickname, List.of(receiver, nickname), message);
     }
 
     /**

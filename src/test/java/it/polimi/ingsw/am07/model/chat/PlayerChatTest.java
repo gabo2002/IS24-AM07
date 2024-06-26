@@ -42,8 +42,8 @@ class PlayerChatTest {
         assertEquals(players, message.receiverNicknames());
 
         // Validate that a private message is sent to the correct player
-        message = chat.sendPrivateMessage("player1", "message");
-        assertEquals(List.of("player1"), message.receiverNicknames());
+        message = chat.sendBroadcastMessage("@player1 message");
+        assertEquals(List.of("player1", "nickname"), message.receiverNicknames());
 
         // Validate that an inexistent player cannot receive a message
         assertThrows(IllegalArgumentException.class, () -> chat.sendPrivateMessage("player3", "message"));

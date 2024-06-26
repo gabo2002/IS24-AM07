@@ -647,17 +647,8 @@ public class PlayerViewController {
     @FXML
     protected void sendChatMessage() {
         String message = chatInput.getText();
-        List<String> recipients = playerList.getSelectionModel().getSelectedItems().stream().map(
-                nickname -> nickname.toString()
-        ).toList();
 
-        if (recipients.isEmpty()) {
-            recipients = clientState.getGameModel().getPlayers().stream().map(
-                    Player::getNickname
-            ).toList();
-        }
-
-        ChatMessage msg = new ChatMessage(clientState.getGameModel().getSelf().getNickname(), recipients, message);
+        ChatMessage msg = clientState.getGameModel().getSelf().getChat().sendBroadcastMessage(message);
 
         SendMessageAction action = new SendMessageAction(clientState.getNickname(), clientState.getIdentity(), msg);
 
