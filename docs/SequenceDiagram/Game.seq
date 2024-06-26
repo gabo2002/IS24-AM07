@@ -1,0 +1,72 @@
+title Game
+
+participant ActiveClient
+participant Server
+participant ListenerClient
+
+note over ActiveClient,ListenerClient: Game Setup
+Server->ActiveClient: ServerGameStartAction
+note over ActiveClient: Syncs the Model\nand PlayerState
+Server->ListenerClient: ServerGameStartAction
+
+note over ActiveClient,ListenerClient: Initial Choices
+ActiveClient->Server: PlayerInitialChoiceAction
+Server->Server: execute()
+note over Server: Places the Starter Card\nand sets the Objective Card
+Server->ListenerClient: PlayerInitialChoiceAction
+ListenerClient->ListenerClient: reflect()
+Server->ActiveClient: PlayerInitialChoiceAction
+ActiveClient->ActiveClient: reflect()
+
+note over ActiveClient,ListenerClient: Game Play
+loop GameState == PLAYING
+  opt Player's turn
+    ActiveClient->Server: PlayerPlaceCardAction
+    Server->Server: execute()
+    note over Server: Attempts to place the selected\ncard and saves the result.
+    Server->ListenerClient: PlayerPlaceCardAction
+    ListenerClient->ListenerClient: reflect()
+    note over ListenerClient: If the execute succeeded\nplaces the card in the client.
+    Server->ActiveClient: PlayerPlaceCardAction
+    ActiveClient->ActiveClient: reflect()
+    note over ActiveClient: If the execute did not\nsucceed, sets an error.
+    
+    ActiveClient->Server: PlayerPickCardAction
+    Server->Server: execute()
+    note over Server: Attempts to pick the chosen\ncard and increment the turn.
+    Server->ListenerClient: PlayerPickCardAction
+    ListenerClient->ListenerClient: reflect()
+    note over ListenerClient: Replicates the server execute\nand calculates the objective\nscore if the game has ended.
+    Server->ActiveClient: PlayerPickCardAction
+    ActiveClient->ActiveClient: reflect()
+    note over ActiveClient: If the execute did not\nsucceed, sets an error.
+  end
+  
+  opt Chat
+    ActiveClient->Server: SendMessageAction
+    Server->Server: execute()
+    note over Server: Adds to each recipients's PlayerChat\nthe new chat message.
+    Server->ListenerClient: SendMessageAction
+    ListenerClient->ListenerClient: reflect()
+    Server->ActiveClient: SendMessageAction
+    ActiveClient->ActiveClient: reflect()
+  end
+
+note over ActiveClient,ListenerClient: Disconnection Scenario
+ActiveClient->Server: [Disconnects]
+Server->Server: HangGameAction
+note over Server: Sets the Player as disconnected.\nPicks a random card or skips\nthe turn for the Player if needed.
+Server->ListenerClient: HangGameAction
+note over ListenerClient: Replicates the execute\nand sets the correct PlayerState
+Server->ActiveClient: HangGameAction
+note over ActiveClient: Sets the PlayerState to\nDISCONNECTED
+
+note over ActiveClient,ListenerClient: Reconnection Scenario
+ActiveClient->Server: ResumeGameAction
+note over Server: Removes the Player\nfrom the Disconnected list.
+Server->ListenerClient: ResumeGameAction
+note over ListenerClient: Sets the correct PlayerState.
+Server->ActiveClient: ResumeGameAction
+note over ActiveClient: Resyncs the Game model and\nsets the correct PlayerState.
+
+end
