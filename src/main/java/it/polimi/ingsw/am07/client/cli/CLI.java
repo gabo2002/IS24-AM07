@@ -118,6 +118,7 @@ public class CLI {
     private ClientNetworkManager networkManager;
 
     public CLI() {
+        System.setProperty("cli", "true");
         renderExecutor = Executors.newSingleThreadExecutor();
         currentRenderTask = null;
 
