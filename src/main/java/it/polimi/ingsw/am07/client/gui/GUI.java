@@ -58,13 +58,27 @@ public class GUI extends javafx.application.Application implements UserInterface
     private ClientNetworkManager.Factory networkManagerFactory;
     private Controller controller;
 
+    /**
+     * Default constructor for the GUI class.
+     */
     public GUI() {
     }
 
+    /**
+     * Entry point for the GUI application.
+     * Launches the JavaFX application.
+     */
     public void entrypoint() {
         launch();
     }
 
+    /**
+     * Starts the JavaFX application. This method is called after the application is launched.
+     * It initializes the primary stage, loads the initial view, and starts the render loop.
+     *
+     * @param stage the primary stage for this application
+     * @throws IOException if there's an error loading the FXML file
+     */
     @Override
     public void start(Stage stage) throws IOException {
         // generate identifier
@@ -92,6 +106,13 @@ public class GUI extends javafx.application.Application implements UserInterface
         timeline.play();
     }
 
+    /**
+     * Initializes the client state with the given network configuration.
+     * This method sets up the network manager and controller based on the provided network type and IP address.
+     *
+     * @param networkType the type of network connection (e.g., RMI or TCP)
+     * @param IpAddress the IP address of the server
+     */
     @Override
     public void initializeClientState(NetworkType networkType, String IpAddress) {
         clientNetworkManager = networkManagerFactory
@@ -106,6 +127,11 @@ public class GUI extends javafx.application.Application implements UserInterface
         state.setPlayerState(PlayerState.SELECTING_LOBBY);
     }
 
+    /**
+     * The main render loop of the application.
+     * This method checks if a re-render is needed and calls the render method if necessary.
+     * It runs on a separate thread to avoid blocking the main JavaFX thread.
+     */
     private void renderLoop() {
         boolean rerender;
 
@@ -119,6 +145,12 @@ public class GUI extends javafx.application.Application implements UserInterface
         }
     }
 
+    /**
+     * Renders the appropriate view based on the current player state.
+     * This method loads the correct FXML file, initializes the controller, and sets the scene on the primary stage.
+     *
+     * @param state the current client state
+     */
     public void render(ClientState state) {
         // Switch case to render the correct view based on the state
         PlayerState playerState = state.getPlayerState();
@@ -272,6 +304,12 @@ public class GUI extends javafx.application.Application implements UserInterface
         }
     }
 
+    /**
+     * Notifies the render thread that a re-render is needed.
+     * This method is called when the client state changes.
+     *
+     * @param state the updated client state
+     */
     private void notifyRenderThread(ClientState state) {
         synchronized (lock) {
             shouldRender = true;
