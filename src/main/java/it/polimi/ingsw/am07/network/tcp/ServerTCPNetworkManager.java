@@ -179,8 +179,14 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         new Thread(() -> {
             boolean connectionOpen = true;
 
-            // As the server, we expect the first packet to be an identity packet
-            IdentityNetworkPacket identityPacket = (IdentityNetworkPacket) connection.receive();
+            IdentityNetworkPacket identityPacket;
+            try {
+                // As the server, we expect the first packet to be an identity packet
+                identityPacket = (IdentityNetworkPacket) connection.receive();
+            } catch (Exception e) {
+                LOGGER.error(e);
+                return;
+            }
 
             if (identityPacket == null || identityPacket.getIdentity() == null) {
                 LOGGER.error("Connection closed unexpectedly. Could not read identity packet.");
