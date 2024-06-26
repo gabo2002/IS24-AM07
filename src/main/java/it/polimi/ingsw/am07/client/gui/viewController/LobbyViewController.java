@@ -96,6 +96,7 @@ public class LobbyViewController {
     @FXML
     protected void onQuitBtnClick(ActionEvent event) {
         Platform.exit();
+        System.exit(0);
     }
 
 }
