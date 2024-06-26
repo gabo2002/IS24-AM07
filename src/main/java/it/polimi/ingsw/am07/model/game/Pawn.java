@@ -25,6 +25,9 @@ package it.polimi.ingsw.am07.model.game;
 
 /**
  * Enum representing the pawn colors of the game.
+ * Each player is associated with a pawn color.
+ * The pawns are used to identify the players in the game.
+ * The pawns are BLACK, RED, GREEN, BLUE, YELLOW.
  */
 public enum Pawn {
     BLACK,

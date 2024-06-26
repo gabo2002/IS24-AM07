@@ -31,6 +31,7 @@ import java.util.Optional;
 
 /**
  * This class represents a generic side of a card, of which there are two types: SideFront and SideBack.
+ * Every time a card is placed on the game field, only one of the two sides is visible. The side that is visible is the one that is facing up.
  */
 public sealed abstract class Side implements Serializable permits SideFront, SideBack {
 

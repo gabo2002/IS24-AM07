@@ -46,6 +46,10 @@ public record GameFieldPosition(
         this(x, y, -1);
     }
 
+    /**
+     * This method is used by the Moshi library to serialize the position to a string.
+     * The string is in the format {x=...,y=...,z=...}.
+     */
     public static GameFieldPosition fromString(String string) {
         String[] parts = string.split("[=,]|[=}]");
         return new GameFieldPosition(Integer.parseInt(parts[1]), Integer.parseInt(parts[3]), Integer.parseInt(parts[5]));
@@ -89,6 +93,9 @@ public record GameFieldPosition(
         return x == that.x && y == that.y;
     }
 
+    /**
+     * @return a string representation of the position
+     */
     @Override
     public String toString() {
         return "GameFieldPosition{" +

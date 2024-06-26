@@ -40,6 +40,8 @@ import java.util.stream.Collectors;
 
 /**
  * This class represents a single game of Codex Naturalis.
+ * It is intended to be used by the server to manage the game state and the players.
+ * The game object is created by the companion factory class, which initializes the game state and the players.
  */
 public class Game implements Serializable {
 

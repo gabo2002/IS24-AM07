@@ -29,6 +29,9 @@ import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPattern;
 
 /**
  * Represents an objective card that requires a certain pattern to be completed.
+ * This class is used to calculate the final score of the player based on the cards position on the game field.
+ * The score is calculated based on the number of matching patterns on the player's game field.
+ * Every PatternObjectiveCard has an associated score and a pattern that must be satisfied to obtain the score.
  */
 public final class PatternObjectiveCard extends ObjectiveCard {
 
