@@ -562,6 +562,11 @@ public class PlayerViewController {
                 Action action = new PlayerPlaceCardAction(clientState.getGameModel().getSelfNickname(), clientState.getIdentity(), sidePlacedCard, new GameFieldPosition(x, y));
                 controller.execute(action);
                 render(clientState.getGameModel().getSelf());
+
+                if(clientState.getClientStringErrorMessage() != null) {
+                    updateInfoMessage("Not enough resources");
+                    errorContainer.setBackground(Background.fill(Color.rgb(240, 128, 128)));
+                }
             }
             event.setDropCompleted(success);
             event.consume();
