@@ -30,7 +30,10 @@ import it.polimi.ingsw.am07.client.cli.rendering.common.objectiveCard.CLIObjecti
 import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLILargeSideRepresentation;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
-
+/**
+ * The class is responsible for rendering the
+ * command line interface (CLI) representation of the objective card selection.
+ */
 public class CLIObjectiveCardSelectionRepresentation implements CLIElement {
 
     private static final char LEFT_ANGLE = '/';
@@ -41,13 +44,20 @@ public class CLIObjectiveCardSelectionRepresentation implements CLIElement {
     private final StringBuilder bufferedRender;
     private final Matrix<CLIGameSymbol> cardRepresentation;
 
+    /**
+     * Constructs a new {@code CLIObjectiveCardSelectionRepresentation} with the specified objective cards.
+     *
+     * @param cards the objective cards to be represented
+     */
     public CLIObjectiveCardSelectionRepresentation(ObjectiveCard[] cards) {
         cardRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));
         this.cards = cards;
         bufferedRender = new StringBuilder();
     }
 
-
+    /**
+     * Draws the objective card selection interface.
+     */
     private void drawObjectiveCard() {
         final int cardWidth = 1 + (CLILargeSideRepresentation.WIDTH + 1) * 3;
         final int cardHeight = 1 + (CLILargeSideRepresentation.HEIGHT + 1);
@@ -83,7 +93,7 @@ public class CLIObjectiveCardSelectionRepresentation implements CLIElement {
     }
 
     /**
-     * Renders a side at the specified position.
+     * Renders an objective card at the specified position.
      *
      * @param x    the x coordinate
      * @param y    the y coordinate
@@ -98,6 +108,11 @@ public class CLIObjectiveCardSelectionRepresentation implements CLIElement {
         }
     }
 
+    /**
+     * Renders the objective card selection interface as a string.
+     *
+     * @return the rendered string representation of the objective card selection
+     */
     public String render() {
         drawObjectiveCard();
 

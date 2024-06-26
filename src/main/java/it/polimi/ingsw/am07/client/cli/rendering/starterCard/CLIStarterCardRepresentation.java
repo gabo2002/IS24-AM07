@@ -31,7 +31,10 @@ import it.polimi.ingsw.am07.client.cli.rendering.common.side.CLISideRepresentati
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.side.Side;
 import it.polimi.ingsw.am07.utils.matrix.Matrix;
-
+/**
+ * The class is responsible for rendering the
+ * command line interface (CLI) representation of the starter card.
+ */
 public class CLIStarterCardRepresentation implements CLIElement {
     private static final char LEFT_ANGLE = '/';
     private static final char RIGHT_ANGLE = '\\';
@@ -40,14 +43,20 @@ public class CLIStarterCardRepresentation implements CLIElement {
     private final StringBuilder bufferedRender;
     private final Matrix<CLIGameSymbol> cardRepresentation;
     private final GameCard starterCard;
-
+    /**
+     * Constructs a new {@code CLIStarterCardRepresentation} with the specified starter card.
+     *
+     * @param card the starter card to be represented
+     */
     public CLIStarterCardRepresentation(GameCard card) {
         cardRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));
         starterCard = card;
         bufferedRender = new StringBuilder();
     }
 
-
+    /**
+     * Draws the starter card.
+     */
     private void drawStartCard() {
         final int cardWidth = 1 + (CLILargeSideRepresentation.WIDTH + 1) * 2;
         final int cardHeight = 1 + (CLILargeSideRepresentation.HEIGHT + 1);

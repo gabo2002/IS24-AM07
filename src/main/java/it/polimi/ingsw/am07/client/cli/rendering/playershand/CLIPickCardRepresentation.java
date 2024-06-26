@@ -91,7 +91,11 @@ public class CLIPickCardRepresentation implements CLIElement {
 
     }
 
-
+    /**
+     * Renders a card as a string
+     * @param card
+     * @return
+     */
     private String renderCard(GameCard card) {
         StringBuilder builder = new StringBuilder();
         CLISideRepresentation frontRepresentation = new CLISideRepresentation.Factory(card.front()).large();

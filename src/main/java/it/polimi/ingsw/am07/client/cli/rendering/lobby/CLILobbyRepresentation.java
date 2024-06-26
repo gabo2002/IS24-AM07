@@ -28,6 +28,10 @@ import it.polimi.ingsw.am07.client.cli.rendering.CLIElement;
 import it.polimi.ingsw.am07.client.cli.rendering.common.CLIPawnColor;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
+/**
+ * The class is responsible for rendering the
+ * command line interface (CLI) representation of a lobby.
+ */
 public class CLILobbyRepresentation implements CLIElement {
 
     private static final char LEFT_ANGLE = '/';
@@ -36,6 +40,11 @@ public class CLILobbyRepresentation implements CLIElement {
     private static final char VERTICAL = '|';
     private final Lobby lobby;
 
+    /**
+     * Constructs a new {@code CLILobbyRepresentation} with the specified lobby.
+     *
+     * @param lobby the lobby to be represented
+     */
     public CLILobbyRepresentation(Lobby lobby) {
         this.lobby = lobby;
     }

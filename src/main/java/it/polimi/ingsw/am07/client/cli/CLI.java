@@ -114,6 +114,10 @@ public class CLI implements UserInterface {
 
     private ClientNetworkManager networkManager;
 
+    /**
+     * The {@code CLI} class represents the command line interface for the game client.
+     * It handles user interactions, game state rendering, and network communication.
+     */
     public CLI() {
         System.setProperty("cli", "true");
         renderExecutor = Executors.newSingleThreadExecutor();
@@ -250,6 +254,11 @@ public class CLI implements UserInterface {
         clientState.notifyGameModelUpdate();
     }
 
+    /**
+     * Render the client state, showing the current game state and a list of available instructions.
+     * @param clientState
+     * @param availableInstructions
+     */
     private void renderState(ClientState clientState, List<Instruction> availableInstructions) {
         SelectableMenu<Instruction> menu = new SelectableMenu<>(availableInstructions, reader);
         try {
@@ -268,6 +277,11 @@ public class CLI implements UserInterface {
         instruction.execute(clientState, controller, reader);
     }
 
+    /**
+     * Submits a render task to the render executor to render the client state in a separate thread.
+     *
+     * @param clientState the client state to render
+     */
     private void threadRender(ClientState clientState) {
         // Cancel the current render task if it is still running
         try {
