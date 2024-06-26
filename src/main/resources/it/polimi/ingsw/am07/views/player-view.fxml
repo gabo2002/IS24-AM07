@@ -11,7 +11,7 @@
         <!-- Parte sinistra -->
         <ScrollPane fx:id="scrollLeft" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1700.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
             <!-- Box verticale -->
-            <VBox fx:id="contentBox" maxHeight="1439.0" maxWidth="505.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
+            <VBox fx:id="contentBox" maxHeight="1439.0" maxWidth="490.0" minWidth="505" prefWidth="505.0" style="-fx-background-color: #433A3F;">
                 <HBox>
                     <VBox alignment="CENTER" prefHeight="70" prefWidth="50" styleClass="resourceContainer" stylesheets="@../css/resourceContaner.css">
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -100,7 +100,7 @@
                     </VBox>
                 </HBox>
                 <!-- Sezione Obejctive Cards -->
-                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Objectives" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -115,7 +115,7 @@
                         <Insets left="15.0" />
                     </padding>
                 </HBox>
-                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" prefHeight="23.0" prefWidth="490.0" text="My Hand" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -132,7 +132,7 @@
                 </HBox>
 
                 <!-- Sezione Resource Deck -->
-                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="490.0" text="Resource Deck" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -148,7 +148,7 @@
                     </padding>
                 </HBox>
 
-                <HBox alignment="CENTER" maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox alignment="CENTER" maxWidth="490.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="490.0" text="Gold Deck" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -164,7 +164,7 @@
                     </padding>
                 </HBox>
 
-                <Button fx:id="confirmDeck" maxWidth="505.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false" style="-fx-background-color: white; -fx-background-radius: 8; -fx-text-fill: black">
+                <Button fx:id="confirmDeck" maxWidth="490.0" onAction="#onConfirmButtonClicked" text="Pick" visible="false" style="-fx-background-color: white; -fx-background-radius: 8; -fx-text-fill: black">
                     <VBox.margin>
                         <Insets bottom="10" top="15.0" left="10" right="10"/>
                     </VBox.margin>
@@ -177,7 +177,7 @@
                 </Button>
 
                 <!-- Sezione players -->
-                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;">
+                <HBox maxWidth="490.0" prefHeight="42.0" prefWidth="490.0" style="-fx-background-color: #584B57;">
                     <Label alignment="CENTER" prefHeight="42.0" prefWidth="490.0" text="Players" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -188,7 +188,7 @@
                 <ListView id="playerlist" fx:id="playerList" maxWidth="490"  onMouseClicked="#onPlayerClicked" prefWidth="490" style="-fx-background-color: transparent;" VBox.vgrow="NEVER" />
 
                 <!-- Sezione chat -->
-                <HBox maxWidth="505.0" prefHeight="42.0" prefWidth="505.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
+                <HBox maxWidth="490.0" prefHeight="42.0" prefWidth="490.0" style="-fx-background-color: #584B57;" VBox.vgrow="NEVER">
                     <Label alignment="CENTER" prefHeight="42.0" prefWidth="490.0" text="Chat" textFill="WHITE">
                         <font>
                             <Font name="Arial Bold" size="16.0" />
@@ -205,12 +205,12 @@
                         </VBox.margin>
                     </TextArea>
                     <VBox spacing="10" VBox.vgrow="NEVER">
-                        <TextField fx:id="chatInput" prefWidth="505.0" promptText="Write here" HBox.hgrow="NEVER">
+                        <TextField fx:id="chatInput" prefWidth="490.0" promptText="Write here" HBox.hgrow="NEVER">
                             <font>
                                 <Font name="Arial" size="12.0" />
                             </font>
                         </TextField>
-                        <Button fx:id="sendButton" maxWidth="505.0" onAction="#sendChatMessage" prefWidth="505.0" text="Send" style="-fx-background-color: white; -fx-background-radius: 8; -fx-text-fill: black">
+                        <Button fx:id="sendButton" maxWidth="490.0" onAction="#sendChatMessage" prefWidth="490.0" text="Send" style="-fx-background-color: white; -fx-background-radius: 8; -fx-text-fill: black">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
