@@ -36,7 +36,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Renders the Game Field in the CLI.
+ * Renders the Game Field in the Command Line Interface (CLI).
+ * This class is responsible for creating a visual representation of the game field,
+ * including all placed cards and their positions.
  */
 public class CLIGameFieldRepresentation implements CLIElement {
 
@@ -47,10 +49,10 @@ public class CLIGameFieldRepresentation implements CLIElement {
     private final StringBuilder bufferedRender;
 
     /**
-     * Constructor for the CLIGameFieldRepresentation.
-     * Keeps a reference to the GameField.
+     * Constructs a new CLIGameFieldRepresentation.
+     * Initializes the field representation and keeps a reference to the GameField.
      *
-     * @param field the GameField to render
+     * @param field the GameField to be rendered
      */
     public CLIGameFieldRepresentation(GameField field) {
         fieldRepresentation = new Matrix<>(0, 0, new CLIGameSymbol(' '));
@@ -61,12 +63,16 @@ public class CLIGameFieldRepresentation implements CLIElement {
     }
 
     /**
-     * Maps a card GameFieldPosition to a position inside the rendered field.
+     * Maps a card's GameFieldPosition to a position inside the rendered field.
+     * This method adjusts the position to account for the size and overlap of card representations.
      *
-     * @param position the GameFieldPosition to map
-     * @return the transformed GameFieldPosition
+     * @param position the original GameFieldPosition to map
+     * @param width the width of a card representation
+     * @param height the height of a card representation
+     * @param overlap the amount of overlap between adjacent cards
+     * @return the transformed GameFieldPosition for the CLI representation
      */
-    public static GameFieldPosition mapToCliPosition(GameFieldPosition position, int width, int height, int overlap) {
+    static GameFieldPosition mapToCliPosition(GameFieldPosition position, int width, int height, int overlap) {
         return new GameFieldPosition(
                 (position.x() * (width - overlap)) - 1,
                 (position.y() * (height - overlap)) - 1
@@ -74,9 +80,10 @@ public class CLIGameFieldRepresentation implements CLIElement {
     }
 
     /**
-     * Adds a Side to the field representation at the specified position.
+     * Adds a Side (card face) to the field representation at the specified position.
+     * This method translates the game field coordinates to the CLI representation coordinates.
      *
-     * @param side     the Side to add
+     * @param side the Side to add
      * @param position the position to add the Side at, in GameField coordinates
      */
     private void addSideAt(Side side, GameFieldPosition position) {
@@ -92,8 +99,9 @@ public class CLIGameFieldRepresentation implements CLIElement {
 
     /**
      * Updates the field representation with the current state of the GameField.
+     * This method checks for changes in the game field and updates the representation accordingly.
      *
-     * @return true if the field representation was updated, false otherwise
+     * @return true if the field representation was updated, false if no changes were detected
      */
     private boolean updateFieldRepresentation() {
         Map<GameFieldPosition, Side> fieldCards = gameField.getPlacedCards();
