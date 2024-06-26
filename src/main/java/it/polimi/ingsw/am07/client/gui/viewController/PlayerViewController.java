@@ -65,10 +65,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class PlayerViewController {
@@ -578,7 +575,7 @@ public class PlayerViewController {
      * @param player
      */
     private void render(Player player) {
-        Map<GameFieldPosition, Side> placedCards = player.getPlacedCards();
+        Map<GameFieldPosition, Side> placedCards = new HashMap<>(player.getPlacedCards());
         Matrix<Symbol> myMatrix = player.getPlayerGameField().getFieldMatrix();
 
         int minX = myMatrix.getMinX();

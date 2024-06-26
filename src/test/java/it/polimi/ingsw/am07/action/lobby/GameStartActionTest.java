@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.MockListener;
@@ -70,6 +71,41 @@ class GameStartActionTest {
         action = new GameStartAction("player1", "identity1");
         lobbyController.execute(action);
         assertFalse(lobby.readyToStart());
+
+        // Validate that a player can't start the game if there are less than 2 players
+        Lobby newLobby = new Lobby();
+        LobbyController newLobbyController = new LobbyController(newLobby, (l) -> {
+        });
+
+        newLobby.addNewPlayer("player1", "player1", Pawn.BLUE);
+
+        GameStartAction newAction = new GameStartAction("player1", "player1");
+        assertDoesNotThrow(() -> newLobbyController.execute(newAction));
+        assertNotNull(newAction.getErrorMessage());
+
+        ClientState state = new ClientState((ClientState clientState) -> {
+
+        }, "player1");
+
+        ClientState newState = new ClientState((ClientState clientState) -> {
+
+        }, "player2");
+
+        newAction.reflect(state);
+        assertEquals(newAction.getErrorMessage(), state.getClientStringErrorMessage());
+
+        newAction.reflect(newState);
+        assertNull(newState.getClientStringErrorMessage());
+
+        newLobby.addNewPlayer("player2", "player2", Pawn.RED);
+        newAction.execute(newLobby);
+
+        assertTrue(newLobby.readyToStart());
+
+        newAction.reflect(state);
+        assertNull(state.getClientStringErrorMessage());
+        newAction.reflect(newState);
+        assertNull(newState.getClientStringErrorMessage());
     }
 
 }

@@ -211,6 +211,10 @@ public class Game implements Serializable {
             }
         }
 
+        if (gameState == GameState.PLAYING && getDeck().availableResCards().isEmpty() && getDeck().availableGoldCards().isEmpty()) {
+            gameState = GameState.ENDING;
+        }
+
         // If the new player is disconnected, we need to skip his turn
         if (disconnectedPlayers.contains(getPlayingPlayer())) {
             incrementTurn();

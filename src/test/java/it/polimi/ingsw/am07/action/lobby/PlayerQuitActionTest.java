@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.action.lobby;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.reactive.MockListener;
@@ -50,10 +51,19 @@ class PlayerQuitActionTest {
 
         Action action = new PlayerQuitAction("player1", "identity");
 
+        ClientState clientState = new ClientState((ClientState clientState1) -> {
+
+        }, "player1");
+        clientState.setLobbyModel(lobby);
+
         lobbyController.execute(action);
 
         assertEquals(0, lobby.getPlayerCount());
         assertEquals(2, listener.getCalled().size());
+
+        action.reflect(clientState);
+
+        assertEquals(0, clientState.getLobbyModel().getPlayerCount());
     }
 
 }
