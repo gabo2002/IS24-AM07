@@ -28,6 +28,8 @@ package it.polimi.ingsw.am07.reactive;
  */
 public interface StatefulListener extends Listener {
 
+    long HEARTBEAT_MAX_INTERVAL = 5000;
+
     /**
      * Check if the listener is still alive.
      *

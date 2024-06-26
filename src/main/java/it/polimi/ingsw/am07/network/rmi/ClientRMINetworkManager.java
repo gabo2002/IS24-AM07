@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.network.rmi;
 
+import it.polimi.ingsw.am07.action.server.HangGameAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.reactive.Controller;
@@ -42,6 +43,7 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     private final Registry registry;
     private final String identity;
     private RMIDispatcher dispatcher;
+    private StatefulListener listener;
     private Controller controller;
 
     /**
@@ -73,6 +75,8 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
             dispatcher = (RMIDispatcher) registry.lookup("dispatcher");
 
             controller = new RMILocalController(dispatcher);
+
+            checkPulse();
         } catch (Exception e) {
             LOGGER.error(e);
         }
@@ -93,7 +97,8 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
      */
     @Override
     public void inflateListener(ClientState clientState) {
-        StatefulListener listener = new RMIListener(clientState, identity);
+        listener = new RMIListener(clientState, identity);
+        listener.heartbeat();
 
         try {
             RMIStatefulListener rmiStatefulListener = new ClientRMIStatefulListener(listener);
@@ -112,6 +117,25 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
     @Override
     public Controller getController() {
         return controller;
+    }
+
+    /**
+     * Check the pulse of the connection.
+     */
+    private void checkPulse() {
+        new Thread(() -> {
+            while (dispatcher != null) {
+                try {
+                    Thread.sleep(1000);
+
+                    if (!listener.checkPulse()) {
+                        listener.notify(new HangGameAction(identity));
+                    }
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                }
+            }
+        }).start();
     }
 
 }

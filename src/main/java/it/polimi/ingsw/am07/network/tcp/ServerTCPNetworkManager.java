@@ -39,7 +39,9 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Server network manager for TCP.
@@ -52,6 +54,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
     private final int listeningPort;
     private final ServerDispatcher dispatcher;
     private final List<Connection> connectionList;
+    private final Map<Connection, StatefulListener> listeners;
     private ServerSocket serverSocket;
 
     /**
@@ -65,6 +68,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         this.listeningPort = listeningPort;
 
         connectionList = new ArrayList<>();
+        listeners = new HashMap<>();
     }
 
     /**
@@ -84,6 +88,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
         }
 
         listenForConnections();
+        sendHeartbeats();
     }
 
     /**
@@ -127,6 +132,7 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
                 case IdentityNetworkPacket ignored:
                     break;
                 case HeartbeatNetworkPacket ignored:
+                    listeners.get(connection).heartbeat();
                     break;
             }
             return true;
@@ -181,13 +187,45 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
             StatefulListener listener = new ServerTCPListener(connection, identityPacket.getIdentity());
             dispatcher.registerNewListener(listener);
 
+            listeners.put(connection, listener);
+
+            listener.heartbeat();
+
             synchronized (connectionList) {
                 connectionList.add(connection);
             }
 
-            while (connectionOpen) {
+            while (connectionOpen && listener.checkPulse()) {
                 connectionOpen = checkConnection(connection);
-                // LOGGER.debug("Accepted connection from " + identityPacket.getIdentity());
+            }
+
+            LOGGER.error("Connection closed: " + connection);
+
+            dispatcher.removeListener(listener);
+
+            synchronized (connectionList) {
+                connectionList.remove(connection);
+            }
+        }).start();
+    }
+
+    /**
+     * Send a heartbeat to all the connected clients.
+     */
+    private void sendHeartbeats() {
+        new Thread(() -> {
+            while (serverSocket != null) {
+                synchronized (connectionList) {
+                    for (Connection connection : connectionList) {
+                        connection.send(new HeartbeatNetworkPacket());
+                    }
+                }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    LOGGER.error(e);
+                }
             }
         }).start();
     }

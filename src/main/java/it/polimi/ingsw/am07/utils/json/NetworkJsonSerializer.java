@@ -28,6 +28,7 @@ import com.squareup.moshi.Moshi;
 import dev.zacsweers.moshix.records.RecordsJsonAdapterFactory;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.chat.SendMessageAction;
+import it.polimi.ingsw.am07.action.server.HangGameAction;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.GameStartAction;
@@ -105,6 +106,7 @@ public class NetworkJsonSerializer {
                 .registerSubclass(PlayerInitialChoiceAction.class)
                 .registerSubclass(ServerGameStartAction.class)
                 .registerSubclass(ResumeGameAction.class)
+                .registerSubclass(HangGameAction.class)
                 .registerSubclass(ReconnectAction.class);
 
         UUIDJsonAdapter uuidJsonAdapter = new UUIDJsonAdapter();

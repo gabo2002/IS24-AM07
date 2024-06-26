@@ -35,6 +35,9 @@ public class RMIRemoteListener implements StatefulListener {
     private final AppLogger LOGGER = new AppLogger(RMIRemoteListener.class);
 
     private final RMIStatefulListener rmiListener;
+    private long lastHeartbeat = 0;
+
+    private String identity;
 
     /**
      * Constructor.
@@ -43,6 +46,7 @@ public class RMIRemoteListener implements StatefulListener {
      */
     public RMIRemoteListener(RMIStatefulListener rmiListener) {
         this.rmiListener = rmiListener;
+        this.identity = null;
     }
 
     /**
@@ -68,12 +72,7 @@ public class RMIRemoteListener implements StatefulListener {
      */
     @Override
     public boolean checkPulse() {
-        try {
-            return rmiListener.checkPulse();
-        } catch (Exception e) {
-            LOGGER.error(e);
-            return false;
-        }
+        return System.currentTimeMillis() - lastHeartbeat < HEARTBEAT_MAX_INTERVAL;
     }
 
     /**
@@ -81,11 +80,7 @@ public class RMIRemoteListener implements StatefulListener {
      */
     @Override
     public void heartbeat() {
-        try {
-            rmiListener.heartbeat();
-        } catch (Exception e) {
-            LOGGER.error(e);
-        }
+        lastHeartbeat = System.currentTimeMillis();
     }
 
     /**
@@ -95,8 +90,13 @@ public class RMIRemoteListener implements StatefulListener {
      */
     @Override
     public String getIdentity() {
+        if (identity != null) {
+            return identity;
+        }
+
         try {
-            return rmiListener.getIdentity();
+            identity = rmiListener.getIdentity();
+            return identity;
         } catch (Exception e) {
             LOGGER.error(e);
             return null;

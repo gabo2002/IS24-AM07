@@ -23,6 +23,7 @@
 
 package it.polimi.ingsw.am07.network.tcp;
 
+import it.polimi.ingsw.am07.action.server.HangGameAction;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.network.ClientNetworkManager;
 import it.polimi.ingsw.am07.network.connection.Connection;
@@ -144,9 +145,10 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
             return;
         }
 
-        listener = new ClientTCPListener(clientState, connection);
+        listener = new ClientTCPListener(clientState);
 
         setupReceiverLoop();
+        setupHeartbeatLoop();
     }
 
     /**
@@ -160,7 +162,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
     }
 
     /**
-     * Setup the receiver loop in a background thread to handle inbounds packets.
+     * Set up the receiver loop in a background thread to handle inbounds packets.
      */
     private void setupReceiverLoop() {
         new Thread(() -> {
@@ -194,7 +196,30 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         } else {
             LOGGER.error("Connection closed");
             disconnect();
+
+            listener.notify(new HangGameAction(identity));
         }
+    }
+
+    /**
+     * Set up the heartbeat loop in a background thread to send heartbeats.
+     */
+    private void setupHeartbeatLoop() {
+        new Thread(() -> {
+            while (socket != null) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    LOGGER.error(e);
+                }
+
+                connection.send(new HeartbeatNetworkPacket());
+
+                if (!listener.checkPulse()) {
+                    listener.notify(new HangGameAction(identity));
+                }
+            }
+        }).start();
     }
 
 }

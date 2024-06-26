@@ -26,16 +26,21 @@ package it.polimi.ingsw.am07.network.rmi;
 import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.StatefulListener;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * RMI dispatcher for the server.
  */
 public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispatcher {
+
+    private final AppLogger LOGGER = new AppLogger(ServerRMIDispatcher.class);
 
     public final Dispatcher dispatcher;
     private final Map<RMIStatefulListener, StatefulListener> listeners;
@@ -51,6 +56,8 @@ public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispa
 
         this.dispatcher = dispatcher;
         listeners = new HashMap<>();
+
+        checkHeartbeats();
     }
 
     /**
@@ -93,6 +100,50 @@ public class ServerRMIDispatcher extends UnicastRemoteObject implements RMIDispa
             dispatcher.removeListener(listeners.get(listener));
             listeners.remove(listener);
         }
+    }
+
+    /**
+     * Check the pulse for remote clients.
+     */
+    private void checkHeartbeats() {
+        new Thread(() -> {
+            while (true) {
+                Map<RMIStatefulListener, StatefulListener> listeners;
+
+                synchronized (this) {
+                    listeners = new HashMap<>(this.listeners);
+                }
+
+                for (Map.Entry<RMIStatefulListener, StatefulListener> entry : listeners.entrySet()) {
+                    new Thread(() -> {
+                        try {
+                            entry.getKey().heartbeat();
+                            if (entry.getKey().checkPulse()) {
+                                System.out.println("Heartbeat for " + entry.getKey().getIdentity());
+                                entry.getValue().heartbeat();
+                            }
+                        } catch (RemoteException e) {
+                            LOGGER.error(e);
+                        }
+                    }).start();
+                }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                for (Map.Entry<RMIStatefulListener, StatefulListener> entry : listeners.entrySet()) {
+                    if (!entry.getValue().checkPulse()) {
+                        dispatcher.removeListener(entry.getValue());
+                        synchronized (this) {
+                            this.listeners.remove(entry.getKey());
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 
 }

@@ -34,7 +34,6 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
  */
 public class ServerTCPListener implements StatefulListener {
 
-    public static final long HEARTBEAT_MAX_INTERVAL = 10000;
     private final AppLogger LOGGER = new AppLogger(ServerTCPListener.class);
     private final RemoteConnection remoteConnection;
     private final String identity;

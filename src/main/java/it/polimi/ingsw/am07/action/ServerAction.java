@@ -35,4 +35,13 @@ public abstract class ServerAction extends Action {
 
     }
 
+    /**
+     * Constructor.
+     *
+     * @param identity the identity of the action
+     */
+    protected ServerAction(String identity) {
+        super(identity);
+    }
+
 }

@@ -34,7 +34,7 @@ import it.polimi.ingsw.am07.utils.lambda.TriConsumer;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
 
 import java.util.UUID;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class MatchmakingController extends Dispatcher {
 
@@ -43,14 +43,14 @@ public class MatchmakingController extends Dispatcher {
 
     private final TriConsumer<Listener, String, Pawn> migrateToLobby;
     private final QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby;
-    private final Function<Listener, Boolean> reconnect;
+    private final BiFunction<Listener, String, Boolean> reconnect;
 
 
     public MatchmakingController(
             Matchmaking matchmaking,
             TriConsumer<Listener, String, Pawn> migrateToLobby,
             QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby,
-            Function<Listener, Boolean> reconnect
+            BiFunction<Listener, String, Boolean> reconnect
     ) {
         this.matchmaking = matchmaking;
         this.migrateToLobby = migrateToLobby;
@@ -84,7 +84,7 @@ public class MatchmakingController extends Dispatcher {
             Listener listener = listeners.stream()
                     .filter(l -> l.getIdentity().equals(action.getIdentity())).findFirst().orElse(null);
 
-            Boolean result = reconnect.apply(listener);
+            Boolean result = reconnect.apply(listener, matchmaking.getPlayerNickname());
 
             if (result) {
                 // Success, remove the listener from the out of lobby controller
@@ -114,5 +114,6 @@ public class MatchmakingController extends Dispatcher {
         matchmaking.setAskedForReconnection(false);
         matchmaking.setNewLobbyCreated(false);
         matchmaking.setLobbyId(null);
+        matchmaking.setPlayerNickname(null);
     }
 }

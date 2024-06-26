@@ -54,7 +54,7 @@ class ResumeGameActionTest {
 
         Game game = new Game(List.of(player1, player2), objCards);
 
-        ResumeGameAction resumeGameAction = new ResumeGameAction(game, false);
+        ResumeGameAction resumeGameAction = new ResumeGameAction(game, "player1");
 
         // Verify the empty execute does not throw an exception
         assertDoesNotThrow(() -> resumeGameAction.execute(game));
@@ -68,12 +68,11 @@ class ResumeGameActionTest {
 
         assertEquals(game.getId(), clientState.getGameModel().getId());
         assertEquals(player1, clientState.getGameModel().getSelf());
-        assertEquals(PlayerState.SLEEPING, clientState.getPlayerState());
 
         ClientState clientState2 = new ClientState((ClientState clientState1) -> {}, "player2");
         clientState2.setNickname("player2");
 
-        ResumeGameAction resumeGameAction2 = new ResumeGameAction(game, true);
+        ResumeGameAction resumeGameAction2 = new ResumeGameAction(game, "player2");
 
         // Verify the empty execute does not throw an exception
         assertDoesNotThrow(() -> resumeGameAction2.execute(game));

@@ -50,6 +50,7 @@ public class ReconnectAction extends PlayerAction {
     @Override
     public void execute(Matchmaking matchmaking) {
         matchmaking.setAskedForReconnection(true);
+        matchmaking.setPlayerNickname(getPlayerNickname());
     }
 
     /**

@@ -47,6 +47,15 @@ public abstract class Action implements Serializable {
     }
 
     /**
+     * Constructor.
+     *
+     * @param identity the identity of the action
+     */
+    protected Action(String identity) {
+        this.identity = identity;
+    }
+
+    /**
      * Execute the action on the game model.
      *
      * @param gameModel the game model

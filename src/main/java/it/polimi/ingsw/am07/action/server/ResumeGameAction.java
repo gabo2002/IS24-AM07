@@ -40,18 +40,14 @@ public class ResumeGameAction extends ServerAction {
     private final Game game;
 
     /**
-     * Whether all clients have reconnected and are ready to resume the game
-     */
-    private final boolean allClientsReady;
-
-    /**
      * Constructor
      *
      * @param game the game model
      */
-    public ResumeGameAction(Game game, boolean allClientsReady) {
+    public ResumeGameAction(Game game, String identity) {
+        super(identity);
+
         this.game = game;
-        this.allClientsReady = allClientsReady;
     }
 
     /**
@@ -61,6 +57,8 @@ public class ResumeGameAction extends ServerAction {
      */
     @Override
     public void execute(Game gameModel) {
+        // Remove the player from the disconnected players list
+        gameModel.removeDisconnectedPlayer(getIdentity());
     }
 
     /**
@@ -73,7 +71,7 @@ public class ResumeGameAction extends ServerAction {
         state.setGameModel(game);
         state.getGameModel().setSelfNickname(state.getNickname());
 
-        if (allClientsReady) {
+        if (!game.shouldFreezeGame()) {
             // Find out whose turn it is
             String currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex()).getNickname();
 

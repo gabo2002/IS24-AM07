@@ -67,7 +67,7 @@ public class ClientRMIStatefulListener extends UnicastRemoteObject implements RM
      */
     @Override
     public synchronized boolean checkPulse() throws RemoteException {
-        return listener.checkPulse();
+        return true;
     }
 
     /**

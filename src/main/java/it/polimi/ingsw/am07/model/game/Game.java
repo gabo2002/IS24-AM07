@@ -59,6 +59,11 @@ public class Game implements Serializable {
     private final List<Player> players;
 
     /**
+     * The list of disconnected players in the game.
+     */
+    private final List<Player> disconnectedPlayers;
+
+    /**
      * The deck of cards in the game.
      */
     private final Deck deck;
@@ -95,6 +100,8 @@ public class Game implements Serializable {
         this.players = players;
         this.selfNickname = null;
 
+        disconnectedPlayers = new ArrayList<>();
+
         id = UUID.randomUUID();
         currentPlayerIndex = 0;
         deck = new Deck.Factory().build();
@@ -119,6 +126,7 @@ public class Game implements Serializable {
         this.commonObjectives = other.commonObjectives;
         this.currentPlayerIndex = other.currentPlayerIndex;
         this.gameState = other.gameState;
+        this.disconnectedPlayers = new ArrayList<>(other.disconnectedPlayers);
     }
 
     /**
@@ -176,6 +184,11 @@ public class Game implements Serializable {
      * Checks the current game state and updates it accordingly.
      */
     public void incrementTurn() {
+        if (disconnectedPlayers.size() == players.size()) {
+            // All players are disconnected, the game is dead
+            return;
+        }
+
         if (gameState == GameState.STARTING) {
             gameState = GameState.PLAYING;
         }
@@ -193,9 +206,13 @@ public class Game implements Serializable {
             for (Player player : players) {
                 if (player.getPlayerScore() >= 20) {
                     gameState = GameState.ENDING;
-                    break;
                 }
             }
+        }
+
+        // If the new player is disconnected, we need to skip his turn
+        if (disconnectedPlayers.contains(getPlayingPlayer())) {
+            incrementTurn();
         }
     }
 
@@ -370,6 +387,41 @@ public class Game implements Serializable {
      */
     public Player getPlayingPlayer() {
         return players.get(currentPlayerIndex);
+    }
+
+    /**
+     * This method adds a player to the list of disconnected players.
+     *
+     * @param identity the identity of the player to be added
+     * @return the player object
+     */
+    public Player addDisconnectedPlayer(String identity) {
+        for (Player player : players) {
+            if (player.getIdentity().equals(identity)) {
+                disconnectedPlayers.add(player);
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * This method removes a player from the list of disconnected players.
+     *
+     * @param identity the identity of the player to be removed
+     */
+    public void removeDisconnectedPlayer(String identity) {
+        disconnectedPlayers.removeIf(player -> player.getIdentity().equals(identity));
+    }
+
+    /**
+     * This method checks if the game should be frozen, waiting for the disconnected players to reconnect.
+     *
+     * @return true if the game should be frozen, false otherwise
+     */
+    public boolean shouldFreezeGame() {
+        return disconnectedPlayers.size() >= (players.size() - 1);
     }
 
     /**

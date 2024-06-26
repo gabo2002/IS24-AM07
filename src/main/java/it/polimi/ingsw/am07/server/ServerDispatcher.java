@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.server;
 
 import it.polimi.ingsw.am07.action.Action;
+import it.polimi.ingsw.am07.action.server.HangGameAction;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
@@ -135,6 +136,9 @@ public class ServerDispatcher extends Dispatcher {
     public synchronized void removeListener(Listener listener) {
         LOGGER.debug("Removing listener " + listener.getIdentity());
 
+        // Notify every other listener connected to the same controller that the listener has disconnected
+        listenerDispatchers.get(listener.getIdentity()).execute(new HangGameAction(listener.getIdentity()));
+
         listenerDispatchers.remove(listener.getIdentity());
     }
 
@@ -214,19 +218,16 @@ public class ServerDispatcher extends Dispatcher {
         return true;
     }
 
-    private synchronized Boolean reconnectToGame(Listener listener) {
+    private synchronized Boolean reconnectToGame(Listener listener, String nickname) {
         LOGGER.debug("Reconnecting to game");
 
         for (Map.Entry<Game, GameController> entry : gameControllers.entrySet()) {
-            if (entry.getKey().getPlayers().stream().anyMatch(player -> player.getIdentity().equals(listener.getIdentity()))) {
+            if (entry.getKey().getPlayers().stream().anyMatch(player -> player.getIdentity().equals(listener.getIdentity()) && player.getNickname().equals(nickname))) {
                 listenerDispatchers.put(listener.getIdentity(), entry.getValue());
                 entry.getValue().registerNewListener(listener);
 
-                // Number of listeners equals number of players in the game
-                final boolean allClientsReady = entry.getValue().getListenersCount() == entry.getKey().getPlayers().size();
-
                 // Send the game state to the listener
-                entry.getValue().execute(new ResumeGameAction(entry.getKey(), allClientsReady));
+                entry.getValue().execute(new ResumeGameAction(entry.getKey(), listener.getIdentity()));
                 return true;
             }
         }
