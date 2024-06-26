@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.client.cli;
 
 import it.polimi.ingsw.am07.action.lobby.ReconnectAction;
+import it.polimi.ingsw.am07.client.UserInterface;
 import it.polimi.ingsw.am07.client.cli.input.SelectableMenu;
 import it.polimi.ingsw.am07.client.cli.input.ThreadInputReader;
 import it.polimi.ingsw.am07.client.cli.rendering.CLIColor;
@@ -44,7 +45,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class CLI {
+public class CLI implements UserInterface {
 
     private static final List<Instruction> availableInstructionsPickingCard = List.of(
             Instruction.SEND_MESSAGE,
@@ -176,7 +177,7 @@ public class CLI {
      *
      * @param clientState the client state to render
      */
-    private void render(ClientState clientState) {
+    public void render(ClientState clientState) {
         PlayerState currentState = clientState.getPlayerState();
 
         String message = clientState.getClientStringErrorMessage();

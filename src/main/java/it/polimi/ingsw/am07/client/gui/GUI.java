@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.client.gui;
 
 import it.polimi.ingsw.am07.Application;
 import it.polimi.ingsw.am07.action.lobby.ReconnectAction;
+import it.polimi.ingsw.am07.client.UserInterface;
 import it.polimi.ingsw.am07.client.gui.viewController.*;
 import it.polimi.ingsw.am07.model.ClientState;
 import it.polimi.ingsw.am07.model.PlayerState;
@@ -45,7 +46,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Objects;
 
-public class GUI extends javafx.application.Application implements NetworkInitializer {
+public class GUI extends javafx.application.Application implements UserInterface, NetworkInitializer {
 
     private static final int WIDTH = 1920;
     private static final int HEIGHT = 1080;
