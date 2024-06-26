@@ -36,3 +36,15 @@
     -fx-background-color: transparent;
     -fx-padding: 8;
 }
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+
+.split-pane .split-pane-divider {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}

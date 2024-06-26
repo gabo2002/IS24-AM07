@@ -236,7 +236,7 @@
                 </Text>
             </HBox>
             <!-- Parte destra -->
-            <ScrollPane fx:id="scrollPane" prefHeight="1402.0" prefWidth="622.0" style="-fx-background-color: #95785F">
+            <ScrollPane fx:id="scrollPane" prefHeight="1402.0" prefWidth="622.0" style="-fx-background-color: #a78d76">
                 <AnchorPane maxHeight="4860" maxWidth="9396" minHeight="4860" minWidth="9366" prefHeight="1019.0" prefWidth="620.0" style="-fx-background-color: #a78d76">
                     <Pane fx:id="rightPane" layoutX="4698" layoutY="2430" />
                 </AnchorPane>

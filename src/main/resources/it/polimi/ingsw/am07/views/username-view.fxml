@@ -28,6 +28,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <VBox fx:id="container" alignment="CENTER" prefHeight="653.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #30323D;" styleClass="container" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.am07.client.gui.viewController.UsernameViewController">
     <Label fx:id="welcomeText" text="Codex Naturalis" textFill="WHITE">
         <font>
@@ -61,6 +62,9 @@
       <VBox.margin>
          <Insets top="15.0" />
       </VBox.margin>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
     </Button>
 
 </VBox>
