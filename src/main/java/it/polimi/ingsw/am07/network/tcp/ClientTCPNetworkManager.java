@@ -200,16 +200,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
      * Receives, parses and handles a packet.
      */
     private void receivePacket() {
-        NetworkPacket packet;
-        try {
-            packet = connection.receive();
-        } catch (Exception e) {
-            LOGGER.error(e);
-            disconnect();
-            listener.notify(new HangGameAction(identity));
-            listener = null;
-            return;
-        }
+        NetworkPacket packet = connection.receive();
 
         LOGGER.debug("Received packet: " + packet);
 

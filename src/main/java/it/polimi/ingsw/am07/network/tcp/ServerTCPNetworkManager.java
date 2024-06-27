@@ -235,28 +235,9 @@ public class ServerTCPNetworkManager implements ServerNetworkManager {
     private void sendHeartbeats() {
         new Thread(() -> {
             while (serverSocket != null) {
-                List<Connection> brokenConnections = new ArrayList<>();
-
                 synchronized (connectionList) {
                     for (Connection connection : connectionList) {
-                        try {
-                            connection.send(new HeartbeatNetworkPacket());
-                        } catch (Exception e) {
-                            LOGGER.error(e);
-                            brokenConnections.add(connection);
-                        }
-                    }
-                }
-
-                for (Connection connection : brokenConnections) {
-                    LOGGER.error("Connection closed: " + connection);
-                    try {
-                        dispatcher.removeListener(listeners.get(connection));
-                    } catch (Exception e) {
-                        LOGGER.error(e);
-                    }
-                    synchronized (connectionList) {
-                        connectionList.remove(connection);
+                        connection.send(new HeartbeatNetworkPacket());
                     }
                 }
 
