@@ -106,7 +106,7 @@ public class CLI implements UserInterface {
             Instruction.SHOW_FIELD,
             Instruction.QUIT
     );
-    private final AppLogger LOGGER = new AppLogger(CLI.class);
+    private final AppLogger LOGGER;
     private final ExecutorService renderExecutor;
     private ThreadInputReader reader;
     private Controller controller;
@@ -120,6 +120,7 @@ public class CLI implements UserInterface {
      */
     public CLI() {
         System.setProperty("cli", "true");
+        LOGGER = new AppLogger(CLI.class);
         renderExecutor = Executors.newSingleThreadExecutor();
         currentRenderTask = null;
 
