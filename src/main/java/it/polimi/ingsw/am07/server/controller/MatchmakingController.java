@@ -36,6 +36,9 @@ import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import java.util.UUID;
 import java.util.function.BiFunction;
 
+/**
+ * Controller for the matchmaking
+ */
 public class MatchmakingController extends Dispatcher {
 
     private final AppLogger LOGGER = new AppLogger(MatchmakingController.class);
@@ -45,7 +48,13 @@ public class MatchmakingController extends Dispatcher {
     private final QuadFunction<Listener, String, UUID, Pawn, Boolean> migrateToExistingLobby;
     private final BiFunction<Listener, String, Boolean> reconnect;
 
-
+    /**
+     * Constructor.
+     * @param matchmaking the matchmaking model
+     * @param migrateToLobby the callback that migrates the player to a new lobby
+     * @param migrateToExistingLobby the callback that migrates the player to an existing lobby
+     * @param reconnect the callback that reconnects the player to the game
+     */
     public MatchmakingController(
             Matchmaking matchmaking,
             TriConsumer<Listener, String, Pawn> migrateToLobby,
@@ -58,6 +67,10 @@ public class MatchmakingController extends Dispatcher {
         this.reconnect = reconnect;
     }
 
+    /**
+     * Register a new listener.
+     * @param listener the listener to register
+     */
     @Override
     public synchronized void registerNewListener(Listener listener) {
         LOGGER.debug("Registering new listener " + listener + " in " + Thread.currentThread().getName());
@@ -67,6 +80,10 @@ public class MatchmakingController extends Dispatcher {
         listener.notify(new LobbyListAction(matchmaking.getLobbies()));
     }
 
+    /**
+     * Remove a listener.
+     * @param listener the listener to remove
+     */
     @Override
     public synchronized void removeListener(Listener listener) {
         LOGGER.debug("Removing listener " + listener + " in " + Thread.currentThread().getName());
@@ -74,6 +91,10 @@ public class MatchmakingController extends Dispatcher {
         listeners.remove(listener);
     }
 
+    /**
+     * Execute an action.
+     * @param action the action to execute
+     */
     @Override
     public synchronized void execute(Action action) {
         LOGGER.debug("Executing action " + action + " in " + Thread.currentThread().getName());
