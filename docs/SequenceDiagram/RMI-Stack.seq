@@ -1,0 +1,25 @@
+title RMI Network Stack
+
+participant ClientState
+participant Client
+participant RMILocalController
+participant RMIListener
+participant ClientRMIStatefulListener
+
+participant RMIDispatcher
+participant RMIRemoteListener
+participant ServerDispatcher
+participant GameController
+participant GameModel
+
+Client->RMILocalController: execute(Action)
+RMILocalController->RMIDispatcher: execute(Action)
+RMIDispatcher->ServerDispatcher: execute(Action)
+ServerDispatcher->GameController: execute(Action)
+GameController->GameModel: execute(Action)
+GameModel->GameController:
+GameController->RMIRemoteListener: notify(Action)
+RMIRemoteListener->ClientRMIStatefulListener: notify(Action)
+ClientRMIStatefulListener->RMIListener: notify(Action)
+RMIListener->ClientState: reflect(Action)
+ClientState->Client:

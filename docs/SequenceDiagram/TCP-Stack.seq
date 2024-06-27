@@ -1,0 +1,22 @@
+title TCP Network Stack
+
+participant ClientState
+participant Client
+participant ClientTCPController
+participant ClientTCPListener
+participant ServerTCPNetworkManager
+participant ServerDispatcher
+participant ServerTCPListener
+participant GameController
+participant GameModel
+
+Client->ClientTCPController: execute(Action)
+ClientTCPController->ServerTCPNetworkManager: send(ActionNetworkPacket)
+ServerTCPNetworkManager->ServerDispatcher: execute(Action)
+ServerDispatcher->GameController: execute(Action)
+GameController->GameModel: execute(Action)
+GameModel->GameController:
+GameController->ServerTCPListener: notify(Action)
+ServerTCPListener->ClientTCPListener: send(ActionNetworkPacket)
+ClientTCPListener->ClientState: reflect(Action)
+ClientState->Client:
