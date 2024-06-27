@@ -218,7 +218,13 @@ public class GameField implements Serializable {
         return placedCards;
     }
 
+    /**
+     * Retrieves the matrix representing the game field.
+     *
+     * @return the matrix representing the game field
+     */
     public Matrix<Symbol> getFieldMatrix() {
         return fieldMatrix;
     }
+
 }
