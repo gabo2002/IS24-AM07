@@ -209,7 +209,12 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
                     break;
                 }
 
-                receivePacket();
+                try {
+                    receivePacket();
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                    break;
+                }
             }
         });
         receiverThread.start();
