@@ -27,14 +27,12 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.error.ErrorAction;
 import it.polimi.ingsw.am07.action.lobby.CreateLobbyAction;
 import it.polimi.ingsw.am07.action.lobby.PlayerJoinAction;
-import it.polimi.ingsw.am07.action.server.HangGameAction;
-import it.polimi.ingsw.am07.action.server.LobbyListAction;
-import it.polimi.ingsw.am07.action.server.ResumeGameAction;
-import it.polimi.ingsw.am07.action.server.ServerGameStartAction;
+import it.polimi.ingsw.am07.action.server.*;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.game.GameState;
 import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
@@ -154,12 +152,29 @@ public class ServerDispatcher extends Dispatcher {
 
         // If the dispatcher is a lobby controller, remove it
         if (connectedDispatcher instanceof LobbyController lobbyController) {
+            LobbyController targetController = null;
+            Lobby targetLobby = null;
+
             for (Map.Entry<Lobby, LobbyController> entry : lobbyControllers.entrySet()) {
                 if (entry.getValue().equals(lobbyController)) {
                     lobbyControllers.remove(entry.getKey());
                     lobbies.remove(entry.getKey().getId());
+                    targetController = entry.getValue();
+                    targetLobby = entry.getKey();
                     break;
                 }
+            }
+
+            if (targetController != null && targetLobby != null) {
+                for (LobbyPlayer player : targetLobby.getPlayers()) {
+                    if (player.getIdentity().equals(listener.getIdentity())) {
+                        targetLobby.removePlayer(player.getNickname());
+                        break;
+                    }
+                }
+
+                // Notify the lobby controller
+                targetController.execute(new LobbyStateSyncAction(targetLobby));
             }
 
             // Update the matchmaking controller
