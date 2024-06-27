@@ -33,12 +33,22 @@ import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 import it.polimi.ingsw.am07.model.matchmaking.Matchmaking;
 
+/**
+ * Action to hang a game when a player loses connection.
+ */
 public class HangGameAction extends ServerAction {
-
+    /**
+     * Constructor.
+     * @param identity the player's identity
+     */
     public HangGameAction(String identity) {
         super(identity);
     }
 
+    /**
+     * Execute the action on the game.
+     * @param gameModel the game model
+     */
     @Override
     public void execute(Game gameModel) {
         Player disconnectedPlayer = gameModel.addDisconnectedPlayer(getIdentity());
@@ -88,16 +98,28 @@ public class HangGameAction extends ServerAction {
         }
     }
 
+    /**
+     * Execute the action on the lobby.
+     * @param lobbyModel the lobby model
+     */
     @Override
     public void execute(Lobby lobbyModel) {
         System.out.println("Execute: connection lost");
     }
 
+    /**
+     * Execute the action on the matchmaking.
+     * @param matchmaking the matchmaking model
+     */
     @Override
     public void execute(Matchmaking matchmaking) {
         System.out.println("Execute: connection lost");
     }
 
+    /**
+     * Reflect the action on the client state.
+     * @param state the client state
+     */
     @Override
     public void reflect(ClientState state) {
         System.out.println("Reflect: connection lost");
