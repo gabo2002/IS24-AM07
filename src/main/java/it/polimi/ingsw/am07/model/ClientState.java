@@ -24,6 +24,7 @@
 package it.polimi.ingsw.am07.model;
 
 import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 import java.util.List;
@@ -224,6 +225,31 @@ public class ClientState {
      */
     public void setClientStringErrorMessage(String clientStringErrorMessage) {
         this.clientStringErrorMessage = clientStringErrorMessage;
+    }
+
+    /**
+     * Refreshes the player state after a disconnection or a resume.
+     */
+    public void refreshPlayerState() {
+        if (gameModel.shouldFreezeGame()) {
+            setPlayerState(PlayerState.SLEEPING);
+        } else {
+            // Find out whose turn it is
+            String currentPlayer = gameModel.getPlayers().get(gameModel.getCurrentPlayerIndex()).getNickname();
+
+            if (getNickname().equals(currentPlayer)) {
+                // Find out if the player is in the middle of a turn
+                int handSize = gameModel.getSelf().getPlayableCards().size();
+
+                if (handSize == Player.MAX_HAND_SIZE) { // Must place
+                    setPlayerState(PlayerState.PLACING_CARD);
+                } else { // Must pick
+                    setPlayerState(PlayerState.PICKING_CARD);
+                }
+            } else {
+                setPlayerState(PlayerState.SLEEPING);
+            }
+        }
     }
 
 }

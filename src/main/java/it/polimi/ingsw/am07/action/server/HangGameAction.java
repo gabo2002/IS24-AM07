@@ -137,24 +137,12 @@ public class HangGameAction extends ServerAction {
                 return;
             }
 
-            if (!game.shouldFreezeGame()) {
-                // Find out whose turn it is
-                String currentPlayer = game.getPlayers().get(game.getCurrentPlayerIndex()).getNickname();
-
-                if (state.getNickname().equals(currentPlayer)) {
-                    // Find out if the player is in the middle of a turn
-                    int handSize = state.getGameModel().getSelf().getPlayableCards().size();
-
-                    if (handSize == Player.MAX_HAND_SIZE) { // Must place
-                        state.setPlayerState(PlayerState.PLACING_CARD);
-                    } else { // Must pick
-                        state.setPlayerState(PlayerState.PICKING_CARD);
-                    }
-                } else {
-                    state.setPlayerState(PlayerState.SLEEPING);
-                }
+            Player self = game.getSelf();
+            if (self.getPlacedCards().isEmpty()) {
+                // The player has not yet picked a starter card. This means that the game has just started
+                state.setPlayerState(PlayerState.SELECTING_STARTER_CARD_SIDE);
             } else {
-                state.setPlayerState(PlayerState.SLEEPING);
+                state.refreshPlayerState();
             }
         }
 
