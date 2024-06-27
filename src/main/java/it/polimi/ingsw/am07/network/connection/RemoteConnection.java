@@ -31,7 +31,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.net.Socket;
-import java.util.Objects;
 
 /**
  * Connection with a remote client.
@@ -147,7 +146,7 @@ public class RemoteConnection implements Connection {
 
     @Override
     public int hashCode() {
-        return Objects.hash(identity, socket.getRemoteSocketAddress());
+        return identity.hashCode();
     }
 
 }
