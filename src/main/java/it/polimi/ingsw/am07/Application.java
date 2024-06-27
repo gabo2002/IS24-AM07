@@ -5,6 +5,9 @@ import it.polimi.ingsw.am07.client.gui.GUI;
 import it.polimi.ingsw.am07.server.Server;
 import it.polimi.ingsw.am07.utils.IdentityManager;
 
+/**
+ * Main class of the application.
+ */
 public class Application {
 
     public static void main(String[] args) {

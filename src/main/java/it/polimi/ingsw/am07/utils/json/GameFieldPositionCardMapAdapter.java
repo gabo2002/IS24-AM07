@@ -31,8 +31,16 @@ import it.polimi.ingsw.am07.model.game.side.Side;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameFieldPositionCardMapAdapter {
+/**
+ * This class is a custom Moshi handler that can serialize and deserialize the map of GameFieldPosition and Side
 
+ */
+public class GameFieldPositionCardMapAdapter {
+    /**
+     * Converts a map of GameFieldPosition and Side to a map of String and Side
+     * @param map The map to convert
+     * @return The converted map
+     */
     @ToJson
     public Map<String, Side> toJson(Map<GameFieldPosition, Side> map) {
         Map<String, Side> jsonMap = new HashMap<>();
@@ -42,6 +50,11 @@ public class GameFieldPositionCardMapAdapter {
         return jsonMap;
     }
 
+    /**
+     * Converts a map of String and Side to a map of GameFieldPosition and Side
+     * @param jsonMap The map to convert
+     * @return The converted map
+     */
     @FromJson
     public Map<GameFieldPosition, Side> fromJson(Map<String, Side> jsonMap) {
         Map<GameFieldPosition, Side> map = new HashMap<>();
