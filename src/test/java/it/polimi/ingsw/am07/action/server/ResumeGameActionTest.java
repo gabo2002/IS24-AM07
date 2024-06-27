@@ -58,14 +58,22 @@ class ResumeGameActionTest {
 
         player1.setPlayerObjectiveCard(objCards[0]);
         player2.setPlayerObjectiveCard(objCards[1]);
+
+        ResumeGameAction resumeGameAction = new ResumeGameAction(game, "player1");
+
+        ClientState clientState3 = new ClientState((ClientState clientState1) -> {}, "player1");
+        clientState3.setNickname("player1");
+
+        resumeGameAction.reflect(clientState3);
+
+        assertEquals(clientState3.getPlayerState(), PlayerState.SELECTING_STARTER_CARD_SIDE);
+
         try {
             player1.placeAt(starters.get(0).back(), new GameFieldPosition(0, 0));
             player2.placeAt(starters.get(1).back(), new GameFieldPosition(0, 0));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        ResumeGameAction resumeGameAction = new ResumeGameAction(game, "player1");
 
         // Verify the empty execute does not throw an exception
         assertDoesNotThrow(() -> resumeGameAction.execute(game));

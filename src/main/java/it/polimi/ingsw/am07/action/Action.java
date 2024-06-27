@@ -124,4 +124,20 @@ public abstract class Action implements Serializable {
         this.error = errorMessage;
     }
 
+    /**
+     * Check if the action was executed correctly.
+     *
+     * @return true if the action was executed correctly, false otherwise
+     */
+    public boolean isExecutedCorrectly() {
+        return executedCorrectly;
+    }
+
+    /**
+     * Set if the action was executed correctly.
+     */
+    public void setExecutedCorrectly(boolean executedCorrectly) {
+        this.executedCorrectly = executedCorrectly;
+    }
+
 }

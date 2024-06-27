@@ -1,37 +1,196 @@
-/*
- * Codex Naturalis - Final Assignment for the Software Engineering Course
- * Copyright (C) 2024 Andrea Biasion Somaschini, Roberto Alessandro Bertolini, Omar Chaabani, Gabriele Corti
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * Please note that the GNU General Public License applies only to the
- * files that contain this license header. Other files within the project, such
- * as assets and images, are property of the original owners and may be
- * subject to different copyright terms.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package it.polimi.ingsw.am07.action.player;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import it.polimi.ingsw.am07.exceptions.IllegalGamePositionException;
+import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
+import it.polimi.ingsw.am07.model.game.Game;
+import it.polimi.ingsw.am07.model.game.Player;
+import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.game.card.PatternObjectiveCard;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
+import it.polimi.ingsw.am07.model.game.side.Side;
+import it.polimi.ingsw.am07.model.game.side.SideFrontRes;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 class PlayerInitialChoiceActionTest {
 
-    @Test
-    void execute() {
+    private Game gameMock;
+    private ClientState clientStateMock;
+    private Player playerMock;
+    private ObjectiveCard objectiveCardMock;
+    private Side sideMock;
 
+    @BeforeEach
+    void setUp() {
+        gameMock = mock(Game.class);
+        clientStateMock = mock(ClientState.class);
+        playerMock = mock(Player.class);
+        objectiveCardMock = mock(PatternObjectiveCard.class);
+        sideMock = mock(SideFrontRes.class);
+    }
+
+    @Test
+    void execute_success() throws Exception {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(playerMock);
+        when(playerMock.getPlayerObjectiveCard()).thenReturn(null);
+        when(gameMock.getPlayers()).thenReturn(List.of(playerMock));
+        when(playerMock.getNickname()).thenReturn("player1");
+
+        doNothing().when(playerMock).setPlayerObjectiveCard(objectiveCardMock);
+        doNothing().when(playerMock).placeAt(sideMock, new GameFieldPosition(0, 0));
+
+        action.execute(gameMock);
+
+        verify(playerMock).setPlayerObjectiveCard(objectiveCardMock);
+        verify(playerMock).placeAt(sideMock, new GameFieldPosition(0, 0));
+        assertTrue(action.isExecutedCorrectly());
+    }
+
+    @Test
+    void execute_playerNotFound() {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(null);
+
+        action.execute(gameMock);
+
+        assertFalse(action.isExecutedCorrectly());
+    }
+
+    @Test
+    void execute_alreadyplayed() {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(playerMock);
+        when(playerMock.getPlayerObjectiveCard()).thenReturn(mock(PatternObjectiveCard.class));
+        when(gameMock.getPlayers()).thenReturn(List.of(playerMock));
+        when(playerMock.getNickname()).thenReturn("player1");
+
+        action.execute(gameMock);
+
+        assertFalse(action.isExecutedCorrectly());
+    }
+
+    @Test
+    void execute_objectiveCardAlreadyChosen() {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(playerMock);
+        when(playerMock.getPlayerObjectiveCard()).thenReturn(mock(PatternObjectiveCard.class));
+
+        action.execute(gameMock);
+
+        assertFalse(action.isExecutedCorrectly());
+    }
+
+    @Test
+    void reflect_success() throws Exception {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        action.setExecutedCorrectly(true);
+        when(clientStateMock.getGameModel()).thenReturn(gameMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(playerMock);
+        when(clientStateMock.getIdentity()).thenReturn("id1");
+        when(gameMock.getPlayers()).thenReturn(List.of(playerMock));
+        when(gameMock.getPlayingPlayer()).thenReturn(playerMock);
+        when(playerMock.getPlayerObjectiveCard()).thenReturn(objectiveCardMock);
+        when(clientStateMock.getNickname()).thenReturn("player1");
+        when(playerMock.getNickname()).thenReturn("player1");
+
+        doNothing().when(playerMock).placeAt(sideMock, new GameFieldPosition(0, 0));
+        doNothing().when(playerMock).setPlayerObjectiveCard(objectiveCardMock);
+
+        action.reflect(clientStateMock);
+
+        verify(playerMock).placeAt(sideMock, new GameFieldPosition(0, 0));
+        verify(playerMock).setPlayerObjectiveCard(objectiveCardMock);
+        verify(clientStateMock).setPlayerState(PlayerState.WAITING_FOR_GAME_START);
+        verify(clientStateMock).notifyGameModelUpdate();
+    }
+
+    @Test
+    void reflect_gameCanStart() throws Exception {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        action.setExecutedCorrectly(true);
+        when(clientStateMock.getGameModel()).thenReturn(gameMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(playerMock);
+        when(clientStateMock.getIdentity()).thenReturn("id1");
+        when(gameMock.getPlayers()).thenReturn(List.of(playerMock));
+        when(gameMock.getPlayingPlayer()).thenReturn(playerMock);
+        when(clientStateMock.getNickname()).thenReturn("player1");
+        when(playerMock.getNickname()).thenReturn("player1");
+
+        when(playerMock.getPlayerObjectiveCard()).thenCallRealMethod();
+        doCallRealMethod().when(playerMock).setPlayerObjectiveCard(any());
+
+        doNothing().when(playerMock).placeAt(sideMock, new GameFieldPosition(0, 0));
+
+        action.execute(gameMock);
+
+        action.reflect(clientStateMock);
+
+        verify(clientStateMock).setPlayerState(PlayerState.PLACING_CARD);
+
+        when(gameMock.getPlayers()).thenReturn(List.of(playerMock));
+        when(gameMock.getPlayingPlayer()).thenReturn(playerMock);
+        when(playerMock.getNickname()).thenReturn("player1");
+        doThrow(IllegalGamePositionException.class).when(playerMock).placeAt(any(), any());
+        when(playerMock.getPlayerObjectiveCard()).thenReturn(null);
+        assertThrows(RuntimeException.class, () -> action.execute(gameMock));
+        action.setExecutedCorrectly(true);
+        assertThrows(RuntimeException.class, () -> action.reflect(clientStateMock));
+    }
+
+    @Test
+    void reflect_gameCanStart_2() throws Exception {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        action.setExecutedCorrectly(true);
+        when(clientStateMock.getGameModel()).thenReturn(gameMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(playerMock);
+        when(clientStateMock.getIdentity()).thenReturn("id1");
+        when(gameMock.getPlayers()).thenReturn(List.of(playerMock));
+        when(gameMock.getPlayingPlayer()).thenReturn(playerMock);
+        when(clientStateMock.getNickname()).thenReturn("player1");
+        when(playerMock.getNickname()).thenReturn("player1");
+
+        when(playerMock.getPlayerObjectiveCard()).thenCallRealMethod();
+        doCallRealMethod().when(playerMock).setPlayerObjectiveCard(any());
+
+        doNothing().when(playerMock).placeAt(sideMock, new GameFieldPosition(0, 0));
+
+        action.execute(gameMock);
+
+        action.setExecutedCorrectly(false);
+
+        clientStateMock.setPlayerState(PlayerState.PLACING_CARD);
+        action.reflect(clientStateMock);
+
+        verify(clientStateMock).setPlayerState(PlayerState.PLACING_CARD);
+
+        when(gameMock.getPlayers()).thenReturn(List.of(playerMock));
+        when(gameMock.getPlayingPlayer()).thenReturn(playerMock);
+        when(playerMock.getNickname()).thenReturn("player1");
+        doThrow(IllegalGamePositionException.class).when(playerMock).placeAt(any(), any());
+        when(playerMock.getPlayerObjectiveCard()).thenReturn(null);
+        assertThrows(RuntimeException.class, () -> action.execute(gameMock));
+        action.setExecutedCorrectly(true);
+        assertThrows(RuntimeException.class, () -> action.reflect(clientStateMock));
+    }
+
+    @Test
+    void reflect_failure() throws Exception {
+        PlayerInitialChoiceAction action = new PlayerInitialChoiceAction("player1", "id1", objectiveCardMock, sideMock);
+        action.setExecutedCorrectly(false);
+
+        when(clientStateMock.getGameModel()).thenReturn(gameMock);
+        when(gameMock.getPlayerByNickname("player1")).thenReturn(playerMock);
+
+        doThrow(new RuntimeException("Test error")).when(playerMock).placeAt(any(), any());
+
+        assertThrows(RuntimeException.class, () -> action.reflect(clientStateMock));
     }
 
 }
