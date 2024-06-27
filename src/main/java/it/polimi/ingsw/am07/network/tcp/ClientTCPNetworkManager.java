@@ -58,6 +58,9 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
     private StatefulListener listener;
     private Controller controller;
 
+    private Thread heartbeatThread;
+    private Thread receiverThread;
+
     /**
      * Constructor.
      *
@@ -70,15 +73,19 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         this.serverPort = serverPort;
         this.identity = identity;
 
+        controller = null;
         listener = null;
         socket = null;
+
+        heartbeatThread = null;
+        receiverThread = null;
     }
 
     /**
      * Connect to the server.
      */
     @Override
-    public void connect() {
+    public synchronized void connect() {
         LOGGER.debug("Connecting to " + serverAddress + ":" + serverPort);
 
         if (socket != null) {
@@ -146,7 +153,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
      * Reconnect to the server.
      */
     @Override
-    public void reconnect(ClientState clientState) {
+    public synchronized void reconnect(ClientState clientState) {
         controller = null;
         connection = null;
         listener = null;
@@ -155,6 +162,8 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
         if (connection != null) {
             inflateListener(clientState);
+        } else {
+            kill();
         }
     }
 
@@ -170,6 +179,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
         }
 
         listener = new ClientTCPListener(clientState);
+        listener.heartbeat();
 
         setupReceiverLoop();
         setupHeartbeatLoop();
@@ -189,11 +199,20 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
      * Set up the receiver loop in a background thread to handle inbounds packets.
      */
     private void setupReceiverLoop() {
-        new Thread(() -> {
+        if (receiverThread != null) {
+            receiverThread.interrupt();
+        }
+
+        receiverThread = new Thread(() -> {
             while (socket != null) {
+                if (Thread.interrupted()) {
+                    break;
+                }
+
                 receivePacket();
             }
-        }).start();
+        });
+        receiverThread.start();
     }
 
     /**
@@ -222,7 +241,7 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
             disconnect();
 
             listener.notify(new HangGameAction(identity));
-            listener = null;
+            kill();
         }
     }
 
@@ -230,8 +249,16 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
      * Set up the heartbeat loop in a background thread to send heartbeats.
      */
     private void setupHeartbeatLoop() {
-        new Thread(() -> {
+        if (heartbeatThread != null) {
+            heartbeatThread.interrupt();
+        }
+
+        heartbeatThread = new Thread(() -> {
             while (socket != null) {
+                if (Thread.interrupted()) {
+                    break;
+                }
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -242,10 +269,23 @@ public class ClientTCPNetworkManager implements ClientNetworkManager {
 
                 if (listener != null && !listener.checkPulse()) {
                     listener.notify(new HangGameAction(identity));
-                    listener = null;
+                    kill();
                 }
             }
-        }).start();
+        });
+        heartbeatThread.start();
+    }
+
+    private void kill() {
+        heartbeatThread.interrupt();
+        receiverThread.interrupt();
+
+        heartbeatThread = null;
+        receiverThread = null;
+
+        listener = null;
+        controller = null;
+        socket = null;
     }
 
 }

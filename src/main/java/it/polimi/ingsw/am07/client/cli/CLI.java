@@ -231,7 +231,12 @@ public class CLI implements UserInterface {
                 break;
             case DISCONNECTED:
                 System.out.println("Disconnected from server. Attempting reconnection");
-                networkManager.reconnect(clientState);
+
+                try {
+                    networkManager.reconnect(clientState);
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                }
                 controller = networkManager.getController();
 
                 if (controller == null) {

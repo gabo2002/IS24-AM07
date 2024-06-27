@@ -34,6 +34,7 @@ import it.polimi.ingsw.am07.network.NetworkType;
 import it.polimi.ingsw.am07.reactive.Controller;
 import it.polimi.ingsw.am07.utils.IdentityManager;
 import it.polimi.ingsw.am07.utils.assets.AssetsRegistry;
+import it.polimi.ingsw.am07.utils.logging.AppLogger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -57,6 +58,11 @@ public class GUI extends javafx.application.Application implements UserInterface
     private ClientNetworkManager clientNetworkManager;
     private ClientNetworkManager.Factory networkManagerFactory;
     private Controller controller;
+    private final AppLogger LOGGER = new AppLogger(GUI.class);
+
+    private Thread reconnectThread;
+
+    private long lastReconnectAttempt = 0;
 
     /**
      * Default constructor for the GUI class.
@@ -140,7 +146,7 @@ public class GUI extends javafx.application.Application implements UserInterface
             shouldRender = false;
         }
 
-        if (rerender) {
+        if (rerender || state.getPlayerState() == PlayerState.DISCONNECTED) {
             Platform.runLater(() -> render(state));
         }
     }
@@ -275,9 +281,42 @@ public class GUI extends javafx.application.Application implements UserInterface
                 // Otherwise, the client will try to join a lobby that does not exist
                 state.clearLobbyModel();
 
-                clientNetworkManager.reconnect(state);
+                synchronized (lock) {
+                    if (System.currentTimeMillis() - lastReconnectAttempt < 5000) {
+                        break;
+                    }
+
+                    lastReconnectAttempt = System.currentTimeMillis();
+                }
+
+                System.out.println("Reconnecting...");
+
                 controller = clientNetworkManager.getController();
-                controller.execute(new ReconnectAction(state.getNickname(), state.getIdentity()));
+
+                if (controller != null) {
+                    controller.execute(new ReconnectAction(state.getNickname(), state.getIdentity()));
+                    break;
+                }
+
+                if (reconnectThread != null && reconnectThread.isAlive()) {
+                    break;
+                }
+
+                reconnectThread = new Thread(() -> {
+                    try {
+                        clientNetworkManager.reconnect(state);
+
+                        controller = clientNetworkManager.getController();
+
+                        if (controller != null) {
+                            controller.execute(new ReconnectAction(state.getNickname(), state.getIdentity()));
+                        }
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                    }
+                });
+
+                reconnectThread.start();
                 break;
 
             case WAITING_FOR_GAME_START:

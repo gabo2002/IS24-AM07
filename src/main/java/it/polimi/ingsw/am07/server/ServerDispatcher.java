@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Server dispatcher.
@@ -73,8 +74,8 @@ public class ServerDispatcher extends Dispatcher {
         this.games = games;
         this.lobbies = new HashMap<>();
 
-        listenerDispatchers = new HashMap<>();
-        gameControllers = new HashMap<>(games.size());
+        listenerDispatchers = new ConcurrentHashMap<>();
+        gameControllers = new ConcurrentHashMap<>(games.size());
 
         // Create a game controller for each game
         games.forEach((id, game) -> {
@@ -82,7 +83,7 @@ public class ServerDispatcher extends Dispatcher {
             gameControllers.put(game, gameController);
         });
 
-        lobbyControllers = new HashMap<>();
+        lobbyControllers = new ConcurrentHashMap<>();
 
         Matchmaking matchmaking = new Matchmaking(lobbies.values());
 

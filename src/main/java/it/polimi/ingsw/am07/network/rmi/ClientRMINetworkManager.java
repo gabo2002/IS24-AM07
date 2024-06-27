@@ -146,6 +146,7 @@ public class ClientRMINetworkManager implements ClientNetworkManager {
 
                     if (!listener.checkPulse()) {
                         listener.notify(new HangGameAction(identity));
+                        controller = null;
                     }
                 } catch (Exception e) {
                     LOGGER.error(e);
