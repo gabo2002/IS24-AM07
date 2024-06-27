@@ -147,39 +147,44 @@ public class ServerDispatcher extends Dispatcher {
 
         // Verify if the dispatcher is still referenced by other listeners
         if (listenerDispatchers.containsValue(connectedDispatcher)) {
-            return;
-        }
+            if (connectedDispatcher instanceof LobbyController lobbyController) {
+                LobbyController targetLobbyController = lobbyController;
+                Lobby targetLobby = null;
 
-        // If the dispatcher is a lobby controller, remove it
-        if (connectedDispatcher instanceof LobbyController lobbyController) {
-            LobbyController targetController = null;
-            Lobby targetLobby = null;
-
-            for (Map.Entry<Lobby, LobbyController> entry : lobbyControllers.entrySet()) {
-                if (entry.getValue().equals(lobbyController)) {
-                    lobbyControllers.remove(entry.getKey());
-                    lobbies.remove(entry.getKey().getId());
-                    targetController = entry.getValue();
-                    targetLobby = entry.getKey();
-                    break;
-                }
-            }
-
-            if (targetController != null && targetLobby != null) {
-                for (LobbyPlayer player : targetLobby.getPlayers()) {
-                    if (player.getIdentity().equals(listener.getIdentity())) {
-                        targetLobby.removePlayer(player.getNickname());
+                for (Map.Entry<Lobby, LobbyController> entry : lobbyControllers.entrySet()) {
+                    if (entry.getValue().equals(lobbyController)) {
+                        targetLobby = entry.getKey();
+                        targetLobbyController = entry.getValue();
                         break;
                     }
                 }
 
-                // Notify the lobby controller
-                targetController.execute(new LobbyStateSyncAction(targetLobby));
-            }
+                if (targetLobby != null) {
+                    for (LobbyPlayer player : targetLobby.getPlayers()) {
+                        if (player.getIdentity().equals(listener.getIdentity())) {
+                            targetLobby.removePlayer(player.getNickname());
+                            break;
+                        }
+                    }
 
-            // Update the matchmaking controller
-            matchmakingController.execute(new LobbyListAction(new ArrayList<>(lobbies.values())));
+                    targetLobbyController.execute(new LobbyStateSyncAction(targetLobby));
+                }
+            }
+        } else {
+            // If the dispatcher is a lobby controller, remove it
+            if (connectedDispatcher instanceof LobbyController lobbyController) {
+                for (Map.Entry<Lobby, LobbyController> entry : lobbyControllers.entrySet()) {
+                    if (entry.getValue().equals(lobbyController)) {
+                        lobbyControllers.remove(entry.getKey());
+                        lobbies.remove(entry.getKey().getId());
+                        break;
+                    }
+                }
+            }
         }
+
+        // Update the matchmaking controller
+        matchmakingController.execute(new LobbyListAction(new ArrayList<>(lobbies.values())));
     }
 
     /**
