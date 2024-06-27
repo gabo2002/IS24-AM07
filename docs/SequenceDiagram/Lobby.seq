@@ -1,0 +1,92 @@
+title Game Lobby and Matchmaking
+
+participant ClientState
+participant Player1
+participant Player2
+participant ServerDispatcher
+participant MatchmakingController
+participant LobbyController
+participant OtherPlayers
+participant GamePlayers
+
+note over Player1,OtherPlayers: General Matchmaking
+
+alt Creating a Lobby
+Player1->ServerDispatcher: CreateLobbyAction
+ServerDispatcher->MatchmakingController: execute()
+MatchmakingController->ServerDispatcher:
+note over ServerDispatcher: Asks the ServerDispatcher to\ncreate a new lobby.
+ServerDispatcher->Player1: CreateLobbyAction
+Player1->ClientState: reflect()
+ClientState->Player1:
+note over Player1: Sets the LobbyModel\nand the correct state.
+ServerDispatcher->OtherPlayers: LobbyListAction
+OtherPlayers->OtherPlayers: reflect()
+note over OtherPlayers: Adds the new lobby to the\nlist of available lobbies.
+end
+
+alt Joining a lobby
+Player1->ServerDispatcher: PlayerJoinAction
+ServerDispatcher->MatchmakingController: execute()
+MatchmakingController->ServerDispatcher:
+note over ServerDispatcher: Asks the ServerDispatcher to\n join an existing lobby.
+ServerDispatcher->Player1: LobbyStateSyncAction
+Player1->ClientState: reflect()
+ClientState->Player1:
+note over Player1: Sets the LobbyModel\nand the correct state.
+ServerDispatcher->Player2: LobbyStateSyncAction
+Player2->Player2: reflect()
+note over Player2: Sets the new model\nwith the additional player
+ServerDispatcher->OtherPlayers: LobbyListAction
+OtherPlayers->OtherPlayers: reflect()
+note over OtherPlayers: Updates the status of the lobbies
+end
+
+opt Joining a non-existent lobby
+  Player1->ServerDispatcher: PlayerJoinAction (non-existing lobby)
+  ServerDispatcher->MatchmakingController: execute()
+  MatchmakingController->ServerDispatcher:
+  note over ServerDispatcher: The lobby doesn't exist
+  ServerDispatcher->Player1: ErrorAction
+  Player1->ClientState: reflect()
+  ClientState->Player1:
+  note over Player1: Sets an error message\nin the ClientState.
+end
+
+note over Player1,OtherPlayers: Game Start
+
+Player1->ServerDispatcher: GameStartAction
+ServerDispatcher->LobbyController: execute()
+LobbyController->ServerDispatcher:
+note over ServerDispatcher: Migrates the lobby to a game
+ServerDispatcher->Player1: ServerGameStartAction
+Player1->ClientState: reflect()
+ClientState->Player1:
+ServerDispatcher->Player2: ServerGameStartAction
+Player2->Player2: reflect()
+note over Player1,Player2: Syncs the Game model.\nSets the correct PlayerState
+ServerDispatcher->OtherPlayers: LobbyListAction
+OtherPlayers->OtherPlayers: reflect()
+note over OtherPlayers: Removes the lobby from the list\nof available lobbies.
+
+note over Player1,GamePlayers: Reconnection Scenario
+
+Player1->ServerDispatcher: ReconnectAction
+ServerDispatcher->MatchmakingController: execute()
+MatchmakingController->ServerDispatcher:
+note over ServerDispatcher: Attempts to reconnect\nto an existing game.
+alt Success
+  ServerDispatcher->GamePlayers: ResumeGameAction
+  GamePlayers->GamePlayers: reflect()
+  ServerDispatcher->Player1: ResumeGameAction
+  Player1->ClientState: reflect()
+  ClientState->Player1:
+  note over GamePlayers,Player1: Syncs the Game model and sets the correct PlayerState, resuming the game.
+end
+
+alt Failure
+  ServerDispatcher->Player1: LobbyListAction
+  Player1->ClientState: reflect()
+  ClientState->Player1:
+  note over Player1: The game was not found.\nShows the available lobbies.
+end
