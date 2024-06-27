@@ -1,0 +1,141 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Action {
+  # Action(): 
+  # Action(String): 
+  - error: String
+  # executedCorrectly: boolean
+  - identity: String
+  + execute(Game): void
+  + getErrorMessage(): String
+  + setErrorMessage(String): void
+  + execute(Matchmaking): void
+  + reflect(ClientState): void
+  + getIdentity(): String
+  + setExecutedCorrectly(boolean): void
+  + setIdentity(String): void
+  + execute(Lobby): void
+  + isExecutedCorrectly(): boolean
+}
+class CreateLobbyAction {
+  + CreateLobbyAction(String, String, Pawn): 
+  - color: Pawn
+  - createdLobby: Lobby
+  + setCreatedLobby(Lobby): void
+  + execute(Matchmaking): void
+  + reflect(ClientState): void
+}
+class ErrorAction {
+  + ErrorAction(String): 
+  - errorMessage: String
+  + getErrorMessage(): String
+  + reflect(ClientState): void
+}
+class GameStartAction {
+  + GameStartAction(String, String): 
+  + reflect(ClientState): void
+  + execute(Lobby): void
+}
+class HangGameAction {
+  + HangGameAction(String): 
+  + reflect(ClientState): void
+  + execute(Matchmaking): void
+  + execute(Game): void
+  + execute(Lobby): void
+}
+class LobbyListAction {
+  + LobbyListAction(List<Lobby>): 
+  - lobbies: List<Lobby>
+  + execute(Matchmaking): void
+  + reflect(ClientState): void
+}
+class LobbyStateSyncAction {
+  + LobbyStateSyncAction(Lobby): 
+  - lobby: Lobby
+  + execute(Lobby): void
+  + reflect(ClientState): void
+}
+class PlayerAction {
+  # PlayerAction(String, String): 
+  # playerNickname: String
+  + getPlayerNickname(): String
+  # getCorrespondingPlayer(Game): Player
+}
+class PlayerInitialChoiceAction {
+  + PlayerInitialChoiceAction(String, String, ObjectiveCard, Side): 
+  - gameCanStart: boolean
+  - starterSide: Side
+  - logger: AppLogger
+  - selectedCard: ObjectiveCard
+  + reflect(ClientState): void
+  + execute(Game): void
+}
+class PlayerJoinAction {
+  + PlayerJoinAction(String, String, UUID, Pawn): 
+  - lobbyId: UUID
+  - color: Pawn
+  + reflect(ClientState): void
+  + execute(Matchmaking): void
+}
+class PlayerPickCardAction {
+  + PlayerPickCardAction(String, String, GameCard): 
+  - pickedCard: GameCard
+  - nextPlayer: String
+  + execute(Game): void
+  + reflect(ClientState): void
+}
+class PlayerPlaceCardAction {
+  + PlayerPlaceCardAction(String, String, Side, GameFieldPosition): 
+  - placedSide: Side
+  - position: GameFieldPosition
+  + reflect(ClientState): void
+  + execute(Game): void
+}
+class ReconnectAction {
+  + ReconnectAction(String, String): 
+  + reflect(ClientState): void
+  + execute(Matchmaking): void
+}
+class ResumeGameAction {
+  + ResumeGameAction(Game, String): 
+  - game: Game
+  + execute(Game): void
+  + reflect(ClientState): void
+}
+class SendMessageAction {
+  + SendMessageAction(String, String, ChatMessage): 
+  - message: ChatMessage
+  + execute(Game): void
+  + reflect(ClientState): void
+}
+class ServerAction {
+  # ServerAction(String): 
+  # ServerAction(): 
+}
+class ServerGameStartAction {
+  + ServerGameStartAction(Game): 
+  - game: Game
+  + execute(Game): void
+  + reflect(ClientState): void
+}
+
+CreateLobbyAction          -[#000082,plain]-^  PlayerAction              
+ErrorAction                -[#000082,plain]-^  Action                    
+GameStartAction            -[#000082,plain]-^  PlayerAction              
+HangGameAction             -[#000082,plain]-^  ServerAction              
+LobbyListAction            -[#000082,plain]-^  ServerAction              
+LobbyStateSyncAction       -[#000082,plain]-^  ServerAction              
+PlayerAction               -[#000082,plain]-^  Action                    
+PlayerInitialChoiceAction  -[#000082,plain]-^  PlayerAction              
+PlayerJoinAction           -[#000082,plain]-^  PlayerAction              
+PlayerPickCardAction       -[#000082,plain]-^  PlayerAction              
+PlayerPlaceCardAction      -[#000082,plain]-^  PlayerAction              
+ReconnectAction            -[#000082,plain]-^  PlayerAction              
+ResumeGameAction           -[#000082,plain]-^  ServerAction              
+SendMessageAction          -[#000082,plain]-^  PlayerAction              
+ServerAction               -[#000082,plain]-^  Action                    
+ServerGameStartAction      -[#000082,plain]-^  ServerAction
+@enduml
