@@ -25,6 +25,7 @@ package it.polimi.ingsw.am07.action.server;
 
 import it.polimi.ingsw.am07.action.ServerAction;
 import it.polimi.ingsw.am07.model.ClientState;
+import it.polimi.ingsw.am07.model.PlayerState;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
 
 /**
@@ -64,6 +65,13 @@ public class LobbyStateSyncAction extends ServerAction {
     @Override
     public void reflect(ClientState clientState) {
         clientState.setLobbyModel(lobby);
+
+        if (lobby.getFirstPlayer().getIdentity().equals(clientState.getIdentity())) {
+            clientState.setPlayerState(PlayerState.ADMIN_WAITING_FOR_PLAYERS);
+        } else {
+            clientState.setPlayerState(PlayerState.WAITING_FOR_PLAYERS);
+        }
+
         clientState.notifyGameModelUpdate();
     }
 
