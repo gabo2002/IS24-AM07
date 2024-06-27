@@ -30,6 +30,7 @@ import it.polimi.ingsw.am07.model.game.Pawn;
 import it.polimi.ingsw.am07.model.game.Player;
 import it.polimi.ingsw.am07.model.game.card.GameCard;
 import it.polimi.ingsw.am07.model.game.card.ObjectiveCard;
+import it.polimi.ingsw.am07.model.game.gamefield.GameFieldPosition;
 import it.polimi.ingsw.am07.utils.assets.GameResources;
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +45,7 @@ class ResumeGameActionTest {
     void execute() {
         // Setup
         List<ObjectiveCard> objectives = GameResources.getInstance().getObjectiveCards();
+        List<GameCard> starters = GameResources.getInstance().getStarterCards();
 
         ObjectiveCard[] objCards = new ObjectiveCard[2];
         objCards[0] = objectives.getFirst();
@@ -53,6 +55,15 @@ class ResumeGameActionTest {
         Player player2 = new Player("player2", "player2", Pawn.RED, null, objCards);
 
         Game game = new Game(List.of(player1, player2), objCards);
+
+        player1.setPlayerObjectiveCard(objCards[0]);
+        player2.setPlayerObjectiveCard(objCards[1]);
+        try {
+            player1.placeAt(starters.get(0).back(), new GameFieldPosition(0, 0));
+            player2.placeAt(starters.get(1).back(), new GameFieldPosition(0, 0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ResumeGameAction resumeGameAction = new ResumeGameAction(game, "player1");
 
