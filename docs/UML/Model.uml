@@ -1,0 +1,236 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class ClientState {
+  + refreshPlayerState(): void
+  + notifyGameModelUpdate(): void
+  + clearLobbyModel(): void
+   playerState: PlayerState
+   clientStringErrorMessage: String
+   availableLobbies: List<Lobby>
+   gameModel: Game
+   nickname: String
+   lobbyModel: Lobby
+   lobbies: List<Lobby>
+}
+entity Deck << record >> {
+  + popRandomGoldCard(): GameCard?
+  + popRandomResCard(): GameCard?
+  + visibleGoldCards(): GameCard[]
+  + pickRandomResCard(): GameCard?
+  + availableGoldCards(): List<GameCard>
+  + peekTopGoldCard(): GameCard?
+  + pickRandomGoldCard(): GameCard?
+  + availableResCards(): List<GameCard>
+  + popCard(GameCard): void
+  + peekTopResCard(): GameCard?
+  + visibleResCards(): GameCard[]
+}
+class Game {
+  + addDisconnectedPlayer(String): Player
+  + pickRandomResCard(): GameCard
+  + getPlayerByNickname(String): Player
+  + popCard(GameCard): void
+  + incrementTurn(): void
+  + removeDisconnectedPlayer(String): void
+  + shouldFreezeGame(): boolean
+  + pickRandomGoldCard(): GameCard
+   visibleGoldCards: GameCard[]
+   availableResCardsSize: int
+   availableGoldCardsSize: int
+   id: UUID
+   players: List<Player>
+   visibleResCards: GameCard[]
+   deck: Deck
+   commonObjectives: ObjectiveCard[]
+   currentPlayerIndex: int
+   gameState: GameState
+   playingPlayer: Player
+   winners: List<Player>
+}
+entity GameCard << record >> {
+  + id(): int
+  + back(): SideBack
+  + front(): SideFront
+}
+class GameField {
+  + canBePlacedOnFieldAt(Side, GameFieldPosition): boolean
+  + countCoveredCorners(GameFieldPosition): int
+  + placeOnFieldAt(Side, GameFieldPosition): ResourceHolder
+  + countMatches(GameFieldPattern): int
+   placedCards: Map<GameFieldPosition, Side>
+   fieldMatrix: Matrix<Symbol>
+}
+entity GameFieldPattern << record >> {
+  + pattern(): Matrix<Symbol>
+   shape: Matrix<Symbol>
+}
+entity GameFieldPosition << record >> {
+  + fromString(String): GameFieldPosition
+  + z(): int
+  + x(): int
+  + y(): int
+   valid: boolean
+}
+enum GameState << enumeration >> {
+  STARTING
+  PLAYING
+  ENDING
+  ENDED
+}
+class Lobby {
+  + startGame(): void
+  + addNewPlayer(String, String, Pawn): LobbyPlayer
+  + removePlayer(String): void
+  + readyToStart(): boolean
+   id: UUID
+   full: boolean
+   playerCount: int
+   firstPlayer: LobbyPlayer
+   players: List<LobbyPlayer>
+}
+class LobbyPlayer {
+   nickname: String
+}
+enum LobbyState << enumeration >> {
+  WAITING_FOR_PLAYERS
+  FULL
+  READY_TO_START
+}
+class Matchmaking {
+  + hasAskedForReconnection(): boolean
+   lobbyId: UUID
+   askedForReconnection: boolean
+   lobbies: List<Lobby>
+   isNewLobbyCreated: boolean
+   playerNickname: String
+}
+class ObjectiveCard {
+  + calculateScore(ResourceHolder, GameField): int
+   associatedScore: int
+   id: int
+}
+class PatternObjectiveCard {
+  + calculateScore(ResourceHolder, GameField): int
+   pattern: GameFieldPattern
+}
+class Player {
+  + addPlayableCard(GameCard): void
+  + placeAt(Side, GameFieldPosition): void
+  + evaluateObjectiveScore(ObjectiveCard): void
+  + canBePlacedAt(Side, GameFieldPosition): boolean
+   playerResources: ResourceHolder
+   availableObjectives: ObjectiveCard[]
+   playerGameField: GameField
+   placedCards: Map<GameFieldPosition, Side>
+   playerObjectiveCard: ObjectiveCard
+   playerScore: int
+   nickname: String
+   starterCard: GameCard
+   playableCards: List<GameCard>
+}
+enum PlayerState << enumeration >> {
+  SELECTING_STARTER_CARD_SIDE
+  PLACING_CARD
+  PICKING_CARD
+  SLEEPING
+  INSERTING_USERNAME
+  INSERTING_USERNAME_FOR_RECONNECT
+  SELECTING_LOBBY
+  WAITING_FOR_PLAYERS
+  WAITING_FOR_GAME_START
+  ADMIN_WAITING_FOR_PLAYERS
+  GAME_ENDED
+  DISCONNECTED
+}
+class ResourceHolder {
+  + subtract(ResourceHolder): void
+  + countOf(Symbol): int
+  + contains(ResourceHolder): boolean
+  + add(ResourceHolder): void
+  + incrementResource(Symbol): void
+  + decrementResource(Symbol): void
+   resources: Map<Symbol, Integer>
+}
+class ResourceObjectiveCard {
+  + calculateScore(ResourceHolder, GameField): int
+   requirements: ResourceHolder
+}
+class Side {
+  + requirements(): Optional<ResourceHolder>
+  + resources(): ResourceHolder
+  + color(): Symbol
+  + calculateAssociatedScore(ResourceHolder, int): int
+  + fieldRepresentation(): SideFieldRepresentation
+  + id(): int
+   associatedScore: int
+}
+class SideBack
+entity SideFieldRepresentation << record >> {
+  + corners(): Matrix<Symbol>
+}
+class SideFront
+class SideFrontGold {
+  + requirements(): Optional<ResourceHolder>
+  + calculateAssociatedScore(ResourceHolder, int): int
+   multiplier: Symbol
+}
+class SideFrontRes {
+  + calculateAssociatedScore(ResourceHolder, int): int
+}
+class SideFrontStarter
+enum Symbol << enumeration >> {
+  EMPTY
+  NONE
+  BLANK
+  RED
+  GREEN
+  BLUE
+  PURPLE
+  SCROLL
+  FLASK
+  FEATHER
+  CORNER
+  STARTER
+   isResource: boolean
+}
+
+ClientState             "1" *-[#595959,plain]-> "gameModel\n1" Game                    
+ClientState             "1" *-[#595959,plain]-> "availableLobbies\n*" Lobby                   
+ClientState             "1" *-[#595959,plain]-> "playerState\n1" PlayerState             
+Deck                    "1" *-[#595959,plain]-> "availableResCards\n*" GameCard                
+Game                    "1" *-[#595959,plain]-> "deck\n1" Deck                    
+Game                    "1" *-[#595959,plain]-> "gameState\n1" GameState               
+Game                    "1" *-[#595959,plain]-> "commonObjectives\n*" ObjectiveCard           
+Game                    "1" *-[#595959,plain]-> "players\n*" Player                  
+GameCard                "1" *-[#595959,plain]-> "front\n1" SideFront               
+GameField               "1" *-[#595959,plain]-> "placedCards\n*" GameFieldPosition       
+GameField               "1" *-[#595959,plain]-> "placedCards\n*" Side                    
+GameField               "1" *-[#595959,plain]-> "fieldMatrix\n*" Symbol                  
+GameFieldPattern        "1" *-[#595959,plain]-> "pattern\n*" Symbol                  
+Lobby                   "1" *-[#595959,plain]-> "players\n*" LobbyPlayer             
+Lobby                   "1" *-[#595959,plain]-> "state\n1" LobbyState              
+Matchmaking             "1" *-[#595959,plain]-> "lobbies\n*" Lobby                           
+PatternObjectiveCard    "1" *-[#595959,plain]-> "pattern\n1" GameFieldPattern        
+PatternObjectiveCard     -[#000082,plain]-^  ObjectiveCard                
+Player                  "1" *-[#595959,plain]-> "playableCards\n*" GameCard                
+Player                  "1" *-[#595959,plain]-> "playerGameField\n1" GameField               
+Player                  "1" *-[#595959,plain]-> "availableObjectives\n*" ObjectiveCard           
+Player                  "1" *-[#595959,plain]-> "playerResources\n1" ResourceHolder          
+ResourceHolder          "1" *-[#595959,plain]-> "resources\n*" Symbol                  
+ResourceObjectiveCard    -[#000082,plain]-^  ObjectiveCard           
+ResourceObjectiveCard   "1" *-[#595959,plain]-> "requirements\n1" ResourceHolder          
+Side                    "1" *-[#595959,plain]-> "resources\n1" ResourceHolder          
+Side                    "1" *-[#595959,plain]-> "fieldRepresentation\n1" SideFieldRepresentation 
+Side                    "1" *-[#595959,plain]-> "color\n1" Symbol                  
+SideBack                 -[#000082,plain]-^  Side                    
+SideFieldRepresentation "1" *-[#595959,plain]-> "corners\n*" Symbol                  
+SideFront                -[#000082,plain]-^  Side                                
+SideFrontGold           "1" *-[#595959,plain]-> "requirements\n1" ResourceHolder          
+SideFrontGold            -[#000082,plain]-^  SideFront               
+SideFrontGold           "1" *-[#595959,plain]-> "multiplier\n1" Symbol                  
+SideFrontRes             -[#000082,plain]-^  SideFront               
+SideFrontStarter         -[#000082,plain]-^  SideFront               
+@enduml
