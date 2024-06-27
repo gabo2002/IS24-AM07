@@ -27,6 +27,7 @@ import it.polimi.ingsw.am07.action.Action;
 import it.polimi.ingsw.am07.action.server.LobbyStateSyncAction;
 import it.polimi.ingsw.am07.model.game.Game;
 import it.polimi.ingsw.am07.model.lobby.Lobby;
+import it.polimi.ingsw.am07.model.lobby.LobbyPlayer;
 import it.polimi.ingsw.am07.reactive.Dispatcher;
 import it.polimi.ingsw.am07.reactive.Listener;
 import it.polimi.ingsw.am07.utils.logging.AppLogger;
@@ -100,6 +101,13 @@ public class LobbyController extends Dispatcher {
         LOGGER.debug("Removing listener " + listener + " in " + Thread.currentThread().getName());
 
         listeners.remove(listener);
+
+        for (LobbyPlayer player : lobby.getPlayers()) {
+            if (player.getIdentity().equals(listener.getIdentity())) {
+                lobby.removePlayer(player.getNickname());
+                break;
+            }
+        }
 
         execute(new LobbyStateSyncAction(lobby));
     }
