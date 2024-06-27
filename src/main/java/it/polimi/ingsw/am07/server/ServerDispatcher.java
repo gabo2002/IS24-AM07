@@ -161,10 +161,10 @@ public class ServerDispatcher extends Dispatcher {
                     break;
                 }
             }
-
-            // Update the matchmaking controller
-            matchmakingController.execute(new LobbyListAction(new ArrayList<>(lobbies.values())));
         }
+
+        // Update the matchmaking controller
+        matchmakingController.execute(new LobbyListAction(new ArrayList<>(lobbies.values())));
     }
 
     /**
