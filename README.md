@@ -45,5 +45,5 @@ To play in GUI mode, you need to run the following command:
 java -jar codex-linux.jar gui
 ```
 
-You can also add the `-refresh` flag to specify if you want to update your identifier or not.
+You can also add the `-refresh=True` flag to specify if you want to update your identifier or not.
 Every time you connect to the server, you will be assigned an identifier that will be saved in the `identity.txt` file.
